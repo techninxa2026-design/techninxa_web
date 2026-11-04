@@ -1,0 +1,112 @@
+/* Cytech 4-division header + IT/IoT floating capsule.
+   Loaded last after the shared Cytech theme and individual view styles. */
+.site-header .nav-wrap {width:min(1420px,calc(100% - 56px));max-width:1420px;gap:clamp(12px,2vw,28px)}
+.site-header .main-nav.corporate-nav {display:flex;align-items:center;justify-content:center;gap:clamp(12px,1.7vw,27px);flex:1;min-width:0}
+.site-header .main-nav.corporate-nav a {
+    color:#45424a;position:relative;display:inline-flex;align-items:center;
+    font-size:clamp(11px,.8vw,13px);line-height:1.35;font-weight:700;
+    text-align:center;white-space:nowrap;padding:11px 0;transition:color .2s ease;
+}
+.site-header .main-nav.corporate-nav a:hover,
+.site-header .main-nav.corporate-nav a.active {color:var(--cy-orange)}
+.site-header .main-nav.corporate-nav a.active::after {
+    content:"";display:block;position:absolute;height:3px;bottom:3px;left:0;right:0;
+    border-radius:4px;background:var(--cy-orange);
+}
+.site-header .menu-toggle {flex-shrink:0}
+.site-header .brand {flex-shrink:0}
+.site-header .nav-cta {white-space:nowrap;flex-shrink:0}
+
+/* Desktop rail: stays separate from the corporate header and floats along the left side. */
+.cy-it-rail {
+    position:fixed;z-index:950;left:clamp(12px,1.3vw,28px);top:50%;
+    transform:translateY(-50%);width:106px;padding:13px 9px;
+    background:rgba(255,253,250,.94);border:1px solid #efdccf;border-radius:32px;
+    box-shadow:0 20px 52px rgba(79,35,14,.14);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    display:flex;flex-direction:column;align-items:stretch;gap:5px;
+}
+.cy-it-rail__caption {
+    display:block;padding:2px 0 9px;text-align:center;font-size:9px;
+    font-weight:900;letter-spacing:.2em;color:var(--cy-orange);
+}
+.cy-it-rail__link {
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-height:64px;gap:2px;padding:7px 4px;
+    border:1px solid transparent;border-radius:20px;
+    font-size:10px;line-height:1.2;font-weight:700;color:#625c58;
+    transition:background .2s ease,color .2s ease,transform .2s ease;
+}
+.cy-it-rail__icon {font-family:Arial,sans-serif;font-size:23px;line-height:1.1;font-weight:500}
+.cy-it-rail__link:hover {background:#fff0e6;color:#d93b06;transform:translateY(-1px)}
+.cy-it-rail__link.is-active,.cy-it-rail__link[aria-current] {
+    background:linear-gradient(150deg,#ff6a31,#ff4b0b);color:#fff;
+    box-shadow:0 7px 18px rgba(255,75,11,.24);
+}
+.cy-it-rail__link:focus-visible,.site-header .corporate-nav a:focus-visible {
+    outline:3px solid var(--cy-orange);outline-offset:3px;
+}
+/* Give the floating dock its own gutter on compact desktop screens. */
+@media(min-width:901px) and (max-width:1480px) {
+    .has-it-rail > main {margin-left:105px}
+}
+@media(max-width:1240px) {
+    .site-header .menu-toggle {display:block!important}
+    .site-header .nav-cta {display:none!important}
+    .site-header .main-nav.corporate-nav {
+        display:none!important;position:absolute!important;top:calc(100% + 8px)!important;
+        right:18px!important;left:auto!important;bottom:auto!important;
+        width:min(440px,calc(100vw - 36px))!important;max-height:calc(100dvh - 100px);
+        overflow-y:auto;flex-direction:column;align-items:stretch;gap:5px;
+        background:#fffdfa;border:1px solid var(--cy-line);border-radius:20px;
+        padding:13px;box-shadow:0 28px 70px rgba(65,31,16,.17);z-index:1002;
+    }
+    .site-header .main-nav.corporate-nav.open {display:flex!important}
+    .site-header .main-nav.corporate-nav a {
+        display:flex;justify-content:flex-start;text-align:left;
+        white-space:normal;width:100%;padding:14px 15px;
+        font-size:14px;min-height:48px;border-radius:12px;
+    }
+    .site-header .main-nav.corporate-nav a.active,
+    .site-header .main-nav.corporate-nav a:hover {background:#fff0e6}
+    .site-header .main-nav.corporate-nav a.active::after {display:none}
+}
+@media(max-width:900px) {
+    .cy-it-rail {
+        top:auto;bottom:max(14px,env(safe-area-inset-bottom,0px));left:50%;
+        transform:translateX(-50%);width:min(430px,calc(100% - 24px));
+        padding:7px;flex-direction:row;justify-content:space-between;gap:2px;
+        border-radius:30px;
+    }
+    .cy-it-rail__caption {display:none}
+    .cy-it-rail__link {flex:1;min-width:0;min-height:58px;gap:3px;border-radius:24px;font-size:10px;padding:5px 1px}
+    .cy-it-rail__icon {font-size:20px}
+    .has-it-rail > main {margin-left:0;padding-bottom:82px}
+    .has-it-rail .back-to-top {bottom:95px}
+}
+@media(max-width:480px) {
+    .site-header .nav-wrap {width:calc(100% - 34px)}
+    .cy-it-rail {width:calc(100% - 18px);bottom:max(9px,env(safe-area-inset-bottom,0px))}
+    .cy-it-rail__link {font-size:9px}
+}
+/* Empty division pages — intentionally no fabricated service descriptions. */
+.cy-division-placeholder {
+    min-height:calc(100svh - 82px);display:flex;align-items:center;
+    background:radial-gradient(circle at 88% 15%,rgba(255,75,11,.08),transparent 30%),#fffaf6;
+}
+.cy-division-placeholder__inner {padding:clamp(70px,10vw,140px) 0}
+.cy-division-placeholder__eyebrow {
+    display:inline-flex;align-items:center;gap:10px;font-size:11px;
+    font-weight:800;letter-spacing:.15em;color:var(--cy-orange);
+}
+.cy-division-placeholder__eyebrow span {width:8px;height:8px;border-radius:50%;background:var(--cy-orange)}
+.cy-division-placeholder h1 {
+    font-family:"Space Grotesk",Inter,sans-serif;max-width:880px;
+    margin:21px 0 26px;font-size:clamp(36px,6vw,76px);line-height:1.06;
+    letter-spacing:-.05em;color:var(--cy-ink);
+}
+.cy-division-placeholder__line {height:4px;width:72px;border-radius:4px;background:var(--cy-orange)}
+.cy-division-placeholder p {color:#817872;margin-top:22px;font-size:15px}
+@media(prefers-reduced-motion:reduce) {
+    .cy-it-rail__link {transition:none}
+}

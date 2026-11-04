@@ -1,0 +1,13 @@
+@{
+    // No service copy or unverified capabilities are published until approved.
+    var divisionTitle = ViewData["Title"] as string ?? "Services";
+}
+
+<section class="cy-division-placeholder" aria-labelledby="divisionTitle">
+    <div class="container cy-division-placeholder__inner">
+        <span class="cy-division-placeholder__eyebrow"><span></span>CYTECH ENGINEERING / DIVISIONS</span>
+        <h1 id="divisionTitle">@divisionTitle</h1>
+        <div class="cy-division-placeholder__line" aria-hidden="true"></div>
+        <p>Page content will be added here.</p>
+    </div>
+</section>
