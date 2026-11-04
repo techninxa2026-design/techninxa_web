@@ -33,6 +33,9 @@ public class Program
 		webApplication.UseAuthorization();
 		webApplication.MapStaticAssets();
 		webApplication.MapHub<CompanyChatHub>("/companyChatHub");
+		// Preserve the existing Index action and model loading at a dedicated IT & IoT URL.
+		webApplication.MapControllerRoute("it-iot-services", "it-iot-services",
+			new { controller = "Home", action = "Index" }).WithStaticAssets();
 		webApplication.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}").WithStaticAssets();
 		webApplication.Run();
 	}
