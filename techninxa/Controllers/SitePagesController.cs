@@ -93,9 +93,8 @@ namespace techninxa.Controllers
                 {
                     Name = model.Name.Trim(),
                     Email = model.Email.Trim(),
-                    ProjectType = model.ServiceDivision == "IT & IoT Services"
-                        ? ProjectType.IoTEmbedded
-                        : ProjectType.Other,
+                    // Division details are kept in Message; do not mislabel web/software as IoT.
+                    ProjectType = ProjectType.Other,
                     Message = message,
                     CreatedAt = DateTime.UtcNow
                 });

@@ -55,6 +55,23 @@ The header now reads **Home · About · Contact · Services ▾ · Blog · Produ
 
 ## Corporate/IT separation (latest)
 
-The corporate pages `/`, `/about`, `/contact`, `/blog`, and `/products` are standalone branded placeholders without database queries, ready for future corporate content. The existing software, IoT, projects, people, technology, and contact sections remain intact at `/it-iot-services` and its original project URLs. The floating IT capsule is rendered only on `/it-iot-services` and `/Projects` routes. `/Home/Index` and `/Home` redirect to the dedicated IT route to prevent duplicate public entry points.
+The corporate pages `/`, `/about`, and `/contact` now contain approved content and design; `/blog` and `/products` remain standalone placeholders. Home and About do not query the database. Contact saves inquiries to the existing message table. The existing software, IoT, projects, people, technology, and contact sections remain intact at `/it-iot-services` and its original project URLs. The floating IT capsule is rendered only on `/it-iot-services` and `/Projects` routes. `/Home/Index` and `/Home` redirect to the dedicated IT route to prevent duplicate public entry points.
 
 The corporate header and footer now link to `/about` and `/contact`, not to the IT website's anchor sections. The IT-specific floating capsule still links to `/it-iot-services#about` and `/it-iot-services#contact`.
+
+
+## Approved corporate page rollout
+
+The corporate Home, About and Contact concepts were approved and implemented from the original three-page prototype:
+
+- `/` — the full corporate landing page, with four service cards, process steps, industries, project showcase placeholders, and quotations CTA
+- `/about` — company story, four-division capability summary, operating approach, values, and trust/credentials sections
+- `/contact` — responsive corporate requirement form with validation, CSRF protection, honeypot, per-division preselection and confirmation banner
+
+Styles are scoped in `wwwroot/css/cytech-corporate.css`, which is loaded only for the three corporate pages. The existing IT pages under `/it-iot-services` keep their previous CSS, data-driven content and floating rail.
+
+**Contact submission:** `SitePagesController.SubmitInquiry` saves validated inquiries to the existing `ContactMessages` table via `ApplicationDbContext`. The company, phone, service division and inquiry type are included in the message text. No schema changes or migrations are needed, and no SMTP/email notification is claimed.
+
+Verified leadership identities, registration/credential documents, site images and corporate contact details are still required before those placeholders can be replaced with company-specific facts.
+
+**Deployment checks:** In the target ASP.NET Core 10 environment, run `dotnet build`; visit `/`, `/about`, `/contact`, `/blog`, `/products`, and `/it-iot-services`; test desktop and mobile layouts and send a validation-tested contact inquiry to ensure it appears in the existing admin messages view. Keep your existing `appsettings.json` connection string local and do not commit credentials.
