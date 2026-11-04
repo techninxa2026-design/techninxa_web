@@ -4,11 +4,11 @@
    ========================================== */
 
 .person-portfolio {
-    --pp-ink: var(--deep, #1687f8);
-    --pp-line: var(--line, #e5e6e8);
-    --pp-paper: #f8f8f6;
+    --pp-ink: var(--deep, #ff4b0b);
+    --pp-line: var(--line, #efdfd4);
+    --pp-paper: #fffaf6;
     --pp-muted: #777b83;
-    --pp-accent: #1687f8;
+    --pp-accent: #ff4b0b;
     --pp-gutter: clamp(22px, 6vw, 92px);
     background: var(--pp-paper);
     color: var(--pp-ink);
@@ -113,7 +113,7 @@
 }
 
 .pp-name {
-    color: #1687f8;
+    color: #ff4b0b;
 }
 
 .pp-role-line {
@@ -184,7 +184,7 @@
 }
 
     .pp-button-light:hover {
-        background: #e8eaff;
+        background: #fff0e7;
     }
 
 .pp-text-link,
@@ -227,7 +227,7 @@
     position: absolute;
     width: min(90%, 430px);
     aspect-ratio: 1;
-    border: 1px solid rgba(83, 109, 254, .25);
+    border: 1px solid rgba( 255, 106, 49, .25);
     border-radius: 50%;
     z-index: -1;
 }
@@ -236,7 +236,7 @@
     .pp-orbit::after {
         content: "";
         position: absolute;
-        border: 1px solid rgba(83, 109, 254, .16);
+        border: 1px solid rgba( 255, 106, 49, .16);
         border-radius: 50%;
         inset: 9%;
     }
@@ -291,7 +291,7 @@
     place-items: center;
     width: 35px;
     height: 35px;
-    background: #e9ecff;
+    background: #fff0e7;
     color: var(--pp-accent);
     border-radius: 50%;
     font-size: 21px;
@@ -1673,3 +1673,8 @@
         animation-duration: .01ms !important;
     }
 }
+
+/* Cytech people & careers — shared brand treatment */
+.person-portfolio {--pp-paper:#fffaf6;--pp-accent:#ff4b0b;--pp-line:#efdfd4;}
+.person-portfolio .pp-name,.person-portfolio .pp-slash {color:var(--pp-accent)}
+.person-portfolio a:focus-visible {outline:3px solid var(--pp-accent);outline-offset:4px}

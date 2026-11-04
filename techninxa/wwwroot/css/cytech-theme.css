@@ -1,0 +1,129 @@
+/* CYTECH ENGINEERING — unified 2026 brand system
+   Accent: Cytech mark orange. Product case-study identities remain independent.
+   Loaded after view Styles so shared UI has one consistent design language. */
+:root {
+  --cy-orange:#ff4b0b; --cy-orange-dark:#d93b06; --cy-coral:#ff8652;
+  --cy-ink:#1a1b20; --cy-deep:#15171c; --cy-muted:#6e7079;
+  --cy-paper:#fffaf6; --cy-cream:#fff2e9; --cy-line:#efdfd4;
+  --cy-shadow:0 22px 65px rgba(79,35,17,.09);
+  --blue:var(--cy-orange); --sky:var(--cy-coral);
+  --deep:var(--cy-deep); --ink:var(--cy-ink); --muted:var(--cy-muted);
+  --line:var(--cy-line); --soft:var(--cy-cream);
+  --shadow:var(--cy-shadow);
+}
+html {scroll-padding-top:100px}
+body {background:#fffdfa; color:var(--cy-ink); -webkit-font-smoothing:antialiased}
+::selection {background:#ffd2bd;color:#3b1a0e}
+:focus-visible {outline:3px solid var(--cy-orange);outline-offset:3px}
+.page-noise {opacity:.012}
+.site-header, .site-header.scrolled {
+  position:sticky!important;top:0;left:auto;right:auto;
+  height:82px!important;min-height:82px;overflow:visible!important;
+  background:rgba(255,252,249,.96);border-bottom:1px solid var(--cy-line);
+  box-shadow:0 5px 25px rgba(62,32,18,.035);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.site-header .nav-wrap {min-height:82px;gap:24px}
+.site-header .brand {display:inline-flex;align-items:center;gap:10px;flex-shrink:0;min-width:0}
+.site-header .brand img {width:56px!important;height:56px;object-fit:contain;flex-shrink:0}
+.brand-wordmark {display:flex;flex-direction:column;line-height:1.02;color:var(--cy-ink)}
+.brand-wordmark strong {font-family:"Space Grotesk",Inter,sans-serif;font-size:21px;letter-spacing:.045em;font-weight:800}
+.brand-wordmark small {font-size:9px;font-weight:800;letter-spacing:.28em;color:var(--cy-orange);margin-top:5px}
+.main-nav {gap:clamp(12px,2.1vw,30px)}
+.main-nav a {color:#45434a;font-size:13px;transition:color .2s ease}
+.main-nav a:hover,.main-nav a.active {color:var(--cy-orange)}
+.main-nav a.active::after {background:var(--cy-orange);border-radius:3px}
+.nav-cta,.btn-primary,.login-submit {
+  background:var(--cy-orange);color:#fff;
+  box-shadow:0 12px 28px rgba(255,75,11,.18);
+}
+.nav-cta:hover,.btn-primary:hover,.login-submit:hover {background:var(--cy-orange-dark);color:#fff;box-shadow:0 16px 34px rgba(255,75,11,.24)}
+.hero {min-height:690px;padding:90px 0 60px!important;background:radial-gradient(circle at 80% 22%,rgba(255,118,61,.15),transparent 30%),linear-gradient(145deg,#fffdfa 20%,#fff2e9 100%)}
+.hero h1,.section-heading h2,.inner-hero h1 {color:var(--cy-ink)}
+.hero h1 em,.section-heading h2 em,.inner-hero h1 em,.about-copy h2 em {color:var(--cy-orange)}
+.hero-text {color:#605d63}
+.hero-card {background:radial-gradient(circle at 50% 35%,#54220f 0%,#221a18 55%,#111317 100%);border:1px solid rgba(255,134,82,.34);box-shadow:0 35px 90px rgba(92,37,15,.22)}
+.hero-card::before {background:radial-gradient(circle,rgba(255,125,65,.32),transparent 65%)}
+.hero-brandmark {position:relative;z-index:3;display:grid;place-items:center;width:min(210px,60%);aspect-ratio:1;background:#fff;border:1px solid rgba(255,255,255,.9);border-radius:28px;box-shadow:0 22px 65px rgba(0,0,0,.22);padding:20px;transform:rotate(-5deg)}
+.hero-brandmark img {width:100%;height:100%;object-fit:contain;transform:rotate(5deg)}
+.hero-card .mini-brand {font-size:10px;letter-spacing:.15em;color:#ffd7c6}
+.hero-card-bottom {color:#ffbda0}
+.hero-orbit {border-color:rgba(255,100,42,.28)}
+.float-card {border:1px solid rgba(236,181,151,.35);box-shadow:0 15px 38px rgba(93,46,23,.12)}
+.float-icon.blue {background:var(--cy-orange)}
+.hero-meta div {border-color:#edcdbb}
+.hero-bottom-line .line {background:#e9d0c0}
+.stats {background:var(--cy-deep)}
+.stats .stat {border-color:rgba(255,144,89,.22)}
+.stats .stat strong {color:#fff}
+.section,.project-library {scroll-margin-top:90px}
+.services,.project-library {background:#fffdfa}
+.service-card {background:#fff;border:1px solid var(--cy-line);box-shadow:0 5px 20px rgba(87,40,18,.035)}
+.service-card:hover {border-color:#ffb392;box-shadow:0 21px 45px rgba(96,42,15,.1);transform:translateY(-5px)}
+.service-card.featured {background:linear-gradient(155deg,#261d1a,#15171c);color:#fff}
+.btn-ghost {border-color:var(--cy-line);background:#fff}
+.btn-ghost:hover {background:#fff5ee;border-color:var(--cy-orange)}
+.home-projects {background:linear-gradient(180deg,#fff9f4,#fff0e5)}
+.project-image {background:#fff3e9}
+.inner-hero {background:radial-gradient(circle at 80% 20%,rgba(255,105,49,.11),transparent 38%),#fff7f1}
+.filter.active,.filter:hover {border-color:var(--cy-orange);color:var(--cy-orange)}
+a:not([class]):hover {color:var(--cy-orange)}
+input:focus-visible,select:focus-visible,textarea:focus-visible {outline:2px solid rgba(255,75,11,.5);outline-offset:1px}
+.login-section {background:radial-gradient(circle at 16% 18%,rgba(255,113,51,.11),transparent 38%),#fffcf9}
+.login-card {background:#fff;border:1px solid var(--cy-line);box-shadow:0 30px 75px rgba(85,43,22,.10)}
+.login-header h1 span,.login-kicker {color:var(--cy-orange)}
+.login-form-group input:focus {border-color:var(--cy-orange);box-shadow:0 0 0 4px rgba(255,75,11,.10)}
+.dashboard {margin-top:0!important;background:#fffbf8;min-height:calc(100vh - 82px);align-items:stretch}
+.dashboard-sidebar {width:258px;background:#fff;min-height:calc(100vh - 82px);border-right:1px solid var(--cy-line);padding:25px 15px}
+.dashboard-sidebar-logo {margin-top:0!important;padding:0 12px 18px;border-color:var(--cy-line)}
+.dashboard-sidebar-logo img {width:86px;max-height:86px;object-fit:contain}
+.dashboard-nav {gap:7px}
+.dashboard-nav-link,.dashboard-nav-link[style] {margin-top:0!important;min-height:46px;background:transparent;color:#39363b;border:1px solid transparent;border-radius:12px;padding:11px 14px}
+.dashboard-nav-link span:first-child {color:inherit}
+.dashboard-nav-link:hover,.dashboard-nav-link.active {background:#fff0e6;color:var(--cy-orange);border-color:#ffdcc8}
+.dashboard-content {padding:clamp(24px,3vw,44px);min-width:0}
+.dashboard-topbar h1 {font-family:"Space Grotesk",Inter,sans-serif;color:var(--cy-ink)}
+.notification-button:hover {border-color:#ffb48e;box-shadow:0 10px 25px rgba(255,75,11,.13)}
+.meeting-view-button {background:var(--cy-orange);color:#fff}
+.pl-page,.admin-project-page,.create-team-page,.admin-page {background:#fffaf6;color:var(--cy-ink)}
+.pl-stat,.pl-panel,.project-admin-card,.project-side-card,.create-team-card,.team-admin-card {border-color:var(--cy-line);box-shadow:var(--cy-shadow)}
+.pl-add,.project-btn-primary,.admin-btn-primary {background:var(--cy-orange);border-color:var(--cy-orange);color:#fff}
+.pl-add:hover,.project-btn-primary:hover,.admin-btn-primary:hover {background:var(--cy-orange-dark);border-color:var(--cy-orange-dark);color:#fff}
+.edit-project-page {--edit-accent:#ff8652;--edit-accent-dark:#342019;--edit-bg:#171619;--edit-panel:#242024;--edit-panel-2:#2a2428}
+.site-header + main {display:block}
+.footer {background:#15171c;color:#f6f1ed}
+.footer a:hover,.footer-brand p {color:#ff9a6c}
+.back-to-top {background:var(--cy-orange);color:#fff;border-color:var(--cy-orange)}
+@media(max-width:1000px) {
+ .site-header .brand img {width:48px!important;height:48px}
+ .brand-wordmark strong {font-size:18px}
+ .brand-wordmark small {font-size:8px}
+}
+@media(max-width:768px) {
+ .site-header,.site-header.scrolled {height:72px!important;min-height:72px}
+ .site-header .nav-wrap {min-height:72px}
+ .site-header .brand img {width:45px!important;height:45px}
+ .brand-wordmark strong {font-size:17px}
+ .main-nav {background:#fffcf9;border:1px solid var(--cy-line);box-shadow:0 25px 55px rgba(75,34,17,.12)}
+ .main-nav a:hover,.main-nav a.active {background:#fff0e6;color:var(--cy-orange)}
+ .hero {padding:62px 0 44px!important;min-height:0}
+ .hero-brandmark {width:min(150px,55%);border-radius:20px;padding:12px}
+ .dashboard {display:block}
+ .dashboard-sidebar {width:100%;min-height:0;padding:12px 18px}
+ .dashboard-sidebar-logo {display:none}
+ .dashboard-nav {flex-direction:row;flex-wrap:nowrap;overflow-x:auto;padding:3px 0 8px;scrollbar-width:thin}
+ .dashboard-nav-link {white-space:nowrap;flex:0 0 auto;font-size:12px}
+ .dashboard-content {padding:25px 20px}
+}
+@media(max-width:480px) {
+ .hero {padding:44px 0 35px!important}
+ .hero-card {border-radius:28px}
+ .brand-wordmark strong {font-size:15px}
+ .brand-wordmark small {letter-spacing:.22em}
+ .nav-cta {display:none}
+ .login-card {padding:28px 22px}
+}
+@media(prefers-reduced-motion:reduce) {
+ *,*::before,*::after {scroll-behavior:auto!important}
+ .hero-orbit,.float-card {animation:none!important}
+}

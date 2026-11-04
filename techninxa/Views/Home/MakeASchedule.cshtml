@@ -2,9 +2,10 @@
 @using techninxa.Models
 
 @{
+Layout = null;
 ViewData["Title"] = "Make a Schedule";
 ViewData["ActiveNav"] = "";
-ViewData["Description"] = "Schedule a meeting with Techninxa.";
+ViewData["Description"] = "Schedule a meeting with Cytech Engineering.";
 
 
 var holidays = ViewBag.Holidays as List<Weekday> ?? new List<Weekday>();
@@ -28,9 +29,9 @@ var holidayNumbers = holidays
       content="width=device-width, initial-scale=1.0">
 
 <meta name="description"
-      content="Schedule a meeting with Techninxa.">
+      content="Schedule a meeting with Cytech Engineering.">
 
-<title>Make a Schedule — Cytech Enginnering</title>
+<title>Make a Schedule — Cytech Engineering</title>
 
 <link rel="icon"
       href="/assets/cytechlogo.jpg">
@@ -59,7 +60,7 @@ var holidayNumbers = holidays
 
     body {
         min-height: 100vh;
-        background: #f7f9fc;
+        background: #fff9f4;
         color: #07111f;
         font-family: "Inter", sans-serif;
     }
@@ -124,8 +125,8 @@ var holidayNumbers = holidays
     }
 
     .back-home:hover {
-        border-color: #38bdf8;
-        color: #0284c7;
+        border-color: #ff8652;
+        color: #dc4515;
         transform: translateY(-2px);
     }
 
@@ -147,7 +148,7 @@ var holidayNumbers = holidays
         top: -250px;
         right: -180px;
         border-radius: 50%;
-        background: rgba(56, 189, 248, .12);
+        background: rgba( 255, 134, 82, .12);
         filter: blur(80px);
         pointer-events: none;
     }
@@ -159,7 +160,7 @@ var holidayNumbers = holidays
         bottom: -180px;
         left: -180px;
         border-radius: 50%;
-        background: rgba(14, 165, 233, .07);
+        background: rgba( 255, 134, 82, .07);
         filter: blur(70px);
         pointer-events: none;
     }
@@ -181,7 +182,7 @@ var holidayNumbers = holidays
         align-items: center;
         gap: 9px;
         margin-bottom: 16px;
-        color: #0284c7;
+        color: #dc4515;
         font-size: 11px;
         font-weight: 800;
         letter-spacing: 2px;
@@ -192,8 +193,8 @@ var holidayNumbers = holidays
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background: #38bdf8;
-        box-shadow: 0 0 14px rgba(56, 189, 248, .7);
+        background: #ff8652;
+        box-shadow: 0 0 14px rgba( 255, 134, 82, .7);
     }
 
     .schedule-heading h1 {
@@ -206,7 +207,7 @@ var holidayNumbers = holidays
     }
 
     .schedule-heading h1 span {
-        color: #0ea5e9;
+        color: #ff8652;
     }
 
     .schedule-heading p {
@@ -239,7 +240,7 @@ var holidayNumbers = holidays
 
     .calendar-panel {
         padding: 38px;
-        border-right: 1px solid #e8edf3;
+        border-right: 1px solid #efdfd5;
     }
 
     .panel-top {
@@ -282,8 +283,8 @@ var holidayNumbers = holidays
     }
 
     .month-button:hover {
-        border-color: #38bdf8;
-        color: #0284c7;
+        border-color: #ff8652;
+        color: #dc4515;
         background: #f0f9ff;
     }
 
@@ -346,12 +347,12 @@ var holidayNumbers = holidays
     .calendar-day.available:hover {
         border-color: #7dd3fc;
         background: #f0f9ff;
-        color: #0284c7;
+        color: #dc4515;
         transform: translateY(-2px);
     }
 
     .calendar-day.today {
-        border-color: #38bdf8;
+        border-color: #ff8652;
     }
 
     .calendar-day.selected {
@@ -378,7 +379,7 @@ var holidayNumbers = holidays
     }
 
     .calendar-day.selected::after {
-        background: #38bdf8;
+        background: #ff8652;
     }
 
     .calendar-legend {
@@ -407,7 +408,7 @@ var holidayNumbers = holidays
     }
 
     .legend-available {
-        background: #38bdf8;
+        background: #ff8652;
     }
 
     .legend-holiday {
@@ -427,7 +428,7 @@ var holidayNumbers = holidays
         background:
             radial-gradient(
                 circle at 100% 0%,
-                rgba(56, 189, 248, .11),
+                rgba( 255, 134, 82, .11),
                 transparent 40%
             ),
             #07111f;
@@ -435,7 +436,7 @@ var holidayNumbers = holidays
     }
 
     .details-label {
-        color: #38bdf8;
+        color: #ff8652;
         font-size: 10px;
         font-weight: 800;
         letter-spacing: 1.7px;
@@ -514,14 +515,14 @@ var holidayNumbers = holidays
     }
 
     .slot-button:hover {
-        border-color: rgba(56, 189, 248, .45);
-        background: rgba(56, 189, 248, .07);
+        border-color: rgba( 255, 134, 82, .45);
+        background: rgba( 255, 134, 82, .07);
         color: #fff;
     }
 
     .slot-button.selected {
-        border-color: #38bdf8;
-        background: #38bdf8;
+        border-color: #ff8652;
+        background: #ff8652;
         color: #07111f;
     }
 
@@ -576,9 +577,9 @@ var holidayNumbers = holidays
     }
 
     .continue-button:hover:not(:disabled) {
-        background: #38bdf8;
+        background: #ff8652;
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(56, 189, 248, .2);
+        box-shadow: 0 10px 25px rgba( 255, 134, 82, .2);
     }
 
     .continue-button:disabled {
@@ -638,7 +639,7 @@ var holidayNumbers = holidays
     }
 
     .form-top span {
-        color: #0284c7;
+        color: #dc4515;
         font-size: 10px;
         font-weight: 800;
         letter-spacing: 1.5px;
@@ -727,8 +728,8 @@ var holidayNumbers = holidays
     }
 
     .form-control:focus {
-        border-color: #38bdf8;
-        box-shadow: 0 0 0 3px rgba(56, 189, 248, .1);
+        border-color: #ff8652;
+        box-shadow: 0 0 0 3px rgba( 255, 134, 82, .1);
     }
 
     .confirm-button {
@@ -745,7 +746,7 @@ var holidayNumbers = holidays
     }
 
     .confirm-button:hover:not(:disabled) {
-        background: #0ea5e9;
+        background: #ff8652;
         transform: translateY(-2px);
     }
 
@@ -820,7 +821,7 @@ var holidayNumbers = holidays
         justify-content: center;
         border-radius: 20px;
         background: #e0f7ff;
-        color: #0284c7;
+        color: #dc4515;
         font-size: 28px;
         font-weight: 800;
     }
@@ -871,7 +872,7 @@ var holidayNumbers = holidays
     }
 
     .success-close:hover {
-        background: #0ea5e9;
+        background: #ff8652;
     }
 
     /* ==========================================
@@ -892,7 +893,7 @@ var holidayNumbers = holidays
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: #38bdf8;
+        background: #ff8652;
         animation: loadingPulse 1s infinite alternate;
     }
 
@@ -928,7 +929,7 @@ var holidayNumbers = holidays
 
         .calendar-panel {
             border-right: 0;
-            border-bottom: 1px solid #e8edf3;
+            border-bottom: 1px solid #efdfd5;
         }
 
         .details-panel {

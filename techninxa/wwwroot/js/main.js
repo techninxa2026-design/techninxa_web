@@ -211,9 +211,9 @@
             if (canAnimate && selected) {
                 gsap.fromTo(
                     button,
-                    { boxShadow: '0 0 0 0 rgba(22,135,248,0)' },
+                    { boxShadow: '0 0 0 0 rgba( 255, 75, 11,0)' },
                     {
-                        boxShadow: '0 0 0 5px rgba(22,135,248,0.10)',
+                        boxShadow: '0 0 0 5px rgba( 255, 75, 11,0.10)',
                         duration: 0.24,
                         yoyo: true,
                         repeat: 1,
