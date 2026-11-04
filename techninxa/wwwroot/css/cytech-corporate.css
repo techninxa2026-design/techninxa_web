@@ -1,0 +1,257 @@
+/* Cytech corporate Home/About/Contact — scoped rendering of approved design.
+   IT & IoT pages do NOT load this file. */
+.cy-corporate{--orange:#ff4b0b;--orange2:#ff8652;--dark:#15171b;--ink:#212328;--muted:#70727b;--border:#ece7e3;--cream:#fff8f3;--sand:#f4efe9;--white:#fff;--radius:22px;--shadow:0 24px 75px rgba(43,30,22,.10)}
+.cy-corporate, .cy-corporate *{box-sizing:border-box}
+.cy-corporate a{color:inherit;text-decoration:none}
+.cy-corporate button,.cy-corporate input,.cy-corporate select,.cy-corporate textarea{font:inherit}
+.cy-corporate button{cursor:pointer}
+.cy-corporate img{max-width:100%}
+.cy-corporate ::selection{background:#ffd3c0;color:#4b1809}
+.cy-corporate :focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.cy-corporate .container{width:min(1220px,calc(100% - 72px));margin-inline:auto}
+.cy-corporate .btn-orange:hover{background:#de3905}
+.cy-corporate .eyebrow{font-size:11px;font-weight:850;letter-spacing:.16em;color:var(--orange);display:inline-flex;align-items:center;gap:10px}
+.cy-corporate .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--orange)}
+.cy-corporate h1,.cy-corporate h2,.cy-corporate h3,.cy-corporate p{margin-top:0}
+.cy-corporate h1,.cy-corporate h2,.cy-corporate h3{font-family:'Space Grotesk','Segoe UI',Arial,sans-serif;letter-spacing:-.048em}
+.cy-corporate h1{font-size:clamp(45px,5.7vw,79px);line-height:1.09;font-weight:790}
+.cy-corporate h2{font-size:clamp(31px,3.7vw,50px);line-height:1.13;font-weight:780}
+.cy-corporate h3{font-size:21px;line-height:1.3;font-weight:770}
+.cy-corporate .muted{color:var(--muted)}
+.cy-corporate .btn-orange,.cy-corporate .btn-light,.cy-corporate .btn-dark{display:inline-flex;align-items:center;gap:24px;padding:15px 22px;border-radius:100px;border:1px solid transparent;font-size:12px;font-weight:850;justify-content:center;transition:background .2s,transform .2s}
+.cy-corporate .btn-orange{background:var(--orange);color:#fff;box-shadow:0 14px 28px rgba(255,75,11,.22)}
+.cy-corporate .btn-light{background:white;color:var(--dark);border-color:#e9ddd5}
+.cy-corporate .btn-light:hover{border-color:var(--orange)}
+.cy-corporate .btn-dark{background:#191b1e;color:#fff}
+.cy-corporate .btn-dark:hover{background:#36383d}
+.cy-corporate .btn-orange:hover,.cy-corporate .btn-light:hover,.cy-corporate .btn-dark:hover{transform:translateY(-2px)}
+.cy-corporate .btn-orange svg,.cy-corporate .btn-light svg,.cy-corporate .btn-dark svg{width:16px;height:16px}
+.cy-corporate .row-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.cy-corporate .section{padding:96px 0}
+.cy-corporate .section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:34px}
+.cy-corporate .section-head h2{max-width:650px;margin:12px 0 0}
+.cy-corporate .section-head p{max-width:400px;font-size:14px;color:#77747a;margin-bottom:5px}
+.cy-corporate .line-over{border-top:1px solid #e9e2de}
+.cy-corporate .home-hero{padding:90px 0 78px;background:radial-gradient(circle at 88% 30%,#ffe0d0 0%,transparent 25%),linear-gradient(125deg,#fffcf9,#fff4ec 65%,#fff8f4);overflow:hidden}
+.cy-corporate .home-grid{display:grid;grid-template-columns:1fr 1.02fr;align-items:center;gap:54px}
+.cy-corporate .home-hero .eyebrow{margin-bottom:26px}
+.cy-corporate .home-hero h1{margin-bottom:24px}
+.cy-corporate .home-hero h1 em,.cy-corporate .about-hero h1 em,.cy-corporate .contact-hero h1 em{font-style:normal;color:var(--orange)}
+.cy-corporate .lead{font-size:16px;line-height:1.8;color:#66646b;max-width:530px;margin-bottom:31px}
+.cy-corporate .hero-tagline{margin-top:42px;display:flex;align-items:center;gap:15px;color:#827c7c;font-size:11px;letter-spacing:.05em;font-weight:700}
+.cy-corporate .hero-tagline:before{content:"";width:43px;height:1px;background:var(--orange)}
+.cy-corporate .hero-visual{position:relative;min-height:530px;padding:28px;background:#15191f;border-radius:28px;overflow:hidden;box-shadow:0 34px 83px rgba(39,22,19,.21)}
+.cy-corporate .hero-visual:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff0d 1px,transparent 1px),linear-gradient(90deg,#ffffff0d 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(to top,#000 10%,transparent 100%)}
+.cy-corporate .hero-visual:after{content:"";position:absolute;width:600px;height:600px;border-radius:50%;left:30%;top:-40%;background:radial-gradient(circle,#ff572640,transparent 68%);pointer-events:none}
+.cy-corporate .vis-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;color:#e0cbc1;font-size:10px;letter-spacing:.16em;font-weight:800}
+.cy-corporate .vis-top .signal{color:#ff8d5e}
+.cy-corporate .center-disc{width:265px;height:265px;position:absolute;top:117px;left:50%;transform:translateX(-50%);border-radius:50%;border:1px solid #8b503b88;display:grid;place-items:center;background:radial-gradient(circle,#2a2b2c,#16191f)}
+.cy-corporate .center-disc:before,.cy-corporate .center-disc:after{content:"";position:absolute;border:1px dashed #ff9f7d48;border-radius:50%;inset:-35px}
+.cy-corporate .center-disc:after{inset:-68px;border-color:#ff9f7d26}
+.cy-corporate .center-logo{position:relative;z-index:3;display:grid;place-items:center;width:148px;height:148px;border-radius:27px;background:#fff;box-shadow:0 23px 55px #0006;transform:rotate(-7deg);padding:15px}
+.cy-corporate .center-logo img{width:100%;transform:rotate(7deg)}
+.cy-corporate .vis-node{position:absolute;z-index:5;background:#272a2f;border:1px solid #53433e;border-radius:15px;padding:12px 15px;min-width:150px;display:flex;align-items:center;gap:10px;box-shadow:0 20px 40px #0003}
+.cy-corporate .vis-node svg{width:19px;height:19px;color:#ff9a70}
+.cy-corporate .vis-node span{font-size:11px;line-height:1.25;font-weight:750;color:#f7ebe6}
+.cy-corporate .node-a{top:114px;left:10px}
+.cy-corporate .node-b{top:202px;right:9px}
+.cy-corporate .node-c{bottom:125px;left:9px}
+.cy-corporate .node-d{bottom:68px;right:15px}
+.cy-corporate .vis-bottom{position:absolute;bottom:19px;left:26px;right:26px;display:flex;justify-content:space-between;color:#968f8c;font-size:9px;letter-spacing:.13em}
+.cy-corporate .vis-bottom b{color:#ffaf86}
+.cy-corporate .metrics{background:#fff;border-bottom:1px solid #eee9e6}
+.cy-corporate .metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;align-items:center;padding:24px 0}
+.cy-corporate .metric{display:flex;align-items:center;gap:12px;border-right:1px solid #ece6e0;min-height:41px}
+.cy-corporate .metric:last-child{border:0}
+.cy-corporate .metric svg{width:24px;height:24px;color:var(--orange)}
+.cy-corporate .metric b{display:block;font-size:12px;letter-spacing:.02em}
+.cy-corporate .metric small{font-size:10px;color:#858085}
+.cy-corporate .services-section{background:#fff}
+.cy-corporate .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.cy-corporate .service-card{position:relative;min-height:328px;padding:28px 25px 25px;background:#fff;border:1px solid #ede7e3;border-radius:19px;box-shadow:0 10px 30px #281f1307;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.cy-corporate .service-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.cy-corporate .service-card.featured{background:#171a20;color:#fff;border-color:#171a20}
+.cy-corporate .service-card .service-num{font-size:10px;letter-spacing:.1em;font-weight:900;color:#aa9b91}
+.cy-corporate .service-card .ico-wrap{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:#fff1e9;margin:25px 0 19px;color:var(--orange)}
+.cy-corporate .service-card.featured .ico-wrap{background:#352822;color:#ff9468}
+.cy-corporate .service-card svg{width:25px;height:25px}
+.cy-corporate .service-card h3{margin-bottom:10px;font-size:19px}
+.cy-corporate .service-card p{font-size:12px;color:#77727b;line-height:1.75;margin-bottom:20px}
+.cy-corporate .service-card.featured p{color:#c6bebc}
+.cy-corporate .service-card .service-link{margin-top:auto;font-size:11px;letter-spacing:.03em;font-weight:850;color:var(--orange)}
+.cy-corporate .service-card.featured .service-link{color:#ffad86}
+.cy-corporate .service-note{font-size:12px;color:#928884;margin-top:18px}
+.cy-corporate .process-section{background:#fff7f1}
+.cy-corporate .process-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px}
+.cy-corporate .process-copy p{font-size:14px;color:#7c777c;line-height:1.85}
+.cy-corporate .process-list{display:grid;grid-template-columns:repeat(2,1fr);gap:17px}
+.cy-corporate .process-item{border:1px solid #ecdcd0;background:#fffefa;border-radius:17px;padding:27px}
+.cy-corporate .process-item .seq{font-size:11px;font-weight:900;color:var(--orange)}
+.cy-corporate .process-item h3{font-size:17px;margin:18px 0 8px}
+.cy-corporate .process-item p{font-size:12px;color:#898087;margin:0;line-height:1.7}
+.cy-corporate .industries-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cy-corporate .industry{background:#fff;border:1px solid #e8e0da;border-radius:16px;padding:24px;min-height:136px;display:flex;flex-direction:column;justify-content:space-between}
+.cy-corporate .industry svg{width:24px;height:24px;color:var(--orange)}
+.cy-corporate .industry span{font-size:14px;font-weight:800}
+.cy-corporate .industries-note{color:#898188;font-size:12px;margin-top:17px}
+.cy-corporate .case-section{background:#fff}
+.cy-corporate .case-panel{background:#1a1e23;color:#fff;border-radius:27px;min-height:340px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.cy-corporate .case-copy{padding:55px}
+.cy-corporate .case-copy h2{font-size:39px;margin-top:15px}
+.cy-corporate .case-copy p{font-size:13px;color:#bbb9bb;max-width:410px}
+.cy-corporate .case-placeholder{background:linear-gradient(135deg,#48271d,#212329);display:grid;place-items:center;position:relative}
+.cy-corporate .case-placeholder::before,.cy-corporate .case-placeholder::after{content:"";position:absolute;border:1px solid #ffb39650;width:260px;height:260px;transform:rotate(35deg);border-radius:35px}
+.cy-corporate .case-placeholder::after{width:200px;height:200px;transform:rotate(-28deg);border-color:#ff805a55}
+.cy-corporate .case-placeholder>div{position:relative;z-index:2;padding:23px 33px;background:#fff;color:var(--orange);border-radius:16px;font-weight:900;font-size:13px;text-align:center;box-shadow:0 25px 60px #0004}
+.cy-corporate .cta-strip{background:#ff4b0b;color:#fff;padding:59px 0}
+.cy-corporate .cta-flex{display:flex;align-items:center;justify-content:space-between;gap:35px}
+.cy-corporate .cta-flex h2{max-width:700px;margin:0;font-size:39px}
+.cy-corporate .cta-strip .btn-light{color:#f04b12;box-shadow:0 15px 34px #bd320738}
+.cy-corporate .about-hero{background:#171a1f;color:#fff;position:relative;overflow:hidden}
+.cy-corporate .about-hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff09 1px,transparent 1px),linear-gradient(90deg,#ffffff09 1px,transparent 1px);background-size:50px 50px}
+.cy-corporate .about-hero .container{position:relative;z-index:2;padding-top:113px;padding-bottom:114px}
+.cy-corporate .about-hero h1{max-width:910px;margin:22px 0;font-size:clamp(50px,5.8vw,78px)}
+.cy-corporate .about-hero p{max-width:620px;color:#cfcbca;font-size:15px;line-height:1.9}
+.cy-corporate .about-art{position:absolute;right:-80px;top:0;width:480px;height:480px;border-radius:50%;border:85px solid #ff4b0b17;box-shadow:0 0 0 90px #ff4b0b0b,0 0 0 190px #ff4b0b09}
+.cy-corporate .about-hero .eyebrow{color:#ff9469}
+.cy-corporate .about-story{display:grid;grid-template-columns:.72fr 1.28fr;gap:105px}
+.cy-corporate .story-label{font-weight:850;font-size:11px;letter-spacing:.15em;color:var(--orange)}
+.cy-corporate .story-prose h2{font-size:45px;line-height:1.19}
+.cy-corporate .story-prose p{font-size:15px;line-height:1.93;color:#67666c}
+.cy-corporate .capability-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #eee1d9;border-radius:19px;overflow:hidden;margin-top:46px}
+.cy-corporate .capability-row>div{padding:22px 17px;border-right:1px solid #eee1d9;font-size:11px;font-weight:790;color:#55505a;background:#fff9f5}
+.cy-corporate .capability-row>div:last-child{border:0}
+.cy-corporate .capability-row span{display:block;color:var(--orange);font-size:10px;letter-spacing:.09em;margin-bottom:7px}
+.cy-corporate .value-section{background:#fff8f3}
+.cy-corporate .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:19px}
+.cy-corporate .value-card{border:1px solid #f0e3dc;border-radius:20px;padding:30px;background:#fff}
+.cy-corporate .value-card svg{width:29px;height:29px;color:var(--orange)}
+.cy-corporate .value-card h3{margin:25px 0 10px;font-size:20px}
+.cy-corporate .value-card p{font-size:13px;color:#787178;line-height:1.8}
+.cy-corporate .story-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cy-corporate .story-step{padding:23px 18px;border-top:2px solid #ff6a35;background:#fff}
+.cy-corporate .story-step b{color:var(--orange);font-size:12px}
+.cy-corporate .story-step h3{font-size:17px;margin:16px 0 9px}
+.cy-corporate .story-step p{font-size:12px;color:#7a7478}
+.cy-corporate .about-team{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cy-corporate .team-panel{border-radius:22px;background:#1c1e23;padding:40px;color:#fff;min-height:270px;display:flex;flex-direction:column;justify-content:space-between}
+.cy-corporate .team-panel.orange-panel{background:#fff0e6;color:#251d1a}
+.cy-corporate .team-panel h3{font-size:24px}
+.cy-corporate .team-panel p{font-size:13px;color:#cdc4c1;max-width:390px}
+.cy-corporate .team-panel.orange-panel p{color:#6c5e58}
+.cy-corporate .team-panel .outline-tag{font-size:10px;letter-spacing:.14em;font-weight:850;color:#ffb093}
+.cy-corporate .team-panel.orange-panel .outline-tag{color:var(--orange)}
+.cy-corporate .contact-hero{background:linear-gradient(130deg,#fffcfa,#fff0e5);padding:91px 0 93px}
+.cy-corporate .contact-hero h1{max-width:870px;margin:20px 0 20px}
+.cy-corporate .contact-hero p{font-size:15px;max-width:700px;color:#777077}
+.cy-corporate .contact-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start;margin-top:-55px;position:relative;z-index:2}
+.cy-corporate .form-card,.cy-corporate .contact-side{border:1px solid #eee0d7;box-shadow:var(--shadow);border-radius:22px;background:#fff;padding:38px}
+.cy-corporate .form-card h2{font-size:28px;margin-bottom:10px}
+.cy-corporate .form-card>p{color:#8b8385;font-size:12px;line-height:1.8;margin-bottom:26px}
+.cy-corporate .field-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:17px}
+.cy-corporate .field{display:flex;flex-direction:column;gap:8px;margin-bottom:17px}
+.cy-corporate .field label{font-size:11px;font-weight:800;color:#4e494c}
+.cy-corporate .field input,.cy-corporate .field select,.cy-corporate .field textarea{border:1px solid #e7e0dc;border-radius:11px;padding:13px 14px;min-height:46px;background:#fff;color:#313035;outline:0;width:100%;font-size:12px}
+.cy-corporate .field textarea{min-height:118px;resize:vertical}
+.cy-corporate .field input:focus,.cy-corporate .field textarea:focus,.cy-corporate .field select:focus{border-color:var(--orange);box-shadow:0 0 0 3px #ff4b0b15}
+.cy-corporate .required{color:var(--orange)}
+.cy-corporate .form-bottom{display:flex;align-items:center;gap:18px;margin-top:8px}
+.cy-corporate .form-bottom small{color:#9b9293;font-size:10px;max-width:240px}
+.cy-corporate .contact-side{background:#1b1e23;border-color:#1b1e23;color:#fff;padding:40px}
+.cy-corporate .contact-side h3{font-size:25px}
+.cy-corporate .contact-side>p{font-size:13px;color:#c0bcbc;line-height:1.9;margin-bottom:25px}
+.cy-corporate .contact-info{padding:21px 0;border-top:1px solid #39383b;display:flex;gap:15px}
+.cy-corporate .contact-info svg{width:22px;height:22px;flex:0 0 auto;color:#ff9a6e}
+.cy-corporate .contact-info b{display:block;font-size:12px;margin-bottom:5px}
+.cy-corporate .contact-info span{font-size:12px;color:#acaaab}
+.cy-corporate .contact-side-note{margin-top:28px;border:1px dashed #6c5147;border-radius:13px;padding:14px;font-size:11px;color:#ffc4ab}
+.cy-corporate .contact-bottom{background:#fff;padding-top:91px}
+.cy-corporate .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.cy-corporate .faq-card{padding:30px;background:#fff9f5;border:1px solid #f0e2da;border-radius:19px}
+.cy-corporate .faq-card h3{font-size:18px}
+.cy-corporate .faq-card p{font-size:13px;line-height:1.8;color:#777077}
+.cy-corporate .map-placeholder{background:linear-gradient(45deg,#fff8f4,#f4eee9);height:290px;border-radius:20px;display:grid;place-items:center;border:1px solid #eee6df;margin-top:28px}
+.cy-corporate .map-placeholder div{text-align:center;color:#a18f87}
+.cy-corporate .map-placeholder svg{width:29px;height:29px;color:var(--orange)}
+@media(max-width:1100px){.cy-corporate .home-grid{gap:30px}
+.cy-corporate .hero-visual{min-height:500px}
+.cy-corporate .node-b,.cy-corporate .node-d{right:4px}
+.cy-corporate .services-grid{grid-template-columns:repeat(2,1fr)}
+.cy-corporate .service-card{min-height:290px}
+}
+@media(max-width:850px){.cy-corporate .container{width:min(100% - 36px,1220px)}
+.cy-corporate .home-grid{grid-template-columns:1fr}
+.cy-corporate .home-hero{padding:65px 0}
+.cy-corporate .hero-visual{min-height:490px}
+.cy-corporate .metrics-row{grid-template-columns:repeat(2,1fr)}
+.cy-corporate .metric:nth-child(2){border:0}
+.cy-corporate .process-layout,.cy-corporate .about-story{grid-template-columns:1fr;gap:35px}
+.cy-corporate .industries-grid{grid-template-columns:repeat(2,1fr)}
+.cy-corporate .contact-layout{grid-template-columns:1fr}
+}
+@media(max-width:580px){.cy-corporate h1{font-size:44px}
+.cy-corporate .home-hero h1{font-size:42px}
+.cy-corporate .home-hero{padding:55px 0}
+.cy-corporate .hero-visual{min-height:455px}
+.cy-corporate .center-disc{top:125px;width:190px;height:190px}
+.cy-corporate .center-logo{width:100px;height:100px;border-radius:21px}
+.cy-corporate .vis-node{min-width:128px;padding:9px;font-size:10px}
+.cy-corporate .node-a{top:68px;left:8px}
+.cy-corporate .node-b{top:115px;right:7px}
+.cy-corporate .node-c{bottom:98px;left:6px}
+.cy-corporate .node-d{bottom:43px;right:6px}
+.cy-corporate .section{padding:70px 0}
+.cy-corporate .section-head{display:block}
+.cy-corporate .section-head p{margin-top:15px}
+.cy-corporate .services-grid,.cy-corporate .values-grid,.cy-corporate .industries-grid,.cy-corporate .story-steps,.cy-corporate .about-team,.cy-corporate .faq-grid,.cy-corporate .field-grid{grid-template-columns:1fr}
+.cy-corporate .case-panel{grid-template-columns:1fr}
+.cy-corporate .case-copy{padding:40px 30px}
+.cy-corporate .case-placeholder{height:245px}
+.cy-corporate .cta-flex{display:block}
+.cy-corporate .cta-flex h2{margin-bottom:23px}
+.cy-corporate .form-card,.cy-corporate .contact-side{padding:25px}
+.cy-corporate .about-hero .container{padding:90px 0}
+.cy-corporate .about-hero h1{font-size:42px}
+.cy-corporate .capability-row{grid-template-columns:1fr 1fr}
+.cy-corporate .capability-row>div:nth-child(2){border:0}
+}
+
+
+/* Corporate pages are embedded within the existing shared layout, not shown as tabs. */
+.cy-corporate {color:#212328;background:#fff;line-height:1.6;font-family:Inter,"Segoe UI",Arial,sans-serif;overflow:hidden;}
+.cy-corporate > section {position:relative;}
+.cy-corporate .home-hero {min-height:0;}
+.cy-corporate .home-grid {width:min(1220px,calc(100% - 72px));}
+.cy-corporate a:focus-visible,.cy-corporate button:focus-visible,
+.cy-corporate input:focus-visible,.cy-corporate select:focus-visible,.cy-corporate textarea:focus-visible {
+ outline:3px solid #ff4b0b;outline-offset:3px;
+}
+.cy-corporate .cy-form-errors {background:#fff1ec;border:1px solid #ffc2a9;color:#982a0e;border-radius:12px;padding:12px 16px;margin:16px 0;}
+.cy-corporate .cy-form-errors ul {margin:5px 0 0;padding-left:19px;}
+.cy-corporate .cy-form-success {background:#edfff3;border:1px solid #99dbb2;color:#1b643a;border-radius:12px;padding:12px 16px;margin:16px 0;}
+.cy-corporate .cy-honeypot {position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden;}
+.cy-corporate .contact-side-note {color:#ffcab2;}
+.cy-corporate .field input,.cy-corporate .field textarea,.cy-corporate .field select {width:100%;}
+.cy-corporate .home-hero .container,.cy-corporate .about-hero .container,.cy-corporate .contact-hero .container {position:relative;z-index:1;}
+.cy-corporate .hero-visual img {display:block;}
+.cy-corp-eyebrow {background:#15171b;color:#eee8e4;padding:7px 0;font-size:10px;letter-spacing:.12em;font-weight:800}
+.cy-corp-eyebrow .container{width:min(1220px,calc(100% - 72px));display:flex;justify-content:space-between;gap:12px}
+.cy-corp-eyebrow strong {color:#ff8e5f}
+.cy-corp-footer{background:#111317;color:#f1efed;padding:62px 0 0}
+.cy-corp-footer .container{width:min(1220px,calc(100% - 72px))}
+.cy-corp-footer__main{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.25fr;gap:40px;padding-bottom:45px}
+.cy-corp-footer__logo{display:flex;align-items:center;gap:9px;font-weight:850;letter-spacing:.06em}
+.cy-corp-footer__logo img{width:48px;height:48px;object-fit:contain;border-radius:6px;background:#fff;padding:4px}
+.cy-corp-footer__logo span{display:block;font-size:11px;letter-spacing:.19em;color:#ff8550}
+.cy-corp-footer h4{font-size:12px;margin:6px 0 19px}
+.cy-corp-footer p,.cy-corp-footer a{font-size:12px;color:#aaa8ab;line-height:1.85}
+.cy-corp-footer a{display:block;margin:0 0 8px}
+.cy-corp-footer a:hover{color:#ff8652}
+.cy-corp-footer__bottom{border-top:1px solid #333439;display:flex;justify-content:space-between;gap:16px;padding:21px 0;color:#8e8e94;font-size:11px}
+@media(max-width:850px){.cy-corp-footer__main{grid-template-columns:1fr 1fr;gap:28px}}
+@media(max-width:580px){
+ .cy-corporate .container,.cy-corp-footer .container,.cy-corp-eyebrow .container{width:calc(100% - 36px)}
+ .cy-corp-eyebrow .container span:last-child{display:none}
+ .cy-corp-footer__main{grid-template-columns:1fr 1fr;gap:25px}
+ .cy-corp-footer__bottom{display:block}
+}

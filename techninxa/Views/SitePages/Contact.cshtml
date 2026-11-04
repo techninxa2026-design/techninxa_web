@@ -1,0 +1,70 @@
+@model techninxa.Models.CorporateInquiryViewModel
+@{ ViewData["Title"] = "Contact"; }
+<div class="cy-corporate cy-corporate-contact">
+<svg width="0" height="0" style="position:absolute;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13 2-9 11h7l-1 9 10-12h-7z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m16-11a4 4 0 0 1 0 8m4 3v-2a4 4 0 0 0-3-3.87M12 6a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/></symbol>
+<symbol id="i-network" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><rect x="1" y="16" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><rect x="15" y="16" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M12 8v5m-7 3v-3h14v3" stroke="currentColor" stroke-width="1.7" fill="none"/></symbol>
+<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.7" fill="none"/><rect x="9" y="9" width="6" height="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 1v4m6-4v4m-6 14v4m6-4v4M1 9h4m-4 6h4m14-6h4m-4 6h4" stroke="currentColor" stroke-width="1.6" fill="none"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="m8 12 3 3 5-6" stroke="currentColor" stroke-width="1.8" fill="none"/></symbol>
+<symbol id="i-build" viewBox="0 0 24 24"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1m-3 8v-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5m-18 5 9 5 9-5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="m3 6 9 8 9-8" stroke="currentColor" stroke-width="1.7" fill="none"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.7" fill="none"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 2h4l1 5-3 2a17 17 0 0 0 7 7l2-3 5 1v4c0 3-2 4-4 4C9 22 2 15 2 6c0-2 1-4 4-4Z" stroke="currentColor" stroke-width="1.7" fill="none"/></symbol>
+</defs></svg>
+
+<section class="contact-hero"><div class="container"><div class="eyebrow"><span class="dot"></span>CONTACT / START A CONVERSATION</div><h1>Tell us what you need.<br><em>We'll plan the next step.</em></h1><p>Choose the relevant division and share your requirements so the appropriate team can review your inquiry.</p></div></section>
+<section style="background:#fff"><div class="container contact-layout"><div class="form-card"><div class="eyebrow">PROJECTS &amp; BUSINESS INQUIRIES</div><h2 style="margin-top:12px">Send a requirement</h2><p>For electrical equipment, installation, manpower, networking, or IT &amp; IoT work.</p>
+<form id="corporateContactForm" method="post" action="/contact">
+ @Html.AntiForgeryToken()
+ @if (TempData["CorporateInquirySuccess"] != null) {
+    <div class="cy-form-success" role="status">@TempData["CorporateInquirySuccess"]</div>
+ }
+ @if (!ViewData.ModelState.IsValid) {
+    <div class="cy-form-errors" role="alert">@Html.ValidationSummary(false, "Please check your inquiry and try again.")</div>
+ }
+ <div class="field-grid">
+  <div class="field"><label for="fname">Your full name <span class="required">*</span></label>
+    <input id="fname" name="Name" value="@Model.Name" maxlength="100" autocomplete="name" required placeholder="e.g. Your name" /></div>
+  <div class="field"><label for="company">Company / Organization</label>
+    <input id="company" name="Company" value="@Model.Company" maxlength="120" autocomplete="organization" placeholder="Company name" /></div>
+  <div class="field"><label for="email">Work email <span class="required">*</span></label>
+    <input id="email" name="Email" type="email" value="@Model.Email" maxlength="150" autocomplete="email" required placeholder="name@company.com" /></div>
+  <div class="field"><label for="phone">Phone number <span class="required">*</span></label>
+    <input id="phone" name="Phone" type="tel" value="@Model.Phone" maxlength="45" autocomplete="tel" required placeholder="+880 ..." /></div>
+ </div>
+ <div class="field-grid">
+  <div class="field"><label for="serviceSelect">Service division <span class="required">*</span></label>
+   <select id="serviceSelect" name="ServiceDivision" required>
+     <option value="">Select a division</option>
+     <option value="Electrical Supply &amp; Installation" selected="@(Model.ServiceDivision == "Electrical Supply & Installation" ? "selected" : null)">Electrical Supply &amp; Installation</option>
+     <option value="Manpower Services" selected="@(Model.ServiceDivision == "Manpower Services" ? "selected" : null)">Manpower Services</option>
+     <option value="Networking Services" selected="@(Model.ServiceDivision == "Networking Services" ? "selected" : null)">Networking Services</option>
+     <option value="IT &amp; IoT Services" selected="@(Model.ServiceDivision == "IT & IoT Services" ? "selected" : null)">IT &amp; IoT Services</option>
+   </select>
+  </div>
+  <div class="field"><label for="requestType">Inquiry type</label>
+   <select id="requestType" name="InquiryType">
+      <option value="Request a quotation" selected="@(Model.InquiryType == "Request a quotation" ? "selected" : null)">Request a quotation</option>
+      <option value="Installation / project inquiry" selected="@(Model.InquiryType == "Installation / project inquiry" ? "selected" : null)">Installation / project inquiry</option>
+      <option value="Manpower request" selected="@(Model.InquiryType == "Manpower request" ? "selected" : null)">Manpower request</option>
+      <option value="Partnership / vendor inquiry" selected="@(Model.InquiryType == "Partnership / vendor inquiry" ? "selected" : null)">Partnership / vendor inquiry</option>
+      <option value="General question" selected="@(Model.InquiryType == "General question" ? "selected" : null)">General question</option>
+   </select>
+  </div>
+ </div>
+ <div class="field"><label for="details">Requirement details <span class="required">*</span></label>
+   <textarea id="details" name="Details" maxlength="1300" required placeholder="Tell us about your materials, specifications, project location, manpower or technical needs...">@Model.Details</textarea>
+ </div>
+ <div class="cy-honeypot"><label for="companyWebsite">Leave this field empty</label><input id="companyWebsite" name="Website" tabindex="-1" autocomplete="off" /></div>
+ <div class="form-bottom">
+   <button class="btn-orange" type="submit">Submit Inquiry <svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+   <small>Your inquiry is saved for review by Cytech. No automatic email confirmation is sent.</small>
+ </div>
+</form></div>
+<aside class="contact-side"><div class="eyebrow">GET IN TOUCH</div><h3 style="margin:14px 0">Let's connect.</h3><p>Visitors should see verified corporate contact methods here, alongside the form.</p><div class="contact-info"><svg><use href="#i-phone"/></svg><div><b>Phone / WhatsApp</b><span>Awaiting your approved number</span></div></div><div class="contact-info"><svg><use href="#i-mail"/></svg><div><b>Business email</b><span>Awaiting your official email</span></div></div><div class="contact-info"><svg><use href="#i-pin"/></svg><div><b>Office location</b><span>Awaiting your office address</span></div></div><div class="contact-side-note">Verified corporate contact information will be published here when available.</div></aside></div></section>
+<section class="section contact-bottom"><div class="container"><div class="section-head"><div><div class="eyebrow"><span class="dot"></span>BEFORE YOU SEND</div><h2>Make your inquiry easier to scope.</h2></div><p>Helpful information depends on the service division.</p></div><div class="faq-grid"><div class="faq-card"><h3>For supplies, installation &amp; manpower</h3><p>Include a materials list or specifications, quantities, site location, required skills, desired start date, and delivery timeframe if available.</p></div><div class="faq-card"><h3>For networking, software &amp; IoT</h3><p>Include the project objective, site or system environment, expected users/devices, integration needs, and target timeline if available.</p></div></div><div class="map-placeholder"><div><svg><use href="#i-pin"/></svg><p style="margin:13px 0 0;font-weight:850">OFFICE LOCATION</p><p style="font-size:12px;margin:3px 0">Office location details will appear here once confirmed</p></div></div></div></section>
+
+</div>
