@@ -75,3 +75,13 @@ Styles are scoped in `wwwroot/css/cytech-corporate.css`, which is loaded only fo
 Verified leadership identities, registration/credential documents, site images and corporate contact details are still required before those placeholders can be replaced with company-specific facts.
 
 **Deployment checks:** In the target ASP.NET Core 10 environment, run `dotnet build`; visit `/`, `/about`, `/contact`, `/blog`, `/products`, and `/it-iot-services`; test desktop and mobile layouts and send a validation-tested contact inquiry to ensure it appears in the existing admin messages view. Keep your existing `appsettings.json` connection string local and do not commit credentials.
+
+## Public contact details and Networking Services
+
+Public company contact details supplied by Cytech:
+
+- Phone: **01711015660** (`tel:+8801711015660`)
+- Email: **cytech@gmail.com**
+- City/location: **Dhaka, Bangladesh** (no street address supplied)
+
+These now appear on About, Contact and the corporate footer. The IT/shared header's phone CTA also uses the updated number. The standalone `/networking-services` route now renders a dedicated overview of common business networking services, with no invented certifications, customers or performance claims. Its quote links preselect Networking Services on the corporate contact form.
