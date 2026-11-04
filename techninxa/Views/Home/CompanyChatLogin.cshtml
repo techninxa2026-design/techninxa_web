@@ -12,7 +12,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
 
-    <title>Cytech EnginneringCompany Chat</title>
+    <title>Cytech EngineeringCompany Chat</title>
 
     <style>
 
@@ -21,8 +21,8 @@
         }
 
         :root {
-            --blue: #1687f8;
-            --sky: #38bdf8;
+            --blue: #ff4b0b;
+            --sky: #ff8652;
             --deep: #070a10;
             --card: rgba(15, 21, 31, .82);
             --border: rgba(255,255,255,.09);
@@ -47,17 +47,17 @@
             background:
                 radial-gradient(
                     circle at 10% 10%,
-                    rgba(22,135,248,.16),
+                    rgba( 255, 75, 11,.16),
                     transparent 28%
                 ),
                 radial-gradient(
                     circle at 90% 85%,
-                    rgba(56,189,248,.09),
+                    rgba( 255, 134, 82,.09),
                     transparent 30%
                 ),
                 radial-gradient(
                     circle at 50% -10%,
-                    rgba(22,135,248,.08),
+                    rgba( 255, 75, 11,.08),
                     transparent 35%
                 ),
                 #070a10;
@@ -86,7 +86,7 @@
             left: -220px;
             bottom: -220px;
 
-            background: rgba(22,135,248,.10);
+            background: rgba( 255, 75, 11,.10);
 
             filter: blur(80px);
 
@@ -106,7 +106,7 @@
             right: -160px;
             top: -150px;
 
-            background: rgba(56,189,248,.08);
+            background: rgba( 255, 134, 82,.08);
 
             filter: blur(70px);
 
@@ -160,7 +160,7 @@
                 linear-gradient(
                     90deg,
                     transparent,
-                    rgba(56,189,248,.7),
+                    rgba( 255, 134, 82,.7),
                     transparent
                 );
 
@@ -204,8 +204,8 @@
             background:
                 linear-gradient(
                     135deg,
-                    #1687f8,
-                    #38bdf8
+                    #ff4b0b,
+                    #ff8652
                 );
 
             color: white;
@@ -214,7 +214,7 @@
             font-weight: 800;
 
             box-shadow:
-                0 12px 30px rgba(22,135,248,.28);
+                0 12px 30px rgba( 255, 75, 11,.28);
 
             position: relative;
         }
@@ -344,7 +344,7 @@
             background: rgba(7,13,21,.95);
 
             box-shadow:
-                0 0 0 3px rgba(22,135,248,.11),
+                0 0 0 3px rgba( 255, 75, 11,.11),
                 0 8px 25px rgba(0,0,0,.18);
         }
 
@@ -397,8 +397,8 @@
             background:
                 linear-gradient(
                     135deg,
-                    #1687f8,
-                    #159eea
+                    #ff4b0b,
+                    #ff8652
                 );
 
             color: white;
@@ -418,7 +418,7 @@
             overflow: hidden;
 
             box-shadow:
-                0 12px 28px rgba(22,135,248,.22);
+                0 12px 28px rgba( 255, 75, 11,.22);
 
             transition:
                 transform .2s ease,
@@ -454,7 +454,7 @@
             transform: translateY(-2px);
 
             box-shadow:
-                0 16px 35px rgba(22,135,248,.30);
+                0 16px 35px rgba( 255, 75, 11,.30);
 
             filter: brightness(1.05);
         }
@@ -535,7 +535,13 @@
 
         }
 
-    </style>
+    
+/* Cytech internal communication */
+:root {--blue:#ff4b0b;--sky:#ff8652;--deep:#161518;}
+.chat-login {border-color:rgba(255,134,82,.20);box-shadow:0 35px 90px rgba(4,3,3,.35),0 0 75px rgba(255,75,11,.08);}
+.login-btn {background:linear-gradient(120deg,#ff4b0b,#e83a07);}
+.login-btn:hover {filter:brightness(1.08);}
+</style>
 
 </head>
 
@@ -559,7 +565,7 @@
         <h1>Company Chat</h1>
 
         <p class="subtitle">
-            Private Cytech Enginneringcommunication room
+            Private Cytech Engineeringcommunication room
         </p>
 
         <form method="post"

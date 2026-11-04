@@ -8,11 +8,11 @@
 
 <style>
     .pl-page {
-        --pl-primary: #1687f8;
+        --pl-primary: #ff4b0b;
         --pl-text: #101828;
         --pl-muted: #667085;
-        --pl-border: #e8edf3;
-        --pl-bg: #f5f7fb;
+        --pl-border: #efdfd5;
+        --pl-bg: #fff9f5;
 
         min-height: 100vh;
         padding: 110px 24px 60px;
@@ -80,14 +80,14 @@
         text-decoration: none !important;
         font-size: 13px;
         font-weight: 750;
-        box-shadow: 0 5px 14px #1687f829;
+        box-shadow: 0 5px 14px #ff4b0b29;
         transition: .2s ease;
     }
 
     .pl-add:hover {
-        background: #0878e8;
+        background: #d83b08;
         transform: translateY(-1px);
-        box-shadow: 0 8px 20px #1687f83b;
+        box-shadow: 0 8px 20px #ff4b0b3b;
     }
 
     .pl-add svg {
@@ -130,7 +130,7 @@
     }
 
     .pl-stat-icon.blue {
-        background: #eff6ff;
+        background: #fff3eb;
         color: #1670d8;
     }
 
@@ -208,7 +208,7 @@
 
     .pl-search:focus-within {
         border-color: var(--pl-primary);
-        box-shadow: 0 0 0 3px #1687f81a;
+        box-shadow: 0 0 0 3px #ff4b0b1a;
     }
 
     .pl-search svg {
@@ -279,7 +279,7 @@
     }
 
     .pl-table tbody tr:hover {
-        background: #f8fbff;
+        background: #fffbf8;
     }
 
     .pl-table tbody tr[hidden] {
@@ -304,7 +304,7 @@
         place-items: center;
         border: 1px solid #e7ebf1;
         border-radius: 8px;
-        background: #f1f5f9;
+        background: #f9f3ee;
         color: #98a2b3;
     }
 
@@ -511,7 +511,7 @@
         display: grid;
         place-items: center;
         border-radius: 13px;
-        background: #eff6ff;
+        background: #fff3eb;
         color: #1670d8;
     }
 
@@ -615,6 +615,11 @@
             flex-direction: column;
         }
     }
+
+/* Cytech management table */
+.pl-page {--pl-primary:#ff4b0b;--pl-bg:#fff9f5;--pl-border:#efdfd4;--pl-text:#1a1b20;}
+.pl-stat,.pl-panel {box-shadow:0 12px 35px rgba(86,38,16,.06);}
+.pl-add:hover {background:#d93b06;}
 </style>
 
 <div class="pl-page">
@@ -622,7 +627,7 @@
 
         <header class="pl-header">
             <div class="pl-heading">
-                <p class="pl-eyebrow">Cytech Enginnering· Administration</p>
+                <p class="pl-eyebrow">Cytech Engineering· Administration</p>
                 <h1>Project Management</h1>
                 <p>Manage, review and organize your portfolio projects.</p>
             </div>
@@ -890,7 +895,7 @@
                     <span id="projectResultCount">
                         Showing @projects.Count projects
                     </span>
-                    <span>Cytech EnginneringProject Management</span>
+                    <span>Cytech EngineeringProject Management</span>
                 </div>
             }
             else

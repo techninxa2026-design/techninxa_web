@@ -17,8 +17,8 @@
         --edit-border: rgba(255,255,255,.09);
         --edit-text: #f4f5f7;
         --edit-muted: #9299aa;
-        --edit-accent: #a5f36a;
-        --edit-accent-dark: #172611;
+        --edit-accent: #ff8652;
+        --edit-accent-dark: #362017;
         --edit-radius: 18px;
     }
 
@@ -81,7 +81,7 @@
         height: 7px;
         border-radius: 50%;
         background: var(--edit-accent);
-        box-shadow: 0 0 12px rgba(165,243,106,.5);
+        box-shadow: 0 0 12px rgba( 255, 134, 82,.5);
     }
 
     .edit-header h1 {
@@ -181,8 +181,8 @@
         display: grid;
         place-items: center;
         color: var(--edit-accent);
-        background: rgba(165,243,106,.09);
-        border: 1px solid rgba(165,243,106,.13);
+        background: rgba( 255, 134, 82,.09);
+        border: 1px solid rgba( 255, 134, 82,.13);
         border-radius: 12px;
         font-size: 19px;
     }
@@ -256,7 +256,7 @@
     .edit-select:focus,
     .edit-textarea:focus {
         border-color: var(--edit-accent);
-        box-shadow: 0 0 0 3px rgba(165,243,106,.08);
+        box-shadow: 0 0 0 3px rgba( 255, 134, 82,.08);
     }
 
     .edit-input::placeholder,
@@ -348,7 +348,7 @@
 
     .edit-upload:hover {
         border-color: var(--edit-accent);
-        background: rgba(165,243,106,.035);
+        background: rgba( 255, 134, 82,.035);
     }
 
     .edit-upload input {
@@ -393,8 +393,8 @@
     }
 
     .edit-status-option:has(input:checked) {
-        border-color: rgba(165,243,106,.55);
-        background: rgba(165,243,106,.045);
+        border-color: rgba( 255, 134, 82,.55);
+        background: rgba( 255, 134, 82,.045);
     }
 
     .edit-status-option input {
@@ -422,8 +422,8 @@
         gap: 6px;
         padding: 7px 10px;
         color: #b8ff87;
-        background: rgba(165,243,106,.08);
-        border: 1px solid rgba(165,243,106,.17);
+        background: rgba( 255, 134, 82,.08);
+        border: 1px solid rgba( 255, 134, 82,.17);
         border-radius: 8px;
         font-size: 10px;
         font-weight: 800;
@@ -468,8 +468,8 @@
         font-size: 11px;
         line-height: 1.8;
         padding: 13px;
-        border: 1px solid rgba(165,243,106,.12);
-        background: rgba(165,243,106,.035);
+        border: 1px solid rgba( 255, 134, 82,.12);
+        background: rgba( 255, 134, 82,.035);
         border-radius: 10px;
         margin-top: 13px;
     }
@@ -576,6 +576,11 @@
             transition: none !important;
         }
     }
+
+/* Cytech editor palette */
+.edit-project-page {--edit-accent:#ff8652;--edit-accent-dark:#3b2016;--edit-bg:#191719;--edit-panel:#272025;--edit-panel-2:#32272c;}
+.edit-btn-primary {background:#ff4b0b;color:#fff;border-color:#ff4b0b;}
+.edit-btn-primary:hover {background:#d93b06;}
 </style>
 }
 
@@ -597,7 +602,7 @@
         <header class="edit-header">
             <div>
                 <div class="edit-eyebrow">Project workspace</div>
-                <h1>Edit project<span style="color:#a5f36a;">.</span></h1>
+                <h1>Edit project<span style="color:#ff8652;">.</span></h1>
                 <p>
                     Update your portfolio content, project details,
                     cover image and publishing settings.
@@ -630,8 +635,8 @@
         {
             <div role="status"
                  style="padding:14px 18px;margin-bottom:22px;
-                        border:1px solid rgba(165,243,106,.2);
-                        background:rgba(165,243,106,.07);
+                        border:1px solid rgba( 255, 134, 82,.2);
+                        background:rgba( 255, 134, 82,.07);
                         color:#b8ff87;border-radius:12px;">
                 @TempData["ProjectSuccess"]
             </div>
