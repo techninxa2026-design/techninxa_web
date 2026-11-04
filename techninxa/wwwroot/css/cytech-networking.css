@@ -1,0 +1,72 @@
+/* Cytech Networking Services — dedicated responsive division page.
+   No third-party JS, no unverified client/certification data. */
+.cy-net{--net-orange:#ff4b0b;--net-dark:#14171e;--net-ink:#202229;--net-muted:#71737b;--net-line:#ebded6;--net-soft:#fff8f3;color:var(--net-ink);background:#fff;font-family:Inter,Arial,sans-serif;overflow:hidden}
+.cy-net *{box-sizing:border-box}
+.cy-net .cy-net-wrap{width:min(1210px,calc(100% - 76px));margin-inline:auto}
+.cy-net a{color:inherit;text-decoration:none}
+.cy-net h1,.cy-net h2,.cy-net h3,.cy-net p{margin-top:0}
+.cy-net h1,.cy-net h2,.cy-net h3{font-family:"Space Grotesk",Inter,Arial,sans-serif}
+.cy-net .cy-net-hero{background:radial-gradient(circle at 81% 20%,rgba(255,105,47,.15),transparent 33%),linear-gradient(125deg,#fffaf7 24%,#fff0e5);padding:92px 0 98px;position:relative}
+.cy-net .cy-net-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.06fr);align-items:center;gap:64px}
+.cy-net .cy-net-eyebrow,.cy-net .cy-net-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.15em;font-weight:850;color:#db4518}
+.cy-net .cy-net-eyebrow span{width:8px;height:8px;border-radius:50%;background:var(--net-orange)}
+.cy-net h1{font-size:clamp(44px,4.7vw,74px);font-weight:790;letter-spacing:-.055em;line-height:1.07;margin:25px 0}
+.cy-net h1 em{font-style:normal;color:var(--net-orange)}
+.cy-net-intro>p{max-width:520px;color:#67656b;font-size:16px;line-height:1.85}
+.cy-net-actions{display:flex;gap:12px;flex-wrap:wrap;margin:31px 0 32px}
+.cy-net-button{display:inline-flex;align-items:center;justify-content:center;gap:19px;background:var(--net-orange);color:#fff!important;border:1px solid var(--net-orange);border-radius:100px;padding:15px 20px;font-size:13px;font-weight:800;box-shadow:0 14px 30px rgba(255,75,11,.18);transition:transform .2s ease,background .2s ease}
+.cy-net-button:hover{background:#db3f09;transform:translateY(-2px)}
+.cy-net-button--outline{color:#29272b!important;background:#fff;border-color:#eadbd2;box-shadow:none}
+.cy-net-button--outline:hover{background:#fff1e7}
+.cy-net-capabilities{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:12px;color:#767078}
+.cy-net-capabilities span{padding:7px 11px;border:1px solid #f1dacf;border-radius:30px;background:rgba(255,255,255,.64);font-weight:700}
+.cy-net-visual{min-height:460px;background:radial-gradient(circle at 58% 38%,#33313a,#181a22 60%,#12151a 100%);border-radius:30px;padding:23px;box-shadow:0 40px 84px rgba(60,27,14,.20);color:#fff;border:1px solid #30303a}
+.cy-net-visual-header,.cy-net-visual-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#afaeb4;font-size:10px;letter-spacing:.1em;font-weight:800}
+.cy-net-visual-foot{padding-top:10px;letter-spacing:.04em;font-size:10px;color:#928d90}
+.cy-net-signal{color:#ffb18c}.cy-net-signal i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ff8d55;margin-right:5px;box-shadow:0 0 12px #ff6d38}
+.cy-net-diagram{position:relative;height:365px;margin-top:8px;overflow:hidden}
+.cy-net-diagram:before{content:"";position:absolute;inset:14px;background-image:linear-gradient(#ffffff0c 1px,transparent 1px),linear-gradient(90deg,#ffffff0c 1px,transparent 1px);background-size:31px 31px;mask-image:radial-gradient(circle,#000,transparent 80%)}
+.cy-net-diagram:after{content:"";position:absolute;left:50%;top:44%;width:250px;height:250px;transform:translate(-50%,-50%);border-radius:50%;border:1px dashed #ff8e644d;box-shadow:0 0 0 44px #ff8c3c07,0 0 0 85px #ff8c3c05}
+.cy-net-topology-line{position:absolute;z-index:1;left:50%;width:2px;background:linear-gradient(#ff9a6b,#ff5934);transform:translateX(-50%)}
+.cy-net-topology-line--up{top:51px;height:82px}.cy-net-topology-line--down{top:160px;height:135px}
+.cy-net-diagram-node{position:absolute;z-index:3;width:146px;min-height:69px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;padding:9px 8px;border:1px solid #66504b;border-radius:13px;background:#29272e;text-align:center;box-shadow:0 12px 25px #0003}
+.cy-net-diagram-node strong{font-size:11px;font-weight:850;color:#fff}.cy-net-diagram-node small{font-size:9px;color:#c0b2af}
+.cy-net-node-icon{font-size:19px;color:#ff8c5a;line-height:1}
+.cy-net-node--internet{top:3px;left:50%;transform:translateX(-50%);width:152px}
+.cy-net-node--gateway{top:94px;left:50%;transform:translateX(-50%);background:#392821;border-color:#ef7543}
+.cy-net-node--core{top:192px;left:50%;transform:translateX(-50%)}
+.cy-net-node--wifi{top:285px;left:4%}.cy-net-node--users{top:285px;left:50%;transform:translateX(-50%)}.cy-net-node--devices{top:285px;right:4%}
+.cy-net-section{padding:100px 0}.cy-net-section--soft{background:#fff8f3}
+.cy-net-section-head{display:flex;justify-content:space-between;gap:48px;align-items:end;margin-bottom:38px}
+.cy-net-section-head h2{font-size:clamp(32px,3.45vw,52px);font-weight:780;letter-spacing:-.052em;line-height:1.1;margin:16px 0 0}
+.cy-net-section-head>p{max-width:355px;color:var(--net-muted);line-height:1.75;font-size:14px;margin-bottom:4px}
+.cy-net-service-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.cy-net-service{background:#fff;border:1px solid #ede0d8;border-radius:20px;padding:27px 22px;min-height:260px;box-shadow:0 12px 38px rgba(73,39,18,.03);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.cy-net-service:hover{transform:translateY(-5px);border-color:#ffb28b;box-shadow:0 19px 40px rgba(75,35,17,.10)}
+.cy-net-service-icon{height:46px;width:46px;border-radius:14px;display:grid;place-items:center;background:#fff1e6;color:#f04d19;font-size:24px}
+.cy-net-service>small{display:block;margin-top:27px;color:#dd4b1a;letter-spacing:.12em;font-weight:800;font-size:10px}
+.cy-net-service h3{font-size:19px;line-height:1.24;letter-spacing:-.025em;margin:10px 0 9px}
+.cy-net-service p{font-size:13px;line-height:1.7;color:#77737a;margin-bottom:0}
+.cy-net-scope-note{font-size:12px;line-height:1.65;color:#8a7b75;margin:20px 0 0}
+.cy-net-environments{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.cy-net-environments article{background:#fff;border-radius:19px;padding:31px 24px;border:1px solid #f0e4dc;min-height:220px}
+.cy-net-environments article span{color:#ee4f20;letter-spacing:.12em;font-size:11px;font-weight:900}
+.cy-net-environments h3{margin:23px 0 10px;font-size:21px}
+.cy-net-environments p{font-size:13px;line-height:1.7;color:#77737a}
+.cy-net-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.cy-net-steps>div{padding:25px 20px;border-top:2px solid #f0d3c3}
+.cy-net-steps span{font-family:"Space Grotesk",sans-serif;color:var(--net-orange);font-size:30px;font-weight:800}
+.cy-net-steps h3{font-size:19px;margin:17px 0 9px}.cy-net-steps p{font-size:13px;line-height:1.75;color:#757078}
+.cy-net-cta{background:radial-gradient(circle at 84% 0,#572816,#17181f 60%);padding:78px 0;color:#fff}
+.cy-net-cta-inner{display:flex;justify-content:space-between;align-items:center;gap:45px}
+.cy-net-cta h2{font-size:clamp(32px,4vw,53px);letter-spacing:-.05em;line-height:1.12;margin:14px 0}
+.cy-net-cta p{max-width:630px;font-size:14px;line-height:1.8;color:#c8bebc;margin:0}
+.cy-net-cta .cy-net-kicker{color:#ffa77d}
+.cy-net-cta-actions{display:flex;flex-direction:column;gap:13px;min-width:250px;align-items:flex-start}
+.cy-net-call,.cy-net-mail{font-size:13px;color:#ffd2bc!important;font-weight:700;overflow-wrap:anywhere}
+.cy-net-call:hover,.cy-net-mail:hover{text-decoration:underline}
+.cy-net :focus-visible{outline:3px solid #ff4b0b;outline-offset:3px}
+@media(max-width:1100px){.cy-net .cy-net-hero-grid{gap:32px}.cy-net-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cy-net-environments{grid-template-columns:repeat(2,minmax(0,1fr))}.cy-net-diagram-node{width:123px}.cy-net-node--internet{width:135px}}
+@media(max-width:850px){.cy-net .cy-net-hero-grid{grid-template-columns:1fr}.cy-net-intro{max-width:700px}.cy-net-visual{max-width:650px;width:100%;margin:0 auto}.cy-net-section-head{display:block}.cy-net-section-head>p{margin-top:21px;max-width:610px}.cy-net-cta-inner{display:block}.cy-net-cta-actions{margin-top:28px;flex-direction:row;align-items:center;flex-wrap:wrap}}
+@media(max-width:580px){.cy-net .cy-net-wrap{width:calc(100% - 36px)}.cy-net .cy-net-hero{padding:66px 0 73px}.cy-net h1{font-size:clamp(39px,10vw,55px)}.cy-net-visual{min-height:410px;padding:15px;border-radius:22px}.cy-net-diagram{height:342px}.cy-net-diagram-node{width:29%;padding:7px 3px}.cy-net-diagram-node strong{font-size:9px}.cy-net-diagram-node small{font-size:8px}.cy-net-node--internet{width:36%}.cy-net-node--gateway{width:36%}.cy-net-node--core{width:36%}.cy-net-node--wifi,.cy-net-node--users,.cy-net-node--devices{top:274px}.cy-net-node--wifi{left:0}.cy-net-node--devices{right:0}.cy-net-service-grid,.cy-net-environments{grid-template-columns:1fr}.cy-net-section{padding:69px 0}.cy-net-service{min-height:0}.cy-net-steps{grid-template-columns:1fr 1fr;gap:10px}.cy-net-steps>div{padding:20px 10px}.cy-net-cta{padding:70px 0}.cy-net-cta-actions{flex-direction:column;align-items:flex-start}.cy-net-button{padding:13px 17px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.cy-net-service,.cy-net-button{transition:none}.cy-net-service:hover,.cy-net-button:hover{transform:none}}
