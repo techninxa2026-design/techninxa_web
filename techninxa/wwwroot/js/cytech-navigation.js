@@ -59,24 +59,7 @@
                 if (window.innerWidth > 1240) setOpen(false);
             });
 
-            // Anchor sections are on the existing IT homepage until corporate pages are built.
-            const updateCorporateActive = () => {
-                const path = window.location.pathname.toLowerCase();
-                if (path !== "/" && path !== "/home/index") return;
-                const hash = window.location.hash.toLowerCase();
-                const selected = hash === "#about" ? "about" : hash === "#contact" ? "contact" : "home";
-                menu.querySelectorAll("[data-primary-nav]").forEach(link => {
-                    if (link.dataset.primaryNav !== "home" &&
-                        link.dataset.primaryNav !== "about" &&
-                        link.dataset.primaryNav !== "contact") return;
-                    const isSelected = link.dataset.primaryNav === selected;
-                    link.classList.toggle("active", isSelected);
-                    if (isSelected) link.setAttribute("aria-current", "page");
-                    else link.removeAttribute("aria-current");
-                });
-            };
-            window.addEventListener("hashchange", updateCorporateActive);
-            updateCorporateActive();
+
         }
 
         const rail = document.querySelector(".cy-it-rail");

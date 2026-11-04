@@ -13,11 +13,11 @@ The shared `Views/Shared/_Layout.cshtml` exposes four divisions:
 
 The three blank pages are handled by `Controllers/DivisionsController.cs` and the reusable `Views/Divisions/Placeholder.cshtml`. Only a section title and a short placeholder message are shown. No service descriptions or business claims have been invented.
 
-`Program.cs` maps `/it-iot-services` to the existing `Home.Index` action. The original root `/` remains accessible for backwards compatibility and displays the same current IT/IoT homepage. Existing controllers, project routes, booking APIs and database actions are unchanged.
+`Program.cs` maps `/it-iot-services` to the existing `Home.Index` action. The corporate root `/` is handled by `SitePagesController.Home` and is intentionally a branded placeholder. The former `Home/Index` destination redirects to `/it-iot-services`. Existing controllers, project routes, booking APIs and database actions are unchanged.
 
 ## Floating IT & IoT navigation
 
-On the IT landing page and `/Projects` routes, the previous top menu items now appear as a vertical floating capsule on the left:
+On the IT landing page `/it-iot-services` and `/Projects` routes, the previous top menu items now appear as a vertical floating capsule on the left:
 
 - Home: `/it-iot-services`
 - Services: `/it-iot-services#services`
@@ -47,8 +47,14 @@ Case-study pages with `Layout = null` retain their independent project design an
 
 The header now reads **Home · About · Contact · Services ▾ · Blog · Products**.
 
-- **Home** uses `/` (existing working homepage).
-- **About** uses `/#about` and **Contact** uses `/#contact` until dedicated corporate pages are developed.
+- **Home** uses `/` (a standalone corporate placeholder; the previous software homepage is only at `/it-iot-services`).
+- **About** uses `/about` and **Contact** uses `/contact`. Both are separate corporate placeholder pages.
 - **Services** opens a responsive, accessible dropdown with the four division routes described above. Click/touch on mobile, hover/click on desktop, and keyboard activation are supported.
 - **Blog** at `/blog` and **Products** at `/products` are minimal placeholders, implemented by `SitePagesController`.
 - The IT & IoT floating rail remains available on the existing IT homepage and Projects routes, independent of the main corporate menu.
+
+## Corporate/IT separation (latest)
+
+The corporate pages `/`, `/about`, `/contact`, `/blog`, and `/products` are standalone branded placeholders without database queries, ready for future corporate content. The existing software, IoT, projects, people, technology, and contact sections remain intact at `/it-iot-services` and its original project URLs. The floating IT capsule is rendered only on `/it-iot-services` and `/Projects` routes. `/Home/Index` and `/Home` redirect to the dedicated IT route to prevent duplicate public entry points.
+
+The corporate header and footer now link to `/about` and `/contact`, not to the IT website's anchor sections. The IT-specific floating capsule still links to `/it-iot-services#about` and `/it-iot-services#contact`.
