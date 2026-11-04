@@ -71,10 +71,23 @@
     <!-- Keep this last: overrides legacy page-level blue styling consistently. -->
     <link rel="stylesheet" href="~/css/cytech-theme.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/cytech-divisions.css" asp-append-version="true">
+    @if (ViewData["IsCorporatePage"] is true)
+    {
+        <link rel="stylesheet" href="~/css/cytech-corporate.css" asp-append-version="true">
+    }
 </head>
 <body class="@(showItRail ? "has-it-rail" : "")">
 
     <div class="page-noise"></div>
+    @if (ViewData["IsCorporatePage"] is true)
+    {
+        <div class="cy-corp-eyebrow">
+            <div class="container">
+                <span>CYTECH ENGINEERING <strong>/ CORPORATE EXPERIENCE</strong></span>
+                <span>ENGINEERING · PEOPLE · TECHNOLOGY</span>
+            </div>
+        </div>
+    }
 
     <!-- HEADER -->
     <header class="site-header" id="siteHeader">
@@ -132,9 +145,14 @@
                    aria-current="@(primarySection == "products" ? "page" : null)">Products</a>
             </nav>
 
-            <a class="nav-cta" href="tel:+8801790379729">
-                Let's Talk <span>↗</span>
-            </a>
+            @if (ViewData["IsCorporatePage"] is true)
+            {
+                <a class="nav-cta" href="/contact">Request a Quote <span>↗</span></a>
+            }
+            else
+            {
+                <a class="nav-cta" href="tel:+8801790379729">Let's Talk <span>↗</span></a>
+            }
 
         </div>
     </header>
@@ -169,6 +187,44 @@
     </main>
 
     <!-- FOOTER -->
+    @if (ViewData["IsCorporatePage"] is true)
+    {
+        <footer class="cy-corp-footer" aria-label="Cytech corporate footer">
+        <div class="container cy-corp-footer__main">
+            <div>
+                <a class="cy-corp-footer__logo" href="/" aria-label="Cytech Engineering Home">
+                    <img src="~/assets/cytechlogo.jpg" alt="">
+                    <div>CYTECH<span>ENGINEERING</span></div>
+                </a>
+                <p>Engineering, people, networks, and technology under one corporate identity.</p>
+                <p>Built for business. Made for execution.</p>
+            </div>
+            <div>
+                <h4>COMPANY</h4>
+                <a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a>
+                <a href="/blog">Blog</a><a href="/products">Products</a>
+            </div>
+            <div>
+                <h4>OUR DIVISIONS</h4>
+                <a href="/electrical-supply-installation">Electrical Supply &amp; Installation</a>
+                <a href="/manpower-services">Manpower</a>
+                <a href="/networking-services">Networking</a>
+                <a href="/it-iot-services">IT &amp; IoT</a>
+            </div>
+            <div>
+                <h4>BUSINESS INQUIRIES</h4>
+                <p>Use the contact form to share your project requirements with Cytech Engineering.</p>
+                <a href="/contact" style="color:#ff9366;font-weight:750">Discuss a requirement ↗</a>
+            </div>
+        </div>
+        <div class="container cy-corp-footer__bottom">
+            <span>© @DateTime.UtcNow.Year Cytech Engineering. All rights reserved.</span>
+            <span>Four divisions. One connected organization.</span>
+        </div>
+    </footer>
+    }
+    else
+    {
     <footer class="footer">
         <div class="container footer-top">
 
@@ -237,6 +293,7 @@
             <span>Designed &amp; built with intention.</span>
         </div>
     </footer>
+    }
 
     <!-- BACK TO TOP + CURSOR -->
     <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
