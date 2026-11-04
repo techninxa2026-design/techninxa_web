@@ -8,20 +8,19 @@
         var canonicalUrl = ViewData["CanonicalUrl"] as string
             ?? "https://techninxa.com/";
 
-        // The three new divisions are independent. Existing MVC pages remain IT & IoT.
-        var activeDivision = (ViewData["ActiveDivision"] as string) ?? "it";
+        // The corporate site is separate from the existing IT & IoT website.
         var requestPath = Context.Request.Path.Value ?? "/";
-        var isItLanding = requestPath.Equals("/", StringComparison.OrdinalIgnoreCase)
-            || requestPath.Equals("/it-iot-services", StringComparison.OrdinalIgnoreCase)
-            || requestPath.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase);
+        var isItLanding = requestPath.Equals("/it-iot-services", StringComparison.OrdinalIgnoreCase);
         var isItProjects = requestPath.StartsWith("/Projects", StringComparison.OrdinalIgnoreCase);
+        var activeDivision = ViewData["ActiveDivision"] as string
+            ?? (isItLanding || isItProjects ? "it" : "none");
         var showItRail = activeDivision == "it" && (isItLanding || isItProjects);
-        var primarySection = requestPath.Equals("/blog", StringComparison.OrdinalIgnoreCase) ? "blog"
+        var primarySection = requestPath.Equals("/", StringComparison.OrdinalIgnoreCase) ? "home"
+            : requestPath.Equals("/about", StringComparison.OrdinalIgnoreCase) ? "about"
+            : requestPath.Equals("/contact", StringComparison.OrdinalIgnoreCase) ? "contact"
+            : requestPath.Equals("/blog", StringComparison.OrdinalIgnoreCase) ? "blog"
             : requestPath.Equals("/products", StringComparison.OrdinalIgnoreCase) ? "products"
-            : requestPath.Equals("/", StringComparison.OrdinalIgnoreCase)
-              || requestPath.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase) ? "home"
-            : requestPath.Equals("/it-iot-services", StringComparison.OrdinalIgnoreCase)
-              || requestPath.StartsWith("/Projects", StringComparison.OrdinalIgnoreCase)
+            : isItLanding || isItProjects
               || activeDivision == "electrical" || activeDivision == "manpower"
               || activeDivision == "networking" ? "services"
             : "";
@@ -96,8 +95,12 @@
                 <a href="/" data-primary-nav="home"
                    class="@(primarySection == "home" ? "active" : "")"
                    aria-current="@(primarySection == "home" ? "page" : null)">Home</a>
-                <a href="/#about" data-primary-nav="about">About</a>
-                <a href="/#contact" data-primary-nav="contact">Contact</a>
+                <a href="/about" data-primary-nav="about"
+                   class="@(primarySection == "about" ? "active" : "")"
+                   aria-current="@(primarySection == "about" ? "page" : null)">About</a>
+                <a href="/contact" data-primary-nav="contact"
+                   class="@(primarySection == "contact" ? "active" : "")"
+                   aria-current="@(primarySection == "contact" ? "page" : null)">Contact</a>
 
                 <div class="cy-dropdown" id="cyServices">
                     <button class="cy-dropdown__toggle @(primarySection == "services" ? "active" : "")"
@@ -176,9 +179,9 @@
 
             <div class="footer-col">
                 <h4>Company</h4>
-                <a href="/it-iot-services#about">About</a>
-                <a href="/Projects">Projects</a>
-                <a href="/it-iot-services#contact">Contact</a>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
                 <a href="/blog">Blog</a>
                 <a href="/products">Products</a>
             </div>

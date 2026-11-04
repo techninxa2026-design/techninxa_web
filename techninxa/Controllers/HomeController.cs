@@ -23,6 +23,10 @@ namespace techninxa.Controllers
         // ==============================
         public async Task<IActionResult> Index()
         {
+            // Older Home/Index links should not show IT content at the corporate root.
+            if (!string.Equals(Request.Path.Value, "/it-iot-services", StringComparison.OrdinalIgnoreCase))
+                return Redirect("/it-iot-services");
+
             var projects = await dbContext.Projects
                 .Where(p => p.Status == "published")
                 .OrderByDescending(p => p.CreatedAt)
