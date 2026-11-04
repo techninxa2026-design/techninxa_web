@@ -18,7 +18,13 @@ namespace techninxa.Controllers
 
         [HttpGet("/networking-services")]
         public IActionResult NetworkingServices()
-            => Placeholder("Networking Services", "networking");
+        {
+            ViewData["Title"] = "Networking Services";
+            ViewData["Description"] = "Networking solutions for businesses: structured cabling, LAN and WAN, wireless, fiber, network equipment, security and support.";
+            ViewData["ActiveDivision"] = "networking";
+            ViewData["CanonicalUrl"] = $"{Request.Scheme}://{Request.Host}{Request.Path}";
+            return View("NetworkingServices");
+        }
 
         private IActionResult Placeholder(string title, string division)
         {

@@ -255,3 +255,20 @@
  .cy-corp-footer__main{grid-template-columns:1fr 1fr;gap:25px}
  .cy-corp-footer__bottom{display:block}
 }
+
+/* Approved company contact details on the About and Contact pages. */
+.cy-corporate .cy-about-contact {background:linear-gradient(135deg,#fff9f4,#fff0e6)}
+.cy-corporate .cy-about-contact-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.cy-corporate .cy-about-contact-card {padding:30px 26px;background:#fff;border:1px solid #f2e1d6;border-radius:22px;box-shadow:0 16px 44px rgba(68,34,15,.055);display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.cy-corporate a.cy-about-contact-card {transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.cy-corporate a.cy-about-contact-card:hover {transform:translateY(-3px);box-shadow:0 22px 55px rgba(77,35,14,.12);border-color:#ffb491}
+.cy-corporate .cy-about-contact-icon {width:50px;height:50px;display:grid;place-items:center;border-radius:15px;background:#fff0e5;color:#f34a10;margin-bottom:6px}
+.cy-corporate .cy-about-contact-icon svg {width:23px;height:23px}
+.cy-corporate .cy-about-contact-kicker {font-weight:850;font-size:10px;letter-spacing:.16em;color:#e64b16}
+.cy-corporate .cy-about-contact-card strong {font-size:clamp(16px,1.65vw,22px);line-height:1.3;overflow-wrap:anywhere}
+.cy-corporate .cy-about-contact-card small {color:#807a76;font-size:12px}
+.cy-corporate .contact-info a {color:inherit;text-decoration:none;overflow-wrap:anywhere}
+.cy-corporate .contact-info a:hover {color:#ff8753}
+.cy-corp-footer a[href^="tel:"],.cy-corp-footer a[href^="mailto:"] {color:#ffc2a5}
+@media(max-width:800px){.cy-corporate .cy-about-contact-grid {grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.cy-corporate .cy-about-contact-grid{grid-template-columns:1fr}.cy-corporate .cy-about-contact-card{padding:23px}}
