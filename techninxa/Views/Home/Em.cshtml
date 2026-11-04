@@ -1,0 +1,382 @@
+﻿@{
+    ViewData["Title"] = "NestJS E-commerce API | Cytech EnginneringCase Study";
+    ViewData["Description"] = "Explore Cytech Enginnering's NestJS backend e-commerce dashboard concept, API architecture, product and order workflows, authentication, and data model.";
+    Layout = null;
+
+    // Replace this with the real path where you store the poster image in wwwroot.
+    var posterImage = Url.Content("~/images/ashik/dash.png");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#090b12" />
+    <title>@ViewData["Title"]</title>
+    <meta name="description" content="@ViewData["Description"]" />
+    <link rel="canonical" href="https://techninxa.com/projects/nestjs-ecommerce-api" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #090b12;
+            --panel: #10131d;
+            --panel2: #151a27;
+            --text: #f5f6fb;
+            --muted: #9ca4b8;
+            --line: rgba(220, 226, 255, .12);
+            --red: #ff3158;
+            --red2: #ff647d;
+            --green: #68e4b1;
+            --mono: "DM Mono", monospace;
+            --sans: "Manrope", sans-serif;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); }
+        a { color: inherit; }
+        .case { overflow: hidden; background: var(--bg); }
+        .wrap { width: min(1190px, calc(100% - 44px)); margin: 0 auto; }
+        .topbar { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:20px 0; border-bottom:1px solid var(--line); }
+        .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.04em; }
+        .brand-mark { display:grid; place-items:center; width:31px; height:31px; border-radius:9px; background:var(--red); color:white; font-size:15px; }
+        .top-links { display:flex; flex-wrap:wrap; gap:22px; color:var(--muted); font-size:.76rem; }
+        .top-links a { text-decoration:none; }
+        .top-links a:hover { color:white; }
+        .eyebrow { display:inline-flex; align-items:center; gap:10px; color:var(--red2); font:500 .72rem var(--mono); letter-spacing:.16em; text-transform:uppercase; }
+        .eyebrow:before { content:""; width:25px; height:1px; background:currentColor; }
+        .hero { position:relative; isolation:isolate; padding:64px 0 74px; background:radial-gradient(ellipse at 78% 15%,rgba(255,49,88,.18),transparent 34%),linear-gradient(135deg,#090b12,#111522 58%,#090b12); }
+        .grid-bg { position:absolute; inset:0; z-index:-1; opacity:.18; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:48px 48px; mask-image:linear-gradient(to bottom,black,transparent 95%); }
+        .hero-grid { display:grid; grid-template-columns:.86fr 1.14fr; align-items:center; gap:52px; }
+        .hero h1 { margin:20px 0; font-size:clamp(3.2rem,7vw,6.4rem); line-height:.92; letter-spacing:-.085em; font-weight:800; }
+        .hero h1 span { color:var(--red); }
+        .lead { max-width:560px; color:#b6bdce; line-height:1.85; font-size:1.02rem; }
+        .tags { display:flex; flex-wrap:wrap; gap:8px; margin:23px 0; }
+        .tags span { border:1px solid var(--line); border-radius:999px; padding:8px 11px; color:#d3d8e6; font-size:.72rem; background:#ffffff06; }
+        .actions { display:flex; flex-wrap:wrap; gap:11px; margin-top:27px; }
+        .btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:13px 17px; border-radius:10px; text-decoration:none; font-size:.84rem; font-weight:800; transition:transform .25s,background .25s,border-color .25s; }
+        .btn:hover { transform:translateY(-3px); }
+        .btn-primary { background:var(--red); color:white; box-shadow:0 10px 32px #ff31582a; }
+        .btn-ghost { border:1px solid var(--line); color:var(--text); }
+        .poster-wrap { position:relative; perspective:1100px; }
+        .poster { position:relative; padding:8px; border:1px solid #ffffff28; border-radius:20px; background:linear-gradient(145deg,#ffffff18,#ffffff04); box-shadow:0 35px 100px #0008; transform:rotateY(-5deg) rotateX(2deg); transition:transform .65s cubic-bezier(.2,.8,.2,1); }
+        .poster-wrap:hover .poster { transform:rotateY(0) rotateX(0) translateY(-5px); }
+        .poster img { display:block; width:100%; border-radius:13px; }
+        .float-card { position:absolute; z-index:2; padding:13px 15px; border:1px solid var(--line); border-radius:12px; background:#111522eF; backdrop-filter:blur(14px); box-shadow:0 18px 40px #0006; animation:float 5s ease-in-out infinite; }
+        .float-card strong { display:block; font-size:.8rem; }
+        .float-card small { color:var(--muted); font-size:.68rem; }
+        .float-card.one { top:-19px; right:-15px; }
+        .float-card.two { bottom:-20px; left:-17px; animation-delay:-2.2s; }
+        @@keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-9px); } }
+        .metrics { background:#0d1018; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+        .metric-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+        .metric { padding:24px 20px; border-right:1px solid var(--line); }
+        .metric:last-child { border:0; }
+        .metric b { display:block; font-size:1.15rem; letter-spacing:-.04em; }
+        .metric span { display:block; margin-top:6px; color:var(--muted); font-size:.75rem; }
+        .section { padding:88px 0; }
+        .section.alt { background:#0d1018; }
+        .section-head { max-width:760px; margin-bottom:38px; }
+        .section h2 { margin:14px 0; font-size:clamp(2.1rem,4.5vw,4rem); line-height:1.02; letter-spacing:-.07em; }
+        .section-head p,.copy p { color:var(--muted); line-height:1.85; }
+        .two-col { display:grid; grid-template-columns:.85fr 1.15fr; align-items:start; gap:50px; }
+        .check-list { list-style:none; padding:0; margin:23px 0; }
+        .check-list li { display:flex; gap:12px; margin:14px 0; color:#dce0eb; line-height:1.6; font-size:.92rem; }
+        .check-list li:before { content:"↗"; color:var(--red); font-weight:900; }
+        .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+        .card { min-height:190px; padding:22px; border:1px solid var(--line); border-radius:16px; background:linear-gradient(145deg,#ffffff09,#ffffff02); transition:transform .3s,border-color .3s,background .3s; }
+        .card:hover { transform:translateY(-6px); border-color:#ff315880; background:#ffffff0b; }
+        .icon { display:grid; place-items:center; width:42px; height:42px; margin-bottom:20px; border-radius:12px; color:var(--red2); background:#ff31581a; font-size:1.05rem; }
+        .card h3 { margin:0 0 9px; font-size:1rem; }
+        .card p { margin:0; color:var(--muted); font-size:.83rem; line-height:1.75; }
+        .terminal { border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#090c13; box-shadow:0 25px 65px #0003; }
+        .terminal-head { display:flex; align-items:center; gap:7px; padding:13px 16px; border-bottom:1px solid var(--line); background:#ffffff04; }
+        .dot { width:8px; height:8px; border-radius:50%; background:#ff5f67; }.dot:nth-child(2){background:#f6c65b}.dot:nth-child(3){background:#55d69b}
+        .terminal-title { margin-left:9px; color:var(--muted); font: .72rem var(--mono); }
+        .terminal pre { margin:0; padding:24px; overflow:auto; color:#c8d4e9; font: .78rem/1.9 var(--mono); }
+        .code-red { color:#ff718a; }.code-green { color:#78e4b6; }.code-muted { color:#78849c; }
+        .diagram { padding:22px; overflow-x:auto; border:1px solid var(--line); border-radius:18px; background:linear-gradient(135deg,#111522,#0a0d14); }
+        .diagram svg { display:block; width:100%; min-width:780px; height:auto; }
+        .note { margin-top:13px; color:var(--muted); font-size:.77rem; line-height:1.7; }
+        .stack { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:24px; }
+        .stack-item { padding:17px; border:1px solid var(--line); border-radius:13px; background:#ffffff04; }
+        .stack-item small { display:block; margin-bottom:8px; color:var(--red2); font: .66rem var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+        .stack-item b { font-size:.91rem; }.stack-item p { margin:8px 0 0; color:var(--muted); font-size:.76rem; line-height:1.65; }
+        .endpoint-list { display:grid; gap:9px; }
+        .endpoint { display:grid; grid-template-columns:70px 1fr auto; align-items:center; gap:13px; padding:13px 15px; border:1px solid var(--line); border-radius:10px; background:#ffffff03; font: .78rem var(--mono); }
+        .method { font-size:.68rem; font-weight:500; color:var(--green); }.method.post{color:#8bb8ff}.method.patch{color:#f5c46b}.method.delete{color:#ff718a}
+        .endpoint small { color:var(--muted); font: .68rem var(--sans); }
+        .cta { display:flex; justify-content:space-between; align-items:center; gap:28px; padding:42px; border:1px solid var(--line); border-radius:22px; background:radial-gradient(circle at 90% 0%,#ff315825,transparent 40%),#111522; }
+        .cta h2 { margin:12px 0; font-size:clamp(2rem,4vw,3.4rem); letter-spacing:-.07em; }
+        .cta p { max-width:620px; color:var(--muted); line-height:1.8; }
+        .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .footer { padding:25px 0; color:var(--muted); font-size:.75rem; border-top:1px solid var(--line); }
+        .footer-inner { display:flex; justify-content:space-between; gap:15px; flex-wrap:wrap; }
+        @@media(max-width:900px) {
+            .hero-grid,.two-col { grid-template-columns:1fr; gap:35px; }
+            .hero { padding-top:50px; }.poster-wrap { width:100%; max-width:760px; margin:0 auto; }
+            .cards { grid-template-columns:repeat(2,1fr); }.stack { grid-template-columns:repeat(2,1fr); }
+            .cta { align-items:flex-start; flex-direction:column; }
+        }
+        @@media(max-width:600px) {
+            .wrap { width:min(100% - 28px,1190px); }.topbar { align-items:flex-start; flex-direction:column; }.top-links { gap:14px; }
+            .hero h1 { font-size:clamp(3rem,15vw,4.6rem); }.metric-grid { grid-template-columns:repeat(2,1fr); }
+            .metric:nth-child(2) { border-right:0; }.metric:nth-child(-n+2) { border-bottom:1px solid var(--line); }
+            .cards { grid-template-columns:1fr; }.card { min-height:0; }.stack { grid-template-columns:repeat(2,1fr); }
+            .section { padding:62px 0; }.cta { padding:25px; }.float-card.one { right:0; }.float-card.two { left:0; }
+            .endpoint { grid-template-columns:55px 1fr; }.endpoint small { grid-column:2; }
+        }
+        @@media(prefers-reduced-motion:reduce) {
+            html { scroll-behavior:auto; } *,*::before,*::after { animation:none!important; transition:none!important; }
+            .reveal { opacity:1; transform:none; }
+        }
+    </style>
+</head>
+<body>
+<main class="case" id="caseStudy">
+    <header class="wrap topbar">
+        <a class="brand" href="/" aria-label="Cytech Enginneringhome"><span class="brand-mark">T</span> Techninxa</a>
+        <nav class="top-links" aria-label="Case study navigation">
+            <a href="#overview">Overview</a><a href="#features">Capabilities</a><a href="#api">API routes</a><a href="#architecture">Architecture</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="grid-bg"></div>
+        <div class="wrap hero-grid">
+            <div class="reveal">
+                <span class="eyebrow">Backend engineering / Case study</span>
+                <h1>Commerce,<br /><span>engineered.</span></h1>
+                <p class="lead">A NestJS-powered e-commerce backend concept designed to keep product catalogues, customer accounts, carts, orders and admin operations organized behind a clear API architecture.</p>
+                <div class="tags"><span>NestJS</span><span>REST API</span><span>E-commerce</span><span>Admin dashboard</span><span>Data modeling</span></div>
+                <div class="actions">
+                    <a class="btn btn-primary" href="#features">Explore backend ↘</a>
+                    <a class="btn btn-ghost" href="#architecture">View architecture</a>
+                </div>
+            </div>
+            <div class="poster-wrap reveal">
+                <div class="float-card one"><strong>API-first foundation</strong><small>Structured endpoints · Modular design</small></div>
+                <div class="poster"><img src="@posterImage" alt="Cytech EnginneringNestJS backend API dashboard poster showing an admin dashboard and analytics" /></div>
+                <div class="float-card two"><strong><span style="color:var(--green)">●</span> Modular by design</strong><small>Products · Orders · Customers</small></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="metrics" aria-label="Project focus">
+        <div class="wrap metric-grid">
+            <div class="metric"><b>API-first</b><span>Backend approach</span></div>
+            <div class="metric"><b>Modular</b><span>Feature boundaries</span></div>
+            <div class="metric"><b>Role-aware</b><span>Access control concept</span></div>
+            <div class="metric"><b>Data-driven</b><span>Commerce workflows</span></div>
+        </div>
+    </section>
+
+    <section class="section" id="overview">
+        <div class="wrap two-col">
+            <div class="section-head reveal">
+                <span class="eyebrow">01 / Project overview</span>
+                <h2>The control center behind every order.</h2>
+            </div>
+            <div class="copy reveal">
+                <p>This showcase presents the backend layer behind a modern online store. The dashboard visual communicates how administrators can monitor catalogue activity, customer accounts, orders and API usage from one operational view.</p>
+                <ul class="check-list">
+                    <li>Keep products, categories, inventory and pricing organized.</li>
+                    <li>Expose predictable API routes for web and mobile storefronts.</li>
+                    <li>Separate customer actions from privileged administration workflows.</li>
+                    <li>Make order status and operational activity easier to inspect.</li>
+                </ul>
+                <p><strong>Implementation note:</strong> the route names and data model below are illustrative portfolio architecture, not a claim that these exact endpoints or database tables already exist in your repository.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt" id="features">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="eyebrow">02 / Backend capabilities</span>
+                <h2>Purpose-built modules.<br />One connected platform.</h2>
+                <p>A domain-oriented structure keeps commerce responsibilities easier to maintain, test and extend as the product grows.</p>
+            </div>
+            <div class="cards">
+                <article class="card reveal"><div class="icon">▦</div><h3>Product catalogue</h3><p>Create, update and publish products with SKU, descriptions, images, categories and pricing.</p></article>
+                <article class="card reveal"><div class="icon">⌕</div><h3>Search & filtering</h3><p>Support keyword search, category filters, sorting and pagination for storefront listings.</p></article>
+                <article class="card reveal"><div class="icon">♙</div><h3>Customer accounts</h3><p>Manage customer profiles, contact details, saved addresses and account-level operations.</p></article>
+                <article class="card reveal"><div class="icon">▤</div><h3>Cart & checkout</h3><p>Validate cart items, recheck prices and inventory, and calculate order totals on the server.</p></article>
+                <article class="card reveal"><div class="icon">↗</div><h3>Order management</h3><p>Track order items, payment state, fulfilment status and the history of status changes.</p></article>
+                <article class="card reveal"><div class="icon">♢</div><h3>Authentication & roles</h3><p>Use authenticated requests and role-based authorization for customer and administrator actions.</p></article>
+                <article class="card reveal"><div class="icon">▥</div><h3>Dashboard analytics</h3><p>Summarize order volume, sales totals, recent activity and catalogue health for administrators.</p></article>
+                <article class="card reveal"><div class="icon">◇</div><h3>Validation & errors</h3><p>Validate request payloads and return consistent error responses for invalid operations.</p></article>
+                <article class="card reveal"><div class="icon">⌁</div><h3>API documentation</h3><p>Document request schemas, response formats and endpoint behavior for frontend integration.</p></article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="api">
+        <div class="wrap two-col">
+            <div class="section-head reveal">
+                <span class="eyebrow">03 / API surface</span>
+                <h2>Clear routes. Predictable responses.</h2>
+                <p>Example REST endpoints for a typical e-commerce backend. Adapt these names to match the actual NestJS controllers in the project.</p>
+            </div>
+            <div class="endpoint-list reveal">
+                <div class="endpoint"><span class="method">GET</span><span>/api/products</span><small>List products</small></div>
+                <div class="endpoint"><span class="method">GET</span><span>/api/products/:id</span><small>Product detail</small></div>
+                <div class="endpoint"><span class="method post">POST</span><span>/api/auth/login</span><small>Sign in</small></div>
+                <div class="endpoint"><span class="method">GET</span><span>/api/cart</span><small>Read cart</small></div>
+                <div class="endpoint"><span class="method post">POST</span><span>/api/orders</span><small>Create order</small></div>
+                <div class="endpoint"><span class="method">GET</span><span>/api/admin/analytics</span><small>Admin summary</small></div>
+                <div class="endpoint"><span class="method patch">PATCH</span><span>/api/admin/orders/:id</span><small>Update order</small></div>
+                <div class="endpoint"><span class="method delete">DELETE</span><span>/api/admin/products/:id</span><small>Remove product</small></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt" id="architecture">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="eyebrow">04 / System architecture</span>
+                <h2>From storefront request to persistent data.</h2>
+                <p>A conceptual flow showing how a client request can move through a NestJS application. Actual implementation details depend on the project's modules and infrastructure.</p>
+            </div>
+            <div class="diagram reveal">
+                <svg viewBox="0 0 1000 410" role="img" aria-label="Conceptual NestJS e-commerce architecture diagram">
+                    <defs>
+                        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ff3158" /></marker>
+                    </defs>
+                    <text x="28" y="30" fill="#f5f6fb" font-size="17" font-weight="700">REQUEST / RESPONSE PIPELINE</text>
+                    <text x="28" y="50" fill="#9ca4b8" font-size="11">Conceptual architecture · NestJS modular backend</text>
+                    <g stroke="#ff3158" stroke-width="1.5" fill="none" marker-end="url(#arr)" opacity=".9">
+                        <path d="M220 120 H270"/><path d="M450 120 H500"/><path d="M680 120 H730"/>
+                        <path d="M820 165 V225 H680"/><path d="M500 265 H450"/><path d="M270 265 H220"/>
+                    </g>
+                    <g>
+                        <rect x="28" y="83" width="192" height="82" rx="11" fill="#171c2b" stroke="#41485d"/>
+                        <text x="46" y="108" fill="#ff647d" font-size="10" font-family="monospace">01 / CLIENT</text><text x="46" y="132" fill="#f5f6fb" font-size="15" font-weight="700">Web / Mobile</text><text x="46" y="149" fill="#9ca4b8" font-size="10">HTTP request</text>
+                        <rect x="270" y="83" width="180" height="82" rx="11" fill="#211522" stroke="#ff3158"/>
+                        <text x="288" y="108" fill="#ff647d" font-size="10" font-family="monospace">02 / EDGE</text><text x="288" y="132" fill="#f5f6fb" font-size="15" font-weight="700">Guards & Pipes</text><text x="288" y="149" fill="#9ca4b8" font-size="10">Auth · Validation</text>
+                        <rect x="500" y="83" width="180" height="82" rx="11" fill="#171c2b" stroke="#41485d"/>
+                        <text x="518" y="108" fill="#ff647d" font-size="10" font-family="monospace">03 / APP</text><text x="518" y="132" fill="#f5f6fb" font-size="15" font-weight="700">Controllers</text><text x="518" y="149" fill="#9ca4b8" font-size="10">Routes · DTOs</text>
+                        <rect x="730" y="83" width="242" height="82" rx="11" fill="#171c2b" stroke="#41485d"/>
+                        <text x="748" y="108" fill="#ff647d" font-size="10" font-family="monospace">04 / DOMAIN</text><text x="748" y="132" fill="#f5f6fb" font-size="15" font-weight="700">Services & Modules</text><text x="748" y="149" fill="#9ca4b8" font-size="10">Products · Orders · Users</text>
+                        <rect x="500" y="225" width="180" height="82" rx="11" fill="#13231f" stroke="#2d765b"/>
+                        <text x="518" y="250" fill="#68e4b1" font-size="10" font-family="monospace">05 / PERSISTENCE</text><text x="518" y="274" fill="#f5f6fb" font-size="15" font-weight="700">Repository / ORM</text><text x="518" y="291" fill="#9ca4b8" font-size="10">Queries · Transactions</text>
+                        <rect x="270" y="225" width="180" height="82" rx="11" fill="#13231f" stroke="#2d765b"/>
+                        <text x="288" y="250" fill="#68e4b1" font-size="10" font-family="monospace">06 / STORAGE</text><text x="288" y="274" fill="#f5f6fb" font-size="15" font-weight="700">SQL Database</text><text x="288" y="291" fill="#9ca4b8" font-size="10">Products · Orders · Users</text>
+                        <rect x="28" y="225" width="192" height="82" rx="11" fill="#171c2b" stroke="#41485d"/>
+                        <text x="46" y="250" fill="#ff647d" font-size="10" font-family="monospace">RESPONSE</text><text x="46" y="274" fill="#f5f6fb" font-size="15" font-weight="700">JSON payload</text><text x="46" y="291" fill="#9ca4b8" font-size="10">Status · Data · Errors</text>
+                    </g>
+                    <text x="28" y="355" fill="#9ca4b8" font-size="11">Security and validation should be enforced server-side; never trust client-supplied prices or role claims.</text>
+                </svg>
+            </div>
+            <p class="note">The diagram is an explanatory model for this case study. Replace it with the verified module and infrastructure diagram if you want to present the production implementation.</p>
+
+            <div class="stack reveal">
+                <div class="stack-item"><small>Framework</small><b>NestJS / TypeScript</b><p>Organized modules, controllers, providers and dependency injection.</p></div>
+                <div class="stack-item"><small>Interface</small><b>REST / JSON</b><p>Consistent HTTP resources for frontend and mobile clients.</p></div>
+                <div class="stack-item"><small>Security</small><b>Guards & DTOs</b><p>Authentication, authorization and validated request inputs.</p></div>
+                <div class="stack-item"><small>Persistence</small><b>SQL / ORM layer</b><p>Relational storage for customers, products, carts and orders.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap two-col">
+            <div class="section-head reveal">
+                <span class="eyebrow">05 / Data model</span>
+                <h2>Commerce entities, connected.</h2>
+                <p>A sample ER model for explaining the data relationships behind a store. Table names and cardinalities should be aligned to the real schema before publication as implementation facts.</p>
+            </div>
+            <div class="diagram reveal">
+                <svg viewBox="0 0 760 610" role="img" aria-label="Illustrative e-commerce entity relationship diagram">
+                    <defs><marker id="erarr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 Z" fill="#ff647d"/></marker></defs>
+                    <g stroke="#ff647d" stroke-width="1.4" fill="none" opacity=".8" marker-end="url(#erarr)">
+                        <path d="M225 100 H270 V165 H300"/><path d="M225 100 H245 V330 H300"/><path d="M450 165 H490"/><path d="M375 210 V285"/><path d="M450 330 H490"/><path d="M375 375 V450"/><path d="M565 375 V450"/>
+                    </g>
+                    <g font-family="monospace" font-size="10">
+                        <rect x="25" y="45" width="200" height="110" rx="9" fill="#171c2b" stroke="#ff3158"/><text x="40" y="67" fill="#ff647d" font-size="12" font-weight="700">CUSTOMERS</text><text x="40" y="88" fill="#e1e5f0">PK customer_id</text><text x="40" y="105" fill="#9ca4b8">name · email</text><text x="40" y="122" fill="#9ca4b8">password_hash</text><text x="40" y="139" fill="#9ca4b8">created_at</text>
+                        <rect x="300" y="120" width="150" height="90" rx="9" fill="#171c2b" stroke="#41485d"/><text x="314" y="143" fill="#ff647d" font-size="12" font-weight="700">ORDERS</text><text x="314" y="163" fill="#e1e5f0">PK order_id</text><text x="314" y="180" fill="#9ca4b8">FK customer_id</text><text x="314" y="197" fill="#9ca4b8">status · total</text>
+                        <rect x="490" y="120" width="235" height="90" rx="9" fill="#171c2b" stroke="#41485d"/><text x="505" y="143" fill="#ff647d" font-size="12" font-weight="700">ORDER_ITEMS</text><text x="505" y="163" fill="#e1e5f0">PK order_item_id</text><text x="505" y="180" fill="#9ca4b8">FK order_id · product_id</text><text x="505" y="197" fill="#9ca4b8">quantity · unit_price</text>
+                        <rect x="300" y="285" width="150" height="90" rx="9" fill="#171c2b" stroke="#41485d"/><text x="314" y="308" fill="#ff647d" font-size="12" font-weight="700">CARTS</text><text x="314" y="328" fill="#e1e5f0">PK cart_id</text><text x="314" y="345" fill="#9ca4b8">FK customer_id</text><text x="314" y="362" fill="#9ca4b8">updated_at</text>
+                        <rect x="490" y="285" width="235" height="90" rx="9" fill="#171c2b" stroke="#41485d"/><text x="505" y="308" fill="#ff647d" font-size="12" font-weight="700">PRODUCTS</text><text x="505" y="328" fill="#e1e5f0">PK product_id</text><text x="505" y="345" fill="#9ca4b8">FK category_id</text><text x="505" y="362" fill="#9ca4b8">sku · price · stock</text>
+                        <rect x="300" y="450" width="150" height="90" rx="9" fill="#171c2b" stroke="#41485d"/><text x="314" y="473" fill="#ff647d" font-size="12" font-weight="700">PAYMENTS</text><text x="314" y="493" fill="#e1e5f0">PK payment_id</text><text x="314" y="510" fill="#9ca4b8">FK order_id</text><text x="314" y="527" fill="#9ca4b8">method · status</text>
+                        <rect x="490" y="450" width="235" height="90" rx="9" fill="#171c2b" stroke="#41485d"/><text x="505" y="473" fill="#ff647d" font-size="12" font-weight="700">CATEGORIES</text><text x="505" y="493" fill="#e1e5f0">PK category_id</text><text x="505" y="510" fill="#9ca4b8">name · slug</text><text x="505" y="527" fill="#9ca4b8">parent_category_id?</text>
+                    </g>
+                    <text x="25" y="580" fill="#9ca4b8" font-size="10">Illustrative entities only · validate foreign keys and cardinalities against the real database.</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <span class="eyebrow">06 / Engineering priorities</span>
+                <h2>Designed for reliability, not just endpoints.</h2>
+            </div>
+            <div class="cards">
+                <article class="card reveal"><div class="icon">01</div><h3>Server-side pricing</h3><p>Calculate totals from trusted product prices and validated quantities on the backend.</p></article>
+                <article class="card reveal"><div class="icon">02</div><h3>Transactional orders</h3><p>Keep order creation and inventory updates consistent using appropriate transactions.</p></article>
+                <article class="card reveal"><div class="icon">03</div><h3>Least-privilege access</h3><p>Protect administrative operations with explicit role checks and authorization policies.</p></article>
+                <article class="card reveal"><div class="icon">04</div><h3>Consistent validation</h3><p>Use DTO validation and predictable error shapes at the API boundary.</p></article>
+                <article class="card reveal"><div class="icon">05</div><h3>Operational visibility</h3><p>Log useful request context while keeping credentials and personal data out of logs.</p></article>
+                <article class="card reveal"><div class="icon">06</div><h3>Maintainable modules</h3><p>Keep catalogue, identity, checkout and order responsibilities clearly separated.</p></article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap cta reveal">
+            <div>
+                <span class="eyebrow">Build your next platform</span>
+                <h2>Strong backends make<br />better products.</h2>
+                <p>Cytech Enginneringbuilds API-driven software experiences with maintainable architecture, clear data models and reliable integrations.</p>
+            </div>
+            <a class="btn btn-primary" href="/Contact">Discuss a project ↗</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="wrap footer-inner"><span>© @DateTime.Now.Year Cytech Enginnering· Backend engineering showcase</span><a href="/">Back to Cytech Enginnering↗</a></div>
+    </footer>
+</main>
+
+<script>
+(() => {
+    const root = document.querySelector('.case');
+    if (!root) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const items = root.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !reduced) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: .12 });
+        items.forEach(item => observer.observe(item));
+    } else {
+        items.forEach(item => item.classList.add('visible'));
+    }
+
+    if (!reduced && window.matchMedia('(pointer:fine)').matches) {
+        const wrap = root.querySelector('.poster-wrap');
+        const poster = root.querySelector('.poster');
+        if (wrap && poster) {
+            wrap.addEventListener('pointermove', event => {
+                const rect = wrap.getBoundingClientRect();
+                const x = (event.clientX - rect.left) / rect.width - .5;
+                const y = (event.clientY - rect.top) / rect.height - .5;
+                poster.style.transform = `rotateY(${x * 8 - 2}deg) rotateX(${-y * 5}deg) translateY(-4px)`;
+            });
+            wrap.addEventListener('pointerleave', () => poster.style.transform = '');
+        }
+    }
+})();
+</script>
+</body>
+</html>

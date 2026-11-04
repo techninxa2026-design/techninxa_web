@@ -1,0 +1,197 @@
+﻿@{
+    ViewData["Title"] = "RasaKita | Cytech EnginneringCase Study";
+    ViewData["Description"] = "RasaKita food ordering and delivery mobile app case study by Techninxa.";
+    Layout = null;
+}
+<style>
+:root{--cs-bg:#071116;--cs-panel:#0d1b22;--cs-panel2:#10242b;--cs-text:#eff8f7;--cs-muted:#9db4b6;--cs-line:rgba(199,239,231,.13);--cs-accent:#ff6534;--cs-accent2:#ffb28e}
+.case-study{background:var(--cs-bg);color:var(--cs-text);overflow:hidden;margin:-1rem calc(50% - 50vw) 0;font-family:inherit}
+.case-study *{box-sizing:border-box}.cs-wrap{width:min(1180px,calc(100% - 44px));margin:auto}
+.cs-eyebrow{display:inline-flex;gap:10px;align-items:center;color:var(--cs-accent);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+.cs-eyebrow:before{content:"";width:26px;height:1px;background:currentColor}
+.cs-hero{position:relative;padding:110px 0 76px;isolation:isolate;background:radial-gradient(ellipse at 80% 18%,color-mix(in srgb,var(--cs-accent) 18%,transparent),transparent 34%),linear-gradient(140deg,#071116,#0b1d24 60%,#071116)}
+.cs-grid-bg{position:absolute;inset:0;z-index:-1;opacity:.17;background-image:linear-gradient(var(--cs-line) 1px,transparent 1px),linear-gradient(90deg,var(--cs-line) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(to bottom,black,transparent)}
+.cs-hero-layout{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
+.cs-hero h1{font-size:clamp(3.1rem,7vw,6.5rem);line-height:.94;letter-spacing:-.075em;margin:22px 0 24px;font-weight:850}
+.cs-hero h1 span{color:var(--cs-accent)}
+.cs-lead{font-size:clamp(1rem,1.5vw,1.2rem);line-height:1.8;color:#b4c9ca;max-width:600px}
+.cs-tags{display:flex;flex-wrap:wrap;gap:9px;margin:26px 0}.cs-tags span{border:1px solid var(--cs-line);background:rgba(255,255,255,.035);border-radius:99px;padding:8px 13px;color:#cfe0df;font-size:.78rem}
+.cs-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.cs-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 19px;border-radius:12px;text-decoration:none;font-weight:750;font-size:.9rem;transition:transform .25s,background .25s}.cs-btn:hover{transform:translateY(-3px)}.cs-btn-primary{background:var(--cs-accent);color:#052019}.cs-btn-ghost{border:1px solid var(--cs-line);color:var(--cs-text)}
+.cs-visual{position:relative;perspective:1000px}.cs-screen-frame{position:relative;border:1px solid rgba(255,255,255,.18);border-radius:24px;padding:9px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.025));box-shadow:0 35px 100px rgba(0,0,0,.4);transform:rotateY(-7deg) rotateX(2deg);transition:transform .7s cubic-bezier(.2,.8,.2,1)}.cs-visual:hover .cs-screen-frame{transform:rotateY(0) rotateX(0) translateY(-6px)}.cs-screen-frame img{display:block;width:100%;height:auto;border-radius:16px}
+.cs-float{position:absolute;z-index:2;padding:13px 16px;border-radius:14px;background:rgba(10,28,34,.88);border:1px solid var(--cs-line);backdrop-filter:blur(16px);box-shadow:0 16px 35px #0003;animation:csFloat 5s ease-in-out infinite}.cs-float strong{display:block;font-size:.85rem}.cs-float small{color:var(--cs-muted);font-size:.7rem}.cs-float.one{top:8%;right:-5%}.cs-float.two{bottom:7%;left:-7%;animation-delay:-2.3s}
+@@keyframes csFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.cs-metrics{border-top:1px solid var(--cs-line);border-bottom:1px solid var(--cs-line);background:#09171c}.cs-metric-grid{display:grid;grid-template-columns:repeat(4,1fr)}.cs-metric{padding:26px 20px;border-right:1px solid var(--cs-line)}.cs-metric:last-child{border:0}.cs-metric b{display:block;font-size:1.55rem;letter-spacing:-.04em}.cs-metric span{font-size:.78rem;color:var(--cs-muted)}
+.cs-section{padding:100px 0;position:relative}.cs-section.alt{background:#09171c}.cs-section-head{max-width:720px;margin-bottom:42px}.cs-section h2{font-size:clamp(2.1rem,4.3vw,4rem);line-height:1.03;letter-spacing:-.06em;margin:15px 0}.cs-section-head p{color:var(--cs-muted);line-height:1.8}
+.cs-two-col{display:grid;grid-template-columns:.85fr 1.15fr;gap:45px;align-items:start}.cs-copy p{color:var(--cs-muted);line-height:1.9}.cs-list{list-style:none;padding:0;margin:22px 0}.cs-list li{display:flex;gap:12px;margin:14px 0;color:#d7e6e4;line-height:1.55}.cs-list li:before{content:"↗";color:var(--cs-accent);font-weight:900}
+.cs-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.cs-card{padding:23px;border:1px solid var(--cs-line);background:linear-gradient(150deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border-radius:18px;min-height:190px;transition:transform .3s,border-color .3s,background .3s;transform-style:preserve-3d}.cs-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--cs-accent) 65%,transparent);background:rgba(255,255,255,.06)}.cs-card .cs-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--cs-accent) 15%,transparent);color:var(--cs-accent);font-size:1.15rem;margin-bottom:21px}.cs-card h3{font-size:1rem;margin:0 0 10px}.cs-card p{font-size:.86rem;color:var(--cs-muted);line-height:1.7;margin:0}
+.cs-shot{border:1px solid var(--cs-line);border-radius:22px;padding:10px;background:#0d2026;overflow:hidden}.cs-shot img{width:100%;height:auto;display:block;border-radius:14px;cursor:zoom-in;transition:transform .4s}.cs-shot:hover img{transform:scale(1.012)}.cs-caption{display:flex;justify-content:space-between;gap:15px;padding:14px 5px 4px;color:var(--cs-muted);font-size:.78rem}
+.cs-diagram{border:1px solid var(--cs-line);border-radius:20px;background:linear-gradient(135deg,#0c1c22,#091318);padding:24px;overflow-x:auto}.cs-diagram svg{width:100%;min-width:690px;height:auto;display:block}.cs-diagram-note{font-size:.8rem;color:var(--cs-muted);line-height:1.7;margin-top:15px}
+.cs-stack{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.cs-stack-item{border:1px solid var(--cs-line);border-radius:14px;padding:18px;background:#0b1b21}.cs-stack-item small{display:block;color:var(--cs-accent);text-transform:uppercase;font-size:.68rem;letter-spacing:.13em;margin-bottom:9px}.cs-stack-item b{font-size:.95rem}.cs-stack-item p{font-size:.78rem;color:var(--cs-muted);line-height:1.65;margin-bottom:0}
+.cs-cta{padding:62px;border-radius:26px;background:radial-gradient(circle at 90% 0%,color-mix(in srgb,var(--cs-accent) 23%,transparent),transparent 45%),#0d2026;border:1px solid var(--cs-line);display:flex;justify-content:space-between;align-items:center;gap:25px}.cs-cta h2{font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.06em;margin:12px 0}.cs-cta p{color:var(--cs-muted);line-height:1.7;max-width:580px}
+.cs-reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.cs-reveal.is-visible{opacity:1;transform:translateY(0)}.cs-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:99999;display:none;align-items:center;justify-content:center;padding:24px}.cs-lightbox.open{display:flex}.cs-lightbox img{max-width:min(1200px,95vw);max-height:88vh;border-radius:12px}.cs-lightbox button{position:absolute;top:18px;right:22px;border:1px solid #ffffff55;background:#111;color:white;border-radius:50%;width:44px;height:44px;font-size:1.4rem;cursor:pointer}
+@@media(max-width:850px){.cs-hero{padding:78px 0 55px}.cs-hero-layout,.cs-two-col{grid-template-columns:1fr;gap:35px}.cs-visual{max-width:720px;margin:0 auto;width:100%}.cs-float.one{right:0}.cs-float.two{left:0}.cs-card-grid{grid-template-columns:repeat(2,1fr)}.cs-stack{grid-template-columns:repeat(2,1fr)}.cs-cta{padding:35px;align-items:flex-start;flex-direction:column}.cs-section{padding:72px 0}}
+@@media(max-width:560px){.cs-wrap{width:min(100% - 28px,1180px)}.cs-hero h1{font-size:clamp(3rem,15vw,4.5rem)}.cs-metric-grid{grid-template-columns:repeat(2,1fr)}.cs-metric:nth-child(2){border-right:0}.cs-metric:nth-child(-n+2){border-bottom:1px solid var(--cs-line)}.cs-card-grid{grid-template-columns:1fr}.cs-card{min-height:0}.cs-stack{grid-template-columns:1fr 1fr}.cs-stack-item{padding:14px}.cs-section{padding:60px 0}.cs-cta{padding:25px}.cs-caption{flex-direction:column;gap:5px}}
+@@media(prefers-reduced-motion:reduce){.cs-case-study *{animation:none!important;transition:none!important;scroll-behavior:auto!important}.cs-reveal{opacity:1;transform:none}}
+</style>
+
+<main class="case-study" id="caseStudyTop">
+    <section class="cs-hero">
+        <div class="cs-grid-bg"></div>
+        <div class="cs-wrap cs-hero-layout">
+            <div class="cs-reveal">
+                <span class="cs-eyebrow">Mobile product case study</span>
+                <h1>Local flavor.<br><span>One tap away.</span></h1>
+                <p class="cs-lead">RasaKita makes local food discovery and ordering feel effortless—helping customers find restaurants, explore menus, build a cart, choose payment and follow an order through delivery.</p>
+                <div class="cs-tags"><span>Food delivery</span><span>Restaurant discovery</span><span>Cart & checkout</span><span>Order tracking</span></div>
+                <div class="cs-actions">
+                    <a class="cs-btn cs-btn-primary" href="#rasakita-features">Explore the product <span aria-hidden="true">↘</span></a>
+                    <a class="cs-btn cs-btn-ghost" href="#rasakita-data">View system design</a>
+                </div>
+            </div>
+            <div class="cs-visual cs-reveal">
+                <div class="cs-float one"><strong>From craving to checkout</strong><small>Designed around real users</small></div>
+                <div class="cs-screen-frame"><img src="~/assets/projects/labib/rasakita-screens.png" alt="RasaKita food ordering app interface screens" /></div>
+                <div class="cs-float two"><strong>Order journey, simplified</strong><small>Mobile-first experience</small></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-metrics">
+        <div class="cs-wrap cs-metric-grid">
+            <div class="cs-metric"><b>Customer-first</b><span>Product focus</span></div>
+            <div class="cs-metric"><b>9+ journeys</b><span>Core journeys</span></div>
+            <div class="cs-metric"><b>Checkout clarity</b><span>Experience priority</span></div>
+            <div class="cs-metric"><b>End-to-end flow</b><span>Design approach</span></div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap cs-two-col">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">01 / The brief</span>
+                <h2>Designed for the moments that matter.</h2>
+            </div>
+            <div class="cs-copy cs-reveal">
+                <p>Ordering from local restaurants can feel fragmented when discovery, menu browsing, checkout, payment and delivery updates are disconnected. RasaKita brings these moments into one consistent journey with strong food imagery and clear action hierarchy.</p>
+                <ul class="cs-list"><li>Help customers discover restaurants and popular dishes quickly.</li><li>Keep menus, prices, quantities and cart totals easy to review.</li><li>Support familiar payment options with a clear confirmation state.</li><li>Make active and past orders easy to understand and revisit.</li></ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section alt" id="rasakita-features">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">02 / Product capabilities</span>
+                <h2>More than screens.<br>One connected experience.</h2>
+                <p>Feature areas are organized around the user journey, with clear states, consistent patterns and a visual system that scales.</p>
+            </div>
+            <div class="cs-card-grid"><article class="cs-card cs-reveal"><div class="cs-icon">⌕</div><h3>Find nearby food</h3><p>A location-led discovery experience with search, restaurant cards and cuisine shortcuts.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">▤</div><h3>Restaurant catalogue</h3><p>Browse restaurant information, ratings, delivery estimates and menu categories.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">＋</div><h3>Menu customization</h3><p>Add items, adjust quantities and review selections before checkout.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">♡</div><h3>Favorites & offers</h3><p>Save preferred restaurants and surface promotions without interrupting the order flow.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">▣</div><h3>Cart management</h3><p>Review items, add notes, inspect fees and understand the total before payment.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">▤</div><h3>Payment choices</h3><p>Present supported payment methods and a clear order amount summary.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">⌁</div><h3>Order tracking</h3><p>Show the current order state and delivery progress in an easy-to-scan layout.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">✓</div><h3>Order confirmation</h3><p>Provide a clear success state with next steps and a path back to order history.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">♙</div><h3>Account & history</h3><p>Manage profile and saved addresses, and revisit previous orders and support.</p></article></div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap cs-two-col">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">03 / Interface system</span>
+                <h2>A UI that makes complexity feel simple.</h2>
+                <p>A warm orange identity and food-led imagery make discovery inviting, while the order flow relies on familiar patterns and a persistent emphasis on the next useful action.</p>
+                <ul class="cs-list"><li>Restaurant cards balance imagery, ratings, delivery time and distance.</li><li>Menu items expose price and add-to-cart actions directly.</li><li>Cart and payment screens summarize costs before confirmation.</li><li>Order status screens distinguish delivery progress from completion.</li></ul>
+            </div>
+            <div class="cs-shot cs-reveal">
+                <img class="cs-zoom" src="~/assets/projects/labib/rasakita-screens.png" alt="Full interface overview for RasaKita" />
+                <div class="cs-caption"><span>Interface overview</span><span>Tap to enlarge ↗</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section alt" id="rasakita-data">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">04 / Data model & system design</span>
+                <h2>Map the experience to the data behind it.</h2>
+                <p>Conceptual architecture and entity relationships to communicate how the product could be structured. Confirm the actual implementation against the app source and backend before treating this as a production schema.</p>
+            </div>
+            <div class="cs-diagram cs-reveal"><svg viewBox="0 0 1000 610" role="img" aria-label="RasaKita · Conceptual ER model"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--cs-accent)"/></marker></defs><text x="30" y="30" fill="#eaf5f3" font-size="20" font-weight="700">RasaKita · Conceptual ER model</text><text x="30" y="52" fill="#8fa9aa" font-size="12">Example entities for a local food ordering and delivery platform</text><path d="M195 144 L282.5 144 L282.5 144 L370 144" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="286.5" y="139.0" fill="#b5c9c7" font-size="10">1 to many</text><path d="M195 144 L282.5 144 L282.5 312 L370 312" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="286.5" y="223.0" fill="#b5c9c7" font-size="10">1 to many</text><path d="M500 144 L435.0 144 L435.0 312 L370 312" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="439.0" y="223.0" fill="#b5c9c7" font-size="10">1 to many</text><path d="M805 144 L435.0 144 L435.0 312 L65 312" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="439.0" y="223.0" fill="#b5c9c7" font-size="10">1 to many</text><path d="M500 312 L587.5 312 L587.5 312 L675 312" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="591.5" y="307.0" fill="#b5c9c7" font-size="10">1 to many</text><path d="M195 312 L435.0 312 L435.0 312 L675 312" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="439.0" y="307.0" fill="#b5c9c7" font-size="10">1 to many</text><path d="M500 312 L282.5 312 L282.5 480 L65 480" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="286.5" y="391.0" fill="#b5c9c7" font-size="10">1 to many</text><path d="M500 312 L435.0 312 L435.0 480 L370 480" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="439.0" y="391.0" fill="#b5c9c7" font-size="10">1 to 1</text><path d="M195 144 L435.0 144 L435.0 480 L675 480" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="439.0" y="307.0" fill="#b5c9c7" font-size="10">1 to many</text><path d="M805 144 L740.0 144 L740.0 480 L675 480" stroke="var(--cs-accent)" stroke-opacity=".62" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/><text x="744.0" y="307.0" fill="#b5c9c7" font-size="10">1 to many</text><rect x="65" y="82" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M65 114 H325" stroke="#315057"/><text x="78" y="103" fill="var(--cs-accent)" font-size="13" font-weight="700">Customers</text><text x="78" y="131" fill="#d6e4e1" font-size="10">Account and contact</text><text x="78" y="152" fill="#93acad" font-size="10">PK customer_id</text><text x="78" y="168" fill="#93acad" font-size="10">name · phone · email</text><text x="78" y="184" fill="#93acad" font-size="10">password_hash · created_at</text><rect x="370" y="82" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M370 114 H630" stroke="#315057"/><text x="383" y="103" fill="var(--cs-accent)" font-size="13" font-weight="700">Addresses</text><text x="383" y="131" fill="#d6e4e1" font-size="10">Delivery destinations</text><text x="383" y="152" fill="#93acad" font-size="10">PK address_id</text><text x="383" y="168" fill="#93acad" font-size="10">FK customer_id</text><text x="383" y="184" fill="#93acad" font-size="10">label · location · is_default</text><rect x="675" y="82" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M675 114 H935" stroke="#315057"/><text x="688" y="103" fill="var(--cs-accent)" font-size="13" font-weight="700">Restaurants</text><text x="688" y="131" fill="#d6e4e1" font-size="10">Merchant profiles</text><text x="688" y="152" fill="#93acad" font-size="10">PK restaurant_id</text><text x="688" y="168" fill="#93acad" font-size="10">name · address · rating</text><text x="688" y="184" fill="#93acad" font-size="10">delivery_fee · is_active</text><rect x="65" y="250" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M65 282 H325" stroke="#315057"/><text x="78" y="271" fill="var(--cs-accent)" font-size="13" font-weight="700">MenuItems</text><text x="78" y="299" fill="#d6e4e1" font-size="10">Restaurant catalogue</text><text x="78" y="320" fill="#93acad" font-size="10">PK item_id</text><text x="78" y="336" fill="#93acad" font-size="10">FK restaurant_id · category_id</text><text x="78" y="352" fill="#93acad" font-size="10">name · price · availability</text><rect x="370" y="250" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M370 282 H630" stroke="#315057"/><text x="383" y="271" fill="var(--cs-accent)" font-size="13" font-weight="700">Orders</text><text x="383" y="299" fill="#d6e4e1" font-size="10">Customer purchase</text><text x="383" y="320" fill="#93acad" font-size="10">PK order_id</text><text x="383" y="336" fill="#93acad" font-size="10">FK customer_id · address_id</text><text x="383" y="352" fill="#93acad" font-size="10">status · total · created_at</text><rect x="675" y="250" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M675 282 H935" stroke="#315057"/><text x="688" y="271" fill="var(--cs-accent)" font-size="13" font-weight="700">OrderItems</text><text x="688" y="299" fill="#d6e4e1" font-size="10">Order line items</text><text x="688" y="320" fill="#93acad" font-size="10">PK order_item_id</text><text x="688" y="336" fill="#93acad" font-size="10">FK order_id · item_id</text><text x="688" y="352" fill="#93acad" font-size="10">quantity · unit_price</text><rect x="65" y="418" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M65 450 H325" stroke="#315057"/><text x="78" y="439" fill="var(--cs-accent)" font-size="13" font-weight="700">Payments</text><text x="78" y="467" fill="#d6e4e1" font-size="10">Payment transactions</text><text x="78" y="488" fill="#93acad" font-size="10">PK payment_id</text><text x="78" y="504" fill="#93acad" font-size="10">FK order_id</text><text x="78" y="520" fill="#93acad" font-size="10">method · amount · status</text><rect x="370" y="418" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M370 450 H630" stroke="#315057"/><text x="383" y="439" fill="var(--cs-accent)" font-size="13" font-weight="700">Delivery</text><text x="383" y="467" fill="#d6e4e1" font-size="10">Fulfilment tracking</text><text x="383" y="488" fill="#93acad" font-size="10">PK delivery_id</text><text x="383" y="504" fill="#93acad" font-size="10">FK order_id · courier_id</text><text x="383" y="520" fill="#93acad" font-size="10">status · delivered_at</text><rect x="675" y="418" width="260" height="124" rx="11" fill="#10262d" stroke="var(--cs-accent)" stroke-opacity=".7"/><path d="M675 450 H935" stroke="#315057"/><text x="688" y="439" fill="var(--cs-accent)" font-size="13" font-weight="700">Favorites</text><text x="688" y="467" fill="#d6e4e1" font-size="10">Saved restaurants/items</text><text x="688" y="488" fill="#93acad" font-size="10">PK favorite_id</text><text x="688" y="504" fill="#93acad" font-size="10">FK customer_id · restaurant_id</text><text x="688" y="520" fill="#93acad" font-size="10">created_at</text></svg></div>
+            <p class="cs-diagram-note">Illustrative model for portfolio communication. Relationship lines represent likely associations, not verified database constraints. For a real build, define authentication, retention, validation, indexes and authorization rules explicitly.</p>
+            <div style="height:28px"></div>
+            <div class="cs-stack cs-reveal"><div class="cs-stack-item"><small>Client</small><b>Flutter / Dart</b><p>Reusable screens, navigation and responsive mobile layouts.</p></div><div class="cs-stack-item"><small>Domain</small><b>Ordering services</b><p>Cart pricing, order lifecycle and merchant workflows.</p></div><div class="cs-stack-item"><small>Integrations</small><b>Maps & payments</b><p>Potential provider integrations for delivery and payment processing.</p></div><div class="cs-stack-item"><small>Persistence</small><b>Relational database</b><p>Customers, menus, orders, line items and payment records.</p></div></div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">05 / Engineering principles</span>
+                <h2>Built around clarity, consistency and trust.</h2>
+            </div>
+            <div class="cs-card-grid"><article class="cs-card cs-reveal"><div class="cs-icon">01</div><h3>Transparent checkout</h3><p>Show item totals, delivery fees and service charges before the customer commits.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">02</div><h3>Order state machine</h3><p>Use explicit server-side transitions from placed to accepted, preparing, dispatched and delivered.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">03</div><h3>Resilient payments</h3><p>Treat payment confirmation as a trusted backend event and make retries idempotent.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">04</div><h3>Fresh availability</h3><p>Revalidate menu availability and pricing at checkout to avoid stale cart data.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">05</div><h3>Delivery visibility</h3><p>Keep customer-facing tracking meaningful even when courier updates are delayed.</p></article>
+<article class="cs-card cs-reveal"><div class="cs-icon">06</div><h3>Merchant separation</h3><p>Scope menu editing, order handling and reporting to the correct restaurant account.</p></article></div>
+        </div>
+    </section>
+
+    <section class="cs-section alt">
+        <div class="cs-wrap cs-cta cs-reveal">
+            <div>
+                <span class="cs-eyebrow">Have a product idea?</span>
+                <h2>Let's build a useful<br>digital experience.</h2>
+                <p>From product discovery and interface design to mobile engineering and backend architecture, Cytech Enginneringhelps turn product ideas into practical software.</p>
+            </div>
+            <a class="cs-btn cs-btn-primary" href="/Contact">Discuss your project <span aria-hidden="true">↗</span></a>
+        </div>
+    </section>
+</main>
+<div class="cs-lightbox" id="csLightbox" role="dialog" aria-modal="true" aria-label="Expanded app screenshots">
+    <button type="button" aria-label="Close image" id="csLightboxClose">×</button>
+    <img src="" alt="Expanded application interface" id="csLightboxImage" />
+</div>
+<script>
+(() => {
+    const root = document.querySelector('.case-study');
+    if (!root) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealEls = root.querySelectorAll('.cs-reveal');
+    if ('IntersectionObserver' in window && !reduceMotion) {
+        const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+            if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+        }), { threshold: .12 });
+        revealEls.forEach(el => observer.observe(el));
+    } else revealEls.forEach(el => el.classList.add('is-visible'));
+
+    if (!reduceMotion && window.matchMedia('(pointer:fine)').matches) {
+        const visual = root.querySelector('.cs-visual');
+        const frame = root.querySelector('.cs-screen-frame');
+        if (visual && frame) {
+            visual.addEventListener('pointermove', e => {
+                const r = visual.getBoundingClientRect();
+                const x = (e.clientX - r.left) / r.width - .5;
+                const y = (e.clientY - r.top) / r.height - .5;
+                frame.style.transform = `rotateY(${x * 10 - 3}deg) rotateX(${-y * 6}deg) translateY(-4px)`;
+            });
+            visual.addEventListener('pointerleave', () => frame.style.transform = '');
+        }
+    }
+
+    const box = document.getElementById('csLightbox');
+    const boxImg = document.getElementById('csLightboxImage');
+    const close = document.getElementById('csLightboxClose');
+    root.querySelectorAll('.cs-zoom').forEach(img => img.addEventListener('click', () => {
+        boxImg.src = img.src; boxImg.alt = img.alt; box.classList.add('open'); document.body.style.overflow = 'hidden'; close.focus();
+    }));
+    const closeBox = () => { box.classList.remove('open'); document.body.style.overflow = ''; boxImg.src = ''; };
+    close.addEventListener('click', closeBox);
+    box.addEventListener('click', e => { if (e.target === box) closeBox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && box.classList.contains('open')) closeBox(); });
+})();
+</script>

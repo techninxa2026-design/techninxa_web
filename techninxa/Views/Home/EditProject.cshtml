@@ -1,0 +1,1153 @@
+﻿@using Techninxa.Models
+@model Project
+
+@{
+    ViewData["Title"] = "Edit Project";
+    Layout = "_Layout";
+
+    var currentImage = Model.HeroImage;
+}
+
+@section Styles {
+<style>
+    :root {
+        --edit-bg: #0b0d12;
+        --edit-panel: #12151d;
+        --edit-panel-2: #171b25;
+        --edit-border: rgba(255,255,255,.09);
+        --edit-text: #f4f5f7;
+        --edit-muted: #9299aa;
+        --edit-accent: #a5f36a;
+        --edit-accent-dark: #172611;
+        --edit-radius: 18px;
+    }
+
+    .edit-project-page {
+        min-height: 100vh;
+        background: var(--edit-bg);
+        color: var(--edit-text);
+        padding: 45px 20px 80px;
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+    }
+
+    .edit-project-container {
+        max-width: 1250px;
+        margin: 0 auto;
+    }
+
+    .edit-breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        color: var(--edit-muted);
+        font-size: 13px;
+        margin-bottom: 28px;
+    }
+
+    .edit-breadcrumb a {
+        color: var(--edit-muted);
+        text-decoration: none;
+        transition: color .2s;
+    }
+
+    .edit-breadcrumb a:hover {
+        color: var(--edit-accent);
+    }
+
+    .edit-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    .edit-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--edit-accent);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 13px;
+    }
+
+    .edit-eyebrow::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--edit-accent);
+        box-shadow: 0 0 12px rgba(165,243,106,.5);
+    }
+
+    .edit-header h1 {
+        color: var(--edit-text);
+        font-size: clamp(30px, 4vw, 46px);
+        font-weight: 800;
+        letter-spacing: -1.8px;
+        line-height: 1.12;
+        margin: 0 0 12px;
+    }
+
+    .edit-header p {
+        color: var(--edit-muted);
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .edit-header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .edit-btn {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 0 18px;
+        border-radius: 11px;
+        border: 1px solid var(--edit-border);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 750;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+    .edit-btn-secondary {
+        color: #e4e6ed;
+        background: var(--edit-panel);
+    }
+
+    .edit-btn-secondary:hover {
+        color: white;
+        background: var(--edit-panel-2);
+        border-color: rgba(255,255,255,.2);
+    }
+
+    .edit-btn-primary {
+        color: #11170d;
+        background: var(--edit-accent);
+        border-color: var(--edit-accent);
+    }
+
+    .edit-btn-primary:hover {
+        background: #b8ff87;
+        transform: translateY(-1px);
+    }
+
+    .edit-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .edit-main,
+    .edit-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        min-width: 0;
+    }
+
+    .edit-card {
+        background: var(--edit-panel);
+        border: 1px solid var(--edit-border);
+        border-radius: var(--edit-radius);
+        padding: 27px;
+        min-width: 0;
+    }
+
+    .edit-card-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        margin-bottom: 25px;
+    }
+
+    .edit-card-icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        color: var(--edit-accent);
+        background: rgba(165,243,106,.09);
+        border: 1px solid rgba(165,243,106,.13);
+        border-radius: 12px;
+        font-size: 19px;
+    }
+
+    .edit-card-header h2 {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--edit-text);
+        margin: 2px 0 5px;
+    }
+
+    .edit-card-header p {
+        color: var(--edit-muted);
+        font-size: 12px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .edit-form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 21px 18px;
+    }
+
+    .edit-field {
+        min-width: 0;
+    }
+
+    .edit-field-full {
+        grid-column: 1 / -1;
+    }
+
+    .edit-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        color: #e4e6ed;
+        font-size: 12px;
+        font-weight: 750;
+        margin-bottom: 9px;
+    }
+
+    .edit-label .optional {
+        color: #777f91;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .edit-input,
+    .edit-select,
+    .edit-textarea {
+        width: 100%;
+        color: #f2f3f7;
+        background: #0d1017;
+        border: 1px solid #292e3b;
+        border-radius: 10px;
+        padding: 13px 14px;
+        outline: none;
+        font-size: 13px;
+        font-family: inherit;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .edit-input,
+    .edit-select {
+        min-height: 47px;
+    }
+
+    .edit-input:focus,
+    .edit-select:focus,
+    .edit-textarea:focus {
+        border-color: var(--edit-accent);
+        box-shadow: 0 0 0 3px rgba(165,243,106,.08);
+    }
+
+    .edit-input::placeholder,
+    .edit-textarea::placeholder {
+        color: #626a7c;
+    }
+
+    .edit-select {
+        color-scheme: dark;
+    }
+
+    .edit-textarea {
+        min-height: 115px;
+        resize: vertical;
+        line-height: 1.8;
+    }
+
+    .edit-textarea-overview {
+        min-height: 210px;
+    }
+
+    .edit-help {
+        display: block;
+        color: #788094;
+        font-size: 11px;
+        line-height: 1.7;
+        margin-top: 8px;
+    }
+
+    .edit-validation {
+        color: #ff8f8f;
+        font-size: 12px;
+        margin-top: 7px;
+    }
+
+    .edit-validation-summary {
+        color: #ffb4b4;
+        background: rgba(255, 90, 90, .08);
+        border: 1px solid rgba(255, 90, 90, .2);
+        border-radius: 12px;
+        padding: 15px 18px;
+        margin-bottom: 22px;
+        font-size: 13px;
+    }
+
+    .edit-image-preview {
+        position: relative;
+        overflow: hidden;
+        background: #0a0c11;
+        border: 1px solid var(--edit-border);
+        border-radius: 13px;
+        aspect-ratio: 16 / 10;
+        margin-bottom: 16px;
+    }
+
+    .edit-image-preview img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+
+    .edit-image-placeholder {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        color: var(--edit-muted);
+        font-size: 12px;
+        gap: 8px;
+    }
+
+    .edit-image-placeholder span {
+        font-size: 28px;
+    }
+
+    .edit-upload {
+        position: relative;
+        display: block;
+        padding: 17px;
+        text-align: center;
+        background: #0d1017;
+        border: 1px dashed #3a4151;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .edit-upload:hover {
+        border-color: var(--edit-accent);
+        background: rgba(165,243,106,.035);
+    }
+
+    .edit-upload input {
+        display: none;
+    }
+
+    .edit-upload-icon {
+        display: block;
+        font-size: 23px;
+        margin-bottom: 9px;
+    }
+
+    .edit-upload strong {
+        display: block;
+        color: #eceef4;
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .edit-upload small {
+        color: var(--edit-muted);
+        font-size: 10px;
+    }
+
+    .edit-file-name {
+        color: var(--edit-accent);
+        font-size: 11px;
+        overflow-wrap: anywhere;
+        margin-top: 10px;
+    }
+
+    .edit-status-option {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 15px;
+        background: #0d1017;
+        border: 1px solid #292e3b;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .edit-status-option:has(input:checked) {
+        border-color: rgba(165,243,106,.55);
+        background: rgba(165,243,106,.045);
+    }
+
+    .edit-status-option input {
+        margin-top: 3px;
+        accent-color: var(--edit-accent);
+    }
+
+    .edit-status-option strong {
+        display: block;
+        color: #eceef4;
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .edit-status-option small {
+        display: block;
+        color: var(--edit-muted);
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .edit-status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 10px;
+        color: #b8ff87;
+        background: rgba(165,243,106,.08);
+        border: 1px solid rgba(165,243,106,.17);
+        border-radius: 8px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .5px;
+        text-transform: uppercase;
+    }
+
+    .edit-status-pill.draft {
+        color: #e6c17b;
+        background: rgba(230,193,123,.08);
+        border-color: rgba(230,193,123,.17);
+    }
+
+    .edit-info-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .edit-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+        font-size: 12px;
+    }
+
+    .edit-info-row span {
+        color: var(--edit-muted);
+    }
+
+    .edit-info-row strong {
+        color: #eceef4;
+        font-weight: 650;
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+
+    .edit-url-preview {
+        overflow-wrap: anywhere;
+        color: var(--edit-accent);
+        font-size: 11px;
+        line-height: 1.8;
+        padding: 13px;
+        border: 1px solid rgba(165,243,106,.12);
+        background: rgba(165,243,106,.035);
+        border-radius: 10px;
+        margin-top: 13px;
+    }
+
+    .edit-url-preview span {
+        display: block;
+        color: var(--edit-muted);
+        margin-bottom: 4px;
+        font-size: 10px;
+    }
+
+    .edit-bottom-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 23px;
+        border-top: 1px solid var(--edit-border);
+    }
+
+    .edit-bottom-actions .edit-btn {
+        min-width: 140px;
+    }
+
+    .edit-notice {
+        color: var(--edit-muted);
+        font-size: 11px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .edit-footer {
+        color: #646c7e;
+        font-size: 11px;
+        text-align: center;
+        margin-top: 32px;
+    }
+
+    @@media (max-width: 1000px) {
+        .edit-layout {
+            grid-template-columns: minmax(0, 1fr) 290px;
+            gap: 16px;
+        }
+
+        .edit-card {
+            padding: 21px;
+        }
+    }
+
+    @@media (max-width: 760px) {
+        .edit-project-page {
+            padding: 28px 14px 55px;
+        }
+
+        .edit-header {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .edit-header-actions {
+            width: 100%;
+        }
+
+        .edit-header-actions .edit-btn {
+            flex: 1;
+        }
+
+        .edit-layout {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .edit-sidebar {
+            order: -1;
+        }
+
+        .edit-form-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .edit-field-full {
+            grid-column: auto;
+        }
+
+        .edit-card {
+            padding: 19px;
+            border-radius: 14px;
+        }
+
+        .edit-bottom-actions {
+            flex-direction: column-reverse;
+            align-items: stretch;
+        }
+
+        .edit-bottom-actions .edit-btn {
+            width: 100%;
+        }
+    }
+
+    @@media (prefers-reduced-motion: reduce) {
+        .edit-project-page *,
+        .edit-project-page *::before,
+        .edit-project-page *::after {
+            transition: none !important;
+        }
+    }
+</style>
+}
+
+<div class="edit-project-page">
+    <div class="edit-project-container">
+
+        <!-- BREADCRUMB -->
+        <nav class="edit-breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span>/</span>
+            <a asp-controller="Home" asp-action="ProjectList">
+                Project Management
+            </a>
+            <span>/</span>
+            <span>Edit Project</span>
+        </nav>
+
+        <!-- HEADER -->
+        <header class="edit-header">
+            <div>
+                <div class="edit-eyebrow">Project workspace</div>
+                <h1>Edit project<span style="color:#a5f36a;">.</span></h1>
+                <p>
+                    Update your portfolio content, project details,
+                    cover image and publishing settings.
+                </p>
+            </div>
+
+            <div class="edit-header-actions">
+                <a asp-controller="Home"
+                   asp-action="ProjectList"
+                   class="edit-btn edit-btn-secondary">
+                    ← Back to projects
+                </a>
+
+                @if (Model.Status == "published")
+                {
+                    <a href="@Url.Action(
+                                "ProjectDetails",
+                                "Home",
+                                new { slug = Model.Slug })"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="edit-btn edit-btn-secondary">
+                        ↗ View live project
+                    </a>
+                }
+            </div>
+        </header>
+
+        @if (TempData["ProjectSuccess"] != null)
+        {
+            <div role="status"
+                 style="padding:14px 18px;margin-bottom:22px;
+                        border:1px solid rgba(165,243,106,.2);
+                        background:rgba(165,243,106,.07);
+                        color:#b8ff87;border-radius:12px;">
+                @TempData["ProjectSuccess"]
+            </div>
+        }
+
+        <form asp-controller="Home"
+              asp-action="EditProject"
+              asp-route-id="@Model.Id"
+              method="post"
+              enctype="multipart/form-data">
+
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="edit-validation-summary"></div>
+
+            <div class="edit-layout">
+
+                <!-- MAIN COLUMN -->
+                <main class="edit-main">
+
+                    <!-- BASIC INFORMATION -->
+                    <section class="edit-card">
+                        <div class="edit-card-header">
+                            <div class="edit-card-icon">✳</div>
+                            <div>
+                                <h2>Project information</h2>
+                                <p>
+                                    The essential details displayed on
+                                    your portfolio.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="edit-form-grid">
+
+                            <div class="edit-field edit-field-full">
+                                <label asp-for="Title"
+                                       class="edit-label">
+                                    Project title
+                                </label>
+
+                                <input asp-for="Title"
+                                       class="edit-input"
+                                       placeholder="e.g. Modern E-commerce Platform"
+                                       required
+                                       maxlength="200" />
+
+                                <span asp-validation-for="Title"
+                                      class="edit-validation"></span>
+                            </div>
+
+                            <div class="edit-field">
+                                <label asp-for="Category"
+                                       class="edit-label">
+                                    Category
+                                </label>
+
+                                <input asp-for="Category"
+                                       class="edit-input"
+                                       placeholder="Web Development"
+                                       required
+                                       maxlength="100" />
+
+                                <span asp-validation-for="Category"
+                                      class="edit-validation"></span>
+                            </div>
+
+                            <div class="edit-field">
+                                <label asp-for="Client"
+                                       class="edit-label">
+                                    Client
+                                    <span class="optional">OPTIONAL</span>
+                                </label>
+
+                                <input asp-for="Client"
+                                       class="edit-input"
+                                       placeholder="Client or company name"
+                                       maxlength="200" />
+
+                                <span asp-validation-for="Client"
+                                      class="edit-validation"></span>
+                            </div>
+
+                            <div class="edit-field">
+                                <label asp-for="Year"
+                                       class="edit-label">
+                                    Project year
+                                </label>
+
+                                <input asp-for="Year"
+                                       class="edit-input"
+                                       type="number" />
+
+                                <span asp-validation-for="Year"
+                                      class="edit-validation"></span>
+                            </div>
+
+                            <div class="edit-field">
+                                <label asp-for="ProjectUrl"
+                                       class="edit-label">
+                                    Live project URL
+                                    <span class="optional">OPTIONAL</span>
+                                </label>
+
+                                <input asp-for="ProjectUrl"
+                                       class="edit-input"
+                                       type="url"
+                                       placeholder="https://example.com" />
+
+                                <span asp-validation-for="ProjectUrl"
+                                      class="edit-validation"></span>
+                            </div>
+
+                            <div class="edit-field edit-field-full">
+                                <label asp-for="Slug"
+                                       class="edit-label">
+                                    URL slug
+                                </label>
+
+                                <input asp-for="Slug"
+                                       id="projectSlug"
+                                       class="edit-input"
+                                       placeholder="modern-ecommerce-platform"
+                                       maxlength="200" />
+
+                                <span class="edit-help">
+                                    Used in your project detail URL.
+                                    Keep it short, descriptive and SEO-friendly.
+                                </span>
+
+                                <div class="edit-url-preview">
+                                    <span>PROJECT DETAIL URL</span>
+                                    <strong id="slugPreview">
+                                        https://techninxa.com/Projects/Details/@Model.Slug
+                                    </strong>
+                                </div>
+
+                                <span asp-validation-for="Slug"
+                                      class="edit-validation"></span>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- PROJECT DESCRIPTION -->
+                    <section class="edit-card">
+                        <div class="edit-card-header">
+                            <div class="edit-card-icon">▤</div>
+                            <div>
+                                <h2>Project storytelling</h2>
+                                <p>
+                                    Explain the project and the value
+                                    it delivers.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="edit-form-grid">
+
+                            <div class="edit-field edit-field-full">
+                                <label asp-for="ShortDescription"
+                                       class="edit-label">
+                                    Short description
+                                </label>
+
+                                <textarea asp-for="ShortDescription"
+                                          class="edit-textarea"
+                                          rows="3"
+                                          maxlength="500"
+                                          placeholder="A concise overview of the project..."></textarea>
+
+                                <span asp-validation-for="ShortDescription"
+                                      class="edit-validation"></span>
+                            </div>
+
+                            <div class="edit-field edit-field-full">
+                                <label asp-for="Overview"
+                                       class="edit-label">
+                                    Full project overview
+                                </label>
+
+                                <textarea asp-for="Overview"
+                                          class="edit-textarea edit-textarea-overview"
+                                          placeholder="Describe the goals, challenges, solution and results..."></textarea>
+
+                                <span class="edit-help">
+                                    Describe the business problem, your
+                                    solution and the main project outcomes.
+                                </span>
+
+                                <span asp-validation-for="Overview"
+                                      class="edit-validation"></span>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- FORM ACTIONS -->
+                    <div class="edit-bottom-actions">
+                        <p class="edit-notice">
+                            Your changes are saved when you click Update project.
+                        </p>
+
+                        <a asp-controller="Home"
+                           asp-action="ProjectList"
+                           class="edit-btn edit-btn-secondary">
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="edit-btn edit-btn-primary">
+                            Save changes&nbsp; →
+                        </button>
+                    </div>
+
+                </main>
+
+                <!-- SIDEBAR -->
+                <aside class="edit-sidebar">
+
+                    <!-- COVER IMAGE -->
+                    <section class="edit-card">
+                        <div class="edit-card-header">
+                            <div class="edit-card-icon">▧</div>
+                            <div>
+                                <h2>Cover image</h2>
+                                <p>
+                                    Your main project thumbnail.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="edit-image-preview">
+                            @if (!string.IsNullOrWhiteSpace(currentImage))
+                            {
+                                <img id="heroPreview"
+                                     src="@currentImage"
+                                     alt="@Model.Title"
+                                     onerror="this.style.display='none';document.getElementById('imagePlaceholder').style.display='grid';" />
+
+                                <div id="imagePlaceholder"
+                                     class="edit-image-placeholder"
+                                     style="display:none;">
+                                    <span>▧</span>
+                                    No preview available
+                                </div>
+                            }
+                            else
+                            {
+                                <div id="imagePlaceholder"
+                                     class="edit-image-placeholder">
+                                    <span>▧</span>
+                                    No cover image
+                                </div>
+
+                                <img id="heroPreview"
+                                     alt="New project cover preview"
+                                     style="display:none;" />
+                            }
+                        </div>
+
+                        <label class="edit-upload" for="HeroImage">
+                            <span class="edit-upload-icon">↑</span>
+                            <strong>Click to replace image</strong>
+                            <small>JPG, PNG or WEBP · Maximum 5 MB</small>
+                            <input type="file"
+                                   name="HeroImage"
+                                   id="HeroImage"
+                                   accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" />
+                        </label>
+
+                        <div id="selectedFileName"
+                             class="edit-file-name"></div>
+
+                        <span asp-validation-for="HeroImage"
+                              class="edit-validation"></span>
+
+                        <p class="edit-help">
+                            Leave this empty to keep the current cover image.
+                        </p>
+                    </section>
+
+                    <!-- PUBLISHING -->
+                    <section class="edit-card">
+                        <div class="edit-card-header">
+                            <div class="edit-card-icon">◉</div>
+                            <div>
+                                <h2>Publishing</h2>
+                                <p>
+                                    Control public visibility.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="edit-field">
+                            <label asp-for="Status"
+                                   class="edit-label">
+                                Project status
+                            </label>
+
+                            <select asp-for="Status"
+                                    class="edit-select"
+                                    id="projectStatus">
+                                <option value="draft">Draft</option>
+                                <option value="published">Published</option>
+                            </select>
+
+                            <span asp-validation-for="Status"
+                                  class="edit-validation"></span>
+                        </div>
+
+                        <div style="margin-top:18px;">
+                            <span id="statusBadge"
+                                  class="edit-status-pill @(Model.Status == "published" ? "" : "draft")">
+                                ● @(Model.Status == "published" ? "Published" : "Draft")
+                            </span>
+                        </div>
+
+                        <p class="edit-help">
+                            Published projects are visible on your public
+                            portfolio. Draft projects remain hidden.
+                        </p>
+                    </section>
+
+                    <!-- PROJECT METADATA -->
+                    <section class="edit-card">
+                        <div class="edit-card-header">
+                            <div class="edit-card-icon">⌘</div>
+                            <div>
+                                <h2>Project details</h2>
+                                <p>
+                                    Existing project record.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="edit-info-list">
+                            <div class="edit-info-row">
+                                <span>Project ID</span>
+                                <strong>#@Model.Id</strong>
+                            </div>
+
+                            <div class="edit-info-row">
+                                <span>Created</span>
+                                <strong>
+                                    @Model.CreatedAt.ToString("dd MMM yyyy")
+                                </strong>
+                            </div>
+
+                            <div class="edit-info-row">
+                                <span>Last updated</span>
+                                <strong>
+                                    @(Model.UpdatedAt.HasValue
+                                        ? Model.UpdatedAt.Value.ToString("dd MMM yyyy")
+                                        : "Not updated")
+                                </strong>
+                            </div>
+
+                            <div class="edit-info-row">
+                                <span>Published</span>
+                                <strong>
+                                    @(Model.PublishedAt.HasValue
+                                        ? Model.PublishedAt.Value.ToString("dd MMM yyyy")
+                                        : "Not published")
+                                </strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <p class="edit-notice">
+                        <strong style="color:#e5e7ed;">Tip:</strong>
+                        Keep the title, description and URL slug relevant
+                        to the actual project for better portfolio SEO.
+                    </p>
+
+                </aside>
+
+            </div>
+        </form>
+
+        <footer class="edit-footer">
+            TECHNINXA · PROJECT MANAGEMENT
+        </footer>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fileInput = document.getElementById("HeroImage");
+            const preview = document.getElementById("heroPreview");
+            const placeholder = document.getElementById("imagePlaceholder");
+            const fileName = document.getElementById("selectedFileName");
+
+            const slugInput = document.getElementById("projectSlug");
+            const titleInput = document.getElementById("Title");
+            const slugPreview = document.getElementById("slugPreview");
+
+            const statusSelect = document.getElementById("projectStatus");
+            const statusBadge = document.getElementById("statusBadge");
+
+            const originalSlug = slugInput ? slugInput.value : "";
+            const originalTitle = titleInput ? titleInput.value : "";
+            let slugManuallyEdited = false;
+
+            if (slugInput) {
+                slugInput.addEventListener("input", function () {
+                    slugManuallyEdited = true;
+                    updateSlugPreview();
+                });
+            }
+
+            if (titleInput) {
+                titleInput.addEventListener("input", function () {
+                    if (!slugManuallyEdited ||
+                        slugInput.value === "" ||
+                        slugInput.value === originalSlug) {
+                        slugInput.value = makeSlug(titleInput.value);
+                    }
+
+                    updateSlugPreview();
+                });
+            }
+
+            function makeSlug(value) {
+                return value
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, "")
+                    .trim()
+                    .replace(/\s+/g, "-")
+                    .replace(/-+/g, "-");
+            }
+
+            function updateSlugPreview() {
+                if (!slugPreview || !slugInput) return;
+
+                slugPreview.textContent =
+                    "https://techninxa.com/Projects/Details/" +
+                    slugInput.value;
+            }
+
+            updateSlugPreview();
+
+            if (titleInput && slugInput &&
+                makeSlug(originalTitle) !== originalSlug) {
+                // Existing custom slugs are preserved unless edited.
+                slugManuallyEdited = false;
+            }
+
+            if (fileInput) {
+                fileInput.addEventListener("change", function () {
+                    const file = fileInput.files[0];
+
+                    if (!file) {
+                        fileName.textContent = "";
+                        return;
+                    }
+
+                    const allowedTypes = [
+                        "image/jpeg",
+                        "image/png",
+                        "image/webp"
+                    ];
+
+                    if (!allowedTypes.includes(file.type)) {
+                        alert("Please select a JPG, PNG or WEBP image.");
+                        fileInput.value = "";
+                        fileName.textContent = "";
+                        return;
+                    }
+
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert("Image cannot be larger than 5 MB.");
+                        fileInput.value = "";
+                        fileName.textContent = "";
+                        return;
+                    }
+
+                    fileName.textContent =
+                        "Selected: " + file.name;
+
+                    const reader = new FileReader();
+
+                    reader.onload = function (event) {
+                        preview.src = event.target.result;
+                        preview.style.display = "block";
+
+                        if (placeholder) {
+                            placeholder.style.display = "none";
+                        }
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            function updateStatus() {
+                if (!statusSelect || !statusBadge) return;
+
+                const published = statusSelect.value === "published";
+
+                statusBadge.textContent =
+                    published ? "● Published" : "● Draft";
+
+                statusBadge.classList.toggle("draft", !published);
+            }
+
+            if (statusSelect) {
+                statusSelect.addEventListener("change", updateStatus);
+                updateStatus();
+            }
+        });
+    </script>
+}

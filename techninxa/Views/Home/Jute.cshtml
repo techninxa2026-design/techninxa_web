@@ -1,0 +1,304 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Jute Portal — Connecting Bangladesh's Golden Fibre | Techninxa";
+    var coverImage = Url.Content("~/assets/projects/anik/jute-portal.jpg");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#142c22" />
+<meta name="description" content="Jute Portal — a digital platform concept presenting Bangladesh's jute products and industry through a clear, modern web experience." />
+<title>@ViewData["Title"]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
+<style>
+:root {
+    --jp-forest:#142c22; --jp-forest2:#1c3a2d; --jp-leaf:#507a4e; --jp-lime:#b7c96b;
+    --jp-jute:#c49a60; --jp-sand:#e7d5b4; --jp-paper:#f5f2e9; --jp-white:#fffdf7;
+    --jp-ink:#1d2a21; --jp-muted:#738075; --jp-line:rgba(28,58,45,.15);
+    --jp-serif:"Playfair Display",Georgia,serif; --jp-sans:"DM Sans",Arial,sans-serif;
+    --jp-display:"Manrope",Arial,sans-serif; --jp-width:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--jp-paper)}
+body{margin:0;background:var(--jp-paper);color:var(--jp-ink);font-family:var(--jp-sans);overflow-x:hidden}
+body.jp-lock{overflow:hidden}
+a{color:inherit;text-decoration:none} button{font:inherit}
+::selection{background:var(--jp-lime);color:var(--jp-forest)}
+.jp-page{overflow:clip}
+.jp-wrap{width:min(var(--jp-width),calc(100% - 64px));margin-inline:auto}
+.jp-grain{position:fixed;inset:0;z-index:30;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E")}
+.jp-header{position:absolute;z-index:10;top:0;left:0;width:100%;padding:22px 0;border-bottom:1px solid rgba(255,253,247,.17);color:var(--jp-white)}
+.jp-header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.jp-brand{display:flex;align-items:center;gap:11px;font:800 12px var(--jp-display);letter-spacing:.13em;text-transform:uppercase}
+.jp-brand-mark{display:grid;place-items:center;width:39px;height:39px;border-radius:50%;background:var(--jp-lime);color:var(--jp-forest);font:800 19px var(--jp-serif)}
+.jp-brand small{display:block;margin-top:3px;font:500 8px var(--jp-sans);letter-spacing:.19em;color:rgba(255,253,247,.62)}
+.jp-nav{display:flex;align-items:center;gap:28px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,253,247,.8)}
+.jp-nav a{transition:color .25s}.jp-nav a:hover{color:var(--jp-lime)}
+.jp-nav .jp-nav-cta{padding:12px 16px;border:1px solid rgba(255,253,247,.38);color:var(--jp-white)}
+.jp-hero{position:relative;isolation:isolate;min-height:780px;display:flex;align-items:center;padding:145px 0 85px;background:var(--jp-forest);color:var(--jp-white)}
+.jp-hero::before{content:"";position:absolute;z-index:-2;inset:0;background:radial-gradient(ellipse at 78% 48%,rgba(183,201,107,.17),transparent 32%),linear-gradient(110deg,#142c22 0%,rgba(20,44,34,.96) 40%,rgba(20,44,34,.35) 100%)}
+.jp-hero-art{position:absolute;z-index:-3;top:0;right:0;width:67%;height:100%;overflow:hidden}
+.jp-hero-art img{width:100%;height:100%;object-fit:cover;object-position:center;opacity:.7;filter:saturate(.75);transform:scale(1.04);transition:transform .2s ease-out}
+.jp-hero-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--jp-forest) 0%,rgba(20,44,34,.82) 25%,rgba(20,44,34,.08) 75%),linear-gradient(0deg,var(--jp-forest) 0%,transparent 42%,rgba(20,44,34,.25) 100%)}
+.jp-hero-layout{position:relative;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:30px}
+.jp-eyebrow{display:flex;align-items:center;gap:12px;color:var(--jp-lime);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.jp-eyebrow::before{content:"";width:31px;height:1px;background:currentColor}
+.jp-hero h1{margin:24px 0 18px;font:800 clamp(62px,9.6vw,126px)/.88 var(--jp-display);letter-spacing:-.085em}
+.jp-hero h1 span{display:block;margin-top:19px;color:var(--jp-lime);font:italic 500 clamp(28px,4vw,49px)/1.15 var(--jp-serif);letter-spacing:-.035em}
+.jp-hero-lead{max-width:490px;color:rgba(255,253,247,.75);font-size:14px;line-height:1.95}
+.jp-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:25px}
+.jp-tags span{padding:8px 11px;border:1px solid rgba(255,253,247,.19);border-radius:30px;color:rgba(255,253,247,.8);font-size:9px;letter-spacing:.04em}
+.jp-actions{display:flex;align-items:center;flex-wrap:wrap;gap:22px;margin-top:32px}
+.jp-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:49px;padding:0 21px;background:var(--jp-lime);border:1px solid var(--jp-lime);color:var(--jp-forest);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;transition:transform .3s,background .3s,color .3s}
+.jp-btn:hover{transform:translateY(-3px);background:transparent;color:var(--jp-lime)}
+.jp-link{display:inline-flex;align-items:center;gap:10px;font-size:11px;color:var(--jp-white)}.jp-link span{color:var(--jp-lime);font-size:18px;transition:transform .25s}.jp-link:hover span{transform:translateX(5px)}
+.jp-hero-side{position:relative;min-height:450px;display:flex;align-items:center;justify-content:center}
+.jp-roundel{position:absolute;right:2%;top:4%;width:112px;height:112px;display:grid;place-items:center;border:1px solid rgba(183,201,107,.7);border-radius:50%;color:var(--jp-lime);text-align:center;font-size:8px;letter-spacing:.18em;line-height:1.7;transform:rotate(10deg)}
+.jp-floating-card{position:absolute;left:1%;bottom:4%;padding:17px 19px;max-width:220px;background:rgba(245,242,233,.95);color:var(--jp-forest);box-shadow:0 22px 60px rgba(0,0,0,.2);transform:rotate(-4deg)}
+.jp-floating-card strong{display:block;font:600 19px var(--jp-serif)}.jp-floating-card small{display:block;margin-top:5px;color:#687467;font-size:9px;line-height:1.6}
+.jp-hero-stamp{position:absolute;right:28px;bottom:40px;display:flex;align-items:center;gap:12px;color:rgba(255,253,247,.57);font-size:9px;letter-spacing:.17em;text-transform:uppercase}.jp-hero-stamp::before{content:"";width:42px;height:1px;background:var(--jp-lime)}
+.jp-statbar{background:var(--jp-white);border-bottom:1px solid var(--jp-line)}
+.jp-stats{display:grid;grid-template-columns:repeat(4,1fr)}
+.jp-stat{padding:27px 25px;border-right:1px solid var(--jp-line)}.jp-stat:first-child{padding-left:0}.jp-stat:last-child{border:0}
+.jp-stat small{display:block;margin-bottom:8px;color:var(--jp-muted);font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+.jp-stat strong{font:600 17px var(--jp-serif);color:var(--jp-forest)}
+.jp-section{padding:115px 0}
+.jp-section-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:65px;align-items:end;margin-bottom:50px}
+.jp-kicker{margin-bottom:15px;color:var(--jp-leaf);font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+.jp-section h2{margin:0;color:var(--jp-forest);font:500 clamp(39px,5vw,65px)/1.06 var(--jp-serif);letter-spacing:-.045em}
+.jp-section h2 em{color:var(--jp-leaf);font-weight:500}
+.jp-intro{max-width:550px;margin:0;color:var(--jp-muted);font-size:14px;line-height:1.95}
+.jp-overview{display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:70px}
+.jp-overview-visual{position:relative;min-height:475px;overflow:hidden;background:#d9e0cc}
+.jp-overview-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1);filter:saturate(.83)}
+.jp-overview-visual:hover img{transform:scale(1.045)}
+.jp-image-label{position:absolute;left:20px;bottom:20px;padding:12px 14px;background:rgba(20,44,34,.9);color:var(--jp-white);font-size:9px;letter-spacing:.15em;text-transform:uppercase}
+.jp-copy h3{margin:0 0 18px;color:var(--jp-forest);font:500 clamp(27px,3vw,40px)/1.2 var(--jp-serif)}
+.jp-copy p{color:var(--jp-muted);font-size:13px;line-height:1.95}
+.jp-quote{margin:27px 0 0;padding:3px 0 3px 20px;border-left:2px solid var(--jp-jute);color:var(--jp-forest2);font:italic 22px/1.5 var(--jp-serif)}
+.jp-green-band{background:var(--jp-forest);color:var(--jp-white)}
+.jp-green-band .jp-section h2{color:var(--jp-white)}.jp-green-band .jp-section h2 em{color:var(--jp-lime)}.jp-green-band .jp-kicker{color:var(--jp-lime)}.jp-green-band .jp-intro{color:rgba(255,253,247,.65)}
+.jp-pillars{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,253,247,.19);border-left:1px solid rgba(255,253,247,.19)}
+.jp-pillar{min-height:255px;padding:27px;border-right:1px solid rgba(255,253,247,.19);border-bottom:1px solid rgba(255,253,247,.19);transition:background .3s}
+.jp-pillar:hover{background:rgba(183,201,107,.07)}
+.jp-pillar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px}
+.jp-pillar-num{color:var(--jp-lime);font-size:10px;letter-spacing:.14em}
+.jp-pillar-icon{display:grid;place-items:center;width:43px;height:43px;border:1px solid rgba(183,201,107,.45);border-radius:50%;color:var(--jp-lime);font:500 21px var(--jp-serif)}
+.jp-pillar h3{margin:0 0 11px;font:500 23px var(--jp-serif)}.jp-pillar p{margin:0;color:rgba(255,253,247,.65);font-size:12px;line-height:1.85}
+.jp-showcase{padding-bottom:120px}
+.jp-artwork{position:relative;padding:10px;border:1px solid var(--jp-line);background:var(--jp-white);cursor:zoom-in}
+.jp-artwork img{display:block;width:100%;max-height:780px;object-fit:cover}
+.jp-artwork::after{content:"OPEN FULL VIEW ↗";position:absolute;right:25px;bottom:25px;padding:12px 15px;background:var(--jp-forest);color:var(--jp-white);font-size:9px;letter-spacing:.14em}
+.jp-caption{display:flex;justify-content:space-between;gap:20px;margin-top:17px;color:var(--jp-muted);font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+.jp-model-layout{display:grid;grid-template-columns:.72fr 1.28fr;gap:70px;align-items:start}
+.jp-model-copy p{color:var(--jp-muted);font-size:13px;line-height:1.95}
+.jp-model-notes{margin-top:25px;border-top:1px solid var(--jp-line)}
+.jp-model-notes div{display:flex;justify-content:space-between;gap:15px;padding:14px 0;border-bottom:1px solid var(--jp-line);font-size:10px}
+.jp-model-notes span{color:var(--jp-muted)}.jp-model-notes strong{color:var(--jp-forest);font-weight:700;text-align:right}
+.jp-diagram{padding:26px;border:1px solid var(--jp-line);background:#fffdf7}
+.jp-diagram-top{display:flex;justify-content:space-between;gap:20px;margin-bottom:22px;color:var(--jp-muted);font-size:9px;letter-spacing:.15em;text-transform:uppercase}
+.jp-diagram-core{display:grid;place-items:center;min-height:85px;background:var(--jp-forest);color:var(--jp-white);font:500 25px var(--jp-serif);text-align:center}
+.jp-diagram-core small{display:block;margin-top:6px;color:var(--jp-lime);font:700 8px var(--jp-sans);letter-spacing:.18em}
+.jp-connect{height:34px;display:flex;justify-content:center}.jp-connect span{width:1px;background:var(--jp-leaf)}
+.jp-nodes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;position:relative}
+.jp-nodes::before{content:"";position:absolute;left:16.66%;right:16.66%;top:0;height:1px;background:var(--jp-leaf)}
+.jp-node{padding:18px 10px;border:1px solid var(--jp-line);text-align:center;background:#faf8f1}
+.jp-node b{display:block;margin-bottom:7px;color:var(--jp-forest);font:500 15px var(--jp-serif)}.jp-node small{color:var(--jp-muted);font-size:9px;line-height:1.65}
+.jp-data-foot{margin:16px 0 0;color:var(--jp-muted);font-size:10px;line-height:1.7}
+.jp-workflow{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--jp-line)}
+.jp-step{padding:25px 22px 0 0;margin-right:22px;border-right:1px solid var(--jp-line)}
+.jp-step:last-child{border:0;margin:0}
+.jp-step span{display:block;margin-bottom:28px;color:var(--jp-leaf);font-size:10px;font-weight:800;letter-spacing:.16em}
+.jp-step h3{margin:0 0 11px;color:var(--jp-forest);font:500 22px var(--jp-serif)}
+.jp-step p{margin:0;color:var(--jp-muted);font-size:12px;line-height:1.85}
+.jp-principles{display:grid;grid-template-columns:1fr 1fr;gap:70px}
+.jp-principle-list{border-top:1px solid var(--jp-line)}
+.jp-principle{display:grid;grid-template-columns:42px 1fr;gap:14px;padding:21px 0;border-bottom:1px solid var(--jp-line)}
+.jp-principle>span{color:var(--jp-leaf);font-size:10px;padding-top:4px}
+.jp-principle h3{margin:0 0 6px;color:var(--jp-forest);font:500 20px var(--jp-serif)}
+.jp-principle p{margin:0;color:var(--jp-muted);font-size:12px;line-height:1.8}
+.jp-palette{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:27px}
+.jp-swatch-color{height:82px;border:1px solid rgba(0,0,0,.07)}.jp-swatch small{display:block;margin-top:8px;color:var(--jp-muted);font-size:9px;line-height:1.6}.jp-swatch b{display:block;color:var(--jp-forest);font-size:10px}
+.jp-cta{padding:100px 0;background:var(--jp-lime);text-align:center;color:var(--jp-forest)}
+.jp-cta .jp-eyebrow{justify-content:center;color:var(--jp-forest)}.jp-cta .jp-eyebrow::before{background:var(--jp-forest)}
+.jp-cta h2{max-width:800px;margin:22px auto;font:500 clamp(43px,7vw,82px)/1.03 var(--jp-serif);letter-spacing:-.045em}
+.jp-cta h2 em{font-style:italic}.jp-cta p{max-width:520px;margin:0 auto 29px;color:rgba(20,44,34,.76);font-size:13px;line-height:1.9}
+.jp-cta .jp-btn{background:var(--jp-forest);border-color:var(--jp-forest);color:var(--jp-white)}.jp-cta .jp-btn:hover{background:transparent;color:var(--jp-forest)}
+.jp-footer{padding:23px 0;background:var(--jp-forest);color:rgba(255,253,247,.62)}
+.jp-footer-inner{display:flex;justify-content:space-between;align-items:center;gap:22px;font-size:10px}
+.jp-footer-links{display:flex;gap:20px}.jp-footer a:hover{color:var(--jp-lime)}
+.jp-lightbox{position:fixed;z-index:100;inset:0;display:grid;place-items:center;padding:30px;background:rgba(7,20,14,.95);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.jp-lightbox.is-open{opacity:1;visibility:visible}.jp-lightbox img{max-width:95vw;max-height:86vh;object-fit:contain;border:1px solid rgba(255,255,255,.2)}
+.jp-lightbox-close{position:absolute;top:20px;right:24px;width:44px;height:44px;background:transparent;border:1px solid rgba(255,255,255,.35);color:white;font-size:25px;cursor:pointer}
+.jp-reveal{opacity:0;transform:translateY(23px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.jp-reveal.is-visible{opacity:1;transform:translateY(0)}.jp-delay-1{transition-delay:.1s}.jp-delay-2{transition-delay:.2s}.jp-delay-3{transition-delay:.3s}
+@@media(max-width:900px){
+ .jp-wrap{width:min(calc(100% - 42px),var(--jp-width))}.jp-hero{min-height:740px}.jp-hero-layout{grid-template-columns:1fr}.jp-hero-side{display:none}.jp-hero-art{width:85%}.jp-hero-content{max-width:650px}
+ .jp-section{padding:90px 0}.jp-section-head{grid-template-columns:1fr;gap:22px}.jp-overview,.jp-model-layout,.jp-principles{grid-template-columns:1fr;gap:40px}.jp-overview-visual{min-height:420px}
+ .jp-pillars{grid-template-columns:repeat(2,1fr)}.jp-stat{padding-inline:16px}.jp-stat:first-child{padding-left:0}.jp-workflow{grid-template-columns:repeat(2,1fr);row-gap:30px}.jp-step:nth-child(2){border:0}
+}
+@@media(max-width:600px){
+ .jp-wrap{width:calc(100% - 36px)}.jp-header{padding:16px 0}.jp-nav{gap:0}.jp-nav a:not(.jp-nav-cta){display:none}.jp-nav .jp-nav-cta{padding:10px 12px;font-size:9px}
+ .jp-hero{min-height:710px;padding:140px 0 65px;align-items:end}.jp-hero-art{width:100%;height:82%;opacity:.72}.jp-hero-art::after{background:linear-gradient(0deg,var(--jp-forest) 1%,rgba(20,44,34,.35) 63%,rgba(20,44,34,.1)),linear-gradient(90deg,rgba(20,44,34,.3),transparent)}
+ .jp-hero h1{font-size:clamp(65px,19vw,100px)}.jp-hero h1 span{font-size:clamp(28px,8vw,40px)}.jp-hero-lead{font-size:13px}.jp-hero-stamp{display:none}
+ .jp-stats{grid-template-columns:1fr 1fr}.jp-stat{padding:18px 11px;border-bottom:1px solid var(--jp-line)}.jp-stat:nth-child(2){border-right:0}.jp-stat:nth-child(3){padding-left:0;border-bottom:0}.jp-stat:nth-child(4){border-bottom:0}.jp-stat strong{font-size:15px}
+ .jp-section{padding:70px 0}.jp-section h2{font-size:43px}.jp-overview-visual{min-height:330px}.jp-pillars{grid-template-columns:1fr}.jp-pillar{min-height:210px;padding:23px}.jp-pillar-top{margin-bottom:25px}
+ .jp-showcase{padding-bottom:75px}.jp-artwork{padding:6px}.jp-artwork img{min-height:250px}.jp-artwork::after{right:13px;bottom:13px}.jp-caption{flex-direction:column;gap:8px}
+ .jp-diagram{padding:14px}.jp-diagram-core{min-height:75px;font-size:22px}.jp-nodes{gap:5px}.jp-node{padding:13px 4px;overflow-wrap:anywhere}.jp-node b{font-size:12px}.jp-node small{font-size:8px}
+ .jp-workflow{grid-template-columns:1fr;row-gap:22px}.jp-step{margin:0;padding-top:19px;border-right:0;border-top:1px solid var(--jp-line)}.jp-step span{margin-bottom:14px}
+ .jp-palette{gap:5px}.jp-swatch-color{height:58px}.jp-cta{padding:72px 0}.jp-footer-inner{align-items:flex-start;flex-direction:column}.jp-lightbox{padding:15px}
+}
+@@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}.jp-reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="jp-page">
+<div class="jp-grain" aria-hidden="true"></div>
+<header class="jp-header">
+ <div class="jp-wrap jp-header-inner">
+  <a class="jp-brand" href="@Url.Content("~/")" aria-label="Cytech Enginneringhome"><span class="jp-brand-mark">J</span><span>Jute Portal<small>Bangladesh · Golden fibre</small></span></a>
+  <nav class="jp-nav" aria-label="Case study navigation"><a href="#overview">Overview</a><a href="#features">Platform concept</a><a href="#system">System map</a><a class="jp-nav-cta" href="#contact">Work with us ↗</a></nav>
+ </div>
+</header>
+
+<main>
+<section class="jp-hero">
+ <div class="jp-hero-art" aria-hidden="true"><img src="@coverImage" alt="" fetchpriority="high" /></div>
+ <div class="jp-wrap jp-hero-layout">
+  <div class="jp-hero-content">
+   <div class="jp-eyebrow jp-reveal">MH Anik / Selected project</div>
+   <h1 class="jp-reveal jp-delay-1">Jute<br />Portal<span>Rooted in nature. Ready for the world.</span></h1>
+   <p class="jp-hero-lead jp-reveal jp-delay-2">A digital platform concept presenting Bangladesh's jute products and industry through a contemporary, accessible web experience — connecting a heritage material with modern discovery.</p>
+   <div class="jp-tags jp-reveal jp-delay-2"><span>UI / UX Design</span><span>Web Experience</span><span>Jute Industry</span><span>Digital Showcase</span></div>
+   <div class="jp-actions jp-reveal jp-delay-3"><a class="jp-btn" href="#overview">Explore the project <span>↘</span></a><a class="jp-link" href="#visuals">View the visuals <span>↗</span></a></div>
+  </div>
+  <div class="jp-hero-side" aria-hidden="true"><div class="jp-roundel">NATURAL<br />MATERIALS<br />✳<br />LOCAL ROOTS</div><div class="jp-floating-card"><strong>Bangladesh's golden fibre</strong><small>A digital-first presentation of jute products, craft and industry.</small></div></div>
+ </div>
+ <div class="jp-hero-stamp">Portfolio case study / 04</div>
+</section>
+
+<section class="jp-statbar"><div class="jp-wrap jp-stats">
+ <div class="jp-stat"><small>Project discipline</small><strong>UI / UX Design</strong></div>
+ <div class="jp-stat"><small>Platform</small><strong>Web experience</strong></div>
+ <div class="jp-stat"><small>Industry focus</small><strong>Jute & natural fibre</strong></div>
+ <div class="jp-stat"><small>Portfolio</small><strong>MH Anik</strong></div>
+</div></section>
+
+<section class="jp-section" id="overview"><div class="jp-wrap">
+ <div class="jp-section-head jp-reveal"><div><div class="jp-kicker">01 / Project overview</div><h2>A heritage industry<br />with a <em>digital future.</em></h2></div><p class="jp-intro">Jute Portal is a web design concept focused on making Bangladesh's jute products and industry easier to explore online. The case study presents the project through its design intent, content structure, and a conceptual model for how a portal of this kind could organise information.</p></div>
+ <div class="jp-overview">
+  <div class="jp-overview-visual jp-reveal"><img src="@coverImage" alt="Jute Portal project artwork by MH Anik" loading="lazy" /><span class="jp-image-label">Project visual / Jute Portal</span></div>
+  <div class="jp-copy jp-reveal jp-delay-1"><div class="jp-kicker">The opportunity</div><h3>Make a natural material easier to discover, understand and value.</h3><p>Jute has a strong connection to Bangladesh's agricultural and manufacturing heritage. A well-structured digital portal can present that story alongside product information, industry knowledge, and pathways for people looking to learn more about jute and its uses.</p><p>The design direction balances an earthy visual character with modern web conventions: readable type, clear navigation, meaningful content groups, and enough space for imagery to communicate the material's texture and versatility.</p><blockquote class="jp-quote">“Bring the story of the golden fibre closer to a new generation of digital audiences.”</blockquote></div>
+ </div>
+</div></section>
+
+<section class="jp-section jp-green-band" id="features"><div class="jp-wrap">
+ <div class="jp-section-head jp-reveal"><div><div class="jp-kicker">02 / Platform concept</div><h2>One portal.<br /><em>Many ways to explore.</em></h2></div><p class="jp-intro">These are the core information areas a jute-industry portal can bring together. They describe the intended experience and content architecture, rather than claiming unverified live features or business outcomes.</p></div>
+ <div class="jp-pillars">
+  <article class="jp-pillar jp-reveal"><div class="jp-pillar-top"><span class="jp-pillar-num">01 / 06</span><span class="jp-pillar-icon">⌕</span></div><h3>Product discovery</h3><p>A structured way to browse jute goods by category, use case, material qualities, and product imagery.</p></article>
+  <article class="jp-pillar jp-reveal jp-delay-1"><div class="jp-pillar-top"><span class="jp-pillar-num">02 / 06</span><span class="jp-pillar-icon">▤</span></div><h3>Industry directory</h3><p>A content framework for presenting producers, suppliers, manufacturers, and other industry participants.</p></article>
+  <article class="jp-pillar jp-reveal jp-delay-2"><div class="jp-pillar-top"><span class="jp-pillar-num">03 / 06</span><span class="jp-pillar-icon">✳</span></div><h3>Jute knowledge</h3><p>Educational content explaining the fibre, its applications, processing journey, and place in local industry.</p></article>
+  <article class="jp-pillar jp-reveal"><div class="jp-pillar-top"><span class="jp-pillar-num">04 / 06</span><span class="jp-pillar-icon">⌖</span></div><h3>Regional context</h3><p>Space to highlight growing regions, production clusters, and the people and places behind the material.</p></article>
+  <article class="jp-pillar jp-reveal jp-delay-1"><div class="jp-pillar-top"><span class="jp-pillar-num">05 / 06</span><span class="jp-pillar-icon">↗</span></div><h3>Buyer enquiries</h3><p>A clear contact and enquiry journey that could help interested visitors connect with relevant suppliers.</p></article>
+  <article class="jp-pillar jp-reveal jp-delay-2"><div class="jp-pillar-top"><span class="jp-pillar-num">06 / 06</span><span class="jp-pillar-icon">◌</span></div><h3>Sustainability story</h3><p>Content space for natural-fibre benefits, responsible production, and the versatility of jute-based alternatives.</p></article>
+ </div>
+</div></section>
+
+<section class="jp-section jp-showcase" id="visuals"><div class="jp-wrap">
+ <div class="jp-section-head jp-reveal"><div><div class="jp-kicker">03 / Visual showcase</div><h2>Earthy by nature.<br /><em>Clear by design.</em></h2></div><p class="jp-intro">The featured artwork anchors the page, while the wider visual direction uses natural greens, fibre-inspired neutrals, and confident content hierarchy to support the project's subject matter.</p></div>
+ <div class="jp-artwork jp-reveal" data-jp-lightbox><img src="@coverImage" alt="Jute Portal featured project artwork" loading="lazy" /></div>
+ <div class="jp-caption"><span>Jute Portal / Featured project artwork</span><span>Click to enlarge ↗</span></div>
+</div></section>
+
+<section class="jp-section" id="system" style="background:#ece9dd"><div class="jp-wrap jp-model-layout">
+ <div class="jp-model-copy jp-reveal"><div class="jp-kicker">04 / Information architecture</div><h2 style="margin:0;color:var(--jp-forest);font:500 clamp(39px,5vw,62px)/1.06 var(--jp-serif);letter-spacing:-.045em">A clear path from <em style="color:var(--jp-leaf)">story</em> to discovery.</h2><p>A portal feels useful when visitors can move naturally between understanding the industry, exploring products, and finding the right organisation to contact. This diagram shows a conceptual structure for organising those areas.</p><div class="jp-model-notes"><div><span>Primary purpose</span><strong>Industry discovery</strong></div><div><span>Content structure</span><strong>Products · Knowledge · Directory</strong></div><div><span>Visitor outcome</span><strong>Learn, explore, enquire</strong></div><div><span>Model type</span><strong>Conceptual information map</strong></div></div></div>
+ <div class="jp-diagram jp-reveal jp-delay-1"><div class="jp-diagram-top"><span>Conceptual portal architecture</span><span>JP / 01</span></div><div class="jp-diagram-core">Jute Portal<small>DISCOVERY & INDUSTRY KNOWLEDGE</small></div><div class="jp-connect"><span></span></div><div class="jp-nodes">
+  <div class="jp-node"><b>Products</b><small>Categories<br />Product details<br />Images & attributes</small></div>
+  <div class="jp-node"><b>Industry</b><small>Organisations<br />Supplier profiles<br />Regional context</small></div>
+  <div class="jp-node"><b>Knowledge</b><small>Articles<br />Jute applications<br />Sustainability topics</small></div>
+ </div><div class="jp-connect"><span></span></div><div class="jp-node" style="border-color:rgba(80,122,78,.45);background:#f1f2e8"><b>Enquiry / Contact pathway</b><small>Visitors find information and a relevant next step</small></div><p class="jp-data-foot">Illustrative information architecture only. It is not a verified database ERD or a claim about the project's implemented backend.</p></div>
+</div></section>
+
+<section class="jp-section"><div class="jp-wrap">
+ <div class="jp-section-head jp-reveal"><div><div class="jp-kicker">05 / Design process</div><h2>Thoughtful structure.<br /><em>Useful experience.</em></h2></div><p class="jp-intro">A practical design workflow turns a broad industry topic into an understandable digital experience. These stages outline the approach behind the case-study presentation.</p></div>
+ <div class="jp-workflow">
+  <article class="jp-step jp-reveal"><span>PHASE 01</span><h3>Understand</h3><p>Identify the audiences, the information they need, and the main story the portal should communicate.</p></article>
+  <article class="jp-step jp-reveal jp-delay-1"><span>PHASE 02</span><h3>Organise</h3><p>Group the content into clear sections and establish navigation between products, industry and knowledge.</p></article>
+  <article class="jp-step jp-reveal jp-delay-2"><span>PHASE 03</span><h3>Visualise</h3><p>Use typography, colour, imagery and spacing to make the subject approachable and recognisable.</p></article>
+  <article class="jp-step jp-reveal jp-delay-3"><span>PHASE 04</span><h3>Refine</h3><p>Review responsive layouts, reading order, contrast, navigation clarity and the overall visual rhythm.</p></article>
+ </div>
+</div></section>
+
+<section class="jp-section" style="background:var(--jp-white)"><div class="jp-wrap jp-principles">
+ <div class="jp-reveal"><div class="jp-kicker">06 / Visual principles</div><h2 style="margin:0;color:var(--jp-forest);font:500 clamp(39px,5vw,62px)/1.06 var(--jp-serif);letter-spacing:-.045em">Nature gives the palette.<br /><em style="color:var(--jp-leaf)">Clarity gives the structure.</em></h2><p class="jp-intro" style="margin-top:20px">The visual system aims to feel grounded in the material without making the interface feel old-fashioned. Earthy colour is balanced with clean layouts and a strong typographic hierarchy.</p>
+ <div class="jp-palette" aria-label="Conceptual Jute Portal colour palette">
+  <div class="jp-swatch"><div class="jp-swatch-color" style="background:#142c22"></div><small><b>Forest</b>#142C22</small></div>
+  <div class="jp-swatch"><div class="jp-swatch-color" style="background:#b7c96b"></div><small><b>Leaf</b>#B7C96B</small></div>
+  <div class="jp-swatch"><div class="jp-swatch-color" style="background:#c49a60"></div><small><b>Jute fibre</b>#C49A60</small></div>
+  <div class="jp-swatch"><div class="jp-swatch-color" style="background:#f5f2e9"></div><small><b>Natural paper</b>#F5F2E9</small></div>
+ </div></div>
+ <div class="jp-principle-list jp-reveal jp-delay-1">
+  <article class="jp-principle"><span>01</span><div><h3>Grounded, not dated</h3><p>Natural tones connect to the material, while modern type and spacing keep the experience contemporary.</p></div></article>
+  <article class="jp-principle"><span>02</span><div><h3>Content before decoration</h3><p>Clear sections and concise descriptions help visitors understand what each part of the portal offers.</p></div></article>
+  <article class="jp-principle"><span>03</span><div><h3>Designed for different screens</h3><p>Flexible grids and responsive type preserve readability from desktop displays to mobile devices.</p></div></article>
+  <article class="jp-principle"><span>04</span><div><h3>Trust through consistency</h3><p>Repeated visual patterns create a more coherent experience across product, editorial and directory content.</p></div></article>
+ </div>
+</div></section>
+
+<section class="jp-cta" id="contact"><div class="jp-wrap jp-reveal"><div class="jp-eyebrow">Have an idea that deserves a platform?</div><h2>Let's make the next<br /><em>great experience.</em></h2><p>Cytech Enginneringbrings strategy, design and development together to turn complex ideas into clear digital experiences.</p><a class="jp-btn" href="mailto:mhanik417@gmail.com?subject=Let's%20discuss%20a%20digital%20project">Discuss a project <span>↗</span></a></div></section>
+</main>
+
+<footer class="jp-footer"><div class="jp-wrap jp-footer-inner"><span>© @DateTime.Now.Year Cytech Enginnering· Jute Portal case study</span><div class="jp-footer-links"><a href="@Url.Content("~/")">Back to home</a><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a></div></div></footer>
+
+<div class="jp-lightbox" role="dialog" aria-modal="true" aria-label="Expanded Jute Portal artwork" aria-hidden="true"><button class="jp-lightbox-close" type="button" aria-label="Close expanded artwork">×</button><img src="@coverImage" alt="Expanded Jute Portal project artwork" /></div>
+</div>
+<script>
+(() => {
+ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const items = document.querySelectorAll('.jp-reveal');
+ if ('IntersectionObserver' in window && !reduceMotion) {
+  const observer = new IntersectionObserver((entries, obs) => {
+   entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); } });
+  }, { threshold: .12, rootMargin: '0px 0px -35px 0px' });
+  items.forEach(item => observer.observe(item));
+ } else { items.forEach(item => item.classList.add('is-visible')); }
+
+ const box = document.querySelector('.jp-lightbox');
+ const boxImg = box?.querySelector('img');
+ const close = box?.querySelector('.jp-lightbox-close');
+ const art = document.querySelector('[data-jp-lightbox]');
+ function openBox() {
+  const img = art?.querySelector('img');
+  if (!box || !img || !boxImg) return;
+  boxImg.src = img.currentSrc || img.src;
+  box.classList.add('is-open'); box.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('jp-lock'); close?.focus();
+ }
+ function closeBox() {
+  if (!box) return;
+  box.classList.remove('is-open'); box.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('jp-lock');
+ }
+ art?.addEventListener('click', openBox); close?.addEventListener('click', closeBox);
+ box?.addEventListener('click', e => { if (e.target === box) closeBox(); });
+ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBox(); });
+
+ const hero = document.querySelector('.jp-hero');
+ const heroImage = document.querySelector('.jp-hero-art img');
+ if (hero && heroImage && !reduceMotion && window.matchMedia('(pointer:fine)').matches) {
+  hero.addEventListener('pointermove', e => {
+   const r = hero.getBoundingClientRect();
+   const x = (e.clientX-r.left)/r.width-.5, y = (e.clientY-r.top)/r.height-.5;
+   heroImage.style.transform = `scale(1.06) translate(${x*-9}px,${y*-7}px)`;
+  });
+  hero.addEventListener('pointerleave', () => heroImage.style.transform = 'scale(1.04)');
+ }
+})();
+</script>
+</body>
+</html>

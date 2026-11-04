@@ -1,0 +1,735 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090a0d">
+<meta name="description" content="MotoServis — a Flutter motorcycle service platform concept showcasing mobile UX, service booking, workshop discovery, architecture and data modeling.">
+<title>MotoServis — Flutter Product Case Study | Techninxa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#090a0d;--panel:#101216;--panel2:#15181e;--ink:#f5f5f2;--muted:#a0a4ad;--muted2:#747a85;
+ --line:rgba(255,255,255,.12);--red:#ff303b;--red2:#d70e1b;--cyan:#64e5ff;--lime:#c8ff74;
+ --serif:Georgia,"Times New Roman",serif;--sans:"DM Sans",sans-serif;--display:"Manrope",sans-serif;--mono:"DM Mono",monospace;
+ --max:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 75% 7%,rgba(255,48,59,.11),transparent 27%),radial-gradient(ellipse at 8% 43%,rgba(63,119,255,.07),transparent 28%),#090a0d}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+img{display:block;max-width:100%}
+::selection{background:var(--red);color:white}
+.container{width:min(var(--max),calc(100% - 56px));margin-inline:auto}
+.eyebrow{display:flex;align-items:center;gap:10px;color:#b9bdc5;font:500 10px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:2px;background:var(--red);box-shadow:0 0 16px #ff303b88}
+.muted{color:var(--muted)}
+.serif{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.055em}
+.accent{color:var(--red)}
+.topbar{height:74px;position:fixed;z-index:20;inset:0 0 auto;border-bottom:1px solid rgba(255,255,255,.09);background:rgba(9,10,13,.72);backdrop-filter:blur(18px)}
+.topbar-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px;font:800 13px var(--display);letter-spacing:-.03em}
+.brand-mark{width:28px;height:28px;display:grid;place-items:center;border:1px solid #ff303b88;border-radius:9px;color:var(--red);font-size:16px}
+.brand small{display:block;margin-top:2px;font:9px var(--mono);letter-spacing:.12em;color:#858b95}
+.nav{display:flex;align-items:center;gap:27px;color:#b5bac2;font-size:11px}
+.nav a{transition:color .2s;position:relative}.nav a:hover,.nav a.is-current{color:white}.nav a.is-current:not(.nav-cta):after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:2px;background:var(--red);border-radius:2px}
+.nav-cta{padding:11px 15px;border:1px solid #ffffff30;border-radius:999px;color:white!important}
+.menu-toggle{display:none;background:none;color:white;border:1px solid var(--line);border-radius:10px;padding:8px 11px}
+.hero{min-height:840px;padding:150px 0 58px;position:relative;isolation:isolate}
+#scene{position:absolute;inset:65px 0 0 35%;z-index:-1;opacity:.85;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center;min-height:590px}
+.hero-copy{position:relative;z-index:2}
+.hero-kicker{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:8px 11px;color:#c8cbd1;font:10px var(--mono);letter-spacing:.05em}
+.hero h1{font:700 clamp(60px,8vw,108px)/.92 var(--display);letter-spacing:-.09em;margin:0 0 25px;max-width:700px}
+.hero h1 .line2{display:block;color:var(--red)}
+.hero h1 .italic{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.08em}
+.hero-lead{max-width:550px;font-size:16px;line-height:1.85;color:#b0b5be}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:31px}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:18px;padding:14px 18px;border-radius:999px;font-size:11px;font-weight:700;transition:transform .25s,background .25s,border-color .25s}
+.button:hover{transform:translateY(-3px)}
+.button-primary{background:var(--red);color:white;border:1px solid var(--red);box-shadow:0 8px 30px #ff303b22}
+.button-primary:hover{background:#ff4b54}
+.button-ghost{border:1px solid #ffffff30;color:#f4f4f4}
+.button-ghost:hover{border-color:#ffffff80}
+.button .arrow{font-size:16px}
+.hero-visual{position:relative;min-width:0}
+.hero-halo{position:absolute;inset:12% 5%;border-radius:50%;background:#ff303b22;filter:blur(65px)}
+.hero-image-shell{position:relative;padding:11px;border:1px solid #ffffff27;border-radius:24px;background:linear-gradient(140deg,#ffffff1c,#ffffff03 60%);box-shadow:0 35px 90px #0009;transform:rotate(1.2deg);overflow:hidden}
+.hero-image-shell:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 35%,#ffffff10 50%,transparent 65%);transform:translateX(-100%);animation:sheen 8s ease-in-out infinite}
+.hero-image-shell img{width:100%;aspect-ratio:1.2/1;object-fit:contain;border-radius:15px;background:#090b10}
+.hero-image-fallback{display:none;aspect-ratio:1.2/1;place-items:center;text-align:center;background:radial-gradient(circle,#5c1218,#101116 65%);border-radius:15px}
+.hero-image-fallback b{font:800 38px var(--display);letter-spacing:-.07em}.hero-image-fallback span{display:block;color:#b9bec8;font-size:11px;margin-top:8px}
+.float-card{position:absolute;z-index:3;display:flex;align-items:center;gap:11px;padding:13px 15px;border:1px solid #ffffff24;border-radius:14px;background:#12151be8;box-shadow:0 15px 45px #0008;backdrop-filter:blur(14px)}
+.float-one{top:7%;right:-5%}.float-two{bottom:7%;left:-7%}
+.float-icon{width:34px;height:34px;display:grid;place-items:center;background:#ff303b20;color:var(--red);border-radius:10px;font-size:17px}
+.float-card strong,.float-card small{display:block}.float-card strong{font-size:11px}.float-card small{margin-top:4px;color:#a1a7b1;font-size:9px}
+.status-dot{width:7px;height:7px;background:var(--lime);border-radius:50%;box-shadow:0 0 0 5px #c8ff7418}
+.hero-meta{display:flex;gap:30px;flex-wrap:wrap;margin-top:44px;padding-top:23px;border-top:1px solid var(--line)}
+.hero-meta div{display:grid;gap:7px}.hero-meta span{font:9px var(--mono);letter-spacing:.1em;color:#747b86;text-transform:uppercase}.hero-meta b{font-size:11px;font-weight:600;color:#e4e6ea}
+.hero-bottom{display:flex;align-items:center;gap:12px;margin-top:42px;color:#737985;font:9px var(--mono);letter-spacing:.15em}
+.hero-bottom:before{content:"";width:7px;height:7px;background:var(--red);border-radius:50%}
+.hero-bottom i{height:1px;width:100px;background:linear-gradient(90deg,var(--red),transparent)}
+.section{padding:120px 0;position:relative}
+.section-light{background:#f0f0ed;color:#111318}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:45px;margin-bottom:54px}
+.section-head h2{font:700 clamp(39px,5.5vw,72px)/1.02 var(--display);letter-spacing:-.075em;margin:17px 0 0}
+.section-head h2 em{font-family:var(--serif);font-weight:400;color:var(--red)}
+.section-head>p{max-width:385px;margin:0 0 5px;color:var(--muted);font-size:13px;line-height:1.9}
+.section-light .eyebrow{color:#60656d}.section-light .section-head>p{color:#666b73}
+.overview-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start}
+.overview-copy h3{font:600 clamp(27px,3vw,42px)/1.13 var(--display);letter-spacing:-.055em;margin:0 0 22px}
+.overview-copy p{max-width:680px;color:#a7acb5;font-size:14px;line-height:1.95}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{padding:22px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(140deg,#15181e,#0d0f13)}
+.stat .num{font:600 32px var(--display);letter-spacing:-.06em;color:var(--red)}.stat strong{display:block;font-size:12px;margin-top:13px}.stat p{font-size:10px;color:#858c97;line-height:1.7;margin:7px 0 0}
+.capability-strip{display:grid;grid-template-columns:repeat(4,1fr);margin-top:64px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.capability{padding:22px 20px 22px 0;display:flex;gap:13px;align-items:flex-start}.capability+.capability{padding-left:20px;border-left:1px solid var(--line)}
+.capability .symbol{color:var(--red);font-size:18px}.capability b{display:block;font-size:11px}.capability small{display:block;color:#858b95;font-size:10px;line-height:1.6;margin-top:6px}
+.journey-intro{display:grid;grid-template-columns:150px 1fr;gap:30px;align-items:start;margin-bottom:45px}
+.chapter{display:flex;align-items:center;gap:10px;color:#5d626b;font:10px var(--mono);letter-spacing:.1em}
+.chapter span{display:grid;place-items:center;width:36px;height:36px;background:var(--red);border-radius:50%;color:white;font:700 11px var(--display);letter-spacing:0}
+.journey-intro h3{font:650 clamp(30px,4vw,48px)/1.05 var(--display);letter-spacing:-.07em;margin:0 0 16px}
+.journey-intro p{max-width:730px;color:#666c75;line-height:1.9;font-size:13px;margin:0}
+.journey-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}.journey-tags span{border:1px solid #d7d8d8;border-radius:999px;padding:8px 11px;color:#51565e;font-size:10px}
+.visual-stack{display:grid;gap:24px}
+.visual-card{overflow:hidden;border:1px solid #d1d3d5;border-radius:17px;background:#fff;box-shadow:0 20px 55px #1418210d}
+.visual-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 17px;background:#0e1219;color:#e8ebf0;border-bottom:1px solid #ffffff13;font:9px var(--mono);letter-spacing:.08em}
+.visual-toolbar span:first-child{display:flex;align-items:center;gap:9px}.visual-toolbar i{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 12px #ff303b88}
+.visual-toolbar .count{color:#8f98a5;white-space:nowrap}
+.visual-image{overflow-x:auto;background:#070b12;scrollbar-width:thin;scrollbar-color:#555e6c #101722;overscroll-behavior-x:contain}
+.visual-image img{width:100%;height:auto;max-width:none;object-fit:contain}
+.visual-image .wide{min-width:900px}
+.visual-caption{display:flex;justify-content:space-between;gap:25px;align-items:center;padding:17px 20px;background:white}
+.visual-caption strong{font:650 13px var(--display);color:#17191e}.visual-caption p{max-width:580px;margin:0;color:#70757d;font-size:10px;line-height:1.75}
+.image-note{font:9px var(--mono);color:#888e96}
+.app-image img{min-width:0}
+.support-image img{min-width:0}
+.visual-placeholder{display:none;padding:35px;color:#fff;text-align:center;background:radial-gradient(ellipse at center,#252a35,#070b12)}
+.visual-placeholder strong{font:700 22px var(--display)}
+.visual-placeholder p{font-size:11px;color:#9fa7b4}
+.arch-section{background:#0c0e12}
+.arch-section .section-head>p{color:#969da7}
+.architecture{padding:30px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#14171d,#0a0c10);overflow:hidden}
+.architecture-top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:25px}
+.architecture-top h3{margin:0;font:600 17px var(--display);letter-spacing:-.03em}
+.architecture-top small{font:9px var(--mono);letter-spacing:.1em;color:#8d95a1}
+.arch-tree{display:grid;justify-items:center;gap:0}
+.arch-node{position:relative;width:min(100%,720px);padding:17px 20px;border:1px solid #64e5ff65;border-radius:12px;background:linear-gradient(100deg,#12202a,#10141b);display:grid;grid-template-columns:40px 1fr auto;gap:13px;align-items:center;box-shadow:0 10px 30px #0002}
+.arch-node:nth-of-type(3n){border-color:#e56bff66;background:linear-gradient(100deg,#21152a,#11131a)}
+.arch-node:nth-of-type(4n){border-color:#ff566566;background:linear-gradient(100deg,#29151a,#11131a)}
+.arch-icon{width:37px;height:37px;display:grid;place-items:center;border-radius:10px;background:#64e5ff17;color:var(--cyan);font-size:17px}
+.arch-node:nth-of-type(3n) .arch-icon{color:#e56bff;background:#e56bff17}
+.arch-node:nth-of-type(4n) .arch-icon{color:#ff7078;background:#ff303b17}
+.arch-node b{display:block;font:650 13px var(--display)}.arch-node small{display:block;color:#8e97a4;font-size:10px;margin-top:4px}
+.arch-node em{font:9px var(--mono);font-style:normal;color:#9ba4b1}
+.arch-connector{height:27px;width:1px;background:linear-gradient(var(--cyan),#ffffff18);position:relative}
+.arch-connector:after{content:"↓";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);color:var(--cyan);font-size:12px}
+.arch-branch{width:min(100%,920px);display:grid;grid-template-columns:repeat(3,1fr);gap:13px;position:relative;padding-top:27px;margin-top:0}
+.arch-branch:before{content:"";position:absolute;top:0;left:16.66%;right:16.66%;height:1px;background:#64e5ff66}
+.arch-branch .arch-node{width:100%;height:100%;grid-template-columns:30px 1fr;padding:15px;gap:10px}
+.arch-branch .arch-node em{grid-column:2}
+.arch-note{margin:24px 0 0;color:#828a96;font-size:10px;line-height:1.8}
+.architecture .arch-node{animation:floatIn .7s both}
+.architecture .arch-node:nth-child(1){animation-delay:.05s}.architecture .arch-node:nth-child(3){animation-delay:.15s}.architecture .arch-node:nth-child(5){animation-delay:.25s}
+.data-section{background:#f0f0ed;color:#111318}
+.data-section .section-head>p{color:#676c74}
+.erd-wrap{padding:25px;border:1px solid #d7d8d9;border-radius:20px;background:#e8e9e7;overflow:auto}
+.erd-canvas{min-width:950px;position:relative;padding:10px 0 25px}
+.erd-lines{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.erd-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,minmax(145px,1fr));grid-template-rows:auto 52px auto 52px auto;gap:0 16px;align-items:start}
+.entity{border:1px solid #c9cbd0;border-radius:11px;background:#fff;box-shadow:0 8px 20px #1418200b;overflow:hidden;min-width:0}
+.entity-head{padding:10px 12px;background:#171b23;color:white;display:flex;align-items:center;justify-content:space-between;gap:6px;font:650 10px var(--display)}
+.entity-head span{color:#ff6b73;font:9px var(--mono)}
+.entity-fields{padding:9px 11px}
+.entity-fields div{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid #eff0f1;color:#555b65;font:9px var(--mono)}
+.entity-fields div:last-child{border:0}.entity-fields b{color:#d51c2a;font-weight:500}
+.e-users{grid-column:3;grid-row:1}.e-bike{grid-column:1;grid-row:3}.e-workshop{grid-column:3;grid-row:3}.e-service{grid-column:5;grid-row:3}.e-booking{grid-column:2;grid-row:5}.e-order{grid-column:4;grid-row:5}
+.erd-legend{display:flex;flex-wrap:wrap;gap:20px;margin-top:20px;color:#5e646c;font-size:10px}.erd-legend span{display:flex;align-items:center;gap:7px}.erd-legend i{width:8px;height:8px;background:var(--red);border-radius:2px}
+.erd-disclaimer{font-size:10px;color:#757b83;line-height:1.8;margin:18px 0 0}
+.concepts{background:#0c0e12}
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.concept-card{min-height:220px;padding:24px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(140deg,#15181e,#0c0e12);transition:transform .3s,border-color .3s}
+.concept-card:hover{transform:translateY(-5px);border-color:#ff303b66}
+.concept-top{display:flex;justify-content:space-between;align-items:center}.concept-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#ff303b17;color:var(--red);font-size:19px}.concept-top span{font:10px var(--mono);color:#777f8a}
+.concept-card h3{font:650 17px var(--display);margin:28px 0 10px;letter-spacing:-.03em}.concept-card p{font-size:11px;line-height:1.85;color:#959ca7;margin:0}
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.feature-card{position:relative;padding:22px;border:1px solid #d8d9da;border-radius:15px;background:#fff;min-height:220px;transition:transform .25s,box-shadow .25s}
+.feature-card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #0000000c}
+.feature-card .index{position:absolute;right:19px;top:19px;color:#9ca0a5;font:10px var(--mono)}
+.feature-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#fff0f0;color:var(--red);font-size:19px}
+.feature-card h3{font:650 17px var(--display);margin:27px 0 9px;letter-spacing:-.04em}.feature-card p{font-size:10px;line-height:1.8;color:#6c727a;margin:0}.feature-card small{display:block;margin-top:20px;color:#999da3;font:9px var(--mono);letter-spacing:.06em}
+.workflow{background:#f0f0ed;color:#111318}
+.flow-track{display:grid;grid-template-columns:repeat(7,auto);align-items:center;gap:12px}
+.flow-step{min-height:128px;min-width:0;padding:17px;border:1px solid #d6d8d9;border-radius:13px;background:white}
+.flow-step small{font:9px var(--mono);color:var(--red)}.flow-step b{display:block;font:650 12px var(--display);margin-top:13px}.flow-step p{font-size:9px;line-height:1.7;color:#737982;margin:7px 0 0}.flow-arrow{color:var(--red);font-size:18px}
+.stack-section{background:var(--red);color:white;overflow:hidden}
+.stack-section:after{content:"</>";position:absolute;right:3%;bottom:-90px;font:800 280px var(--display);letter-spacing:-.1em;color:#0000000c;pointer-events:none}
+.stack-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:65px;align-items:center;position:relative;z-index:1}
+.stack-section .eyebrow{color:#ffffffc4}.stack-section .eyebrow:before{background:white;box-shadow:none}
+.stack-section h2{font:700 clamp(42px,5vw,66px)/1.02 var(--display);letter-spacing:-.08em;margin:20px 0}
+.stack-section h2 em{font:400 italic clamp(42px,5vw,66px) var(--serif);color:#30090d}
+.stack-section p{max-width:410px;font-size:12px;line-height:1.9;color:#ffffffc9}
+.stack-cloud{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stack-item{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #ffffff4d;border-radius:13px;background:#ffffff0d;backdrop-filter:blur(8px)}
+.stack-symbol{width:34px;height:34px;display:grid;place-items:center;background:#fff;color:var(--red);border-radius:10px;font:800 12px var(--display)}
+.stack-item b{display:block;font-size:11px}.stack-item small{display:block;font-size:9px;color:#ffffffc4;margin-top:4px}
+.cta{padding:120px 0;background:radial-gradient(ellipse at 75% 45%,#ff303b22,transparent 33%),#090a0d}
+.cta-inner{display:grid;grid-template-columns:1fr auto;align-items:end;gap:40px}
+.cta h2{font:700 clamp(42px,6.5vw,82px)/.98 var(--display);letter-spacing:-.085em;margin:20px 0}
+.cta h2 em{font:400 italic clamp(42px,6.5vw,82px) var(--serif);color:var(--red)}
+.cta p{max-width:600px;color:#9ca3ad;font-size:13px;line-height:1.9}
+.cta-actions{display:flex;flex-direction:column;gap:18px;align-items:flex-start;padding-bottom:8px}
+.footer{border-top:1px solid var(--line);padding:25px 0;color:#747b85;font-size:10px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}.footer strong{color:#e3e5e9}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.2,1)}
+.reveal.is-visible{opacity:1;transform:none}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}
+@@keyframes sheen{0%,65%,100%{transform:translateX(-120%)}80%{transform:translateX(120%)}}
+@@keyframes floatIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@@media(max-width:950px){
+ .hero{padding-top:130px}.hero-grid{gap:25px}.hero h1{font-size:clamp(55px,8vw,85px)}.float-one{right:-2%}.float-two{left:-2%}
+ .overview-grid{gap:35px}.capability-strip{grid-template-columns:repeat(2,1fr)}.capability:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--line)}.capability:nth-child(4){border-top:1px solid var(--line)}
+ .feature-grid{grid-template-columns:repeat(2,1fr)}.flow-track{grid-template-columns:1fr;gap:8px}.flow-arrow{transform:rotate(90deg);justify-self:center}.flow-step{min-height:0}
+ .stack-grid{gap:35px}.arch-branch{grid-template-columns:1fr}.arch-branch:before{display:none}.arch-branch .arch-node{grid-template-columns:30px 1fr}
+}
+@@media(max-width:700px){
+ .container{width:calc(100% - 34px)}.topbar{height:65px}.menu-toggle{display:block}.nav{display:none;position:absolute;top:64px;left:0;right:0;padding:18px 22px 22px;background:#0d0f13;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:18px}.nav.open{display:flex}.nav-cta{text-align:center}
+ .hero{padding:115px 0 42px;min-height:auto}.hero-grid{grid-template-columns:1fr;gap:36px}.hero h1{font-size:clamp(57px,15vw,85px)}.hero-lead{font-size:14px}.hero-visual{width:92%;margin:0 auto}.hero-image-shell img{aspect-ratio:1.05/1}.float-card{padding:10px}.float-one{right:-6%;top:5%}.float-two{left:-6%;bottom:4%}.hero-meta{gap:17px;margin-top:32px}.hero-meta b{font-size:10px}.hero-bottom{margin-top:32px}
+ .section{padding:78px 0}.section-head{display:block;margin-bottom:36px}.section-head h2{font-size:clamp(39px,11vw,58px)}.section-head>p{margin-top:20px}
+ .overview-grid{grid-template-columns:1fr;gap:28px}.stat .num{font-size:27px}.stat{padding:17px}.capability-strip{margin-top:38px}.capability{padding:17px 12px 17px 0}.capability+.capability{padding-left:12px}
+ .journey-intro{grid-template-columns:1fr;gap:18px;margin-bottom:28px}.journey-intro h3{font-size:33px}.visual-caption{display:block;padding:14px}.visual-caption p{margin-top:7px}.image-note{display:block;margin-top:9px}
+ .architecture{padding:15px}.architecture-top{align-items:flex-start;flex-direction:column}.arch-node{grid-template-columns:34px 1fr;padding:13px;gap:10px}.arch-node em{grid-column:2}.arch-node b{font-size:11px}.arch-node small{font-size:9px}.arch-icon{width:32px;height:32px}
+ .erd-wrap{padding:13px}.concept-grid{grid-template-columns:1fr}.concept-card{min-height:0}.feature-grid{grid-template-columns:1fr 1fr}.feature-card{padding:16px;min-height:210px}.feature-card h3{font-size:15px}
+ .stack-grid{grid-template-columns:1fr;gap:28px}.stack-cloud{gap:8px}.stack-item{padding:10px;gap:8px}.stack-symbol{width:29px;height:29px}.stack-item b{font-size:10px}.stack-item small{font-size:8px}.stack-section:after{font-size:160px}
+ .cta{padding:80px 0}.cta-inner{grid-template-columns:1fr;gap:24px}.cta h2{font-size:clamp(42px,12vw,63px)}.cta h2 em{font-size:inherit}.footer-inner{align-items:flex-start;flex-direction:column}
+}
+@@media(max-width:390px){.feature-grid{grid-template-columns:1fr}.hero h1{font-size:55px}.stack-cloud{grid-template-columns:1fr}.capability{gap:8px}.capability b{font-size:10px}}
+@@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* === Interactive motion layer: parallax, depth, cursor and scroll feedback === */
+:root{--scroll-progress:0%;--pointer-x:50%;--pointer-y:50%}
+html{scroll-behavior:smooth}
+body{cursor:auto}
+.motion-progress{position:fixed;z-index:100;top:0;left:0;height:2px;width:var(--scroll-progress);background:linear-gradient(90deg,var(--red),var(--cyan));box-shadow:0 0 15px #ff303b80;pointer-events:none;transform-origin:left center}
+.cursor-aura,.cursor-core{position:fixed;z-index:99;left:0;top:0;pointer-events:none;border-radius:50%;opacity:0;transform:translate(-50%,-50%);transition:opacity .25s,border-color .2s,background .2s}
+.cursor-aura{width:38px;height:38px;border:1px solid #ff596480;background:#ff303b08;mix-blend-mode:screen}
+.cursor-core{width:5px;height:5px;background:var(--red);box-shadow:0 0 12px #ff303b}
+body.has-pointer .cursor-aura,body.has-pointer .cursor-core{opacity:1}
+body.cursor-hover .cursor-aura{width:58px;height:58px;border-color:#64e5ffbb;background:#64e5ff12}
+body.cursor-hover .cursor-core{transform:translate(-50%,-50%) scale(1.6);background:var(--cyan)}
+.hero{--hero-shift:0px;overflow:hidden}
+.hero-grid{perspective:1200px}
+.hero-visual{transform:translate3d(var(--visual-x,0px),var(--visual-y,0px),0);transform-style:preserve-3d;will-change:transform}
+.hero-image-shell{transform-style:preserve-3d;will-change:transform;transition:box-shadow .35s,border-color .35s}
+.hero-image-shell:hover{border-color:#ffffff50;box-shadow:0 42px 110px #000b,0 0 50px #ff303b12}
+.float-card{will-change:transform;transition:border-color .25s}
+.hero-halo{transform:translate3d(0,var(--halo-y,0px),0) scale(var(--halo-scale,1));will-change:transform}
+#scene{will-change:transform}
+.section,.section-light,.workflow,.stack-section,.cta{isolation:isolate;overflow:hidden}
+.section-orb{position:absolute;z-index:-1;pointer-events:none;width:clamp(220px,32vw,480px);aspect-ratio:1;border-radius:50%;filter:blur(85px);opacity:.1;transform:translate3d(0,var(--orb-y,0px),0);will-change:transform}
+.section-orb.orb-red{right:-12%;top:8%;background:var(--red)}
+.section-orb.orb-cyan{left:-15%;bottom:2%;background:#3978ff;opacity:.08}
+.section-light .section-orb{opacity:.06}
+.reveal{will-change:transform,opacity}
+.visual-card,.feature-card,.stat,.stack-item,.flow-step,.concept-card,.entity{transform-style:preserve-3d;backface-visibility:hidden}
+.visual-card,.feature-card,.stat,.stack-item,.flow-step{transition:transform .35s cubic-bezier(.2,.75,.25,1),border-color .3s,box-shadow .3s;will-change:transform}
+.feature-card:hover,.visual-card:hover{box-shadow:0 28px 65px #0002;border-color:#ff303b70}
+.stack-item:hover{border-color:#ff303b60;box-shadow:0 12px 35px #0003}
+.feature-card .feature-icon,.stack-symbol,.arch-icon{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.feature-card:hover .feature-icon,.stack-item:hover .stack-symbol{transform:translateZ(22px) rotate(-7deg) scale(1.08)}
+.button,.nav-cta{position:relative;isolation:isolate;overflow:hidden}
+.button:before,.nav-cta:before{content:"";position:absolute;z-index:-1;inset:-2px;background:linear-gradient(110deg,transparent 25%,#ffffff2b 48%,transparent 68%);transform:translateX(-130%);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.button:hover:before,.nav-cta:hover:before{transform:translateX(130%)}
+.button .arrow{display:inline-block;transition:transform .25s}
+.button:hover .arrow{transform:translate(3px,-2px)}
+.visual-card img,.journey-image img,.hero-image-shell img{transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s}
+.visual-card:hover img,.journey-image:hover img{transform:scale(1.025);filter:saturate(1.08)}
+.section-head h2 em,.cta h2 em{display:inline-block;transition:letter-spacing .5s}
+.section-head:hover h2 em{letter-spacing:-.025em}
+/* Soft pointer-following spotlight on dark content panels */
+.stat,.feature-card,.stack-item,.flow-step,.concept-card{background-image:radial-gradient(260px circle at var(--pointer-x) var(--pointer-y),rgba(255,255,255,.055),transparent 60%),linear-gradient(140deg,#15181e,#0d0f13)}
+.section-light .feature-card{background-image:radial-gradient(260px circle at var(--pointer-x) var(--pointer-y),rgba(255,48,59,.07),transparent 60%);background-color:#fff}
+/* Architecture layers subtly lift into focus as they enter view */
+.arch-node,.arch-connector,.entity{transition:transform .45s cubic-bezier(.2,.75,.25,1),box-shadow .35s,border-color .35s}
+.arch-node:hover,.entity:hover{transform:translateY(-4px) scale(1.015);box-shadow:0 18px 35px #0003;border-color:#ff303b90}
+.flow-arrow{display:inline-block;animation:flowPulse 2.2s ease-in-out infinite}
+@@keyframes flowPulse{0%,100%{opacity:.45;transform:translateX(0)}50%{opacity:1;transform:translateX(4px)}}
+.hero-bottom i{animation:lineBreathe 2.4s ease-in-out infinite;transform-origin:left}
+@@keyframes lineBreathe{0%,100%{opacity:.45;transform:scaleX(.72)}50%{opacity:1;transform:scaleX(1)}}
+@@media(hover:hover) and (pointer:fine){body.interactive-cursor{cursor:none}body.interactive-cursor a,body.interactive-cursor button{cursor:none}}
+@@media(max-width:760px){.cursor-aura,.cursor-core{display:none}.section-orb{filter:blur(60px);opacity:.06}.hero-visual{transform:none!important}.hero-image-shell{transform:rotate(.4deg)!important}.visual-card,.feature-card,.stat,.stack-item,.flow-step{transform:none!important}}
+@@media(prefers-reduced-motion:reduce){.motion-progress{display:none}.cursor-aura,.cursor-core{display:none!important}.section-orb{display:none}.flow-arrow,.hero-bottom i{animation:none!important}.hero-visual,.hero-image-shell,.float-card,.visual-card,.feature-card,.stat,.stack-item,.flow-step{transform:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+<div class="motion-progress" aria-hidden="true"></div><div class="cursor-aura" aria-hidden="true"></div><div class="cursor-core" aria-hidden="true"></div>
+<header class="topbar">
+ <div class="container topbar-inner">
+  <a class="brand" href="#top" aria-label="Cytech Enginneringhome"><span class="brand-mark">↗</span><span>TECHNINXA<small>PRODUCT ENGINEERING</small></span></a>
+  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <nav class="nav" aria-label="Main navigation">
+   <a href="#overview">Overview</a><a href="#experience">Experience</a><a href="#architecture">Architecture</a><a href="#data-model">Data model</a><a href="#technology">Technology</a><a class="nav-cta" href="#contact">Build with us ↗</a>
+  </nav>
+ </div>
+</header>
+<main id="top">
+<section class="hero">
+ <canvas id="scene" aria-hidden="true"></canvas>
+ <div class="container">
+  <div class="hero-grid">
+   <div class="hero-copy">
+    <div class="hero-kicker"><span class="eyebrow">Mobile product case study</span><span class="pill">01 / FLUTTER</span></div>
+    <h1>Moto<span class="line2">Servis<span class="italic">.</span></span><span class="italic">Built for the road ahead.</span></h1>
+    <p class="hero-lead">A motorcycle service experience designed to bring workshop discovery, maintenance booking, spare parts and rider history into one considered mobile product.</p>
+    <div class="hero-actions"><a class="button button-primary" href="#experience">Explore the product <span class="arrow">↘</span></a><a class="button button-ghost" href="#architecture">See how it's built <span class="arrow">↗</span></a></div>
+    <div class="hero-meta">
+     <div><span>Discipline</span><b>Flutter app development</b></div><div><span>Product space</span><b>Mobility &amp; servicing</b></div><div><span>Experience</span><b>Android / iOS concept</b></div>
+    </div>
+   </div>
+   <div class="hero-visual">
+    <div class="hero-halo"></div>
+    <div class="hero-image-shell">
+     <img src="/assets/projects/labib/motointerface.png" alt="MotoServis mobile interface showing the home dashboard, service booking, service details, workshop and rider profile" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+     <div class="hero-image-fallback"><div><b>MotoServis</b><span>Mobile servicing experience</span></div></div>
+    </div>
+    <div class="float-card float-one"><span class="float-icon">↗</span><span><strong>Service booking</strong><small>Find · Choose · Schedule</small></span></div>
+    <div class="float-card float-two"><span class="status-dot"></span><span><strong>One connected journey</strong><small>From discovery to service history</small></span></div>
+   </div>
+  </div>
+  <div class="hero-bottom">SCROLL TO EXPLORE <i></i> PRODUCT · ENGINEERING · DATA</div>
+ </div>
+</section>
+
+<section class="section" id="overview">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">01 / Product overview</div><h2>Not just screens.<br><em>A service journey.</em></h2></div><p>Good mobile products reduce friction between what a person needs and what they need to do next. MotoServis is structured around the real tasks of motorcycle ownership.</p></div>
+  <div class="overview-grid">
+   <div class="overview-copy reveal"><h3>Make routine maintenance feel <span class="serif accent">effortless.</span></h3><p>Riders can explore service options, understand what a service includes, find a workshop, choose a suitable appointment and return to their profile or service history later. The interface brings these related tasks into a single, recognizable experience.</p><p>The product concept focuses on clear hierarchy, strong calls to action, predictable steps and visible feedback—so users are not left guessing what happens after a tap.</p></div>
+   <div class="stat-grid reveal delay-1">
+    <div class="stat"><div class="num">01</div><strong>Discover</strong><p>Explore services, promotions and nearby workshops.</p></div>
+    <div class="stat"><div class="num">02</div><strong>Book</strong><p>Choose a service and move through a clear booking flow.</p></div>
+    <div class="stat"><div class="num">03</div><strong>Manage</strong><p>Keep profile details and order information accessible.</p></div>
+    <div class="stat"><div class="num">04</div><strong>Return</strong><p>Revisit maintenance and service information when needed.</p></div>
+   </div>
+  </div>
+  <div class="capability-strip reveal">
+   <div class="capability"><span class="symbol">⌕</span><div><b>Fast discovery</b><small>Services and workshop browsing</small></div></div>
+   <div class="capability"><span class="symbol">◷</span><div><b>Structured booking</b><small>Service selection to confirmation</small></div></div>
+   <div class="capability"><span class="symbol">▣</span><div><b>Account hub</b><small>Profile and order access</small></div></div>
+   <div class="capability"><span class="symbol">↗</span><div><b>Room to scale</b><small>Modular feature and data concepts</small></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="section section-light" id="experience">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">02 / The mobile experience</div><h2>Designed for the<br><em>whole rider journey.</em></h2></div><p>From the first glance at the dashboard to the details of a selected service, every part of the experience has a job to do.</p></div>
+  <div class="journey-intro reveal">
+   <div class="chapter"><span>01</span> THE PRODUCT</div>
+   <div><h3>One app. Every step of the journey.</h3><p>Use the visuals below to tell the product story in sequence: the actual mobile interface first, the main user areas next, then the technology and feature overview.</p><div class="journey-tags"><span>Home &amp; discovery</span><span>Service booking</span><span>Workshop details</span><span>Rider profile</span></div></div>
+  </div>
+  <div class="visual-stack">
+   <figure class="visual-card reveal">
+    <div class="visual-toolbar"><span><i></i> MOBILE INTERFACE / APP SCREENS</span><span class="count">01 / 04</span></div>
+    <div class="visual-image app-image"><img src="/assets/projects/labib/motointerface.png" alt="MotoServis mobile app screen overview" loading="lazy" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='block'"></div>
+    <div class="visual-placeholder"><strong>Mobile interface visual</strong><p>Place motointerface.png in /assets/projects/labib/ to display this image.</p></div>
+    <figcaption class="visual-caption"><strong>The interface</strong><p>Dashboard, service booking, service details, workshop discovery and profile screens.</p><span class="image-note">FULL PRODUCT VIEW</span></figcaption>
+   </figure>
+   <figure class="visual-card reveal">
+    <div class="visual-toolbar"><span><i></i> USER JOURNEY / CORE AREAS</span><span class="count">02 / 04</span></div>
+    <div class="visual-image support-image"><img src="/assets/projects/labib/motojourney.png" alt="MotoServis user journey overview showing home dashboard, service booking, spare parts and profile settings" loading="lazy" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='block'"></div>
+    <div class="visual-placeholder"><strong>User journey visual</strong><p>Place motojourney.png in /assets/projects/labib/ to display this image.</p></div>
+    <figcaption class="visual-caption"><strong>A connected rider journey</strong><p>Four main areas orient the user around discovery, booking, parts and account management.</p><span class="image-note">USER EXPERIENCE MAP</span></figcaption>
+   </figure>
+   <figure class="visual-card reveal">
+    <div class="visual-toolbar"><span><i></i> TECHNOLOGY / IMPLEMENTATION TOOLKIT</span><span class="count">03 / 04</span></div>
+    <div class="visual-image support-image"><img src="/assets/projects/labib/mototechstack.png" alt="MotoServis technology stack including Flutter, Dart, Firebase, REST API, GetX, SQLite and Figma" loading="lazy" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='block'"></div>
+    <div class="visual-placeholder"><strong>Technology stack visual</strong><p>Place mototechstack.png in /assets/projects/labib/ to display this image.</p></div>
+    <figcaption class="visual-caption"><strong>Tools behind the experience</strong><p>Flutter and Dart sit alongside the state, data and design tools represented in the project stack.</p><span class="image-note">TECH STACK</span></figcaption>
+   </figure>
+   <figure class="visual-card reveal">
+    <div class="visual-toolbar"><span><i></i> PRODUCT CAPABILITIES / FEATURE MAP</span><span class="count">04 / 04</span></div>
+    <div class="visual-image support-image"><img src="/assets/projects/labib/motofeatures.png" alt="MotoServis feature map including service booking, spare parts, nearby workshops, tracking, push notifications, authentication and order history" loading="lazy" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='block'"></div>
+    <div class="visual-placeholder"><strong>Feature map visual</strong><p>Place motofeatures.png in /assets/projects/labib/ to display this image.</p></div>
+    <figcaption class="visual-caption"><strong>Product feature overview</strong><p>A concise map of the capabilities represented in the supplied concept visuals.</p><span class="image-note">FEATURE MAP</span></figcaption>
+   </figure>
+  </div>
+ </div>
+</section>
+
+<section class="section arch-section" id="architecture">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">03 / Application architecture</div><h2>From interaction<br>to <em>implementation.</em></h2></div><p>A strong app architecture keeps the interface responsive while separating presentation, state, business rules and data access. This conceptual diagram makes those responsibilities visible.</p></div>
+  <div class="architecture reveal">
+   <div class="architecture-top"><h3>Development architecture</h3><small>TOP-DOWN SYSTEM VIEW · CONCEPTUAL</small></div>
+   <div class="arch-tree">
+    <div class="arch-node"><span class="arch-icon">▣</span><div><b>Presentation layer</b><small>Flutter screens · widgets · navigation · forms</small></div><em>01 / UI</em></div>
+    <div class="arch-connector"></div>
+    <div class="arch-node"><span class="arch-icon">⌘</span><div><b>State management</b><small>GetX controllers · reactive state · loading and error states</small></div><em>02 / STATE</em></div>
+    <div class="arch-connector"></div>
+    <div class="arch-node"><span class="arch-icon">◇</span><div><b>Application &amp; business logic</b><small>Validation · booking rules · service selection · workflow orchestration</small></div><em>03 / LOGIC</em></div>
+    <div class="arch-connector"></div>
+    <div class="arch-node"><span class="arch-icon">⇄</span><div><b>Repository / data access</b><small>Data models · API clients · local persistence adapters</small></div><em>04 / DATA</em></div>
+    <div class="arch-connector"></div>
+    <div class="arch-branch">
+     <div class="arch-node"><span class="arch-icon">↗</span><div><b>REST API</b><small>Remote data integration</small></div><em>NETWORK</em></div>
+     <div class="arch-node"><span class="arch-icon">◈</span><div><b>Firebase</b><small>Authentication / backend services where used</small></div><em>CLOUD</em></div>
+     <div class="arch-node"><span class="arch-icon">▤</span><div><b>SQLite</b><small>Local data persistence</small></div><em>LOCAL</em></div>
+    </div>
+   </div>
+   <p class="arch-note">Architecture is a presentation model based on the technology concepts supplied for this project. Confirm actual package usage, integrations and layer boundaries against the source code before describing them as implemented production components.</p>
+  </div>
+  <div class="visual-stack" style="margin-top:24px">
+   <figure class="visual-card reveal">
+    <div class="visual-toolbar"><span><i></i> ORIGINAL ARCHITECTURE VISUAL</span><span class="count">REFERENCE</span></div>
+    <div class="visual-image"><img src="/assets/projects/labib/motoarchite.png" class="wide" alt="MotoServis original development architecture diagram" loading="lazy" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='block'"></div>
+    <div class="visual-placeholder"><strong>Architecture reference image</strong><p>Place motoarchite.png in /assets/projects/labib/ to display the supplied diagram.</p></div>
+    <figcaption class="visual-caption"><strong>Architecture reference</strong><p>The original diagram can be inspected horizontally on smaller screens.</p><span class="image-note">SOURCE VISUAL</span></figcaption>
+   </figure>
+  </div>
+ </div>
+</section>
+
+<section class="section data-section" id="data-model">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">04 / Data model &amp; ER diagram</div><h2>Every journey leaves<br><em>a clear record.</em></h2></div><p>The data model explains how users, motorcycles, workshops, service definitions, bookings and orders can relate. The diagram is illustrative—not a claim that these exact tables exist in a production database.</p></div>
+  <div class="erd-wrap reveal">
+   <div class="erd-canvas">
+    <svg class="erd-lines" viewBox="0 0 1000 610" preserveAspectRatio="none" aria-label="Entity relationship connectors">
+     <g fill="none" stroke="#e12a36" stroke-width="1.7" stroke-dasharray="5 4" opacity=".8">
+      <path d="M500 125 V155 H100 V205"/><path d="M500 125 V205"/><path d="M500 125 V155 H900 V205"/>
+      <path d="M100 330 V380 H300 V440"/><path d="M500 330 V385 H300 V440"/><path d="M500 330 V385 H700 V440"/><path d="M900 330 V380 H700 V440"/>
+     </g>
+     <g fill="#e12a36"><circle cx="100" cy="205" r="3"/><circle cx="500" cy="205" r="3"/><circle cx="900" cy="205" r="3"/><circle cx="300" cy="440" r="3"/><circle cx="700" cy="440" r="3"/></g>
+    </svg>
+    <div class="erd-grid">
+     <div class="entity e-users"><div class="entity-head">USERS <span>PK</span></div><div class="entity-fields"><div><b>PK</b> user_id</div><div>full_name</div><div>email</div><div>phone</div><div>created_at</div></div></div>
+     <div class="entity e-bike"><div class="entity-head">MOTORCYCLES <span>PK</span></div><div class="entity-fields"><div><b>PK</b> motorcycle_id</div><div><b>FK</b> user_id</div><div>make / model</div><div>registration_no</div></div></div>
+     <div class="entity e-workshop"><div class="entity-head">WORKSHOPS <span>PK</span></div><div class="entity-fields"><div><b>PK</b> workshop_id</div><div>name</div><div>address</div><div>contact_phone</div><div>availability</div></div></div>
+     <div class="entity e-service"><div class="entity-head">SERVICES <span>PK</span></div><div class="entity-fields"><div><b>PK</b> service_id</div><div>service_name</div><div>description</div><div>base_price</div><div>duration_mins</div></div></div>
+     <div class="entity e-booking"><div class="entity-head">BOOKINGS <span>PK</span></div><div class="entity-fields"><div><b>PK</b> booking_id</div><div><b>FK</b> user_id</div><div><b>FK</b> workshop_id</div><div><b>FK</b> service_id</div><div>slot / status</div></div></div>
+     <div class="entity e-order"><div class="entity-head">ORDERS &amp; PARTS <span>PK</span></div><div class="entity-fields"><div><b>PK</b> order_id</div><div><b>FK</b> user_id</div><div>order_status</div><div>total_amount</div><div>created_at</div></div></div>
+    </div>
+   </div>
+  </div>
+  <div class="erd-legend"><span><i></i> Primary / foreign key indicators</span><span>1 user → multiple motorcycles</span><span>Bookings connect users, workshops and services</span></div>
+  <p class="erd-disclaimer">Illustrative entity relationship diagram for product communication. Table names, fields, cardinalities and key constraints should be updated to match the actual schema. For production documentation, include order items, payment records, reviews, notifications and audit fields only where they are genuinely implemented.</p>
+  <div class="visual-stack" style="margin-top:30px">
+   <figure class="visual-card reveal">
+    <div class="visual-toolbar"><span><i></i> SUPPLIED DATABASE DIAGRAM</span><span class="count">ERD / SOURCE</span></div>
+    <div class="visual-image"><img src="/assets/projects/labib/motoerd.png" class="wide" alt="MotoServis supplied entity relationship diagram" loading="lazy" onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='block'"></div>
+    <div class="visual-placeholder"><strong>Database diagram reference</strong><p>Place motoerd.png in /assets/projects/labib/ to display the supplied ERD.</p></div>
+    <figcaption class="visual-caption"><strong>Database reference</strong><p>Compare this source visual with the conceptual entity map above and align both with the real schema.</p><span class="image-note">DATA RELATIONSHIPS</span></figcaption>
+   </figure>
+  </div>
+ </div>
+</section>
+
+<section class="section concepts">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">05 / Core engineering concepts</div><h2>The craft behind<br><em>the interface.</em></h2></div><p>A professional mobile experience depends on more than attractive screens. These are the engineering ideas worth communicating to a potential client.</p></div>
+  <div class="concept-grid">
+   <article class="concept-card reveal"><div class="concept-top"><span class="concept-icon">▦</span><span>CORE 01</span></div><h3>Reusable UI system</h3><p>Consistent service cards, buttons, status labels, form fields and spacing reduce visual drift and make future screens faster to build.</p></article>
+   <article class="concept-card reveal delay-1"><div class="concept-top"><span class="concept-icon">⌘</span><span>CORE 02</span></div><h3>Predictable state</h3><p>Represent loading, success, validation and failure states clearly so users understand the result of an action and what to do next.</p></article>
+   <article class="concept-card reveal delay-2"><div class="concept-top"><span class="concept-icon">⇄</span><span>CORE 03</span></div><h3>Separated responsibilities</h3><p>Keep presentation, application rules and data access distinct where appropriate, improving maintainability and testability.</p></article>
+   <article class="concept-card reveal"><div class="concept-top"><span class="concept-icon">✓</span><span>CORE 04</span></div><h3>Input validation</h3><p>Validate booking details and required fields early, with helpful feedback instead of silent failures or confusing form behavior.</p></article>
+   <article class="concept-card reveal delay-1"><div class="concept-top"><span class="concept-icon">◷</span><span>CORE 05</span></div><h3>Time-slot integrity</h3><p>Appointment flows need clear availability, timezone-aware dates and server-side checks to avoid conflicting reservations.</p></article>
+   <article class="concept-card reveal delay-2"><div class="concept-top"><span class="concept-icon">⌁</span><span>CORE 06</span></div><h3>Reliable data handling</h3><p>Model relationships carefully, handle network errors and protect account data through appropriate authentication and authorization.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section section-light" id="features">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">06 / Feature map</div><h2>Useful journeys.<br><em>Clearly connected.</em></h2></div><p>The feature set below reflects the supplied project concept. Connect each capability to real APIs and workflows before presenting it as live functionality.</p></div>
+  <div class="feature-grid">
+   <article class="feature-card reveal"><span class="index">01</span><span class="feature-icon">⌕</span><h3>Service discovery</h3><p>Browse service categories and understand the options available for a motorcycle.</p><small>FIND THE RIGHT SERVICE</small></article>
+   <article class="feature-card reveal delay-1"><span class="index">02</span><span class="feature-icon">◷</span><h3>Service booking</h3><p>Move through service selection, workshop choice, scheduling and booking review.</p><small>PLAN A VISIT</small></article>
+   <article class="feature-card reveal delay-2"><span class="index">03</span><span class="feature-icon">⌖</span><h3>Workshop discovery</h3><p>Present workshop details and location information to help riders choose where to go.</p><small>CHOOSE A WORKSHOP</small></article>
+   <article class="feature-card reveal"><span class="index">04</span><span class="feature-icon">⚙</span><h3>Spare parts</h3><p>Showcase a parts catalogue with product details and an order-oriented journey.</p><small>PARTS &amp; ACCESSORIES</small></article>
+   <article class="feature-card reveal delay-1"><span class="index">05</span><span class="feature-icon">↗</span><h3>Order history</h3><p>Give users a place to review past and current orders, when connected to data.</p><small>ORDER VISIBILITY</small></article>
+   <article class="feature-card reveal delay-2"><span class="index">06</span><span class="feature-icon">♙</span><h3>Profile &amp; account</h3><p>Keep account information, contact details and profile settings easy to access.</p><small>ACCOUNT MANAGEMENT</small></article>
+   <article class="feature-card reveal"><span class="index">07</span><span class="feature-icon">♧</span><h3>Notifications</h3><p>Provide a channel for booking updates and relevant service information, if implemented.</p><small>KEEP USERS INFORMED</small></article>
+   <article class="feature-card reveal delay-1"><span class="index">08</span><span class="feature-icon">◉</span><h3>Service tracking</h3><p>Make booking and maintenance status easier to understand across the service lifecycle.</p><small>STATUS &amp; CONTINUITY</small></article>
+  </div>
+ </div>
+</section>
+
+<section class="section workflow">
+ <div class="container">
+  <div class="section-head reveal"><div><div class="eyebrow">07 / Example user flow</div><h2>From first tap<br>to <em>confirmed booking.</em></h2></div><p>A simple flow communicates product logic to clients and helps teams discuss edge cases before implementation.</p></div>
+  <div class="flow-track reveal">
+   <div class="flow-step"><small>STEP 01</small><b>Select service</b><p>Choose a service category.</p></div><span class="flow-arrow">→</span>
+   <div class="flow-step"><small>STEP 02</small><b>Choose workshop</b><p>Review location and details.</p></div><span class="flow-arrow">→</span>
+   <div class="flow-step"><small>STEP 03</small><b>Pick a time</b><p>Select an available slot.</p></div><span class="flow-arrow">→</span>
+   <div class="flow-step"><small>STEP 04</small><b>Confirm</b><p>Review booking details.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="section stack-section" id="technology">
+ <div class="container stack-grid">
+  <div class="reveal"><div class="eyebrow">08 / Technology toolkit</div><h2>Built with the<br><em>right building blocks.</em></h2><p>The technology list follows the supplied MotoServis concept visuals. Keep only the libraries, services and platforms that are genuinely used in the final codebase.</p></div>
+  <div class="stack-cloud reveal delay-1">
+   <div class="stack-item"><span class="stack-symbol">F</span><div><b>Flutter</b><small>Cross-platform UI framework</small></div></div>
+   <div class="stack-item"><span class="stack-symbol">D</span><div><b>Dart</b><small>Application language</small></div></div>
+   <div class="stack-item"><span class="stack-symbol">G</span><div><b>GetX</b><small>State / navigation, if used</small></div></div>
+   <div class="stack-item"><span class="stack-symbol">API</span><div><b>REST API</b><small>Remote data integration</small></div></div>
+   <div class="stack-item"><span class="stack-symbol">F</span><div><b>Firebase</b><small>Backend services, if configured</small></div></div>
+   <div class="stack-item"><span class="stack-symbol">SQL</span><div><b>SQLite</b><small>Local persistence, if used</small></div></div>
+   <div class="stack-item"><span class="stack-symbol">✳</span><div><b>Figma</b><small>Interface design &amp; prototyping</small></div></div>
+   <div class="stack-item"><span class="stack-symbol">QA</span><div><b>Testing &amp; QA</b><small>Validate flows and edge cases</small></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="cta" id="contact">
+ <div class="container cta-inner">
+  <div class="reveal"><div class="eyebrow">09 / Let's build something useful</div><h2>Great products<br>make complex things<br><em>feel simple.</em></h2><p>MotoServis is an example of how thoughtful mobile UX, clear application structure and well-planned data relationships can come together in a coherent product experience.</p></div>
+  <div class="cta-actions reveal delay-1"><a class="button button-primary" href="https://techninxa.com/#contact">Discuss your project <span class="arrow">↗</span></a><a class="button button-ghost" href="https://techninxa.com/Projects">Explore more projects <span class="arrow">→</span></a></div>
+ </div>
+</section>
+</main>
+<footer class="footer"><div class="container footer-inner"><div><strong>TECHNINXA</strong> · Product engineering &amp; software development</div><div>MotoServis · Flutter mobile app case study</div><div>© <span id="year"></span> Techninxa</div></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script>
+(() => {
+ const $ = (s,root=document) => root.querySelector(s);
+ const $$ = (s,root=document) => [...root.querySelectorAll(s)];
+ $('#year').textContent = new Date().getFullYear();
+
+ // Responsive navigation
+ const menu = $('.menu-toggle'), nav = $('.nav');
+ menu.addEventListener('click', () => {
+   const open = nav.classList.toggle('open');
+   menu.setAttribute('aria-expanded', String(open));
+   menu.textContent = open ? '✕' : '☰';
+ });
+ $$('.nav a').forEach(a => a.addEventListener('click', () => {
+   nav.classList.remove('open'); menu.setAttribute('aria-expanded','false'); menu.textContent='☰';
+ }));
+
+ // Reveal on scroll, with a no-JS / reduced-motion friendly fallback
+ const revealItems = $$('.reveal');
+ if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+     if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+   }), {threshold:.12, rootMargin:'0px 0px -35px 0px'});
+   revealItems.forEach(el => observer.observe(el));
+ } else revealItems.forEach(el => el.classList.add('is-visible'));
+
+ // Anime.js micro-interactions
+ if (window.anime && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+   anime({targets:'.hero-copy .eyebrow, .hero-copy h1, .hero-copy .hero-lead, .hero-copy .hero-actions, .hero-meta',
+     opacity:[0,1], translateY:[18,0], delay:anime.stagger(110,{start:120}), duration:850, easing:'easeOutExpo'});
+   anime({targets:'.hero-image-shell', opacity:[0,1], translateY:[25,0], rotate:[0,1.2], delay:300, duration:1100, easing:'easeOutExpo'});
+   $$('.button').forEach(btn => {
+     btn.addEventListener('mouseenter', () => anime({targets:btn,scale:1.025,duration:180,easing:'easeOutQuad'}));
+     btn.addEventListener('mouseleave', () => anime({targets:btn,scale:1,duration:220,easing:'easeOutQuad'}));
+   });
+ }
+
+ // Three.js abstract 3D wire sculpture — decorative only, with a safe fallback.
+ const canvas = $('#scene');
+ if (canvas && window.THREE && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+   try {
+     const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
+     const scene = new THREE.Scene();
+     const camera = new THREE.PerspectiveCamera(42,1,.1,100);
+     camera.position.z = 8;
+     const group = new THREE.Group(); scene.add(group);
+     const geometry = new THREE.TorusKnotGeometry(1.65,.005,220,12,2,5);
+     const material = new THREE.MeshBasicMaterial({color:0xff303b,wireframe:true,transparent:true,opacity:.35});
+     const knot = new THREE.Mesh(geometry,material); group.add(knot);
+     const ringGeo = new THREE.TorusGeometry(2.35,.003,8,150);
+     const ringMat = new THREE.MeshBasicMaterial({color:0x64e5ff,transparent:true,opacity:.2});
+     const ring = new THREE.Mesh(ringGeo,ringMat); ring.rotation.x = 1.15; ring.rotation.y = .25; group.add(ring);
+     const points = new THREE.BufferGeometry();
+     const pointCount = 240, positions = new Float32Array(pointCount*3);
+     for(let i=0;i<pointCount;i++){
+       const radius=2.2+Math.random()*1.7, angle=Math.random()*Math.PI*2;
+       positions[i*3]=Math.cos(angle)*radius;
+       positions[i*3+1]=(Math.random()-.5)*4.6;
+       positions[i*3+2]=Math.sin(angle)*radius*.55;
+     }
+     points.setAttribute('position',new THREE.BufferAttribute(positions,3));
+     const stars = new THREE.Points(points,new THREE.PointsMaterial({color:0xffffff,size:.018,transparent:true,opacity:.55}));
+     group.add(stars);
+     const resize=()=>{
+       const rect=canvas.getBoundingClientRect();
+       renderer.setSize(Math.max(rect.width,1),Math.max(rect.height,1),false);
+       camera.aspect=Math.max(rect.width,1)/Math.max(rect.height,1); camera.updateProjectionMatrix();
+     };
+     resize(); window.addEventListener('resize',resize,{passive:true});
+     let pointerX=0,pointerY=0;
+     window.addEventListener('pointermove',e=>{
+       pointerX=(e.clientX/window.innerWidth-.5)*.25;
+       pointerY=(e.clientY/window.innerHeight-.5)*.2;
+     },{passive:true});
+     const tick=()=>{
+       group.rotation.y += .0017;
+       group.rotation.x += .00055;
+       group.rotation.y += (pointerX-group.rotation.y)*.002;
+       knot.rotation.z += .001;
+       ring.rotation.z -= .0007;
+       renderer.render(scene,camera);
+       requestAnimationFrame(tick);
+     };
+     tick();
+   } catch(e) { canvas.style.display='none'; }
+ } else if (canvas) canvas.style.display='none';
+
+
+ // Advanced interaction layer: smooth parallax, tilt, magnetic CTAs and scroll feedback.
+ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const finePointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+ const progress = $('.motion-progress');
+ const cursorAura = $('.cursor-aura');
+ const cursorCore = $('.cursor-core');
+ let pointerClientX = window.innerWidth * .5, pointerClientY = window.innerHeight * .5;
+ let cursorX = pointerClientX, cursorY = pointerClientY;
+ let scrollY = window.scrollY || 0, scrollTicking = false;
+ const clamp = (value,min,max) => Math.min(max,Math.max(min,value));
+
+ // Scroll progress and parallax are batched to one animation frame for smoothness.
+ const updateScrollMotion = () => {
+   const maxScroll = Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+   if(progress) progress.style.width = `${(window.scrollY/maxScroll)*100}%`;
+   scrollY = window.scrollY || 0;
+   const hero = $('.hero');
+   if(hero && scrollY < hero.offsetHeight + 100){
+     const heroVisual = $('.hero-visual');
+     const scene = $('#scene');
+     const halo = $('.hero-halo');
+     const ratio = clamp(scrollY/Math.max(hero.offsetHeight,1),0,1.3);
+     if(heroVisual && window.innerWidth > 760) heroVisual.style.setProperty('--visual-y',`${ratio * -34}px`);
+     if(scene) scene.style.transform = `translate3d(0,${ratio * 34}px,0) scale(${1 + ratio*.025})`;
+     if(halo) halo.style.setProperty('--halo-y',`${ratio * 28}px`);
+   }
+   $$('.section-orb').forEach((orb,index)=>{
+     const parent = orb.parentElement;
+     if(!parent) return;
+     const rect = parent.getBoundingClientRect();
+     if(rect.bottom > -150 && rect.top < window.innerHeight + 150){
+       const offset = (window.innerHeight*.5 - (rect.top + rect.height*.5)) * (index%2 ? .055 : .085);
+       orb.style.setProperty('--orb-y',`${offset}px`);
+     }
+   });
+   scrollTicking = false;
+ };
+ window.addEventListener('scroll',()=>{
+   if(!scrollTicking){scrollTicking=true;requestAnimationFrame(updateScrollMotion);}
+ },{passive:true});
+ window.addEventListener('resize',updateScrollMotion,{passive:true});
+ updateScrollMotion();
+
+ // Decorative atmospheric orbs add depth while keeping the layout clean.
+ if(!reduceMotion){
+   $$('.section:not(.section-light),.workflow,.stack-section,.cta').forEach((section,index)=>{
+     if(section.querySelector('.section-orb')) return;
+     const orb=document.createElement('span');
+     orb.className=`section-orb ${index%2?'orb-cyan':'orb-red'}`;
+     orb.setAttribute('aria-hidden','true');
+     section.prepend(orb);
+   });
+ }
+
+ // Desktop custom cursor with delayed follow for a tactile, premium feel.
+ if(finePointer && !reduceMotion && cursorAura && cursorCore){
+   document.body.classList.add('interactive-cursor');
+   document.addEventListener('pointermove',event=>{
+     pointerClientX=event.clientX;pointerClientY=event.clientY;
+     document.body.classList.add('has-pointer');
+     const target=event.target.closest('a,button,.feature-card,.visual-card,.stack-item,.stat,.flow-step,.entity');
+     document.body.classList.toggle('cursor-hover',!!target);
+     document.documentElement.style.setProperty('--pointer-x',`${(event.clientX/window.innerWidth)*100}%`);
+     document.documentElement.style.setProperty('--pointer-y',`${(event.clientY/window.innerHeight)*100}%`);
+   },{passive:true});
+   document.addEventListener('pointerleave',()=>document.body.classList.remove('has-pointer','cursor-hover'));
+   const followCursor=()=>{
+     cursorX+=(pointerClientX-cursorX)*.22;cursorY+=(pointerClientY-cursorY)*.22;
+     cursorAura.style.left=`${cursorX}px`;cursorAura.style.top=`${cursorY}px`;
+     cursorCore.style.left=`${pointerClientX}px`;cursorCore.style.top=`${pointerClientY}px`;
+     requestAnimationFrame(followCursor);
+   };followCursor();
+ }
+
+ // Perspective tilt on selected cards; disabled on touch and reduced-motion devices.
+ if(finePointer && !reduceMotion){
+   const tiltTargets=$$('.feature-card,.visual-card,.stat,.stack-item,.flow-step,.concept-card');
+   tiltTargets.forEach(card=>{
+     card.addEventListener('pointermove',event=>{
+       if(event.pointerType==='touch') return;
+       const rect=card.getBoundingClientRect();
+       const x=(event.clientX-rect.left)/rect.width;
+       const y=(event.clientY-rect.top)/rect.height;
+       const rotateY=(x-.5)*7;
+       const rotateX=(.5-y)*7;
+       card.style.transform=`perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
+       card.style.setProperty('--pointer-x',`${x*100}%`);
+       card.style.setProperty('--pointer-y',`${y*100}%`);
+     });
+     card.addEventListener('pointerleave',()=>{card.style.transform='';});
+   });
+
+   // Magnetic movement is deliberately subtle, so buttons remain easy to target.
+   $$('.hero-actions .button,.cta-actions .button,.nav-cta').forEach(button=>{
+     button.addEventListener('pointermove',event=>{
+       const rect=button.getBoundingClientRect();
+       const dx=event.clientX-(rect.left+rect.width/2);
+       const dy=event.clientY-(rect.top+rect.height/2);
+       button.style.transform=`translate(${dx*.07}px,${dy*.12}px) translateY(-2px)`;
+     });
+     button.addEventListener('pointerleave',()=>{button.style.transform='';});
+   });
+
+   // Pointer-driven 3D hero tilt and gentle independent float-card movement.
+   const heroGrid=$('.hero-grid'), heroVisual=$('.hero-visual'), heroShell=$('.hero-image-shell');
+   if(heroGrid && heroVisual && heroShell){
+     heroGrid.addEventListener('pointermove',event=>{
+       if(window.innerWidth<=760)return;
+       const rect=heroGrid.getBoundingClientRect();
+       const x=(event.clientX-rect.left)/rect.width-.5;
+       const y=(event.clientY-rect.top)/rect.height-.5;
+       heroShell.style.transform=`rotateY(${x*5}deg) rotateX(${-y*4}deg) rotateZ(1deg) translateZ(8px)`;
+       heroVisual.style.setProperty('--visual-x',`${x*-9}px`);
+       $$('.float-card',heroVisual).forEach((card,index)=>{
+         card.style.translate=`${x*(index? -10:10)}px ${y*(index? -7:7)}px`;
+       });
+     });
+     heroGrid.addEventListener('pointerleave',()=>{
+       heroShell.style.transform='';heroVisual.style.setProperty('--visual-x','0px');
+       $$('.float-card',heroVisual).forEach(card=>card.style.translate='');
+     });
+   }
+ }
+
+ // Active navigation hint based on the section currently in view.
+ const navLinks=$$('.nav a[href^="#"]');
+ const observedSections=navLinks.map(link=>$(link.getAttribute('href'))).filter(Boolean);
+ if('IntersectionObserver' in window && !reduceMotion && observedSections.length){
+   const navObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+     if(!entry.isIntersecting)return;
+     navLinks.forEach(link=>link.classList.toggle('is-current',link.getAttribute('href')===`#${entry.target.id}`));
+   }),{rootMargin:'-28% 0px -62% 0px',threshold:0});
+   observedSections.forEach(section=>navObserver.observe(section));
+ }
+
+ // Horizontal ERD pan support: native touch/trackpad scrolling is intentionally retained.
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1184 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{
+    ViewData["Title"] = "Durj | Cytech EnginneringCase Study";
+    ViewData["Description"] = "Durj medical services and equipment marketplace case study by Techninxa.";
+    Layout = null;
+
+    var durjImage = Url.Content("~/images/ashik/4.png");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="@ViewData["Description"]" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --cs-bg: #071321;
+            --cs-panel: #0c1d30;
+            --cs-panel2: #102941;
+            --cs-text: #f2f8ff;
+            --cs-muted: #9eb3c9;
+            --cs-line: rgba(191, 220, 255, .14);
+            --cs-accent: #2998ff;
+            --cs-accent2: #65d7ff;
+            --cs-green: #40d7b0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 25px;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cs-bg);
+            color: var(--cs-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .case-study {
+            background: var(--cs-bg);
+            overflow: hidden;
+            margin: 0 calc(50% - 50vw);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .case-study img {
+            max-width: 100%;
+        }
+
+        .cs-wrap {
+            width: min(1180px, calc(100% - 44px));
+            margin: auto;
+        }
+
+        .cs-eyebrow {
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+            color: var(--cs-accent2);
+            font-size: .74rem;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .cs-eyebrow::before {
+            content: "";
+            width: 26px;
+            height: 2px;
+            background: currentColor;
+        }
+
+        .cs-hero {
+            position: relative;
+            isolation: isolate;
+            padding: 105px 0 80px;
+            background:
+                radial-gradient(ellipse at 80% 15%, rgba(41,152,255,.23), transparent 36%),
+                radial-gradient(ellipse at 5% 95%, rgba(101,215,255,.10), transparent 30%),
+                linear-gradient(140deg, #071321, #0b2036 60%, #071321);
+        }
+
+        .cs-grid-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: .16;
+            background-image:
+                linear-gradient(var(--cs-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--cs-line) 1px, transparent 1px);
+            background-size: 52px 52px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+        }
+
+        .cs-hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 55px;
+            align-items: center;
+        }
+
+        .cs-hero h1 {
+            font-size: clamp(3.2rem, 7vw, 6.5rem);
+            line-height: .96;
+            letter-spacing: -.075em;
+            margin: 23px 0;
+            font-weight: 900;
+        }
+
+        .cs-hero h1 span {
+            color: var(--cs-accent);
+        }
+
+        .cs-lead {
+            color: #b6cbe0;
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            line-height: 1.85;
+            max-width: 570px;
+        }
+
+        .cs-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin: 25px 0;
+        }
+
+        .cs-tags span {
+            border: 1px solid var(--cs-line);
+            background: rgba(255,255,255,.035);
+            border-radius: 99px;
+            padding: 9px 13px;
+            color: #d0e5f8;
+            font-size: .77rem;
+        }
+
+        .cs-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .cs-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 19px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: .87rem;
+            font-weight: 800;
+            transition: transform .25s, background .25s, border-color .25s;
+        }
+
+        .cs-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .cs-btn-primary {
+            color: #04182b;
+            background: linear-gradient(115deg, #45b8ff, #68dcff);
+            box-shadow: 0 9px 28px rgba(41,152,255,.17);
+        }
+
+        .cs-btn-ghost {
+            color: var(--cs-text);
+            border: 1px solid var(--cs-line);
+        }
+
+        .cs-btn-ghost:hover {
+            border-color: var(--cs-accent);
+        }
+
+        .cs-visual {
+            position: relative;
+            perspective: 1100px;
+        }
+
+        .cs-screen-frame {
+            position: relative;
+            padding: 9px;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 25px;
+            background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.025));
+            box-shadow: 0 35px 100px rgba(0,0,0,.42);
+            transform: rotateY(-6deg) rotateX(2deg);
+            transition: transform .65s cubic-bezier(.2,.8,.2,1);
+        }
+
+        .cs-screen-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 17px;
+        }
+
+        .cs-visual:hover .cs-screen-frame {
+            transform: rotateY(0) rotateX(0) translateY(-5px);
+        }
+
+        .cs-float {
+            position: absolute;
+            z-index: 2;
+            padding: 13px 16px;
+            border-radius: 14px;
+            background: rgba(8,26,43,.92);
+            border: 1px solid var(--cs-line);
+            box-shadow: 0 16px 35px rgba(0,0,0,.3);
+            animation: csFloat 5s ease-in-out infinite;
+        }
+
+        .cs-float strong {
+            display: block;
+            font-size: .82rem;
+        }
+
+        .cs-float small {
+            color: var(--cs-muted);
+            font-size: .7rem;
+        }
+
+        .cs-float.one {
+            top: 7%;
+            right: -5%;
+        }
+
+        .cs-float.two {
+            bottom: 7%;
+            left: -6%;
+            animation-delay: -2.2s;
+        }
+
+        @@keyframes csFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-11px); }
+        }
+
+        .cs-metrics {
+            border-top: 1px solid var(--cs-line);
+            border-bottom: 1px solid var(--cs-line);
+            background: #091827;
+        }
+
+        .cs-metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .cs-metric {
+            padding: 27px 20px;
+            border-right: 1px solid var(--cs-line);
+        }
+
+        .cs-metric:last-child {
+            border-right: 0;
+        }
+
+        .cs-metric b {
+            display: block;
+            font-size: 1.35rem;
+            letter-spacing: -.04em;
+        }
+
+        .cs-metric span {
+            display: block;
+            margin-top: 6px;
+            color: var(--cs-muted);
+            font-size: .77rem;
+        }
+
+        .cs-section {
+            position: relative;
+            padding: 100px 0;
+        }
+
+        .cs-section.alt {
+            background: #091827;
+        }
+
+        .cs-section-head {
+            max-width: 740px;
+            margin-bottom: 42px;
+        }
+
+        .cs-section h2 {
+            font-size: clamp(2.1rem, 4.3vw, 4rem);
+            line-height: 1.06;
+            letter-spacing: -.065em;
+            margin: 16px 0;
+        }
+
+        .cs-section-head > p {
+            color: var(--cs-muted);
+            line-height: 1.85;
+        }
+
+        .cs-two-col {
+            display: grid;
+            grid-template-columns: .85fr 1.15fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .cs-copy p {
+            color: var(--cs-muted);
+            line-height: 1.9;
+        }
+
+        .cs-list {
+            list-style: none;
+            padding: 0;
+            margin: 22px 0;
+        }
+
+        .cs-list li {
+            display: flex;
+            gap: 12px;
+            margin: 15px 0;
+            color: #d9e9f8;
+            line-height: 1.65;
+        }
+
+        .cs-list li::before {
+            content: "↗";
+            color: var(--cs-accent2);
+            font-weight: 900;
+        }
+
+        .cs-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .cs-card {
+            position: relative;
+            padding: 24px;
+            min-height: 195px;
+            border: 1px solid var(--cs-line);
+            border-radius: 18px;
+            background: linear-gradient(150deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+            transition: transform .3s, border-color .3s, background .3s;
+        }
+
+        .cs-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(101,215,255,.6);
+            background: rgba(41,152,255,.055);
+        }
+
+        .cs-icon {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            color: var(--cs-accent2);
+            background: rgba(41,152,255,.13);
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .cs-card h3 {
+            font-size: .98rem;
+            margin: 0 0 10px;
+        }
+
+        .cs-card p {
+            color: var(--cs-muted);
+            font-size: .84rem;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        .cs-shot {
+            padding: 10px;
+            overflow: hidden;
+            border: 1px solid var(--cs-line);
+            border-radius: 22px;
+            background: #0b1d30;
+        }
+
+        .cs-shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            cursor: zoom-in;
+            transition: transform .4s;
+        }
+
+        .cs-shot:hover img {
+            transform: scale(1.012);
+        }
+
+        .cs-caption {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px 5px 5px;
+            color: var(--cs-muted);
+            font-size: .77rem;
+        }
+
+        .cs-diagram {
+            padding: 24px;
+            overflow-x: auto;
+            border: 1px solid var(--cs-line);
+            border-radius: 20px;
+            background: linear-gradient(135deg, #0d2237, #091521);
+        }
+
+        .cs-diagram svg {
+            display: block;
+            width: 100%;
+            min-width: 700px;
+            height: auto;
+        }
+
+        .cs-diagram-note {
+            color: var(--cs-muted);
+            font-size: .8rem;
+            line-height: 1.75;
+            margin-top: 15px;
+        }
+
+        .cs-stack {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .cs-stack-item {
+            padding: 19px;
+            border: 1px solid var(--cs-line);
+            border-radius: 14px;
+            background: #0b1c2c;
+        }
+
+        .cs-stack-item small {
+            display: block;
+            color: var(--cs-accent2);
+            font-size: .67rem;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+
+        .cs-stack-item b {
+            font-size: .93rem;
+        }
+
+        .cs-stack-item p {
+            color: var(--cs-muted);
+            font-size: .78rem;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .cs-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            padding: 60px;
+            border: 1px solid var(--cs-line);
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at 90% 0%, rgba(41,152,255,.20), transparent 43%),
+                #0d2237;
+        }
+
+        .cs-cta h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            letter-spacing: -.06em;
+            margin: 13px 0;
+        }
+
+        .cs-cta p {
+            max-width: 590px;
+            color: var(--cs-muted);
+            line-height: 1.8;
+        }
+
+        .cs-reveal {
+            opacity: 0;
+            transform: translateY(23px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .cs-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0,0,0,.92);
+        }
+
+        .cs-lightbox.open {
+            display: flex;
+        }
+
+        .cs-lightbox img {
+            max-width: min(1200px, 95vw);
+            max-height: 88vh;
+            border-radius: 12px;
+        }
+
+        .cs-lightbox button {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            width: 44px;
+            height: 44px;
+            border: 1px solid #ffffff55;
+            border-radius: 50%;
+            color: white;
+            background: #102033;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @@media (max-width: 850px) {
+            .cs-hero {
+                padding: 75px 0 60px;
+            }
+
+            .cs-hero-layout,
+            .cs-two-col {
+                grid-template-columns: 1fr;
+                gap: 38px;
+            }
+
+            .cs-visual {
+                width: 100%;
+                max-width: 680px;
+                margin: 0 auto;
+            }
+
+            .cs-float.one {
+                right: 0;
+            }
+
+            .cs-float.two {
+                left: 0;
+            }
+
+            .cs-card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cs-stack {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cs-cta {
+                padding: 36px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .cs-section {
+                padding: 75px 0;
+            }
+        }
+
+        @@media (max-width: 560px) {
+            .cs-wrap {
+                width: calc(100% - 28px);
+            }
+
+            .cs-hero h1 {
+                font-size: clamp(3rem, 14vw, 4.5rem);
+            }
+
+            .cs-metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cs-metric:nth-child(2) {
+                border-right: 0;
+            }
+
+            .cs-metric:nth-child(-n+2) {
+                border-bottom: 1px solid var(--cs-line);
+            }
+
+            .cs-card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cs-card {
+                min-height: 0;
+            }
+
+            .cs-stack {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cs-stack-item {
+                padding: 14px;
+            }
+
+            .cs-section {
+                padding: 60px 0;
+            }
+
+            .cs-cta {
+                padding: 25px;
+            }
+
+            .cs-caption {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .cs-float {
+                padding: 10px 12px;
+            }
+        }
+
+        @@media (prefers-reduced-motion: reduce) {
+            .case-study *,
+            .case-study *::before,
+            .case-study *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+
+            .cs-reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<main class="case-study" id="caseStudyTop">
+
+    <section class="cs-hero">
+        <div class="cs-grid-bg"></div>
+
+        <div class="cs-wrap cs-hero-layout">
+            <div class="cs-reveal">
+                <span class="cs-eyebrow">Medical technology case study</span>
+
+                <h1>
+                    Better access.<br />
+                    <span>Better healthcare.</span>
+                </h1>
+
+                <p class="cs-lead">
+                    Durj is a medical services and equipment marketplace connecting
+                    buyers with trusted sellers, healthcare professionals and service
+                    providers through one modern digital platform.
+                </p>
+
+                <div class="cs-tags">
+                    <span>Medical marketplace</span>
+                    <span>Healthcare services</span>
+                    <span>Medical equipment</span>
+                    <span>Provider discovery</span>
+                </div>
+
+                <div class="cs-actions">
+                    <a class="cs-btn cs-btn-primary" href="#durj-features">
+                        Explore the platform <span aria-hidden="true">↘</span>
+                    </a>
+                    <a class="cs-btn cs-btn-ghost" href="#durj-architecture">
+                        View system design
+                    </a>
+                </div>
+            </div>
+
+            <div class="cs-visual cs-reveal">
+                <div class="cs-float one">
+                    <strong>Healthcare, connected</strong>
+                    <small>One marketplace, more possibilities</small>
+                </div>
+
+                <div class="cs-screen-frame">
+                    <img src="@durjImage"
+                         alt="Durj medical marketplace promotional poster with mobile application screens"
+                         fetchpriority="high" />
+                </div>
+
+                <div class="cs-float two">
+                    <strong>Services to equipment</strong>
+                    <small>A connected healthcare journey</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-metrics">
+        <div class="cs-wrap cs-metric-grid">
+            <div class="cs-metric">
+                <b>Multi-sided</b>
+                <span>Marketplace model</span>
+            </div>
+            <div class="cs-metric">
+                <b>Healthcare</b>
+                <span>Service discovery</span>
+            </div>
+            <div class="cs-metric">
+                <b>Equipment</b>
+                <span>Product marketplace</span>
+            </div>
+            <div class="cs-metric">
+                <b>End-to-end</b>
+                <span>Digital experience</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap cs-two-col">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">01 / The brief</span>
+                <h2>Make healthcare discovery feel effortless.</h2>
+            </div>
+
+            <div class="cs-copy cs-reveal">
+                <p>
+                    Finding healthcare services and medical equipment can require
+                    searching across different providers, catalogues and communication
+                    channels. Durj brings these needs into a unified marketplace
+                    designed around discoverability, clarity and convenience.
+                </p>
+
+                <ul class="cs-list">
+                    <li>Help users discover healthcare professionals and relevant services.</li>
+                    <li>Make medical equipment easier to browse and compare.</li>
+                    <li>Connect buyers with sellers and service providers.</li>
+                    <li>Present provider profiles, service details and contact actions clearly.</li>
+                    <li>Provide a consistent mobile experience across the marketplace.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section alt" id="durj-features">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">02 / Platform capabilities</span>
+                <h2>One platform.<br />Multiple healthcare needs.</h2>
+                <p>
+                    Durj organizes healthcare discovery into practical feature areas,
+                    helping users navigate services, equipment and provider information
+                    from a single experience.
+                </p>
+            </div>
+
+            <div class="cs-card-grid">
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">⌕</div>
+                    <h3>Healthcare discovery</h3>
+                    <p>Explore available medical services and discover relevant providers through an organized interface.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">✚</div>
+                    <h3>Medical equipment</h3>
+                    <p>Browse equipment listings, product information and seller details in one place.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">♙</div>
+                    <h3>Provider profiles</h3>
+                    <p>Present provider information, professional details, availability and service descriptions.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">♡</div>
+                    <h3>Service discovery</h3>
+                    <p>Help customers navigate healthcare offerings based on their needs and preferences.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">▤</div>
+                    <h3>Marketplace listings</h3>
+                    <p>Organize products and services into clear categories for easier browsing and evaluation.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">⌖</div>
+                    <h3>Search and filtering</h3>
+                    <p>Support more efficient discovery with searchable listings and relevant category filters.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">✓</div>
+                    <h3>Provider connections</h3>
+                    <p>Create a clear path for users to review a listing and proceed to its supported contact or service action.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">▣</div>
+                    <h3>Account management</h3>
+                    <p>Give marketplace participants a consistent place to manage profile information and relevant activity.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">⚙</div>
+                    <h3>Marketplace management</h3>
+                    <p>Structure products, provider details and listing information for maintainable platform operations.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap cs-two-col">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">03 / Interface design</span>
+                <h2>Designed for clarity in every interaction.</h2>
+
+                <p>
+                    The Durj visual direction combines clean white surfaces, confident
+                    blue accents and healthcare-inspired imagery. Structured cards,
+                    readable typography and recognizable controls help users understand
+                    the marketplace quickly.
+                </p>
+
+                <ul class="cs-list">
+                    <li>Clear separation between services, equipment and providers.</li>
+                    <li>Consistent card layouts for browsing marketplace listings.</li>
+                    <li>Prominent actions for opening profiles and viewing details.</li>
+                    <li>Responsive layouts suited to mobile-first usage.</li>
+                    <li>Consistent visual hierarchy across major application screens.</li>
+                </ul>
+            </div>
+
+            <div class="cs-shot cs-reveal">
+                <img class="cs-zoom"
+                     src="@durjImage"
+                     alt="Durj healthcare marketplace application interface overview"
+                     loading="lazy" />
+
+                <div class="cs-caption">
+                    <span>Durj visual overview</span>
+                    <span>Click to enlarge ↗</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section alt" id="durj-architecture">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">04 / System architecture</span>
+                <h2>Connect the marketplace from interface to data.</h2>
+                <p>
+                    The following diagram presents a conceptual architecture for a
+                    healthcare marketplace. Adapt the components to match the actual
+                    Durj source code, API and hosting environment.
+                </p>
+            </div>
+
+            <div class="cs-diagram cs-reveal">
+                <svg viewBox="0 0 960 490"
+                     role="img"
+                     aria-label="Conceptual Durj medical marketplace architecture">
+
+                    <defs>
+                        <marker id="durjArrow" markerWidth="8" markerHeight="8"
+                                refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L6,3 L0,6 Z" fill="#65d7ff" />
+                        </marker>
+                    </defs>
+
+                    <text x="30" y="32" fill="#f2f8ff"
+                          font-size="20" font-weight="700">
+                        Durj · Conceptual architecture
+                    </text>
+
+                    <text x="30" y="54" fill="#9eb3c9" font-size="12">
+                        Marketplace users, application services and persistent data
+                    </text>
+
+                    <g stroke="#65d7ff" stroke-opacity=".7" stroke-width="1.7"
+                       fill="none" marker-end="url(#durjArrow)">
+                        <path d="M480 150 V190" />
+                        <path d="M480 270 V310" />
+                        <path d="M260 230 H220 V350" />
+                        <path d="M700 230 H740 V350" />
+                    </g>
+
+                    <g>
+                        <rect x="330" y="80" width="300" height="70" rx="12"
+                              fill="#102941" stroke="#2998ff" />
+                        <text x="480" y="108" text-anchor="middle"
+                              fill="#65d7ff" font-size="14" font-weight="700">
+                            Mobile application
+                        </text>
+                        <text x="480" y="130" text-anchor="middle"
+                              fill="#d5e8f8" font-size="11">
+                            Customer · Seller · Service provider
+                        </text>
+
+                        <rect x="260" y="190" width="440" height="80" rx="12"
+                              fill="#102941" stroke="#65d7ff" />
+                        <text x="480" y="220" text-anchor="middle"
+                              fill="#65d7ff" font-size="15" font-weight="700">
+                            Application API
+                        </text>
+                        <text x="480" y="243" text-anchor="middle"
+                              fill="#d5e8f8" font-size="11">
+                            Authentication · Listings · Profiles · Marketplace operations
+                        </text>
+
+                        <rect x="70" y="350" width="300" height="85" rx="12"
+                              fill="#102941" stroke="#2998ff" />
+                        <text x="220" y="378" text-anchor="middle"
+                              fill="#65d7ff" font-size="14" font-weight="700">
+                            Marketplace services
+                        </text>
+                        <text x="220" y="400" text-anchor="middle"
+                              fill="#d5e8f8" font-size="11">
+                            Medical equipment · Service listings
+                        </text>
+                        <text x="220" y="418" text-anchor="middle"
+                              fill="#9eb3c9" font-size="10">
+                            Search · Categories · Provider details
+                        </text>
+
+                        <rect x="590" y="350" width="300" height="85" rx="12"
+                              fill="#102941" stroke="#2998ff" />
+                        <text x="740" y="378" text-anchor="middle"
+                              fill="#65d7ff" font-size="14" font-weight="700">
+                            Data and media
+                        </text>
+                        <text x="740" y="400" text-anchor="middle"
+                              fill="#d5e8f8" font-size="11">
+                            User records · Listings · Images
+                        </text>
+                        <text x="740" y="418" text-anchor="middle"
+                              fill="#9eb3c9" font-size="10">
+                            Database · File storage
+                        </text>
+                    </g>
+                </svg>
+            </div>
+
+            <p class="cs-diagram-note">
+                This is an illustrative architecture, not a verified diagram of the
+                deployed system. Actual API endpoints, authentication methods, storage
+                services and database relationships should be documented from the
+                implementation.
+            </p>
+
+            <div style="height:28px"></div>
+
+            <div class="cs-stack cs-reveal">
+                <div class="cs-stack-item">
+                    <small>Client</small>
+                    <b>Mobile application</b>
+                    <p>Responsive screens, navigation, input validation and listing views.</p>
+                </div>
+
+                <div class="cs-stack-item">
+                    <small>Application</small>
+                    <b>Backend API</b>
+                    <p>Authentication, listing management and marketplace business rules.</p>
+                </div>
+
+                <div class="cs-stack-item">
+                    <small>Persistence</small>
+                    <b>Database</b>
+                    <p>Accounts, providers, medical services and equipment records.</p>
+                </div>
+
+                <div class="cs-stack-item">
+                    <small>Infrastructure</small>
+                    <b>Media & security</b>
+                    <p>Image storage, access controls, data validation and deployment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">05 / Engineering principles</span>
+                <h2>Trust is part of the product.</h2>
+                <p>
+                    Healthcare marketplaces need more than an attractive interface.
+                    They must present information responsibly and protect users as they
+                    discover providers and products.
+                </p>
+            </div>
+
+            <div class="cs-card-grid">
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">01</div>
+                    <h3>Provider verification</h3>
+                    <p>Design a process to validate provider credentials and marketplace seller information.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">02</div>
+                    <h3>Data protection</h3>
+                    <p>Apply access controls and minimize the collection of sensitive user information.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">03</div>
+                    <h3>Reliable listings</h3>
+                    <p>Keep availability, descriptions and pricing accurate with server-side validation.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">04</div>
+                    <h3>Clear information</h3>
+                    <p>Make provider details, product specifications and service terms easy to understand.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">05</div>
+                    <h3>Accessible interface</h3>
+                    <p>Use readable text, sufficient contrast, clear labels and accessible interaction patterns.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">06</div>
+                    <h3>Scalable structure</h3>
+                    <p>Organize marketplace domains so new categories and services can be added consistently.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section alt">
+        <div class="cs-wrap cs-cta cs-reveal">
+            <div>
+                <span class="cs-eyebrow">Healthcare meets technology</span>
+                <h2>Build better digital<br />healthcare experiences.</h2>
+                <p>
+                    Cytech Enginneringhelps transform product ideas into practical digital
+                    experiences through product design, mobile development, web
+                    engineering and backend architecture.
+                </p>
+            </div>
+
+            <a class="cs-btn cs-btn-primary" href="/Contact">
+                Discuss your project <span aria-hidden="true">↗</span>
+            </a>
+        </div>
+    </section>
+</main>
+
+<div class="cs-lightbox" id="csLightbox"
+     role="dialog" aria-modal="true"
+     aria-label="Expanded Durj project image">
+    <button type="button" aria-label="Close image" id="csLightboxClose">×</button>
+    <img src="" alt="Expanded Durj application poster" id="csLightboxImage" />
+</div>
+
+<script>
+(() => {
+    const root = document.querySelector('.case-study');
+    if (!root) return;
+
+    const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    const revealElements = root.querySelectorAll('.cs-reveal');
+
+    if ('IntersectionObserver' in window && !reduceMotion) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealElements.forEach(element => observer.observe(element));
+    } else {
+        revealElements.forEach(element =>
+            element.classList.add('is-visible')
+        );
+    }
+
+    if (!reduceMotion && window.matchMedia('(pointer:fine)').matches) {
+        const visual = root.querySelector('.cs-visual');
+        const frame = root.querySelector('.cs-screen-frame');
+
+        if (visual && frame) {
+            visual.addEventListener('pointermove', event => {
+                const rect = visual.getBoundingClientRect();
+                const x = (event.clientX - rect.left) / rect.width - 0.5;
+                const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+                frame.style.transform =
+                    `rotateY(${x * 9 - 3}deg) rotateX(${-y * 5}deg) translateY(-4px)`;
+            });
+
+            visual.addEventListener('pointerleave', () => {
+                frame.style.transform = '';
+            });
+        }
+    }
+
+    const lightbox = document.getElementById('csLightbox');
+    const lightboxImage = document.getElementById('csLightboxImage');
+    const closeButton = document.getElementById('csLightboxClose');
+    let previousFocus = null;
+
+    root.querySelectorAll('.cs-zoom').forEach(image => {
+        image.addEventListener('click', () => {
+            previousFocus = document.activeElement;
+            lightboxImage.src = image.src;
+            lightboxImage.alt = image.alt;
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            closeButton.focus();
+        });
+    });
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+        lightboxImage.src = '';
+
+        if (previousFocus && typeof previousFocus.focus === 'function') {
+            previousFocus.focus();
+        }
+    };
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', event => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && lightbox.classList.contains('open')) {
+            closeLightbox();
+        }
+    });
+})();
+</script>
+</body>
+</html>

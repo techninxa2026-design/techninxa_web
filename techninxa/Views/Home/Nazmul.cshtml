@@ -1,0 +1,1492 @@
+﻿
+@{
+    Layout = null;
+
+    ViewData["Title"] = "Digital Code — UI/UX Case Study | Nazmul Haque";
+    ViewData["Description"] = "Explore Nazmul Haque's Digital Code digital agency website UI/UX design, responsive desktop, tablet and mobile layouts, design process and visual system.";
+
+    var memberName = ViewBag.MemberName as string ?? "Nazmul Haque";
+    var memberRole = ViewBag.MemberRole as string ?? "UX/UI Designer";
+    var memberImage = ViewBag.MemberImage as string ?? "/team/nazmul.png";
+
+    // Replace these paths with the actual project screenshots.
+    var desktopImage = "/images/projects/digital-code-desktop.png";
+    var tabletImage = "/images/projects/digital-code-tablet.png";
+    var mobileImage = "/images/projects/digital-code-mobile.png";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#100d0b" />
+    <meta name="description" content="@ViewData["Description"]" />
+
+    <title>@ViewData["Title"]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg: #100d0b;
+            --bg-soft: #181310;
+            --paper: #f7f6f3;
+            --ink: #171514;
+            --gold: #d09f69;
+            --gold-light: #e4bd91;
+            --brown: #675140;
+            --sand: #d5cba8;
+            --rust: #ac5c2f;
+            --blue: #5284b3;
+            --muted: #a69c92;
+            --line: rgba(255,255,255,.13);
+            --font: "DM Sans", sans-serif;
+            --display: "Manrope", sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font);
+            background: var(--bg);
+            color: white;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        body::selection {
+            background: var(--gold);
+            color: var(--ink);
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+        button { font: inherit; }
+
+        .container {
+            width: min(1320px, calc(100% - 100px));
+            margin: auto;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        /* NAVIGATION */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(16,13,11,.92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+
+        .nav {
+            height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+        }
+
+        .brand {
+            font-family: var(--display);
+            font-size: 17px;
+            font-weight: 800;
+            white-space: nowrap;
+            letter-spacing: -.6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 27px;
+            align-items: center;
+            color: #c4bbb2;
+            font-size: 11px;
+        }
+
+        .nav-links a {
+            position: relative;
+            transition: color .25s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+        }
+
+        .nav-links a.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -12px;
+            width: 100%;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .profile-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-photo {
+            width: 38px;
+            height: 38px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.25);
+            background: #39302a;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .profile-details strong {
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .profile-details span {
+            color: #a89d91;
+            font-size: 9px;
+        }
+
+        .online-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-left: 4px;
+            background: #8ccf9a;
+            border-radius: 50%;
+        }
+
+        .follow-btn {
+            border: 0;
+            border-radius: 30px;
+            padding: 11px 22px;
+            background: var(--gold);
+            color: #20160e;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .25s, background .25s;
+        }
+
+        .follow-btn:hover {
+            transform: translateY(-2px);
+            background: var(--gold-light);
+        }
+
+        /* HERO */
+
+        .hero {
+            position: relative;
+            padding: 28px 0 52px;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 75% 55%, rgba(172,92,47,.17), transparent 40%),
+                linear-gradient(125deg, #100d0b, #19120d 70%, #100d0b);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: rgba(208,159,105,.07);
+            filter: blur(80px);
+            right: 5%;
+            top: 0;
+            pointer-events: none;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #c2b8ae;
+            font-size: 11px;
+            margin: 3px 0 36px;
+        }
+
+        .back-link:hover { color: var(--gold); }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: .95fr 1.05fr;
+            gap: 42px;
+            align-items: center;
+        }
+
+        .project-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(213,203,168,.12);
+            border: 1px solid rgba(213,203,168,.12);
+            padding: 7px 12px;
+            border-radius: 30px;
+            font-size: 10px;
+            color: var(--sand);
+            margin-bottom: 17px;
+        }
+
+        .project-tag::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        h1 {
+            margin: 0;
+            font-family: var(--display);
+            font-weight: 800;
+            letter-spacing: -4px;
+            font-size: clamp(58px, 6.2vw, 88px);
+            line-height: 1.04;
+        }
+
+        h1 span { color: var(--gold); }
+
+        .hero-subtitle {
+            font-size: clamp(19px, 2.2vw, 27px);
+            font-weight: 500;
+            margin: 9px 0 18px;
+            letter-spacing: -.6px;
+        }
+
+        .hero-description {
+            max-width: 510px;
+            font-size: 13px;
+            line-height: 1.95;
+            color: #c2b8ae;
+            margin: 0;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 23px;
+            margin-top: 34px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-right: 22px;
+            border-right: 1px solid var(--line);
+        }
+
+        .meta-item:last-child {
+            border-right: 0;
+            padding-right: 0;
+        }
+
+        .meta-icon {
+            color: var(--gold);
+            font-size: 21px;
+        }
+
+        .meta-item div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .meta-item span {
+            color: #9c9085;
+            font-size: 9px;
+        }
+
+        .meta-item strong {
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* DEVICE MOCKUP */
+
+        .hero-visual {
+            position: relative;
+            min-width: 0;
+            padding: 25px 0 18px;
+            perspective: 1100px;
+        }
+
+        .hero-orbit {
+            position: absolute;
+            z-index: 0;
+            width: 390px;
+            height: 390px;
+            right: 12%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            background: linear-gradient(145deg, #a66b3d, #674127);
+            opacity: .8;
+        }
+
+        .hero-orbit::before {
+            content: "";
+            position: absolute;
+            inset: 22px;
+            border: 1px solid rgba(255,255,255,.17);
+            border-radius: 50%;
+        }
+
+        .hero-device {
+            position: relative;
+            z-index: 1;
+            width: 92%;
+            margin-left: 1%;
+            transform: rotateY(-5deg) rotateX(1deg);
+            transition: transform .6s;
+        }
+
+        .hero-device:hover {
+            transform: rotateY(0) translateY(-5px);
+        }
+
+        .desktop-shell {
+            padding: 7px;
+            border-radius: 10px 10px 3px 3px;
+            border: 1px solid #625b54;
+            background: linear-gradient(140deg, #34302c, #080808 50%, #45413b);
+            box-shadow: 0 35px 70px rgba(0,0,0,.4);
+        }
+
+        .desktop-shell img {
+            width: 100%;
+            aspect-ratio: 1.48;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 4px;
+            background: #171310;
+        }
+
+        .desktop-stand {
+            width: 32%;
+            height: 35px;
+            margin: auto;
+            background: linear-gradient(90deg, #85827f, #d7d5d1, #77736f);
+            clip-path: polygon(20% 0,80% 0,100% 100%,0 100%);
+        }
+
+        .desktop-base {
+            width: 43%;
+            height: 7px;
+            margin: 0 auto;
+            border-radius: 2px 2px 8px 8px;
+            background: linear-gradient(#ddd, #777);
+        }
+
+        .floating-mobile {
+            position: absolute;
+            z-index: 3;
+            width: 24%;
+            right: 0;
+            bottom: 6%;
+            padding: 5px;
+            border: 1px solid #77716a;
+            border-radius: 17px;
+            background: linear-gradient(145deg, #514c46, #090909);
+            box-shadow: 0 20px 45px rgba(0,0,0,.5);
+            transform: rotate(4deg);
+            transition: transform .4s;
+        }
+
+        .floating-mobile:hover { transform: rotate(0) translateY(-7px); }
+
+        .floating-mobile img {
+            width: 100%;
+            aspect-ratio: 9 / 18;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 12px;
+            background: #211a15;
+        }
+
+        .floating-tablet {
+            position: absolute;
+            z-index: 2;
+            width: 30%;
+            left: -1%;
+            bottom: 5%;
+            padding: 5px;
+            border-radius: 9px;
+            border: 1px solid #716961;
+            background: linear-gradient(145deg, #514c46, #080808);
+            transform: rotate(-3deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,.4);
+        }
+
+        .floating-tablet img {
+            width: 100%;
+            aspect-ratio: 1 / 1.2;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 4px;
+        }
+
+        .visual-label {
+            position: absolute;
+            z-index: 4;
+            left: 1%;
+            top: 4%;
+            color: var(--gold-light);
+            font-size: 9px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        /* LIGHT SECTIONS */
+
+        .light-section {
+            color: var(--ink);
+            background: var(--paper);
+        }
+
+        .overview {
+            padding: 72px 0;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 55px;
+        }
+
+        .section-kicker {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 17px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .section-kicker::before {
+            content: "";
+            width: 25px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .section-title {
+            margin: 0 0 17px;
+            font-family: var(--display);
+            font-size: clamp(28px, 3.1vw, 40px);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1.6px;
+        }
+
+        .section-copy {
+            font-size: 13px;
+            color: #625e59;
+            line-height: 1.95;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 20px;
+            margin-top: 27px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            display: grid;
+            place-items: center;
+            flex: 0 0 43px;
+            width: 43px;
+            height: 43px;
+            border-radius: 13px;
+            background: #f0eae2;
+            color: var(--rust);
+            font-size: 19px;
+        }
+
+        .feature strong {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .feature span {
+            display: block;
+            color: #77716b;
+            font-size: 10px;
+        }
+
+        .process-list {
+            display: grid;
+            gap: 9px;
+            margin-top: 23px;
+        }
+
+        .process-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            border: 1px solid #e9e6e2;
+            border-radius: 12px;
+            background: #fbfaf8;
+            transition: border-color .25s, transform .25s;
+        }
+
+        .process-row:hover {
+            border-color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        .process-number {
+            display: grid;
+            place-items: center;
+            flex: 0 0 38px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #f3e8dc;
+            color: var(--rust);
+            font-family: var(--display);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .process-row strong {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .process-row span {
+            display: block;
+            color: #77716b;
+            font-size: 10px;
+        }
+
+        /* FULL PREVIEW */
+
+        .preview-section {
+            padding: 65px 0 70px;
+            background: #100e0c;
+        }
+
+        .preview-section .section-kicker { color: white; }
+        .preview-section .section-copy { color: #a69c92; }
+
+        .preview-heading {
+            margin-bottom: 25px;
+        }
+
+        .preview-heading .section-copy {
+            margin-bottom: 0;
+            font-size: 12px;
+        }
+
+        .device-gallery {
+            display: grid;
+            grid-template-columns: 1.65fr .85fr .52fr;
+            gap: 30px;
+            align-items: end;
+            padding: 10px 5px 0;
+        }
+
+        .device-card {
+            min-width: 0;
+            text-align: center;
+        }
+
+        .device-frame {
+            overflow: hidden;
+            padding: 6px;
+            border: 1px solid #514b45;
+            background: linear-gradient(145deg, #292725, #050505);
+            box-shadow: 0 25px 45px rgba(0,0,0,.3);
+        }
+
+        .device-frame.desktop {
+            border-radius: 11px;
+        }
+
+        .device-frame.tablet {
+            border-radius: 13px;
+        }
+
+        .device-frame.mobile {
+            border-radius: 22px;
+            padding: 5px;
+        }
+
+        .device-frame img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            object-position: top;
+            background: #1c1713;
+            border-radius: inherit;
+        }
+
+        .device-frame.desktop img { aspect-ratio: 1.45; }
+        .device-frame.tablet img { aspect-ratio: .9; }
+        .device-frame.mobile img { aspect-ratio: .48; }
+
+        .device-caption {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            color: #d6cec5;
+            font-size: 10px;
+        }
+
+        .device-caption span { color: var(--gold); }
+
+        /* PALETTE / RESULTS */
+
+        .details-section {
+            padding: 65px 0;
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1.3fr .95fr .95fr;
+            gap: 30px;
+        }
+
+        .detail-column {
+            min-width: 0;
+            padding-right: 25px;
+            border-right: 1px solid #e2dfd9;
+        }
+
+        .detail-column:last-child {
+            border-right: 0;
+            padding-right: 0;
+        }
+
+        .detail-title {
+            margin: 0 0 23px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .swatches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 11px;
+        }
+
+        .swatch {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,.07);
+            transition: transform .25s;
+        }
+
+        .swatch:hover { transform: scale(1.15); }
+
+        .swatch-item {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .swatch-item span {
+            color: #746e67;
+            font-size: 8px;
+        }
+
+        .check-list {
+            display: grid;
+            gap: 13px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .check-list li {
+            display: flex;
+            gap: 8px;
+            align-items: start;
+            font-size: 11px;
+            line-height: 1.6;
+            color: #625e59;
+        }
+
+        .check-list li::before {
+            content: "✓";
+            color: var(--rust);
+            font-weight: 800;
+        }
+
+        .result-copy {
+            color: #625e59;
+            font-size: 11px;
+            line-height: 1.85;
+        }
+
+        .preview-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            border: 0;
+            border-radius: 30px;
+            padding: 13px 18px;
+            background: var(--gold);
+            color: #20160e;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .25s, transform .25s;
+        }
+
+        .preview-button:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        /* CONTACT */
+
+        .contact-section {
+            padding: 0 0 35px;
+            background: var(--paper);
+            color: white;
+        }
+
+        .contact-banner {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr .9fr auto;
+            align-items: center;
+            gap: 30px;
+            padding: 32px;
+            border-radius: 15px;
+            background:
+                radial-gradient(ellipse at 0 100%, rgba(172,92,47,.22), transparent 40%),
+                linear-gradient(120deg, #171310, #0e0c0a);
+        }
+
+        .contact-banner::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            left: -100px;
+            bottom: -100px;
+            border: 1px solid rgba(208,159,105,.3);
+            border-radius: 50%;
+            box-shadow: 0 0 0 20px rgba(208,159,105,.03),
+                        0 0 0 40px rgba(208,159,105,.03);
+        }
+
+        .contact-banner > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-small {
+            display: inline-block;
+            margin-bottom: 9px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: rgba(213,203,168,.12);
+            color: var(--gold-light);
+            font-size: 9px;
+        }
+
+        .contact-banner h2 {
+            margin: 0;
+            font-family: var(--display);
+            font-size: clamp(18px, 2vw, 25px);
+            line-height: 1.4;
+            letter-spacing: -.7px;
+        }
+
+        .contact-banner p {
+            margin: 0;
+            color: #bcb2a7;
+            font-size: 11px;
+            line-height: 1.9;
+        }
+
+        .contact-button {
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            border-radius: 30px;
+            background: var(--gold);
+            color: #20160e;
+            font-size: 10px;
+            font-weight: 800;
+            transition: transform .25s, background .25s;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-3px);
+            background: var(--gold-light);
+        }
+
+        /* FOOTER */
+
+        .footer {
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 25px 0;
+            border-top: 1px solid #e2dfd9;
+        }
+
+        .footer-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-profile img {
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 50%;
+            background: #e7dfd4;
+        }
+
+        .footer-profile strong {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .footer-profile span {
+            color: #7c756d;
+            font-size: 9px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #655f59;
+            font-size: 10px;
+        }
+
+        .footer-links a:hover { color: var(--rust); }
+
+        /* REVEAL ANIMATION */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: .12s; }
+        .delay-2 { transition-delay: .23s; }
+
+        .hero-copy > * {
+            animation: fadeUp .7s both;
+        }
+
+        .hero-copy > *:nth-child(2) { animation-delay: .08s; }
+        .hero-copy > *:nth-child(3) { animation-delay: .16s; }
+        .hero-copy > *:nth-child(4) { animation-delay: .24s; }
+        .hero-copy > *:nth-child(5) { animation-delay: .32s; }
+
+        .hero-visual {
+            animation: visualIn 1s .12s both;
+        }
+
+        @@keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @@keyframes visualIn {
+            from { opacity: 0; transform: translateY(18px) scale(.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @@media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+        }
+
+        /* RESPONSIVE */
+
+        @@media (max-width: 1050px) {
+            .container { width: calc(100% - 56px); }
+            .nav-links { gap: 15px; }
+            .profile-details { display: none; }
+            .hero-grid { gap: 25px; }
+            .hero-orbit { width: 300px; height: 300px; }
+            .project-meta { gap: 12px; }
+            .meta-item { padding-right: 12px; }
+            .overview-grid { gap: 32px; }
+            .device-gallery { gap: 19px; }
+            .contact-banner { grid-template-columns: 1fr 1fr; }
+            .contact-button { justify-self: start; }
+        }
+
+        @@media (max-width: 720px) {
+            .container { width: calc(100% - 36px); }
+            .nav { height: 72px; }
+            .nav-links { display: none; }
+            .profile-area { gap: 8px; }
+            .profile-photo { width: 34px; height: 34px; }
+            .follow-btn { padding: 10px 16px; }
+            .hero { padding-top: 20px; }
+            .back-link { margin-bottom: 27px; }
+            .hero-grid { grid-template-columns: 1fr; }
+            h1 { font-size: clamp(58px, 13vw, 82px); letter-spacing: -3px; }
+            .hero-description { font-size: 12px; }
+            .project-meta { gap: 13px; }
+            .meta-item { padding-right: 12px; }
+            .hero-visual { margin-top: 5px; padding: 15px 0 30px; }
+            .hero-orbit { width: 65vw; height: 65vw; right: 13%; }
+            .hero-device { width: 88%; }
+            .floating-tablet { width: 26%; }
+            .floating-mobile { width: 22%; }
+            .overview { padding: 55px 0; }
+            .overview-grid { grid-template-columns: 1fr; gap: 40px; }
+            .feature-grid { gap: 22px 12px; }
+            .feature { gap: 9px; }
+            .feature-icon { flex-basis: 38px; width: 38px; height: 38px; }
+            .preview-section { padding: 55px 0; }
+            .device-gallery {
+                grid-template-columns: 1fr 1fr;
+                gap: 26px 16px;
+                align-items: end;
+            }
+            .device-card:first-child { grid-column: 1 / -1; }
+            .device-card:first-child .device-frame.desktop img { aspect-ratio: 1.4; }
+            .device-card:nth-child(2) { width: 88%; justify-self: center; }
+            .device-card:nth-child(3) { width: 62%; justify-self: center; }
+            .details-section { padding: 50px 0; }
+            .details-grid { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
+            .detail-column { padding-right: 0; border-right: 0; }
+            .detail-column:first-child { grid-column: 1 / -1; }
+            .detail-column:last-child { grid-column: 1 / -1; border-top: 1px solid #e2dfd9; padding-top: 25px; }
+            .contact-section { padding-bottom: 20px; }
+            .contact-banner { grid-template-columns: 1fr; gap: 17px; padding: 27px 23px; }
+            .contact-banner p { max-width: 420px; }
+            .footer-inner { align-items: flex-start; flex-direction: column; }
+        }
+
+        @@media (max-width: 400px) {
+            .brand { font-size: 15px; }
+            .profile-photo { width: 30px; height: 30px; }
+            .follow-btn { padding: 9px 12px; font-size: 9px; }
+            .project-meta { gap: 10px; }
+            .meta-item { gap: 6px; padding-right: 8px; }
+            .meta-icon { font-size: 17px; }
+            .meta-item strong { font-size: 9px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .details-grid { grid-template-columns: 1fr; }
+            .detail-column:first-child, .detail-column:last-child { grid-column: auto; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- HEADER: USER PROFILE IN TOP RIGHT -->
+    <header class="header">
+        <div class="container nav">
+            <a class="brand" href="/">Nazmul Haque</a>
+
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="#overview">About</a>
+                <a href="#approach">Services</a>
+                <a href="#preview">Portfolio</a>
+                <a href="#overview" class="active">Case Study</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="profile-area">
+                <img class="profile-photo"
+                     src="/images/nazmul.jpg"
+                     alt="@memberName"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80';" />
+
+                <div class="profile-details">
+                    <strong>@memberName</strong>
+                    <span>Available for work <i class="online-dot"></i></span>
+                </div>
+
+                <a class="follow-btn"
+                   href="https://www.behance.net/"
+                   target="_blank"
+                   rel="noopener noreferrer">Follow</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container">
+                <a class="back-link" href="/#team">← &nbsp; Back to Portfolio</a>
+
+                <div class="hero-grid">
+                    <div class="hero-copy">
+                        <div class="project-tag">UI/UX Design</div>
+
+                        <h1>Digital <span>Code</span></h1>
+
+                        <h2 class="hero-subtitle">Digital Agency Website Design</h2>
+
+                        <p class="hero-description">
+                            A modern digital agency website design crafted to showcase
+                            creativity, strategy, and sleek UI/UX design. This project
+                            explores a professional online presence for creative
+                            agencies, with clean layouts, strong visual hierarchy,
+                            and responsive desktop, tablet, and mobile experiences.
+                        </p>
+
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <span class="meta-icon">♧</span>
+                                <div>
+                                    <span>Project Duration</span>
+                                    <strong>2 Weeks</strong>
+                                </div>
+                            </div>
+
+                            <div class="meta-item">
+                                <span class="meta-icon">⚒</span>
+                                <div>
+                                    <span>Tools Used</span>
+                                    <strong>Figma</strong>
+                                </div>
+                            </div>
+
+                            <div class="meta-item">
+                                <span class="meta-icon">◇</span>
+                                <div>
+                                    <span>Category</span>
+                                    <strong>Website Design</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero device composition -->
+                    <div class="hero-visual">
+                        <div class="hero-orbit"></div>
+                        <span class="visual-label">01 — Responsive UI concept</span>
+
+                        <div class="hero-device">
+                            <div class="desktop-shell">
+                                <img src="/images/desktopui.png"
+                                     alt="Digital Code website desktop design"
+                                     onerror="this.onerror=null;this.src='/images/nazmul.jpg" />
+                            </div>
+                            <div class="desktop-stand"></div>
+                            <div class="desktop-base"></div>
+                        </div>
+
+                        <div class="floating-tablet">
+                            <img src="/images/tabletui.png"
+                                 alt="Digital Code tablet website design"
+                                 onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=700&q=85';" />
+                        </div>
+
+                        <div class="floating-mobile">
+                            <img src="/images/mobileui.png"
+                                 alt="Digital Code mobile website design"
+                                 onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=85';" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OVERVIEW AND APPROACH -->
+        <section class="light-section overview" id="overview">
+            <div class="container">
+                <div class="overview-grid">
+                    <div class="reveal">
+                        <div class="section-kicker">Project Overview</div>
+                        <h2 class="section-title">
+                            Digital Code — A Modern Digital Agency Website
+                        </h2>
+                        <p class="section-copy">
+                            Digital Code is a modern website concept for a creative
+                            digital agency. The goal is to create a professional
+                            platform that presents services, projects, and brand
+                            personality clearly, helping the agency communicate
+                            its value and make a memorable first impression.
+                        </p>
+
+                        <div class="feature-grid">
+                            <div class="feature">
+                                <div class="feature-icon">✧</div>
+                                <div>
+                                    <strong>Creative Design</strong>
+                                    <span>Distinctive visual identity</span>
+                                </div>
+                            </div>
+
+                            <div class="feature">
+                                <div class="feature-icon">▷</div>
+                                <div>
+                                    <strong>Smooth Interaction</strong>
+                                    <span>Purposeful user journeys</span>
+                                </div>
+                            </div>
+
+                            <div class="feature">
+                                <div class="feature-icon">▣</div>
+                                <div>
+                                    <strong>Fully Responsive</strong>
+                                    <span>Desktop, tablet, mobile</span>
+                                </div>
+                            </div>
+
+                            <div class="feature">
+                                <div class="feature-icon">⌕</div>
+                                <div>
+                                    <strong>SEO-Friendly Structure</strong>
+                                    <span>Clear content hierarchy</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-1" id="approach">
+                        <div class="section-kicker">Design Approach</div>
+                        <h2 class="section-title">Designed around the user journey.</h2>
+                        <p class="section-copy">
+                            The proposed experience uses a clear hierarchy, focused
+                            messaging and strong visual elements to help visitors
+                            understand the agency and explore its work.
+                        </p>
+
+                        <div class="process-list">
+                            <div class="process-row">
+                                <div class="process-number">01</div>
+                                <div>
+                                    <strong>User Research & Analysis</strong>
+                                    <span>Understand audience needs and business goals.</span>
+                                </div>
+                            </div>
+
+                            <div class="process-row">
+                                <div class="process-number">02</div>
+                                <div>
+                                    <strong>Wireframing & Prototyping</strong>
+                                    <span>Define content structure and user flow.</span>
+                                </div>
+                            </div>
+
+                            <div class="process-row">
+                                <div class="process-number">03</div>
+                                <div>
+                                    <strong>UI Design</strong>
+                                    <span>Develop the visual system and interface.</span>
+                                </div>
+                            </div>
+
+                            <div class="process-row">
+                                <div class="process-number">04</div>
+                                <div>
+                                    <strong>Development Handoff</strong>
+                                    <span>Organize design assets for implementation.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESPONSIVE DEVICE SHOWCASE -->
+        <section class="preview-section" id="preview">
+            <div class="container">
+                <div class="preview-heading reveal">
+                    <div class="section-kicker">Full Preview</div>
+                    <p class="section-copy">
+                        One visual identity, thoughtfully adapted across desktop,
+                        tablet and mobile screen sizes.
+                    </p>
+                </div>
+
+                <div class="device-gallery">
+                    <div class="device-card reveal">
+                        <div class="device-frame desktop">
+                            <img src="/images/desktopui.png"
+                                 alt="Full Digital Code desktop homepage UI"
+                                 loading="lazy"
+                                 onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1400&q=85';" />
+                        </div>
+                        <div class="device-caption"><span>▣</span> Desktop</div>
+                    </div>
+
+                    <div class="device-card reveal delay-1">
+                        <div class="device-frame tablet">
+                            <img src="/images/tabletui.png"
+                                 alt="Digital Code tablet responsive layout"
+                                 loading="lazy"
+                                 onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=85';" />
+                        </div>
+                        <div class="device-caption"><span>▯</span> Tablet</div>
+                    </div>
+
+                    <div class="device-card reveal delay-2">
+                        <div class="device-frame mobile">
+                            <img src="/images/mobileui.png"
+                                 alt="Digital Code mobile responsive layout"
+                                 loading="lazy"
+                                 onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=85';" />
+                        </div>
+                        <div class="device-caption"><span>▯</span> Mobile</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLOR SYSTEM / FEATURES / RESULTS -->
+        <section class="details-section">
+            <div class="container">
+                <div class="details-grid">
+                    <div class="detail-column reveal">
+                        <h3 class="detail-title">Color Palette</h3>
+
+                        <div class="swatches">
+                            <div class="swatch-item">
+                                <div class="swatch" style="background:#FEFEFE"></div>
+                                <span>#FEFEFE</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="swatch" style="background:#070607"></div>
+                                <span>#070607</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="swatch" style="background:#D09F69"></div>
+                                <span>#D09F69</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="swatch" style="background:#675140"></div>
+                                <span>#675140</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="swatch" style="background:#D5CBA8"></div>
+                                <span>#D5CBA8</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="swatch" style="background:#AC5C2F"></div>
+                                <span>#AC5C2F</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="swatch" style="background:#A78A5F"></div>
+                                <span>#A78A5F</span>
+                            </div>
+                            <div class="swatch-item">
+                                <div class="swatch" style="background:#5284B3"></div>
+                                <span>#5284B3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-column reveal delay-1">
+                        <h3 class="detail-title">Key Features</h3>
+                        <ul class="check-list">
+                            <li>Modern, minimal UI/UX direction</li>
+                            <li>Responsive device-specific layouts</li>
+                            <li>Engaging interaction opportunities</li>
+                            <li>Clear services and project showcase</li>
+                            <li>Consistent visual design language</li>
+                        </ul>
+                    </div>
+
+                    <div class="detail-column reveal delay-2">
+                        <h3 class="detail-title">The Result</h3>
+                        <p class="result-copy">
+                            The concept brings the agency's services and brand story
+                            into a cohesive digital presentation. The design direction
+                            prioritizes clarity, visual consistency and a straightforward
+                            path for prospective clients to explore the agency.
+                        </p>
+                        <a href="#preview" class="preview-button">
+                            View Full Preview ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div class="contact-banner reveal">
+                    <div>
+                        <span class="contact-small">Have a project in mind?</span>
+                        <h2>Have a cool idea? Let's bring it to life together!</h2>
+                    </div>
+
+                    <p>
+                        I work with people from around the world, helping them
+                        design and build their ideas into real products. Let's
+                        start a conversation about your next digital experience.
+                    </p>
+
+                    <a class="contact-button"
+                       href="mailto:hello@techninxa.com">
+                        Get in Touch <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-profile">
+                <img src="@memberImage"
+                     alt="@memberName"
+                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80';" />
+                <div>
+                    <strong>@memberName</strong>
+                    <span>@memberRole · Let's Design Your Dreams ✨</span>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#overview">Project overview</a>
+                <a href="#preview">Full preview</a>
+                <a href="#contact">Get in touch</a>
+                <a href="/">Cytech Enginnering</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (() => {
+            const progress = document.getElementById("scrollProgress");
+            const reduceMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches;
+
+            function updateProgress() {
+                const total =
+                    document.documentElement.scrollHeight - window.innerHeight;
+
+                progress.style.width =
+                    (total > 0 ? window.scrollY / total * 100 : 0) + "%";
+            }
+
+            window.addEventListener("scroll", updateProgress, { passive: true });
+            updateProgress();
+
+            const revealElements = document.querySelectorAll(".reveal");
+
+            if ("IntersectionObserver" in window && !reduceMotion) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.12,
+                    rootMargin: "0px 0px -30px 0px"
+                });
+
+                revealElements.forEach(element => observer.observe(element));
+            } else {
+                revealElements.forEach(element =>
+                    element.classList.add("visible")
+                );
+            }
+
+            // Keep the active navigation state synchronized with sections.
+            const navLinks = document.querySelectorAll(".nav-links a[href^='#']");
+            const sections = document.querySelectorAll(
+                "#overview, #approach, #preview, #contact"
+            );
+
+            if ("IntersectionObserver" in window) {
+                const sectionObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+
+                        navLinks.forEach(link => {
+                            link.classList.toggle(
+                                "active",
+                                link.getAttribute("href") === "#" + entry.target.id
+                            );
+                        });
+                    });
+                }, { rootMargin: "-25% 0px -60% 0px" });
+
+                sections.forEach(section => sectionObserver.observe(section));
+            }
+        })();
+    </script>
+</body>
+</html>

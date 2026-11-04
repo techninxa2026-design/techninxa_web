@@ -1,0 +1,1483 @@
+﻿@{
+    ViewData["Title"] = "Sumaiya Amrin | Full-Stack Web Developer";
+
+    var memberName = ViewBag.MemberName as string ?? "Sumaiya Amrin";
+    var memberRole = ViewBag.MemberRole as string ?? "Full-Stack Web Developer";
+    var memberBio = ViewBag.MemberBio as string ??
+        "I build responsive web experiences and full-stack applications with React, Next.js, Node.js, and modern database technologies.";
+
+    var email = "sumaiyaamrin6@gmail.com";
+    var phone = "+8801873920873";
+}
+
+<link rel="stylesheet"
+      href="~/css/person-portfolio.css"
+      asp-append-version="true" />
+
+<style>
+    .sumaiya-portfolio {
+        --sum-accent: #b7ff65;
+        --sum-bg: #0b0d0c;
+        --sum-panel: #131714;
+        --sum-muted: #9ba49d;
+        --sum-border: rgba(255,255,255,.12);
+        background: var(--sum-bg);
+        color: #f4f7f3;
+        overflow: hidden;
+    }
+
+    .sumaiya-portfolio * {
+        box-sizing: border-box;
+    }
+
+    .sumaiya-portfolio a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .sumaiya-portfolio .sum-container {
+        width: min(1180px, calc(100% - 48px));
+        margin-inline: auto;
+    }
+
+    .sumaiya-portfolio .sum-topline {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        border-bottom: 1px solid var(--sum-border);
+        padding: 0 max(24px, calc((100vw - 1180px) / 2));
+    }
+
+    .sumaiya-portfolio .sum-brand {
+        font-size: 20px;
+        font-weight: 850;
+        letter-spacing: -.8px;
+    }
+
+    .sumaiya-portfolio .sum-brand span {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-nav-label,
+    .sumaiya-portfolio .sum-back,
+    .sumaiya-portfolio .sum-eyebrow,
+    .sumaiya-portfolio .sum-section-label,
+    .sumaiya-portfolio .sum-meta,
+    .sumaiya-portfolio .sum-project-type,
+    .sumaiya-portfolio .sum-project-number {
+        font: 10px/1.6 "DM Mono", monospace;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+    }
+
+    .sumaiya-portfolio .sum-nav-label {
+        color: var(--sum-muted);
+    }
+
+    .sumaiya-portfolio .sum-back {
+        transition: color .25s ease;
+    }
+
+    .sumaiya-portfolio .sum-back:hover {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-hero {
+        min-height: 690px;
+        display: grid;
+        grid-template-columns: 1.15fr .85fr;
+        align-items: center;
+        gap: 70px;
+        padding-top: 90px;
+        padding-bottom: 100px;
+        position: relative;
+    }
+
+    .sumaiya-portfolio .sum-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--sum-muted);
+        margin: 0 0 26px;
+    }
+
+    .sumaiya-portfolio .sum-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--sum-accent);
+        box-shadow: 0 0 18px rgba(183,255,101,.65);
+    }
+
+    .sumaiya-portfolio .sum-hero h1 {
+        font-size: clamp(58px, 7.4vw, 104px);
+        line-height: .92;
+        letter-spacing: -.085em;
+        margin: 0;
+        font-weight: 760;
+    }
+
+    .sumaiya-portfolio .sum-hero h1 span {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-role {
+        font-size: clamp(22px, 2.5vw, 34px);
+        line-height: 1.25;
+        letter-spacing: -.055em;
+        margin: 30px 0 18px;
+        font-weight: 500;
+    }
+
+    .sumaiya-portfolio .sum-intro {
+        max-width: 540px;
+        font-size: 16px;
+        line-height: 1.9;
+        color: #aeb7af;
+        margin: 0;
+    }
+
+    .sumaiya-portfolio .sum-actions {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        flex-wrap: wrap;
+        margin-top: 32px;
+    }
+
+    .sumaiya-portfolio .sum-button {
+        min-height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 0 22px;
+        border: 1px solid var(--sum-accent);
+        background: var(--sum-accent);
+        color: #10150d;
+        font-size: 13px;
+        font-weight: 750;
+        transition: transform .25s ease, background .25s ease;
+    }
+
+    .sumaiya-portfolio .sum-button:hover {
+        transform: translateY(-3px);
+        background: #d0ff9c;
+    }
+
+    .sumaiya-portfolio .sum-text-link {
+        color: #e1e7e0;
+        font-size: 13px;
+        border-bottom: 1px solid #626a63;
+        padding-bottom: 5px;
+    }
+
+    .sumaiya-portfolio .sum-meta-row {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        margin-top: 45px;
+        color: var(--sum-muted);
+    }
+
+    .sumaiya-portfolio .sum-hero-visual {
+        position: relative;
+        min-height: 440px;
+        display: grid;
+        place-items: center;
+    }
+
+    .sumaiya-portfolio .sum-code-window {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 450px;
+        background: #111512;
+        border: 1px solid rgba(255,255,255,.17);
+        box-shadow: 0 35px 100px rgba(0,0,0,.45);
+        transform: rotate(2deg);
+        transition: transform .5s ease;
+    }
+
+    .sumaiya-portfolio .sum-code-window:hover {
+        transform: rotate(0) translateY(-7px);
+    }
+
+    .sumaiya-portfolio .sum-window-bar {
+        height: 46px;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        border-bottom: 1px solid var(--sum-border);
+    }
+
+    .sumaiya-portfolio .sum-window-bar i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #525c53;
+    }
+
+    .sumaiya-portfolio .sum-window-bar span {
+        margin-left: auto;
+        font: 10px "DM Mono", monospace;
+        color: #859087;
+    }
+
+    .sumaiya-portfolio .sum-code {
+        padding: 26px 23px 30px;
+        overflow: hidden;
+        font: 12px/2 "DM Mono", monospace;
+        color: #c6d0c8;
+    }
+
+    .sumaiya-portfolio .sum-code .indent {
+        padding-left: 20px;
+    }
+
+    .sumaiya-portfolio .sum-code .green {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-code .purple {
+        color: #c4a4ff;
+    }
+
+    .sumaiya-portfolio .sum-code .muted {
+        color: #7b897e;
+    }
+
+    .sumaiya-portfolio .sum-float {
+        position: absolute;
+        z-index: 3;
+        background: #1a211b;
+        border: 1px solid rgba(183,255,101,.35);
+        padding: 14px 17px;
+        font: 11px/1.8 "DM Mono", monospace;
+        color: #d7e6d7;
+        box-shadow: 0 15px 40px rgba(0,0,0,.3);
+    }
+
+    .sumaiya-portfolio .sum-float strong {
+        display: block;
+        color: var(--sum-accent);
+        font-size: 13px;
+    }
+
+    .sumaiya-portfolio .sum-float-one {
+        top: 25px;
+        right: -8px;
+    }
+
+    .sumaiya-portfolio .sum-float-two {
+        left: -16px;
+        bottom: 35px;
+    }
+
+    .sumaiya-portfolio .sum-orbit {
+        position: absolute;
+        width: 390px;
+        height: 390px;
+        border: 1px solid rgba(183,255,101,.12);
+        border-radius: 50%;
+    }
+
+    .sumaiya-portfolio .sum-orbit::before {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        background: var(--sum-accent);
+        border-radius: 50%;
+        top: 13%;
+        right: 18%;
+        box-shadow: 0 0 20px var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-section {
+        padding-top: 105px;
+        padding-bottom: 105px;
+        border-top: 1px solid var(--sum-border);
+    }
+
+    .sumaiya-portfolio .sum-section-label {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: var(--sum-muted);
+        margin-bottom: 55px;
+    }
+
+    .sumaiya-portfolio .sum-section-label span:first-child {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-display {
+        font-size: clamp(40px, 5.5vw, 70px);
+        line-height: 1.02;
+        letter-spacing: -.07em;
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .sumaiya-portfolio .sum-display span {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-about-grid {
+        display: grid;
+        grid-template-columns: 1fr .7fr;
+        gap: 90px;
+        align-items: start;
+    }
+
+    .sumaiya-portfolio .sum-copy p {
+        margin: 0 0 18px;
+        color: #aeb7af;
+        font-size: 15px;
+        line-height: 1.95;
+    }
+
+    .sumaiya-portfolio .sum-tech-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 48px;
+    }
+
+    .sumaiya-portfolio .sum-tech-strip span {
+        border: 1px solid var(--sum-border);
+        padding: 10px 14px;
+        font: 10px "DM Mono", monospace;
+        color: #c4cec5;
+        transition: border-color .25s ease, color .25s ease;
+    }
+
+    .sumaiya-portfolio .sum-tech-strip span:hover {
+        border-color: var(--sum-accent);
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-work-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 40px;
+        margin-bottom: 50px;
+    }
+
+    .sumaiya-portfolio .sum-work-heading p {
+        max-width: 350px;
+        margin: 0 0 5px;
+        color: var(--sum-muted);
+        line-height: 1.8;
+        font-size: 14px;
+    }
+
+    .sumaiya-portfolio .sum-project-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
+
+    .sumaiya-portfolio .sum-project {
+        min-width: 0;
+    }
+
+    .sumaiya-portfolio .sum-project-visual {
+        display: block;
+        position: relative;
+        min-height: 330px;
+        overflow: hidden;
+        background:
+            radial-gradient(ellipse at 70% 25%, rgba(183,255,101,.17), transparent 38%),
+            linear-gradient(145deg, #1a221b, #101310);
+        border: 1px solid var(--sum-border);
+    }
+
+    .sumaiya-portfolio .sum-project-visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(0deg, rgba(0,0,0,.35), transparent 55%);
+        pointer-events: none;
+    }
+
+    .sumaiya-portfolio .sum-project-visual .sum-project-index {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 2;
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-project-visit {
+        position: absolute;
+        right: 18px;
+        bottom: 18px;
+        z-index: 2;
+        border: 1px solid rgba(255,255,255,.4);
+        padding: 10px 13px;
+        font: 10px "DM Mono", monospace;
+        background: rgba(10,12,10,.55);
+        backdrop-filter: blur(8px);
+        transition: color .25s ease, background .25s ease;
+    }
+
+    .sumaiya-portfolio .sum-project-visual:hover .sum-project-visit {
+        color: #10150d;
+        background: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-project-art {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 30px;
+        transition: transform .6s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .sumaiya-portfolio .sum-project-visual:hover .sum-project-art {
+        transform: scale(1.04);
+    }
+
+    .sumaiya-portfolio .sum-art-panel {
+        width: min(100%, 360px);
+        border: 1px solid rgba(255,255,255,.18);
+        background: rgba(12,16,12,.8);
+        box-shadow: 0 25px 70px rgba(0,0,0,.3);
+        padding: 22px;
+    }
+
+    .sumaiya-portfolio .sum-art-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font: 9px "DM Mono", monospace;
+        color: #a8b2a8;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--sum-border);
+    }
+
+    .sumaiya-portfolio .sum-art-title {
+        font-size: clamp(25px, 3vw, 38px);
+        font-weight: 750;
+        letter-spacing: -.06em;
+        line-height: 1.05;
+        margin: 23px 0 9px;
+    }
+
+    .sumaiya-portfolio .sum-art-title span {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-art-subtitle {
+        color: #9aa79b;
+        font-size: 10px;
+        line-height: 1.8;
+    }
+
+    .sumaiya-portfolio .sum-art-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-top: 25px;
+    }
+
+    .sumaiya-portfolio .sum-art-stats span {
+        padding: 12px 8px;
+        background: #1b241c;
+        border: 1px solid rgba(255,255,255,.06);
+        font: 9px/1.7 "DM Mono", monospace;
+        color: #aeb9af;
+    }
+
+    .sumaiya-portfolio .sum-art-stats b {
+        display: block;
+        font-size: 15px;
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-school-art {
+        background:
+            radial-gradient(circle at 25% 20%, rgba(117,166,255,.22), transparent 35%),
+            linear-gradient(135deg, #111a27, #101310);
+    }
+
+    .sumaiya-portfolio .sum-school-art .sum-art-panel {
+        background: rgba(15,22,31,.88);
+    }
+
+    .sumaiya-portfolio .sum-school-art .sum-art-title span {
+        color: #8db8ff;
+    }
+
+    .sumaiya-portfolio .sum-school-art .sum-art-stats span {
+        background: #19283a;
+    }
+
+    .sumaiya-portfolio .sum-school-art .sum-art-stats b {
+        color: #8db8ff;
+    }
+
+    .sumaiya-portfolio .sum-project-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 18px;
+        padding: 23px 0 35px;
+    }
+
+    .sumaiya-portfolio .sum-project-type {
+        color: var(--sum-accent);
+        font-size: 9px;
+    }
+
+    .sumaiya-portfolio .sum-project-details h3 {
+        font-size: 27px;
+        letter-spacing: -.05em;
+        margin: 8px 0;
+    }
+
+    .sumaiya-portfolio .sum-project-details p {
+        max-width: 460px;
+        margin: 0;
+        color: var(--sum-muted);
+        font-size: 13px;
+        line-height: 1.85;
+    }
+
+    .sumaiya-portfolio .sum-project-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 16px;
+    }
+
+    .sumaiya-portfolio .sum-project-stack span {
+        color: #c4cec5;
+        border: 1px solid var(--sum-border);
+        padding: 6px 8px;
+        font: 9px "DM Mono", monospace;
+    }
+
+    .sumaiya-portfolio .sum-experience-list {
+        border-top: 1px solid var(--sum-border);
+    }
+
+    .sumaiya-portfolio .sum-experience-item {
+        display: grid;
+        grid-template-columns: 65px 1fr auto;
+        gap: 25px;
+        align-items: start;
+        padding: 29px 0;
+        border-bottom: 1px solid var(--sum-border);
+        transition: padding .25s ease;
+    }
+
+    .sumaiya-portfolio .sum-experience-item:hover {
+        padding-left: 10px;
+    }
+
+    .sumaiya-portfolio .sum-experience-number {
+        font: 11px "DM Mono", monospace;
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-experience-item h3 {
+        margin: 0 0 8px;
+        font-size: 23px;
+        letter-spacing: -.04em;
+    }
+
+    .sumaiya-portfolio .sum-experience-item p {
+        color: var(--sum-muted);
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .sumaiya-portfolio .sum-experience-date {
+        font: 10px/1.8 "DM Mono", monospace;
+        color: #a6b0a7;
+        text-align: right;
+    }
+
+    .sumaiya-portfolio .sum-skill-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin-top: 45px;
+    }
+
+    .sumaiya-portfolio .sum-skill-card {
+        min-height: 220px;
+        border: 1px solid var(--sum-border);
+        background: linear-gradient(145deg, #151a16, #101310);
+        padding: 24px;
+        transition: transform .3s ease, border-color .3s ease;
+    }
+
+    .sumaiya-portfolio .sum-skill-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(183,255,101,.55);
+    }
+
+    .sumaiya-portfolio .sum-skill-number {
+        color: var(--sum-accent);
+        font: 10px "DM Mono", monospace;
+    }
+
+    .sumaiya-portfolio .sum-skill-card h3 {
+        margin: 30px 0 10px;
+        font-size: 20px;
+        letter-spacing: -.04em;
+    }
+
+    .sumaiya-portfolio .sum-skill-card p {
+        color: var(--sum-muted);
+        font-size: 12px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .sumaiya-portfolio .sum-education-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .sumaiya-portfolio .sum-info-card {
+        padding: 28px;
+        background: var(--sum-panel);
+        border: 1px solid var(--sum-border);
+    }
+
+    .sumaiya-portfolio .sum-info-card .sum-eyebrow {
+        margin-bottom: 22px;
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-info-card h3 {
+        font-size: 24px;
+        letter-spacing: -.045em;
+        margin: 0 0 10px;
+    }
+
+    .sumaiya-portfolio .sum-info-card p {
+        color: var(--sum-muted);
+        font-size: 13px;
+        line-height: 1.85;
+        margin: 0 0 8px;
+    }
+
+    .sumaiya-portfolio .sum-activity-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0 0;
+    }
+
+    .sumaiya-portfolio .sum-activity-list li {
+        padding: 13px 0;
+        border-top: 1px solid var(--sum-border);
+        color: #c8d0c9;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .sumaiya-portfolio .sum-contact {
+        position: relative;
+        overflow: hidden;
+        padding: 100px 24px;
+        text-align: center;
+        background:
+            radial-gradient(ellipse at 50% 110%, rgba(183,255,101,.13), transparent 55%),
+            #111512;
+        border-top: 1px solid var(--sum-border);
+    }
+
+    .sumaiya-portfolio .sum-contact .sum-eyebrow {
+        justify-content: center;
+    }
+
+    .sumaiya-portfolio .sum-contact h2 {
+        position: relative;
+        z-index: 1;
+        font-size: clamp(45px, 7vw, 86px);
+        line-height: .98;
+        letter-spacing: -.075em;
+        margin: 0 auto 22px;
+    }
+
+    .sumaiya-portfolio .sum-contact h2 span {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-contact-copy {
+        position: relative;
+        z-index: 1;
+        max-width: 480px;
+        margin: 0 auto;
+        color: var(--sum-muted);
+        font-size: 14px;
+        line-height: 1.9;
+    }
+
+    .sumaiya-portfolio .sum-contact-actions {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    .sumaiya-portfolio .sum-contact-details {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        flex-wrap: wrap;
+        margin-top: 45px;
+        font: 10px "DM Mono", monospace;
+        color: #aab4ab;
+    }
+    ```css
+    /* PROFILE IMAGE */
+    .sumaiya-portfolio .sum-profile-image-wrap {
+        position: relative;
+        z-index: 2;
+        width: min(100%, 390px);
+        height: 490px;
+        overflow: hidden;
+        border: 1px solid rgba(183, 255, 101, .35);
+        background: #171d18;
+        box-shadow: 0 30px 90px rgba(0, 0, 0, .4);
+        transform: rotate(2deg);
+        transition: transform .5s ease, border-color .5s ease;
+    }
+
+    .sumaiya-portfolio .sum-profile-image-wrap:hover {
+        transform: rotate(0) translateY(-7px);
+        border-color: #b7ff65;
+    }
+
+    .sumaiya-portfolio .sum-profile-image {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center top;
+        transition: transform .8s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .sumaiya-portfolio .sum-profile-image-wrap:hover
+    .sum-profile-image {
+        transform: scale(1.05);
+    }
+
+    .sumaiya-portfolio .sum-profile-image-glow {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient( 180deg, transparent 45%, rgba(5, 10, 6, .15) 65%, rgba(5, 10, 6, .9) 100% );
+    }
+
+    .sumaiya-portfolio .sum-image-overlay {
+        position: absolute;
+        z-index: 3;
+        left: 24px;
+        right: 24px;
+        bottom: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        pointer-events: none;
+    }
+
+        .sumaiya-portfolio .sum-image-overlay span:first-child {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -.8px;
+        }
+
+        .sumaiya-portfolio .sum-image-overlay span:last-child {
+            color: #b7ff65;
+            font: 10px/1.6 "DM Mono", monospace;
+            letter-spacing: 1.5px;
+        }
+
+    .sumaiya-portfolio .sum-profile-image-wrap::after {
+        content: "";
+        position: absolute;
+        z-index: 4;
+        inset: 12px;
+        border: 1px solid rgba(255, 255, 255, .12);
+        pointer-events: none;
+    }
+
+    @@media (max-width: 900px) {
+        .sumaiya-portfolio .sum-profile-image-wrap {
+            width: min(100%, 390px);
+            height: 450px;
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .sumaiya-portfolio .sum-profile-image-wrap {
+            width: min(85%, 340px);
+            height: 410px;
+        }
+    }
+
+    ```
+
+    .sumaiya-portfolio .sum-contact-details a:hover {
+        color: var(--sum-accent);
+    }
+
+    .sumaiya-portfolio .sum-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 24px max(24px, calc((100vw - 1180px) / 2));
+        border-top: 1px solid var(--sum-border);
+        color: var(--sum-muted);
+        font: 10px "DM Mono", monospace;
+    }
+
+    .sumaiya-portfolio .sum-reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .sumaiya-portfolio .sum-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @@media (max-width: 900px) {
+        .sumaiya-portfolio .sum-hero {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            padding-top: 75px;
+        }
+
+        .sumaiya-portfolio .sum-hero-visual {
+            min-height: 400px;
+        }
+
+        .sumaiya-portfolio .sum-code-window {
+            max-width: 520px;
+        }
+
+        .sumaiya-portfolio .sum-about-grid {
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .sumaiya-portfolio .sum-skill-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .sumaiya-portfolio .sum-container {
+            width: calc(100% - 36px);
+        }
+
+        .sumaiya-portfolio .sum-topline {
+            min-height: 66px;
+            padding: 0 18px;
+        }
+
+        .sumaiya-portfolio .sum-nav-label {
+            display: none;
+        }
+
+        .sumaiya-portfolio .sum-hero {
+            min-height: auto;
+            padding-top: 70px;
+            padding-bottom: 75px;
+        }
+
+        .sumaiya-portfolio .sum-hero h1 {
+            font-size: clamp(57px, 15vw, 84px);
+        }
+
+        .sumaiya-portfolio .sum-hero-visual {
+            min-height: 345px;
+        }
+
+        .sumaiya-portfolio .sum-orbit {
+            width: 300px;
+            height: 300px;
+        }
+
+        .sumaiya-portfolio .sum-float-one {
+            right: -2px;
+        }
+
+        .sumaiya-portfolio .sum-float-two {
+            left: -2px;
+        }
+
+        .sumaiya-portfolio .sum-section {
+            padding-top: 75px;
+            padding-bottom: 75px;
+        }
+
+        .sumaiya-portfolio .sum-section-label {
+            margin-bottom: 36px;
+            font-size: 9px;
+        }
+
+        .sumaiya-portfolio .sum-section-label span:last-child {
+            text-align: right;
+        }
+
+        .sumaiya-portfolio .sum-work-heading {
+            display: block;
+        }
+
+        .sumaiya-portfolio .sum-work-heading p {
+            margin-top: 22px;
+        }
+
+        .sumaiya-portfolio .sum-project-grid {
+            grid-template-columns: 1fr;
+            gap: 5px;
+        }
+
+        .sumaiya-portfolio .sum-project-visual {
+            min-height: 300px;
+        }
+
+        .sumaiya-portfolio .sum-experience-item {
+            grid-template-columns: 32px 1fr;
+            gap: 14px;
+        }
+
+        .sumaiya-portfolio .sum-experience-date {
+            grid-column: 2;
+            text-align: left;
+        }
+
+        .sumaiya-portfolio .sum-skill-grid,
+        .sumaiya-portfolio .sum-education-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .sumaiya-portfolio .sum-contact {
+            padding: 75px 20px;
+        }
+
+        .sumaiya-portfolio .sum-footer {
+            padding: 22px 18px;
+            flex-direction: column;
+        }
+    }
+
+    @@media (prefers-reduced-motion: reduce) {
+        .sumaiya-portfolio *,
+        .sumaiya-portfolio *::before,
+        .sumaiya-portfolio *::after {
+            animation-duration: .01ms !important;
+            transition-duration: .01ms !important;
+            scroll-behavior: auto !important;
+        }
+
+        .sumaiya-portfolio .sum-reveal {
+            opacity: 1;
+            transform: none;
+        }
+    }
+</style>
+
+<main class="person-portfolio sumaiya-portfolio">
+
+    <!-- NAVIGATION -->
+    <header class="sum-topline">
+        <a href="/" class="sum-brand">TECHNINXA<span>.</span></a>
+        <span class="sum-nav-label">DEVELOPMENT / PORTFOLIO</span>
+        <a href="/#team" class="sum-back">BACK TO TEAM ↗</a>
+    </header>
+
+    <!-- HERO -->
+    <section class="sum-container sum-hero">
+
+        <div class="sum-hero-copy">
+            <p class="sum-eyebrow sum-reveal">
+                <span class="sum-dot"></span>
+                FULL-STACK WEB DEVELOPER
+            </p>
+
+            <h1 class="sum-reveal">
+                Hello,<br />
+                I'm <span>Sumaiya.</span>
+            </h1>
+
+            <h2 class="sum-role sum-reveal">
+                Building useful<br />
+                digital products.
+            </h2>
+
+            <p class="sum-intro sum-reveal">@memberBio</p>
+
+            <div class="sum-actions sum-reveal">
+                <a href="#projects" class="sum-button">
+                    Explore my work <span>↘</span>
+                </a>
+                <a href="#contact" class="sum-text-link">
+                    Let's connect ↗
+                </a>
+            </div>
+
+            <div class="sum-meta-row sum-meta sum-reveal">
+                <span>@memberRole</span>
+                <span>Dhaka, Bangladesh</span>
+                <span>1.5+ years experience*</span>
+            </div>
+        </div>
+
+        
+        <!-- HERO PROFILE IMAGE -->
+        <div class="sum-hero-visual sum-reveal">
+
+            <div class="sum-orbit"></div>
+
+            <div class="sum-profile-image-wrap">
+                <div class="sum-profile-image-glow"></div>
+
+                <img src="~/assets/team/amrin.jpg"
+                     alt="Sumaiya Amrin — Full-Stack Web Developer"
+                     class="sum-profile-image"
+                     loading="eager" />
+
+                <div class="sum-image-overlay">
+                    <span>SUMAIYA AMRIN</span>
+                    <span>FULL-STACK DEVELOPER</span>
+                </div>
+            </div>
+
+          
+        </div>
+        
+
+    </section>
+
+    <!-- ABOUT -->
+    <section class="sum-container sum-section" id="about">
+
+        <div class="sum-section-label sum-reveal">
+            <span>01 / ABOUT</span>
+            <span>THOUGHTFUL CODE. USEFUL PRODUCTS.</span>
+        </div>
+
+        <div class="sum-about-grid">
+            <h2 class="sum-display sum-reveal">
+                From user interfaces<br />
+                to <span>full-stack systems.</span>
+            </h2>
+
+            <div class="sum-copy sum-reveal">
+                <p>
+                    I'm a web developer working across frontend interfaces,
+                    backend services, REST APIs, and database-driven
+                    applications. I enjoy turning requirements into
+                    responsive, practical web products.
+                </p>
+
+                <p>
+                    My experience includes client website development,
+                    MERN stack applications, authentication flows,
+                    role-based dashboards, and data management features.
+                </p>
+
+                <a href="#expertise" class="sum-text-link">
+                    Explore my technical skills ↘
+                </a>
+            </div>
+        </div>
+
+        <div class="sum-tech-strip sum-reveal">
+            <span>JavaScript ES6+</span>
+            <span>React.js</span>
+            <span>Next.js</span>
+            <span>Node.js</span>
+            <span>Express.js</span>
+            <span>MongoDB</span>
+            <span>MySQL</span>
+            <span>REST APIs</span>
+            <span>JWT</span>
+            <span>Tailwind CSS</span>
+            <span>Git / GitHub</span>
+        </div>
+
+    </section>
+
+    <!-- PROJECTS -->
+
+<!-- PROJECTS -->
+<section class="sum-container sum-section" id="projects">
+
+    <div class="sum-section-label sum-reveal">
+        <span>02 / SELECTED PROJECTS</span>
+        <span>FULL-STACK APPLICATIONS</span>
+    </div>
+
+    <div class="sum-work-heading sum-reveal">
+        <h2 class="sum-display">
+            Practical solutions.<br />
+            <span>Thoughtful engineering.</span>
+        </h2>
+
+        <p>
+            A closer look at application concepts involving user roles,
+            authentication, dashboards, data management, and workflows.
+        </p>
+    </div>
+
+    <div class="sum-project-grid">
+
+        <!-- PROJECT 01: JOB PORTAL -->
+        <article class="sum-project sum-reveal">
+
+            <a href="/job-portal"
+               class="sum-project-visual"
+               aria-label="Explore Job Portal project">
+
+                <span class="sum-project-index">PROJECT / 01</span>
+
+                <!-- Keep the existing project artwork -->
+                <img src="/images/ashik/jobfinder.png"/>
+
+                <span class="sum-project-visit">
+                    EXPLORE PROJECT ↗
+                </span>
+
+            </a>
+
+            <div class="sum-project-details" id="job-portal">
+                <div>
+
+                    <span class="sum-project-type">
+                        FULL STACK / JOB PLATFORM
+                    </span>
+
+                    <h3>Job Portal</h3>
+
+                    <p>
+                        A multi-role job platform connecting companies
+                        and candidates, with job publishing, applications,
+                        verification, subscriptions, and CV creation.
+                    </p>
+
+                    <div class="sum-project-stack">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>REST APIs</span>
+                        <span>JWT</span>
+                        <span>Database</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </article>
+
+        <!-- PROJECT 02: SCHOOL MANAGEMENT -->
+        <article class="sum-project sum-reveal">
+
+            <a href="/school-management"
+               class="sum-project-visual sum-school-art"
+               aria-label="Explore School Management System project">
+
+                <span class="sum-project-index">PROJECT / 02</span>
+
+                <!-- Keep the existing project artwork -->
+               <img src="/images/ashik/sms.png"/>
+
+                <span class="sum-project-visit">
+                    EXPLORE PROJECT ↗
+                </span>
+
+            </a>
+
+            <div class="sum-project-details" id="school-management">
+                <div>
+
+                    <span class="sum-project-type">
+                        MERN STACK / MANAGEMENT SYSTEM
+                    </span>
+
+                    <h3>School Management System</h3>
+
+                    <p>
+                        A role-based school management application
+                        supporting subject, class, teacher, and student
+                        records, plus attendance and result workflows.
+                    </p>
+
+                    <div class="sum-project-stack">
+                        <span>React</span>
+                        <span>Node.js</span>
+                        <span>Express.js</span>
+                        <span>MongoDB</span>
+                        <span>JWT</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </article>
+
+    </div>
+
+    <p class="sum-copy" style="margin-top:26px;font-size:11px;">
+        The project visuals above are illustrative representations
+        created for this portfolio page, not screenshots of the original applications.
+    </p>
+
+</section>
+
+
+    <!-- EXPERIENCE -->
+    <section class="sum-container sum-section" id="experience">
+
+        <div class="sum-section-label sum-reveal">
+            <span>03 / EXPERIENCE</span>
+            <span>PROFESSIONAL JOURNEY</span>
+        </div>
+
+        <h2 class="sum-display sum-reveal">
+            Learning by building.<br />
+            <span>Growing through delivery.</span>
+        </h2>
+
+        <div class="sum-experience-list" style="margin-top:48px;">
+
+            <article class="sum-experience-item sum-reveal">
+                <span class="sum-experience-number">01</span>
+                <div>
+                    <h3>Junior Web Developer</h3>
+                    <p>Dokmi Digital Marketing Agency</p>
+                    <p>
+                        Developing client-facing live websites and delivering
+                        dedicated web development work within deadlines.
+                    </p>
+                </div>
+                <span class="sum-experience-date">JUN 2026 – PRESENT</span>
+            </article>
+
+            <article class="sum-experience-item sum-reveal">
+                <span class="sum-experience-number">02</span>
+                <div>
+                    <h3>Full Stack Developer — Paid Intern</h3>
+                    <p>IGL Web Ltd</p>
+                    <p>
+                        Built and maintained MERN stack applications,
+                        developing React frontends, REST APIs, and MySQL
+                        backend services.
+                    </p>
+                </div>
+                <span class="sum-experience-date">JAN 2026 – APR 2026</span>
+            </article>
+
+            <article class="sum-experience-item sum-reveal">
+                <span class="sum-experience-number">03</span>
+                <div>
+                    <h3>MERN Stack Developer — Intern</h3>
+                    <p>Suffix IT Ltd</p>
+                    <p>
+                        Developed responsive MERN applications, collaborated
+                        with Git-based teams, and gained experience in
+                        agile software development.
+                    </p>
+                </div>
+                <span class="sum-experience-date">OCT 2024 – NOV 2025</span>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- EXPERTISE -->
+    <section class="sum-container sum-section" id="expertise">
+
+        <div class="sum-section-label sum-reveal">
+            <span>04 / TECHNICAL EXPERTISE</span>
+            <span>TOOLS AND TECHNOLOGIES</span>
+        </div>
+
+        <h2 class="sum-display sum-reveal">
+            The tools behind<br />
+            <span>the experience.</span>
+        </h2>
+
+        <div class="sum-skill-grid">
+
+            <article class="sum-skill-card sum-reveal">
+                <span class="sum-skill-number">01 / FRONTEND</span>
+                <h3>Interactive Interfaces</h3>
+                <p>
+                    JavaScript ES6+, React.js, Next.js, HTML5, CSS3,
+                    Tailwind CSS, WordPress, and Elementor.
+                </p>
+            </article>
+
+            <article class="sum-skill-card sum-reveal">
+                <span class="sum-skill-number">02 / BACKEND</span>
+                <h3>Application Logic</h3>
+                <p>
+                    Node.js, Express.js, REST API development,
+                    JWT authentication, and application workflows.
+                </p>
+            </article>
+
+            <article class="sum-skill-card sum-reveal">
+                <span class="sum-skill-number">03 / DATA</span>
+                <h3>Database Management</h3>
+                <p>
+                    MongoDB and MySQL for application data and
+                    database-backed features.
+                </p>
+            </article>
+
+            <article class="sum-skill-card sum-reveal">
+                <span class="sum-skill-number">04 / SECURITY</span>
+                <h3>Authentication & Roles</h3>
+                <p>
+                    Project experience with JWT authentication,
+                    role-based access, and email or phone OTP verification.
+                </p>
+            </article>
+
+            <article class="sum-skill-card sum-reveal">
+                <span class="sum-skill-number">05 / WORKFLOW</span>
+                <h3>Development Tools</h3>
+                <p>
+                    Git, GitHub, Visual Studio Code, collaborative
+                    development, and version control workflows.
+                </p>
+            </article>
+
+            <article class="sum-skill-card sum-reveal">
+                <span class="sum-skill-number">06 / DEPLOYMENT</span>
+                <h3>Shipping Websites</h3>
+                <p>
+                    Experience with Vercel, Netlify, and cPanel
+                    deployment environments.
+                </p>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- EDUCATION & ACTIVITIES -->
+    <section class="sum-container sum-section" id="education">
+
+        <div class="sum-section-label sum-reveal">
+            <span>05 / BEYOND THE CODE</span>
+            <span>EDUCATION & ACTIVITIES</span>
+        </div>
+
+        <div class="sum-education-grid">
+
+            <article class="sum-info-card sum-reveal">
+                <p class="sum-eyebrow">EDUCATION</p>
+                <h3>Daffodil International University</h3>
+                <p>B.Sc. in Computer Science and Engineering</p>
+                <p>Dhaka, Bangladesh · 2022–2025</p>
+                <p>GPA: 3.02</p>
+            </article>
+
+            <article class="sum-info-card sum-reveal">
+                <p class="sum-eyebrow">LEADERSHIP & ACTIVITIES</p>
+                <h3>Robotics & Community</h3>
+
+                <ul class="sum-activity-list">
+                    <li>
+                        <strong>Treasurer — Daffodil International Robotics Club</strong><br />
+                        2023–2024. Finance, budget planning, and coordination
+                        of robotics workshops and competitions.
+                    </li>
+                    <li>
+                        <strong>Robomate+ Robotics Camp</strong><br />
+                        Automatic irrigation, fire security, and gear motion
+                        control projects.
+                    </li>
+                    <li>
+                        <strong>Event Host</strong><br />
+                        Master of ceremonies for a freshers' orientation program.
+                    </li>
+                </ul>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sum-contact" id="contact">
+
+        <p class="sum-eyebrow sum-reveal">
+            <span class="sum-dot"></span>
+            HAVE A PROJECT IN MIND?
+        </p>
+
+        <h2 class="sum-reveal">
+            Let's build<br />
+            something <span>useful</span>
+        </h2>
+
+    </section>
+
+    <footer class="sum-footer">
+        <a href="/" class="sum-brand">TECHNINXA<span>.</span></a>
+        <span>SUMAIYA AMRIN / DEVELOPER PORTFOLIO</span>
+        <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+            BACK TO TOP ↑
+        </a>
+    </footer>
+
+</main>
+
+<script>
+    (() => {
+        const root = document.querySelector('.sumaiya-portfolio');
+        if (!root) return;
+
+        const revealItems = root.querySelectorAll('.sum-reveal');
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            revealItems.forEach((item, index) => {
+                item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+                observer.observe(item);
+            });
+        } else {
+            revealItems.forEach(item => item.classList.add('is-visible'));
+        }
+    })();
+</script>

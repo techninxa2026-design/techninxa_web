@@ -1,0 +1,954 @@
+﻿ @using Techninxa.Models
+@model IEnumerable<Project>
+
+@{
+    ViewData["Title"] = "Project Management";
+    var projects = Model?.ToList() ?? new List<Project>();
+}
+
+<style>
+    .pl-page {
+        --pl-primary: #1687f8;
+        --pl-text: #101828;
+        --pl-muted: #667085;
+        --pl-border: #e8edf3;
+        --pl-bg: #f5f7fb;
+
+        min-height: 100vh;
+        padding: 110px 24px 60px;
+        background: var(--pl-bg);
+        color: var(--pl-text);
+        font-family: inherit;
+    }
+
+    .pl-container {
+        max-width: 1500px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    /* Header */
+    .pl-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 25px;
+    }
+
+    .pl-heading {
+        min-width: 0;
+    }
+
+    .pl-eyebrow {
+        margin: 0 0 7px;
+        color: var(--pl-primary);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    .pl-heading h1 {
+        margin: 0;
+        font-size: clamp(25px, 3vw, 32px);
+        font-weight: 800;
+        letter-spacing: -1px;
+        line-height: 1.25;
+        color: var(--pl-text);
+    }
+
+    .pl-heading p {
+        margin: 8px 0 0;
+        color: var(--pl-muted);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .pl-add {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        flex-shrink: 0;
+        min-height: 44px;
+        padding: 0 17px;
+        border: 1px solid var(--pl-primary);
+        border-radius: 10px;
+        background: var(--pl-primary);
+        color: white !important;
+        text-decoration: none !important;
+        font-size: 13px;
+        font-weight: 750;
+        box-shadow: 0 5px 14px #1687f829;
+        transition: .2s ease;
+    }
+
+    .pl-add:hover {
+        background: #0878e8;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px #1687f83b;
+    }
+
+    .pl-add svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    /* Summary cards */
+    .pl-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 23px;
+    }
+
+    .pl-stat {
+        min-width: 0;
+        padding: 19px 20px;
+        border: 1px solid var(--pl-border);
+        border-radius: 14px;
+        background: white;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 3px 12px #10182805;
+    }
+
+    .pl-stat-icon {
+        width: 43px;
+        height: 43px;
+        flex: 0 0 43px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+    }
+
+    .pl-stat-icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .pl-stat-icon.blue {
+        background: #eff6ff;
+        color: #1670d8;
+    }
+
+    .pl-stat-icon.green {
+        background: #ecfdf3;
+        color: #079455;
+    }
+
+    .pl-stat-icon.purple {
+        background: #f4f0ff;
+        color: #7f56d9;
+    }
+
+    .pl-stat-label {
+        margin-bottom: 4px;
+        color: var(--pl-muted);
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .pl-stat-number {
+        color: var(--pl-text);
+        font-size: 25px;
+        font-weight: 800;
+        line-height: 1.15;
+    }
+
+    /* Main table panel */
+    .pl-panel {
+        overflow: hidden;
+        border: 1px solid var(--pl-border);
+        border-radius: 15px;
+        background: white;
+        box-shadow: 0 5px 20px #10182806;
+    }
+
+    .pl-toolbar {
+        padding: 17px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid var(--pl-border);
+    }
+
+    .pl-toolbar-title {
+        min-width: 0;
+    }
+
+    .pl-toolbar-title h2 {
+        margin: 0;
+        color: var(--pl-text);
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    .pl-toolbar-title p {
+        margin: 5px 0 0;
+        color: var(--pl-muted);
+        font-size: 12px;
+    }
+
+    .pl-search {
+        width: min(310px, 100%);
+        height: 40px;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        border: 1px solid #dfe5ed;
+        border-radius: 9px;
+        background: #fff;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .pl-search:focus-within {
+        border-color: var(--pl-primary);
+        box-shadow: 0 0 0 3px #1687f81a;
+    }
+
+    .pl-search svg {
+        width: 17px;
+        height: 17px;
+        flex-shrink: 0;
+        color: #98a2b3;
+    }
+
+    .pl-search input {
+        width: 100%;
+        min-width: 0;
+        border: 0;
+        outline: none;
+        background: transparent;
+        color: var(--pl-text);
+        font: inherit;
+        font-size: 12px;
+    }
+
+    .pl-search input::placeholder {
+        color: #98a2b3;
+    }
+
+    .pl-table-scroll {
+        width: 100%;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 #f8fafc;
+    }
+
+    .pl-table {
+        width: 100%;
+        min-width: 1100px;
+        border-collapse: separate;
+        border-spacing: 0;
+        text-align: left;
+    }
+
+    .pl-table thead th {
+        height: 44px;
+        padding: 0 15px;
+        background: #f9fafb;
+        color: #667085;
+        border-bottom: 1px solid var(--pl-border);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .7px;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .pl-table tbody td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eef1f5;
+        vertical-align: middle;
+        font-size: 12px;
+        color: #475467;
+    }
+
+    .pl-table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .pl-table tbody tr {
+        transition: background .15s ease;
+    }
+
+    .pl-table tbody tr:hover {
+        background: #f8fbff;
+    }
+
+    .pl-table tbody tr[hidden] {
+        display: none;
+    }
+
+    /* Project cell */
+    .pl-project-cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 255px;
+        max-width: 335px;
+    }
+
+    .pl-thumb {
+        width: 58px;
+        height: 46px;
+        flex: 0 0 58px;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+        border: 1px solid #e7ebf1;
+        border-radius: 8px;
+        background: #f1f5f9;
+        color: #98a2b3;
+    }
+
+    .pl-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .pl-thumb svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .pl-project-info {
+        min-width: 0;
+    }
+
+    .pl-project-name {
+        display: block;
+        overflow-wrap: anywhere;
+        color: #101828;
+        font-size: 13px;
+        font-weight: 750;
+        line-height: 1.45;
+    }
+
+    .pl-project-slug {
+        display: block;
+        margin-top: 4px;
+        overflow: hidden;
+        color: #98a2b3;
+        font-size: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .pl-id {
+        color: #98a2b3;
+        font-size: 11px;
+        font-weight: 750;
+    }
+
+    .pl-category {
+        display: inline-block;
+        max-width: 155px;
+        padding: 5px 8px;
+        overflow: hidden;
+        border-radius: 6px;
+        background: #f2f4f7;
+        color: #475467;
+        font-size: 11px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .pl-client {
+        max-width: 140px;
+        overflow: hidden;
+        color: #475467;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .pl-year {
+        font-weight: 750;
+        color: #344054;
+    }
+
+    .pl-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 9px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .pl-status::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        flex: 0 0 6px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+
+    .pl-status.published {
+        background: #ecfdf3;
+        color: #027a48;
+    }
+
+    .pl-status.draft {
+        background: #f2f4f7;
+        color: #667085;
+    }
+
+    .pl-status.other {
+        background: #fff7ed;
+        color: #c2410c;
+    }
+
+    .pl-count {
+        min-width: 28px;
+        height: 27px;
+        padding: 0 7px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #e1eaff;
+        border-radius: 7px;
+        background: #f0f6ff;
+        color: #1769c2;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    .pl-count.media {
+        border-color: #e9e0ff;
+        background: #f7f3ff;
+        color: #6941c6;
+    }
+
+    .pl-date {
+        color: #667085;
+        white-space: nowrap;
+        font-size: 11px;
+    }
+
+    /* Actions */
+    .pl-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .pl-action,
+    .pl-action-form button {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 32px;
+        border: 1px solid #e4e7ec;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        text-decoration: none !important;
+        transition: .16s ease;
+    }
+
+    .pl-action svg,
+    .pl-action-form button svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .pl-action.view {
+        color: #1570ef;
+    }
+
+    .pl-action.view:hover {
+        background: #eff8ff;
+        border-color: #b2ddff;
+    }
+
+    .pl-action.edit {
+        color: #6941c6;
+    }
+
+    .pl-action.edit:hover {
+        background: #f4f3ff;
+        border-color: #d9d6fe;
+    }
+
+    .pl-action-form {
+        margin: 0;
+    }
+
+    .pl-action-form button {
+        color: #d92d20;
+    }
+
+    .pl-action-form button:hover {
+        background: #fff1f0;
+        border-color: #fecdca;
+    }
+
+    /* Empty / no search result */
+    .pl-empty {
+        padding: 55px 20px;
+        text-align: center;
+    }
+
+    .pl-empty-icon {
+        width: 52px;
+        height: 52px;
+        margin: 0 auto 13px;
+        display: grid;
+        place-items: center;
+        border-radius: 13px;
+        background: #eff6ff;
+        color: #1670d8;
+    }
+
+    .pl-empty-icon svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .pl-empty h3 {
+        margin: 0;
+        color: #101828;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .pl-empty p {
+        margin: 7px 0 0;
+        color: #667085;
+        font-size: 12px;
+    }
+
+    .pl-footer {
+        padding: 13px 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        border-top: 1px solid var(--pl-border);
+        color: #667085;
+        font-size: 11px;
+    }
+
+    /* Responsive */
+    @@media (max-width: 800px) {
+        .pl-page {
+            padding: 95px 15px 45px;
+        }
+
+        .pl-header {
+            align-items: stretch;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .pl-add {
+            align-self: flex-start;
+        }
+
+        .pl-stats {
+            gap: 10px;
+        }
+
+        .pl-stat {
+            padding: 14px;
+            gap: 10px;
+        }
+
+        .pl-stat-icon {
+            width: 36px;
+            height: 36px;
+            flex-basis: 36px;
+        }
+
+        .pl-stat-number {
+            font-size: 21px;
+        }
+
+        .pl-toolbar {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .pl-search {
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .pl-page {
+            padding: 88px 10px 35px;
+        }
+
+        .pl-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .pl-stat {
+            padding: 13px 16px;
+        }
+
+        .pl-stat-number {
+            font-size: 22px;
+        }
+
+        .pl-add {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .pl-footer {
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="pl-page">
+    <div class="pl-container">
+
+        <header class="pl-header">
+            <div class="pl-heading">
+                <p class="pl-eyebrow">Cytech Enginnering· Administration</p>
+                <h1>Project Management</h1>
+                <p>Manage, review and organize your portfolio projects.</p>
+            </div>
+
+            <a href="/InsertProject" class="pl-add">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.3"
+                     stroke-linecap="round">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+                Add New Project
+            </a>
+        </header>
+
+        @{
+            var publishedCount = projects.Count(p =>
+                string.Equals(p.Status, "published",
+                    StringComparison.OrdinalIgnoreCase));
+
+            var draftCount = projects.Count(p =>
+                string.Equals(p.Status, "draft",
+                    StringComparison.OrdinalIgnoreCase));
+        }
+
+        <section class="pl-stats">
+            <div class="pl-stat">
+                <div class="pl-stat-icon blue">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="16" rx="2"/>
+                        <path d="M8 9h8M8 13h5"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="pl-stat-label">Total projects</div>
+                    <div class="pl-stat-number">@projects.Count</div>
+                </div>
+            </div>
+
+            <div class="pl-stat">
+                <div class="pl-stat-icon green">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m5 12 4 4L19 6"/>
+                        <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="pl-stat-label">Published</div>
+                    <div class="pl-stat-number">@publishedCount</div>
+                </div>
+            </div>
+
+            <div class="pl-stat">
+                <div class="pl-stat-icon purple">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <path d="M14 2v6h6M8 13h8M8 17h8"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="pl-stat-label">Drafts</div>
+                    <div class="pl-stat-number">@draftCount</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pl-panel">
+            <div class="pl-toolbar">
+                <div class="pl-toolbar-title">
+                    <h2>All Projects</h2>
+                    <p>Search and manage your existing projects.</p>
+                </div>
+
+                <label class="pl-search">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round">
+                        <circle cx="11" cy="11" r="7"/>
+                        <path d="m16 16 4 4"/>
+                    </svg>
+                    <input id="projectSearch"
+                           type="search"
+                           placeholder="Search projects..."
+                           autocomplete="off"
+                           aria-label="Search projects"/>
+                </label>
+            </div>
+
+            @if (projects.Count > 0)
+            {
+                <div class="pl-table-scroll">
+                    <table class="pl-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Project</th>
+                                <th>Category</th>
+                                <th>Client</th>
+                                <th>Year</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectTableBody">
+                            @foreach (var project in projects)
+                            {
+                                var status = project.Status?.Trim().ToLowerInvariant() ?? "unknown";
+                                var statusClass = status == "published"
+                                    ? "published"
+                                    : status == "draft" ? "draft" : "other";
+
+                                var searchable = string.Join(" ", new[]
+                                {
+                                    project.Title,
+                                    project.Category,
+                                    project.Client,
+                                    project.Slug,
+                                    project.Status
+                                }.Where(s => !string.IsNullOrWhiteSpace(s)));
+
+                                <tr data-search="@searchable">
+                                    <td>
+                                        <span class="pl-id">#@project.Id</span>
+                                    </td>
+
+                                    <td>
+                                        <div class="pl-project-cell">
+                                            <div class="pl-thumb">
+                                                @if (!string.IsNullOrWhiteSpace(project.HeroImage))
+                                                {
+                                                    <img src="@project.HeroImage"
+                                                         alt="@project.Title"
+                                                         loading="lazy"/>
+                                                }
+                                                else
+                                                {
+                                                    <svg viewBox="0 0 24 24" fill="none"
+                                                         stroke="currentColor" stroke-width="1.6">
+                                                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                                                        <path d="m21 15-5-5L5 21"/>
+                                                    </svg>
+                                                }
+                                            </div>
+
+                                            <div class="pl-project-info">
+                                                <span class="pl-project-name">@project.Title</span>
+                                                <span class="pl-project-slug">
+                                                    @(string.IsNullOrWhiteSpace(project.Slug)
+                                                        ? "No slug"
+                                                        : project.Slug)
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <span class="pl-category">
+                                            @(string.IsNullOrWhiteSpace(project.Category)
+                                                ? "Uncategorized"
+                                                : project.Category)
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <div class="pl-client">
+                                            @(string.IsNullOrWhiteSpace(project.Client)
+                                                ? "—"
+                                                : project.Client)
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <span class="pl-year">@project.Year</span>
+                                    </td>
+
+                                    <td>
+                                        <span class="pl-status @statusClass">
+                                            @status
+                                        </span>
+                                    </td>
+
+                                  
+
+
+
+
+
+
+
+                                    <td>
+                                        <span class="pl-date">
+                                            @project.CreatedAt.ToString("dd MMM yyyy")
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <div class="pl-actions">
+                                            <a href="/Projects/Details/@project.Slug"
+                                               target="_blank"
+                                               rel="noopener noreferrer"
+                                               class="pl-action view"
+                                               title="View project"
+                                               aria-label="View project">
+                                                <svg viewBox="0 0 24 24" fill="none"
+                                                     stroke="currentColor" stroke-width="1.8"
+                                                     stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/>
+                                                    <circle cx="12" cy="12" r="3"/>
+                                                </svg>
+                                            </a>
+
+                                            <a href="/Project/Edit/@project.Id"
+                                               class="pl-action edit"
+                                               title="Edit project"
+                                               aria-label="Edit project">
+                                                <svg viewBox="0 0 24 24" fill="none"
+                                                     stroke="currentColor" stroke-width="1.8"
+                                                     stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="m15 5 4 4M4 20l4-.8L19 8a2.8 2.8 0 0 0-4-4L4 15Z"/>
+                                                </svg>
+                                            </a>
+
+                                        
+<form method="post"
+      action="/Project/Delete/@project.Id"
+      class="pl-action-form"
+      onsubmit="return confirm('Delete this project permanently?');">
+
+    @Html.AntiForgeryToken()
+
+    <button type="submit"
+            title="Delete project"
+            aria-label="Delete project">
+
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m5 4v6m4-6v6"/>
+        </svg>
+
+    </button>
+</form>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="projectNoResults" class="pl-empty" hidden>
+                    <h3>No matching projects</h3>
+                    <p>Try another project name, category or client.</p>
+                </div>
+
+                <div class="pl-footer">
+                    <span id="projectResultCount">
+                        Showing @projects.Count projects
+                    </span>
+                    <span>Cytech EnginneringProject Management</span>
+                </div>
+            }
+            else
+            {
+                <div class="pl-empty">
+                    <div class="pl-empty-icon">
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7h6l2 2h10v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>
+                            <path d="M3 7V5a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </div>
+                    <h3>No projects yet</h3>
+                    <p>Add your first project to get started.</p>
+                    <a href="/InsertProject" class="pl-add">
+                        Add New Project
+                    </a>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+
+<script>
+    (() => {
+        const search = document.getElementById("projectSearch");
+        const body = document.getElementById("projectTableBody");
+
+        if (!search || !body) return;
+
+        const rows = Array.from(body.querySelectorAll("tr"));
+        const resultCount = document.getElementById("projectResultCount");
+        const noResults = document.getElementById("projectNoResults");
+
+        search.addEventListener("input", () => {
+            const query = search.value.trim().toLowerCase();
+            let visible = 0;
+
+            rows.forEach(row => {
+                const text = (
+                    (row.dataset.search || "") + " " + row.innerText
+                ).toLowerCase();
+
+                const matches = text.includes(query);
+                row.hidden = !matches;
+
+                if (matches) visible++;
+            });
+
+            if (resultCount) {
+                resultCount.textContent =
+                    `Showing ${visible} of ${rows.length} projects`;
+            }
+
+            if (noResults) {
+                noResults.hidden = visible !== 0;
+            }
+        });
+    })();
+</script>

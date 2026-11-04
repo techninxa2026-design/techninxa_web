@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @{
+        var pageTitle = ViewData["Title"] as string
+                        ?? "Custom Software & Web Development";
+
+        var pageDescription = ViewData["Description"] as string
+            ?? "Cytech Enginneringdevelops custom software, web applications, mobile apps, and IoT solutions for businesses.";
+
+        var canonicalUrl = ViewData["CanonicalUrl"] as string
+            ?? "https://techninxa.com/";
+    }
+
+    <title>@pageTitle | Techninxa</title>
+
+    <meta name="description" content="@pageDescription">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="@canonicalUrl">
+
+    <!-- Social media preview -->
+    <meta property="og:site_name" content="Cytech">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="@pageTitle | Techninxa">
+    <meta property="og:description" content="@pageDescription">
+    <meta property="og:url" content="@canonicalUrl">
+    <meta property="og:image"
+          content="https://techninxa.com/assets/cytechlogo.jpg">
+    <meta name="google-site-verification" content="y4NSCTT8C5WLkgLRCcTODIJyCbic9nwkGvaivFHx128" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png"
+          href="~/assets/cytechlogo.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="~/css/style.css">
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+    <div class="page-noise"></div>
+
+    <!-- HEADER -->
+    <header class="site-header" id="siteHeader">
+        <div class="container nav-wrap">
+
+            <a class="brand" href="/" aria-label="Cytech Enginneringhome">
+                <img src="~/assets/cytechlogo.jpg" alt="Cytech Enginneringlogo">
+            </a>
+
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <a class="@(ViewData["ActiveNav"] as string == "Home" ? "active" : "")" href="/">Home</a>
+                <a href="/#services">Services</a>
+                <a class="@(ViewData["ActiveNav"] as string == "Projects" ? "active" : "")" href="/Projects">Projects</a>
+                <a href="/#about">About</a>
+                <a href="/#contact">Contact</a>
+            </nav>
+
+            <a class="nav-cta" href="tel:+8801790379729">
+                Let's Talk <span>↗</span>
+            </a>
+
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-top">
+
+            <div class="footer-brand">
+                <img src="~/assets/cytechlogo.jpg" alt="Cytech">
+                <p>Innovate. Build. Elevate.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="/#about">About</a>
+                <a href="/Projects">Projects</a>
+                <a href="/#contact">Contact</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Services</h4>
+                <a href="/#services">Web Development</a>
+                <a href="/#services">Mobile Apps</a>
+                <a href="/#services">Software</a>
+                <a href="/#services">IoT</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Connect</h4>
+                 <a href="https://www.facebook.com/profile.php?id=61591767248196"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Facebook
+                </a>
+                <a href="https://www.linkedin.com/company/techninxa/posts/?feedView=all"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    LinkedIn
+                </a>
+                <a href="https://www.instagram.com/techninxa?mdxt=MXhwN21lOThyZDZhdA%3D%3D"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Instagram
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ashik@techninxa.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Mail to CEO
+                </a>
+
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=labib@techninxa.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Mail To: Labib (Team Member)
+                </a>
+
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=adittya@techninxa.com"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Mail To: Adittya (Team Member)
+                </a>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom">
+            <span>© <span id="year"></span>Cytech Enginnering. All rights reserved.</span>
+            <span>Designed &amp; built with intention.</span>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP + CURSOR -->
+    <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
+        <span>↑</span>
+    </button>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    <!-- SCRIPTS -->
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

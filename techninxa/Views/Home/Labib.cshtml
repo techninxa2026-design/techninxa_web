@@ -1,0 +1,245 @@
+﻿
+@{
+    
+    ViewData["Title"] = $"{ViewBag.MemberName ?? "Team Member"} | Portfolio";
+    var memberName = ViewBag.MemberName as string ?? "Sheikh Jobayer Alam";
+    var memberRole = ViewBag.MemberRole as string ?? "Software Developer";
+    var memberImage =  "~/team/image.png";
+    var memberBio = ViewBag.MemberBio as string ??
+        "I design and build digital experiences that solve real business problems.";
+}
+
+<link rel="stylesheet" href="~/css/person-portfolio.css" asp-append-version="true" />
+
+<main class="person-portfolio">
+
+    <div class="pp-topline">
+        <span>TECHNINXA <span class="pp-slash">/</span> PEOPLE</span>
+        <a href="/#team">BACK TO TEAM <span>↗</span></a>
+    </div>
+
+    <!-- HERO -->
+    <section class="pp-hero">
+        <div class="pp-hero-copy">
+            <p class="pp-eyebrow pp-reveal">
+                <span class="pp-status-dot"></span>
+                AVAILABLE FOR SELECT PROJECTS
+            </p>
+
+            <h1 class="pp-headline pp-reveal">
+                Hello, I'm<br />
+                <span class="pp-name">@memberName</span>
+            </h1>
+
+            <h2 class="pp-role-line pp-reveal">
+                I work at the intersection of
+                <span id="pp-rotating-role">technology.</span>
+            </h2>
+
+            <p class="pp-intro pp-reveal">@memberBio</p>
+
+            <div class="pp-actions pp-reveal">
+                <a class="pp-button pp-button-dark" href="#work">
+                    Explore my work <span>↗</span>
+                </a>
+                <a class="pp-text-link" href="#contact">
+                    Let's talk <span>↗</span>
+                </a>
+            </div>
+
+            <div class="pp-meta pp-reveal">
+                <span>@memberRole</span>
+                <span>Cytech Enginnering· Digital Solutions</span>
+            </div>
+        </div>
+
+        <div class="pp-hero-visual pp-reveal">
+            <div class="pp-orbit pp-parallax" data-depth="0.035"></div>
+            <div class="pp-portrait-wrap pp-parallax" data-depth="0.018">
+                <img src="~/assets/team/image.png"
+                     alt="@memberName"
+                     class="pp-portrait" />
+            </div>
+            <div class="pp-floating-note">
+                <span class="pp-note-icon">✳</span>
+                <span>Thoughtful work.<br />Purposeful results.</span>
+            </div>
+            <span class="pp-vertical-label">DESIGN · DEVELOPMENT · DELIVERY</span>
+        </div>
+
+        <a class="pp-scroll-cue" href="#about">
+            <span class="pp-scroll-line"></span>
+            SCROLL TO EXPLORE
+        </a>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="pp-section pp-about" id="about">
+        <div class="pp-section-label pp-reveal">
+            <span>01 / ABOUT</span>
+            <span>THE PERSON BEHIND THE WORK</span>
+        </div>
+
+        <div class="pp-about-grid">
+            <h2 class="pp-display pp-reveal">
+                Good technology<br />
+                starts with <span>understanding.</span>
+            </h2>
+            <div class="pp-about-copy pp-reveal">
+                <p>
+                    I collaborate with designers, developers and stakeholders
+                    to turn ideas into useful, reliable digital products.
+                </p>
+                <p>
+                    My approach combines thoughtful problem-solving,
+                    attention to detail and a focus on the people who use
+                    what we build.
+                </p>
+                <a href="#expertise" class="pp-inline-link">
+                    Discover my expertise <span>↘</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SELECTED PROJECTS -->
+    <section class="pp-section pp-work" id="work">
+        <div class="pp-section-label pp-reveal">
+            <span>02 / SELECTED WORK</span>
+            <span>IDEAS MADE REAL</span>
+        </div>
+
+        <div class="pp-work-heading pp-reveal">
+            <h2 class="pp-display">A selection of<br />things I've built<span>.</span></h2>
+            <p>Digital products designed around real needs and clear outcomes.</p>
+        </div>
+
+        <div class="pp-project-grid">
+
+            <article class="pp-project pp-reveal">
+                <a class="pp-project-image" href="/motoservice"
+                   aria-label="Discuss the e-commerce project">
+                    <img src="~/assets/projects/labib/top.png"
+                         alt="Sneaker shopping mobile app project"
+                         loading="lazy" />
+                    <span class="pp-project-open">↗</span>
+                </a>
+                <div class="pp-project-info">
+                    <div>
+                        <span class="pp-project-number">01</span>
+                        <h3>MotoServis - Flutter</h3>
+                        <p>Product discovery · User experience</p>
+                    </div>
+                    <span class="pp-project-type">FLUTTER</span>
+                </div>
+            </article>
+
+            <article class="pp-project pp-reveal">
+                <a class="pp-project-image pp-image-lilac" href="/saveit"
+                   aria-label="Discuss the hotel booking project">
+                    <img src="~/assets/projects/labib/project2.png"
+                         alt="Hotel booking mobile application"
+                         loading="lazy" />
+                    <span class="pp-project-open">↗</span>
+                </a>
+                <div class="pp-project-info">
+                    <div>
+                        <span class="pp-project-number">02</span>
+                        <h3>SaveIt - Media Downloader</h3>
+                        <p>Product discovery · User experience</p>
+                    </div>
+                    <span class="pp-project-type">FLUTTER</span>
+                </div>
+            </article>
+
+            <article class="pp-project pp-reveal">
+                <a class="pp-project-image pp-image-green" href="/wargaku"
+                   aria-label="Discuss the fitness app project">
+                    <img src="~/assets/projects/labib/2.png"
+                         alt="Fitness tracking mobile app"
+                         loading="lazy" />
+                    <span class="pp-project-open">↗</span>
+                </a>
+                <div class="pp-project-info">
+                    <div>
+                        <span class="pp-project-number">03</span>
+                        <h3>Wargaku - Expense Tracker</h3>
+                        <p>Activity tracking · User engagement</p>
+                    </div>
+                    <span class="pp-project-type">FLUTTER</span>
+                </div>
+            </article>
+
+            <article class="pp-project pp-reveal">
+                <a class="pp-project-image pp-image-blue" href="/rasakita"
+                   aria-label="Discuss the web store project">
+                    <img src="~/assets/projects/labib/3.png"
+                         alt="Sneaker e-commerce website"
+                         loading="lazy" />
+                    <span class="pp-project-open">↗</span>
+                </a>
+                <div class="pp-project-info">
+                    <div>
+                        <span class="pp-project-number">04</span>
+                        <h3>Food Deliver - Flutter</h3>
+                        <p>Online retail · Fast Service</p>
+                    </div>
+                    <span class="pp-project-type">Flutter</span>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section class="pp-section pp-expertise" id="expertise">
+        <div class="pp-section-label pp-reveal">
+            <span>03 / EXPERTISE</span>
+            <span>HOW I CAN CONTRIBUTE</span>
+        </div>
+
+        <h2 class="pp-display pp-reveal">
+            Skills with a<br />purpose<span>.</span>
+        </h2>
+
+        <div class="pp-skill-list">
+            <div class="pp-skill pp-reveal">
+                <span>01</span><h3>Product thinking & problem-solving</h3>
+                <span class="pp-skill-arrow">↗</span>
+            </div>
+            <div class="pp-skill pp-reveal">
+                <span>02</span><h3>Web application development</h3>
+                <span class="pp-skill-arrow">↗</span>
+            </div>
+            <div class="pp-skill pp-reveal">
+                <span>03</span><h3>Mobile application development</h3>
+                <span class="pp-skill-arrow">↗</span>
+            </div>
+            <div class="pp-skill pp-reveal">
+                <span>04</span><h3>UI/UX & interaction design</h3>
+                <span class="pp-skill-arrow">↗</span>
+            </div>
+        </div>
+
+       
+    </section>
+
+    <!-- CONTACT -->
+    <section class="pp-contact" id="contact">
+        <div class="pp-contact-inner pp-reveal">
+            <p class="pp-eyebrow">HAVE A PROJECT IN MIND?</p>
+            <h2>Let's make something<br /><span>worth building.</span></h2>
+            <p>
+                Have a product idea or a challenge to solve?
+                Let's discuss how we can help.
+            </p>
+            <a href="/#contact" class="pp-button pp-button-light">
+                Start a conversation <span>↗</span>
+            </a>
+        </div>
+        <span class="pp-contact-mark">T.</span>
+    </section>
+
+</main>
+
+<script src="~/js/person-portfolio.js" asp-append-version="true"></script>

@@ -1,0 +1,1031 @@
+﻿@{
+    ViewData["Title"] = "Billal Design Studio | Graphic Designer";
+    ViewData["Description"] = "Explore brand identities, logo designs, packaging, and visual design projects by Billal Design Studio.";
+
+    // =========================================================
+    // IMAGE URLS — CHANGE YOUR IMAGE PATHS HERE
+    // All local images are loaded from wwwroot/images/
+    // You can also use a full external image URL.
+    // =========================================================
+
+    var projects = new[]
+    {
+        new {
+            Title = "Premium Coffee Brand Identity",
+            Category = "Brand Identity & Packaging",
+            ImageUrl = Url.Content("~/images/billaldesign/1.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=POCM%20coffee%20branding",
+            Description = "A premium coffee branding concept featuring distinctive typography, rich colors, and refined packaging."
+        },
+        new {
+            Title = "Morning Crumbs",
+            Category = "Bakery Branding",
+            ImageUrl = Url.Content("~/images/billaldesign/2.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=Morning%20Crumbs%20branding",
+            Description = "A warm bakery identity with custom logo design, product packaging, and branded merchandise."
+        },
+        new {
+            Title = "Moéra Beauty",
+            Category = "Beauty & Packaging",
+            ImageUrl = Url.Content("~/images/billaldesign/3.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=AOERA%20beauty%20branding",
+            Description = "A sophisticated beauty brand identity with elegant packaging and a coordinated visual language."
+        },
+        new {
+            Title = "Meltie",
+            Category = "Brand Identity & Advertising",
+            ImageUrl = Url.Content("~/images/billaldesign/4.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=Meltie%20branding",
+            Description = "A playful pink visual identity developed across packaging, promotional graphics, and retail branding."
+        },
+        new {
+            Title = "Verim",
+            Category = "Beauty Branding",
+            ImageUrl = Url.Content("~/images/billaldesign/5.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=Verim%20branding",
+            Description = "A coordinated beauty brand presentation featuring product packaging, lifestyle imagery, and brand assets."
+        },
+        new {
+            Title = "Fuelo Fuels",
+            Category = "Corporate Branding",
+            ImageUrl = Url.Content("~/images/billaldesign/6.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=FUELO%20FUELS",
+            Description = "A bold corporate identity applied across uniforms, promotional materials, and fuel station branding."
+        },
+        new {
+            Title = "Besty",
+            Category = "Logo & Brand Identity",
+            ImageUrl = Url.Content("~/images/billaldesign/7.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=BESTY%20logo%20branding",
+            Description = "A clean geometric logo concept supported by a distinctive color palette and brand presentation."
+        },
+        new {
+            Title = "Logo Sketch Collection",
+            Category = "Logo Design",
+            ImageUrl = Url.Content("~/images/billaldesign/8.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=minimal%20logo%20design%20concepts",
+            Description = "An exploration of monograms, symbols, and visual directions for a versatile brand identity."
+        },
+        
+        new {
+            Title = "Blue Brand Identity",
+            Category = "Visual Identity",
+            ImageUrl = Url.Content("~/images/billaldesign/10.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=abstract%20logo%20identity",
+            Description = "A minimal visual identity presentation with a vivid blue background and a distinctive central symbol."
+        },
+        new {
+            Title = "Bora",
+            Category = "App & Product Branding",
+            ImageUrl = Url.Content("~/images/billaldesign/11.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=BORA%20fitness%20branding",
+            Description = "A vibrant product identity presented across a mobile interface, digital graphics, and product mockups."
+        },
+        new {
+            Title = "Minimal Brand Concept",
+            Category = "Logo & Identity",
+            ImageUrl = Url.Content("~/images/billaldesign/12.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=CREO%20brand%20identity",
+            Description = "A restrained brand identity concept using clean composition, subtle color, and minimalist typography."
+        },
+        new {
+            Title = "Kilko Team",
+            Category = "Corporate Identity",
+            ImageUrl = Url.Content("~/images/billaldesign/13.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=Kilko%20Team%20branding",
+            Description = "A modern team-focused identity concept with a distinctive wordmark and soft gradient presentation."
+        },
+        new {
+            Title = "Algox",
+            Category = "Logo & Brand Identity",
+            ImageUrl = Url.Content("~/images/billaldesign/14.png"),
+            BehanceUrl = "https://www.behance.net/search/projects?search=Algox%20branding",
+            Description = "A contemporary logo exploration presented through a fresh gradient palette and minimal composition."
+        }
+    };
+}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+    .billal-page {
+        --bg: #f8f7f4;
+        --ink: #171713;
+        --muted: #77776f;
+        --line: #deded6;
+        --accent: #b9ff66;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "DM Sans", sans-serif;
+        overflow: hidden;
+    }
+
+    .billal-page *,
+    .billal-page *::before,
+    .billal-page *::after {
+        box-sizing: border-box;
+    }
+
+    .billal-page a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .billal-page img {
+        display: block;
+        max-width: 100%;
+    }
+
+    .billal-container {
+        width: min(1320px, calc(100% - 64px));
+        margin: 0 auto;
+    }
+
+    .billal-topbar {
+        min-height: 82px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .billal-logo {
+        font: 700 23px "Space Grotesk", sans-serif;
+        letter-spacing: -1.2px;
+    }
+
+    .billal-logo span {
+        color: #7da63d;
+    }
+
+    .billal-top-note,
+    .billal-nav-link,
+    .billal-label,
+    .billal-index,
+    .billal-category,
+    .billal-footer-note {
+        font: 10px/1.7 "DM Mono", monospace;
+        letter-spacing: 1.1px;
+        text-transform: uppercase;
+    }
+
+    .billal-top-note {
+        color: var(--muted);
+    }
+
+    .billal-nav-link {
+        border-bottom: 1px solid var(--ink);
+        padding-bottom: 4px;
+    }
+
+    .billal-nav-link:hover {
+        color: #668c2d;
+        border-color: #668c2d;
+    }
+
+    .billal-hero {
+        padding: 105px 0 80px;
+        display: grid;
+        grid-template-columns: 1.3fr .7fr;
+        align-items: end;
+        gap: 60px;
+    }
+
+    .billal-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        margin: 0 0 27px;
+    }
+
+    .billal-label::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        flex: 0 0 8px;
+        background: #91c64b;
+        border-radius: 50%;
+    }
+
+    .billal-hero h1 {
+        font: 600 clamp(58px, 8.5vw, 116px)/.91 "Space Grotesk", sans-serif;
+        letter-spacing: -.09em;
+        margin: 0;
+    }
+
+    .billal-hero h1 span {
+        color: #8dbd4d;
+    }
+
+    .billal-hero-copy {
+        max-width: 390px;
+        margin-left: auto;
+        padding-bottom: 8px;
+    }
+
+    .billal-hero-copy p {
+        font-size: 15px;
+        line-height: 1.95;
+        color: #66665e;
+        margin: 0 0 23px;
+    }
+
+    .billal-hero-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 25px;
+        padding: 15px 19px;
+        background: var(--ink);
+        color: white !important;
+        font-size: 12px;
+        font-weight: 600;
+        transition: background .2s, color .2s;
+    }
+
+    .billal-hero-link:hover {
+        background: var(--accent);
+        color: var(--ink) !important;
+    }
+
+    .billal-hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 28px;
+        color: var(--muted);
+        font: 10px "DM Mono", monospace;
+    }
+
+    .billal-work {
+        padding: 35px 0 110px;
+    }
+
+    .billal-work-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 25px;
+        margin-bottom: 28px;
+        padding-top: 25px;
+        border-top: 1px solid var(--line);
+    }
+
+    .billal-work-head h2 {
+        font: 600 clamp(34px, 5vw, 55px)/1 "Space Grotesk", sans-serif;
+        letter-spacing: -.065em;
+        margin: 0;
+    }
+
+    .billal-work-head p {
+        max-width: 340px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.9;
+        margin: 0;
+    }
+
+    .billal-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 30px 0 25px;
+    }
+
+    .billal-filter {
+        border: 1px solid #d8d8cf;
+        background: transparent;
+        color: var(--ink);
+        padding: 10px 15px;
+        border-radius: 30px;
+        cursor: pointer;
+        font: 10px "DM Mono", monospace;
+        transition: background .2s, color .2s, border-color .2s;
+    }
+
+    .billal-filter:hover,
+    .billal-filter.active {
+        background: var(--ink);
+        color: #fff;
+        border-color: var(--ink);
+    }
+
+    .billal-project-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 26px 17px;
+    }
+
+    .billal-project {
+        min-width: 0;
+        animation: billalFade .35s ease both;
+    }
+
+    .billal-project[hidden] {
+        display: none !important;
+    }
+
+    @@keyframes billalFade {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* =========================================================
+       HD PROJECT IMAGES
+       Images are loaded directly from the URLs defined above.
+       Use high-resolution source files for the best results.
+       ========================================================= */
+
+    .billal-project-image {
+        position: relative;
+        display: block;
+        width: 100%;
+        min-width: 0;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        background: #eeece5;
+        border: 1px solid rgba(23, 23, 19, .08);
+        isolation: isolate;
+    }
+
+    .billal-project-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        object-position: center;
+        image-rendering: auto;
+        backface-visibility: hidden;
+        transition: transform .45s ease;
+    }
+
+    .billal-project:hover .billal-project-image img {
+        transform: scale(1.02);
+    }
+
+    .billal-project-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 15px;
+        background: linear-gradient(transparent 45%, rgba(0, 0, 0, .68));
+        opacity: 0;
+        transition: opacity .25s;
+        pointer-events: none;
+    }
+
+    .billal-project:hover .billal-project-overlay,
+    .billal-project:focus-within .billal-project-overlay {
+        opacity: 1;
+    }
+
+    .billal-project-overlay span {
+        color: #fff;
+        font: 10px "DM Mono", monospace;
+        letter-spacing: .5px;
+    }
+
+    .billal-project-overlay b {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--accent);
+        color: var(--ink);
+        flex-shrink: 0;
+    }
+
+    .billal-project-info {
+        padding: 13px 1px 0;
+    }
+
+    .billal-project-info-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .billal-category {
+        color: #74746b;
+        font-size: 9px;
+        letter-spacing: .65px;
+    }
+
+    .billal-index {
+        color: #9a9a90;
+        font-size: 9px;
+        flex-shrink: 0;
+    }
+
+    .billal-project-info h3 {
+        font: 600 16px/1.4 "Space Grotesk", sans-serif;
+        letter-spacing: -.45px;
+        margin: 8px 0 0;
+        overflow-wrap: anywhere;
+    }
+
+    .billal-behance-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid #b7b7ad;
+        color: #68685f !important;
+        font: 9px/1.6 "DM Mono", monospace;
+        letter-spacing: .6px;
+        transition: color .2s, border-color .2s;
+    }
+
+    .billal-behance-link:hover {
+        color: #668c2d !important;
+        border-color: #668c2d;
+    }
+
+    .billal-about {
+        background: #171914;
+        color: #f7f7f1;
+        padding: 90px 0;
+    }
+
+    .billal-about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+    }
+
+    .billal-about .billal-label {
+        color: #a6a99e;
+    }
+
+    .billal-about h2 {
+        font: 600 clamp(40px, 6vw, 72px)/.98 "Space Grotesk", sans-serif;
+        letter-spacing: -.075em;
+        margin: 0;
+    }
+
+    .billal-about h2 span {
+        color: var(--accent);
+    }
+
+    .billal-about-copy p {
+        color: #b5b7ad;
+        font-size: 14px;
+        line-height: 2;
+        margin: 0 0 20px;
+    }
+
+    .billal-services {
+        padding: 95px 0;
+    }
+
+    .billal-section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 25px;
+        margin-bottom: 35px;
+    }
+
+    .billal-section-heading h2 {
+        font: 600 clamp(36px, 5vw, 58px)/1 "Space Grotesk", sans-serif;
+        letter-spacing: -.07em;
+        margin: 0;
+    }
+
+    .billal-section-heading p {
+        max-width: 330px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.9;
+        margin: 0;
+    }
+
+    .billal-service-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-top: 1px solid var(--line);
+        border-left: 1px solid var(--line);
+    }
+
+    .billal-service {
+        min-height: 190px;
+        padding: 25px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        transition: background .25s;
+    }
+
+    .billal-service:hover {
+        background: #efeee7;
+    }
+
+    .billal-service small {
+        color: #789c40;
+        font: 10px "DM Mono", monospace;
+    }
+
+    .billal-service h3 {
+        font: 600 21px "Space Grotesk", sans-serif;
+        margin: 30px 0 10px;
+        letter-spacing: -.7px;
+    }
+
+    .billal-service p {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .billal-contact {
+        padding: 90px 0;
+        background: var(--accent);
+    }
+
+    .billal-contact-inner {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 35px;
+    }
+
+    .billal-contact h2 {
+        font: 600 clamp(44px, 7vw, 88px)/.95 "Space Grotesk", sans-serif;
+        letter-spacing: -.085em;
+        margin: 0;
+    }
+
+    .billal-contact p {
+        max-width: 330px;
+        font-size: 13px;
+        line-height: 1.9;
+        margin: 20px 0 0;
+    }
+
+    .billal-contact-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 30px;
+        background: var(--ink);
+        color: #fff !important;
+        padding: 17px 21px;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: transform .2s;
+    }
+
+    .billal-contact-button:hover {
+        transform: translateY(-3px);
+    }
+
+    .billal-footer {
+        min-height: 85px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .billal-footer-note {
+        color: var(--muted);
+        font-size: 9px;
+    }
+
+    .billal-footer a:not(.billal-logo) {
+        font-size: 12px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 4px;
+    }
+
+    @@media (max-width: 1050px) {
+        .billal-project-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .billal-hero {
+            grid-template-columns: 1fr;
+            gap: 35px;
+            padding-top: 80px;
+        }
+
+        .billal-hero-copy {
+            margin-left: 0;
+            max-width: 530px;
+        }
+    }
+
+    @@media (max-width: 700px) {
+        .billal-container {
+            width: calc(100% - 36px);
+        }
+
+        .billal-topbar {
+            min-height: 70px;
+            gap: 12px;
+        }
+
+        .billal-logo {
+            font-size: 20px;
+        }
+
+        .billal-top-note {
+            display: none;
+        }
+
+        .billal-hero {
+            padding: 70px 0 55px;
+        }
+
+        .billal-hero h1 {
+            font-size: clamp(55px, 14vw, 90px);
+        }
+
+        .billal-work {
+            padding-bottom: 70px;
+        }
+
+        .billal-work-head,
+        .billal-section-heading {
+            display: block;
+        }
+
+        .billal-work-head p,
+        .billal-section-heading p {
+            margin-top: 17px;
+        }
+
+        .billal-project-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 23px 12px;
+        }
+
+        .billal-project-image {
+            aspect-ratio: 1 / 1;
+        }
+
+        .billal-project:hover .billal-project-image img {
+            transform: none;
+        }
+
+        .billal-project-overlay {
+            display: none;
+        }
+
+        .billal-project-info-top {
+            align-items: start;
+        }
+
+        .billal-category {
+            font-size: 8px;
+        }
+
+        .billal-project-info h3 {
+            font-size: 14px;
+        }
+
+        .billal-about {
+            padding: 70px 0;
+        }
+
+        .billal-about-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .billal-services {
+            padding: 70px 0;
+        }
+
+        .billal-service-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .billal-service {
+            padding: 18px;
+            min-height: 175px;
+        }
+
+        .billal-service h3 {
+            font-size: 18px;
+            margin-top: 25px;
+        }
+
+        .billal-contact {
+            padding: 70px 0;
+        }
+
+        .billal-contact-inner {
+            align-items: start;
+            flex-direction: column;
+        }
+
+        .billal-contact-button {
+            white-space: normal;
+        }
+
+        .billal-footer {
+            padding: 22px 0;
+            align-items: start;
+            flex-direction: column;
+        }
+    }
+
+    @@media (max-width: 390px) {
+        .billal-project-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .billal-project-image {
+            aspect-ratio: 1 / 1;
+        }
+
+        .billal-service-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (prefers-reduced-motion: reduce) {
+        .billal-page *,
+        .billal-page *::before,
+        .billal-page *::after {
+            animation-duration: .01ms !important;
+            transition-duration: .01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+</style>
+
+<main class="billal-page" id="top">
+    <div class="billal-container">
+        <header class="billal-topbar">
+            <a href="/" class="billal-logo">TECHNINXA<span>.</span></a>
+            <span class="billal-top-note">CREATIVE / GRAPHIC DESIGN</span>
+            <a href="/#team" class="billal-nav-link">BACK TO TEAM ↗</a>
+        </header>
+
+        <section class="billal-hero">
+            <div>
+                <p class="billal-label">INDEPENDENT GRAPHIC DESIGNER</p>
+                <h1>Designing<br />brands with<br /><span>character.</span></h1>
+            </div>
+
+            <div class="billal-hero-copy">
+                <p>
+                    Visual identities, memorable logos, packaging systems,
+                    and creative campaigns designed to help brands stand out.
+                    Explore selected work from Billal Design Studio.
+                </p>
+
+                <a href="#projects" class="billal-hero-link">
+                    EXPLORE SELECTED WORK <span>↘</span>
+                </a>
+
+                <div class="billal-hero-meta">
+                    <span>01 — BRAND IDENTITY</span>
+                    <span>02 — PACKAGING</span>
+                    <span>03 — LOGO DESIGN</span>
+                </div>
+
+                <p style="margin:18px 0 0;font-size:12px;">
+                    <a href="https://www.behance.net/billaldesignstudio"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       style="text-decoration:underline;text-underline-offset:4px;">
+                        Visit Billal Design Studio on Behance ↗
+                    </a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <section class="billal-container billal-work" id="projects">
+        <div class="billal-work-head">
+            <div>
+                <p class="billal-label">SELECTED PORTFOLIO / 2026</p>
+                <h2>A collection of<br />visual identities.</h2>
+            </div>
+
+            <p>
+                From brand strategy to final presentation, explore a collection
+                of branding, packaging, logo explorations, and promotional design.
+            </p>
+        </div>
+
+        <div class="billal-filters" aria-label="Filter projects">
+            <button class="billal-filter active" type="button" data-filter="all">ALL PROJECTS</button>
+            <button class="billal-filter" type="button" data-filter="branding">BRANDING</button>
+            <button class="billal-filter" type="button" data-filter="packaging">PACKAGING</button>
+            <button class="billal-filter" type="button" data-filter="logo">LOGO DESIGN</button>
+            <button class="billal-filter" type="button" data-filter="campaign">CAMPAIGNS</button>
+        </div>
+
+        <div class="billal-project-grid">
+            @for (var i = 0; i < projects.Length; i++)
+            {
+                var project = projects[i];
+
+                var categoryKey =
+                    project.Category.Contains("Packaging", StringComparison.OrdinalIgnoreCase)
+                        ? "packaging"
+                        : project.Category.Contains("Logo", StringComparison.OrdinalIgnoreCase) ||
+                          project.Category.Contains("Monogram", StringComparison.OrdinalIgnoreCase)
+                            ? "logo"
+                            : project.Category.Contains("Campaign", StringComparison.OrdinalIgnoreCase) ||
+                              project.Category.Contains("Advertising", StringComparison.OrdinalIgnoreCase)
+                                ? "campaign"
+                                : "branding";
+
+                <article class="billal-project" data-category="@categoryKey">
+                    <a class="billal-project-image"
+                       href="@project.BehanceUrl"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="View @project.Title on Behance">
+
+                        <img src="@project.ImageUrl"
+                             alt="@project.Title — @project.Category"
+                             loading="@(i < 4 ? "eager" : "lazy")"
+                             decoding="async" />
+
+                        <div class="billal-project-overlay">
+                            <span>VIEW ON BEHANCE</span>
+                            <b>↗</b>
+                        </div>
+                    </a>
+
+                    <div class="billal-project-info">
+                        <div class="billal-project-info-top">
+                            <span class="billal-category">@project.Category</span>
+                            <span class="billal-index">@((i + 1).ToString("00"))</span>
+                        </div>
+
+                        <h3>@project.Title</h3>
+
+                        <a class="billal-behance-link"
+                           href="@project.BehanceUrl"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            VIEW ON BEHANCE <span>↗</span>
+                        </a>
+                    </div>
+                </article>
+            }
+        </div>
+    </section>
+
+    <section class="billal-about" id="about">
+        <div class="billal-container billal-about-grid">
+            <div>
+                <p class="billal-label">A LITTLE ABOUT THE WORK</p>
+                <h2>Good design<br />makes brands<br /><span>recognizable.</span></h2>
+            </div>
+
+            <div class="billal-about-copy">
+                <p>
+                    Every visual identity starts with a simple goal:
+                    communicate clearly and make a lasting impression.
+                    These selected projects explore different visual directions,
+                    from premium product packaging to playful consumer brands.
+                </p>
+
+                <p>
+                    The portfolio brings together logo concepts, color systems,
+                    typography, product mockups, and promotional compositions
+                    to show how a visual idea can extend across brand touchpoints.
+                </p>
+
+                <a href="#services" class="billal-hero-link">
+                    EXPLORE DESIGN SERVICES <span>↘</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="billal-container billal-services" id="services">
+        <div class="billal-section-heading">
+            <div>
+                <p class="billal-label">WHAT THE STUDIO CREATES</p>
+                <h2>Design that works<br />across every touchpoint.</h2>
+            </div>
+
+            <p>
+                Visual design services for new brands, growing businesses,
+                product launches, and digital campaigns.
+            </p>
+        </div>
+
+        <div class="billal-service-grid">
+            <article class="billal-service">
+                <small>01 / IDENTITY</small>
+                <h3>Brand Identity</h3>
+                <p>Visual systems, color palettes, typography, and brand guidelines.</p>
+            </article>
+
+            <article class="billal-service">
+                <small>02 / SYMBOLS</small>
+                <h3>Logo Design</h3>
+                <p>Distinctive wordmarks, monograms, symbols, and logo concepts.</p>
+            </article>
+
+            <article class="billal-service">
+                <small>03 / PRODUCTS</small>
+                <h3>Packaging Design</h3>
+                <p>Packaging concepts and branded presentations for consumer products.</p>
+            </article>
+
+            <article class="billal-service">
+                <small>04 / CAMPAIGNS</small>
+                <h3>Social Media Design</h3>
+                <p>Campaign visuals, promotional graphics, and social media assets.</p>
+            </article>
+
+            <article class="billal-service">
+                <small>05 / BUSINESS</small>
+                <h3>Corporate Branding</h3>
+                <p>Consistent visual assets for companies, teams, and organizations.</p>
+            </article>
+
+            <article class="billal-service">
+                <small>06 / PRESENTATION</small>
+                <h3>Brand Mockups</h3>
+                <p>Visual presentations that communicate how an identity works in context.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="billal-contact" id="contact">
+        <div class="billal-container billal-contact-inner">
+            <div>
+                <p class="billal-label">HAVE A BRAND IN MIND?</p>
+                <h2>Let's make<br />it memorable.</h2>
+                <p>
+                    Have a design project or branding idea?
+                    Get in touch with Cytech Enginnering to discuss your next creative project.
+                </p>
+            </div>
+
+            <a href="/#contact" class="billal-contact-button">
+                START A CONVERSATION <span>↗</span>
+            </a>
+        </div>
+    </section>
+
+    <footer class="billal-container billal-footer">
+        <a href="/" class="billal-logo">TECHNINXA<span>.</span></a>
+        <span class="billal-footer-note">BILLAL DESIGN STUDIO / GRAPHIC DESIGN PORTFOLIO</span>
+        <a href="#top">BACK TO TOP ↑</a>
+    </footer>
+</main>
+
+<script>
+    (() => {
+        const root = document.querySelector(".billal-page");
+        if (!root) return;
+
+        const buttons = root.querySelectorAll(".billal-filter");
+        const projects = root.querySelectorAll(".billal-project");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                const filter = button.dataset.filter;
+
+                buttons.forEach(item => {
+                    item.classList.toggle("active", item === button);
+                });
+
+                projects.forEach(project => {
+                    const matches =
+                        filter === "all" ||
+                        project.dataset.category === filter;
+
+                    project.hidden = !matches;
+
+                    if (matches) {
+                        project.style.animation = "none";
+                        void project.offsetWidth;
+                        project.style.animation = "";
+                    }
+                });
+            });
+        });
+    })();
+</script>

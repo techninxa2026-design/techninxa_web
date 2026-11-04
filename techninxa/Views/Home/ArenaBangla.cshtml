@@ -1,0 +1,635 @@
+﻿
+@{
+    Layout = null;
+    ViewData["Title"] = "ArenaBangla | Esports Platform Case Study";
+    ViewData["Description"] = "ArenaBangla Free Fire Tournament Hub — a web platform for discovering esports rooms, tracking match countdowns, and exploring seasonal leaderboards.";
+
+    var liveSite = "https://arenabangla.com/";
+    var roomUrl = "https://arenabangla.com/rooms";
+    var leaderboardUrl = "https://arenabangla.com/leaderboard";
+    var logoUrl = "https://arenabangla.com/storage/settings/RUjYac9ExHm0DRKvzkjDYzJLBVL0bFHyNaxqnDjt.png";
+
+    var rooms = new[]
+    {
+        new { Code = "BR DUO", Players = "2 Players", Team = "2 per Team", Fee = "৳40", Matches = "2 Matches Available", Color = "#baff43" },
+        new { Code = "BR ESPORTS", Players = "1 Player", Team = "4 per Team", Fee = "৳40", Matches = "6 Matches Available", Color = "#5df5ce" },
+        new { Code = "BR SOLO", Players = "1 Player", Team = "1 per Team", Fee = "৳20", Matches = "Check live availability", Color = "#ffb86b" }
+    };
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#080b09" />
+<meta name="description" content="@ViewData["Description"]" />
+<title>@ViewData["Title"] — Techninxa</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+    --bg:#080b09;
+    --surface:#101511;
+    --surface2:#151d17;
+    --line:rgba(228,255,233,.12);
+    --text:#f1f5ef;
+    --muted:#98a69a;
+    --lime:#baff43;
+    --mint:#5df5ce;
+    --max:1160px;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:85px; }
+body {
+    margin:0; color:var(--text); background:var(--bg);
+    font-family:"DM Sans",sans-serif; line-height:1.65; overflow-x:hidden;
+}
+body:before {
+    content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(ellipse at 78% 5%,rgba(186,255,67,.10),transparent 34%),
+      radial-gradient(ellipse at 0% 50%,rgba(93,245,206,.055),transparent 35%);
+}
+a { color:inherit; text-decoration:none; }
+button { font:inherit; }
+.container { width:min(var(--max),calc(100% - 42px)); margin:auto; }
+h1,h2,h3 { font-family:"Barlow Condensed",sans-serif; text-transform:uppercase; }
+h1,h2,h3,p { margin-top:0; }
+.eyebrow {
+    display:inline-flex; align-items:center; gap:10px;
+    color:var(--lime); font-size:10px; letter-spacing:.2em;
+    font-weight:800; text-transform:uppercase;
+}
+.eyebrow:before { content:""; width:25px; height:1px; background:var(--lime); }
+.nav {
+    position:sticky; top:0; z-index:30;
+    background:rgba(8,11,9,.82); backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--line);
+}
+.nav-inner { min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:-.03em; }
+.brand img { width:39px; height:39px; object-fit:contain; border-radius:10px; }
+.brand small { display:block; font-size:9px; color:var(--muted); letter-spacing:.17em; }
+.nav-links { display:flex; align-items:center; gap:23px; font-size:12px; color:#c2cdc4; }
+.nav-links a:hover { color:var(--lime); }
+.btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    border:1px solid var(--line); border-radius:11px; padding:13px 17px;
+    font-size:12px; font-weight:800; transition:.25s ease;
+}
+.btn-primary { background:var(--lime); color:#10160a; border-color:var(--lime); }
+.btn:hover { transform:translateY(-3px); }
+.btn-secondary:hover { border-color:var(--lime); color:var(--lime); }
+.hero { padding:88px 0 75px; }
+.hero-grid { display:grid; grid-template-columns:.9fr 1.1fr; align-items:center; gap:46px; }
+h1 { font-size:clamp(61px,7.5vw,100px); line-height:.89; letter-spacing:-.025em; margin:20px 0; }
+h1 span,.accent { color:var(--lime); }
+.lead { max-width:500px; color:#b0bdb2; font-size:15px; line-height:1.95; }
+.actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
+.micro-note { margin-top:21px; color:var(--muted); font-size:10px; letter-spacing:.04em; }
+.micro-note b { color:var(--mint); }
+.hero-art { position:relative; perspective:1100px; }
+.art-glow { position:absolute; inset:15%; background:var(--lime); filter:blur(90px); opacity:.13; }
+.browser {
+    position:relative; padding:11px; border:1px solid rgba(230,255,236,.17);
+    border-radius:19px; background:linear-gradient(140deg,#1c261e,#0b0f0c);
+    box-shadow:0 35px 90px #0009; transform:rotateY(-5deg);
+    transition:transform .5s ease;
+}
+.browser:hover { transform:rotateY(0) translateY(-5px); }
+.browser-bar { display:flex; align-items:center; gap:6px; padding:5px 7px 13px; }
+.dot { width:7px; height:7px; background:#526052; border-radius:50%; }
+.address { flex:1; margin-left:9px; padding:5px 10px; text-align:center; border:1px solid var(--line); border-radius:6px; color:#8f9d91; font-size:9px; }
+.screen {
+    min-height:390px; overflow:hidden; position:relative; border-radius:11px;
+    background:#0b100c;
+}
+.screen-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(90deg,rgba(7,12,8,.98),rgba(7,12,8,.78) 48%,rgba(7,12,8,.2)),
+      linear-gradient(0deg,#0b100c,transparent 70%),
+      url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85') center/cover;
+    opacity:.94;
+}
+.screen-inner { position:relative; padding:21px; }
+.fake-nav { display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:8px; color:#c2ccc2; }
+.fake-logo { color:var(--lime); font-weight:900; letter-spacing:.06em; font-size:10px; }
+.fake-menu { display:flex; gap:12px; }
+.fake-menu span { white-space:nowrap; }
+.fake-hero { max-width:285px; margin-top:44px; }
+.fake-hero small { color:var(--lime); font-size:8px; font-weight:900; letter-spacing:.17em; }
+.fake-hero h3 { font-size:clamp(33px,4vw,47px); line-height:.9; margin:11px 0; }
+.fake-hero p { font-size:9px; line-height:1.7; color:#b8c3b9; max-width:220px; }
+.fake-cta { display:inline-block; background:var(--lime); color:#10160a; border-radius:5px; padding:8px 10px; font-size:8px; font-weight:900; }
+.fake-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:29px; }
+.fake-stat { background:rgba(13,19,14,.88); border:1px solid #ffffff1c; border-radius:8px; padding:10px; }
+.fake-stat small { display:block; font-size:7px; color:var(--lime); }
+.fake-stat b { display:block; font-size:9px; margin-top:4px; }
+.fake-stat span { font-size:7px; color:#8c9b8e; }
+.float-card {
+    position:absolute; right:-15px; bottom:28px; z-index:3;
+    padding:13px 16px; border:1px solid #baff4355; border-radius:13px;
+    background:#101711ed; box-shadow:0 15px 45px #0008; font-size:10px;
+}
+.float-card b { display:block; color:var(--lime); font-size:16px; }
+.stats-strip { border-block:1px solid var(--line); background:#ffffff04; }
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+.stat-item { padding:23px 20px; border-right:1px solid var(--line); }
+.stat-item:first-child { padding-left:0; }
+.stat-item:last-child { border:0; }
+.stat-item small { display:block; color:var(--muted); font-size:9px; text-transform:uppercase; letter-spacing:.14em; }
+.stat-item b { display:block; font-size:13px; margin-top:6px; }
+section.section { padding:94px 0; }
+.section-head { display:flex; justify-content:space-between; align-items:end; gap:35px; margin-bottom:35px; }
+.section-head h2 { font-size:clamp(43px,5.4vw,66px); line-height:.96; margin:12px 0 0; }
+.section-head p { max-width:380px; color:var(--muted); font-size:12px; margin-bottom:3px; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:17px; }
+.panel {
+    padding:28px; border:1px solid var(--line); border-radius:19px;
+    background:linear-gradient(145deg,#172019,#0f1410);
+}
+.panel-icon {
+    width:43px; height:43px; display:grid; place-items:center;
+    border:1px solid #baff4344; border-radius:12px; color:var(--lime);
+    background:#baff430d; font-size:20px;
+}
+.panel h3 { font-size:29px; margin:15px 0 8px; }
+.panel p { color:var(--muted); font-size:12px; line-height:1.9; margin:0; }
+.feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.feature {
+    min-height:190px; padding:24px; border:1px solid var(--line);
+    border-radius:17px; background:var(--surface); transition:.3s;
+}
+.feature:hover { transform:translateY(-5px); border-color:#baff4355; }
+.feature small { color:var(--lime); letter-spacing:.16em; font-size:9px; font-weight:900; }
+.feature h3 { font-size:25px; margin:16px 0 8px; }
+.feature p { color:var(--muted); font-size:11px; line-height:1.85; margin:0; }
+.room-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.room {
+    position:relative; overflow:hidden; padding:23px;
+    border:1px solid var(--line); border-radius:18px; background:var(--surface);
+    transition:.3s;
+}
+.room:hover { transform:translateY(-5px); border-color:var(--room-color); }
+.room:after {
+    content:""; position:absolute; width:130px; height:130px; right:-70px; top:-70px;
+    background:var(--room-color); filter:blur(45px); opacity:.09; pointer-events:none;
+}
+.room-top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.room-code { font-size:10px; font-weight:900; letter-spacing:.13em; color:var(--room-color); }
+.room-badge { padding:5px 8px; border:1px solid var(--line); border-radius:6px; font-size:9px; color:#c7d0c8; }
+.room h3 { font-size:31px; margin:20px 0 4px; }
+.room-sub { font-size:11px; color:var(--muted); }
+.room-fee { margin:22px 0 15px; padding:15px 0; border-block:1px solid var(--line); }
+.room-fee small { color:var(--muted); font-size:9px; display:block; }
+.room-fee b { display:block; font-size:28px; color:var(--room-color); font-family:"Barlow Condensed",sans-serif; }
+.room-footer { display:flex; justify-content:space-between; gap:10px; font-size:10px; color:#c7d2c8; }
+.room-link { display:inline-block; margin-top:20px; font-size:11px; font-weight:900; color:var(--lime); }
+.countdown-layout { display:grid; grid-template-columns:1.1fr .9fr; gap:20px; }
+.match-feature {
+    padding:30px; border:1px solid #baff4333; border-radius:20px;
+    background:radial-gradient(ellipse at 100% 0%,#baff4311,transparent 50%),var(--surface);
+}
+.match-feature h3 { font-size:37px; margin:14px 0 4px; }
+.match-feature p { color:var(--muted); font-size:12px; }
+.status { display:inline-flex; align-items:center; gap:7px; font-size:9px; color:var(--mint); text-transform:uppercase; font-weight:900; letter-spacing:.12em; }
+.status:before { content:""; width:7px; height:7px; background:var(--mint); border-radius:50%; box-shadow:0 0 12px var(--mint); }
+.timer { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin:24px 0; }
+.time-unit { padding:13px 4px; border:1px solid var(--line); border-radius:10px; background:#ffffff04; text-align:center; }
+.time-unit b { display:block; font-family:"Barlow Condensed",sans-serif; font-size:31px; line-height:1.1; color:var(--lime); }
+.time-unit small { display:block; margin-top:6px; color:var(--muted); font-size:8px; text-transform:uppercase; }
+.match-meta { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.match-meta div { padding:12px; border-radius:10px; background:#ffffff04; }
+.match-meta small { display:block; color:var(--muted); font-size:9px; }
+.match-meta b { display:block; margin-top:5px; font-size:12px; }
+.match-aside { display:flex; flex-direction:column; gap:14px; }
+.aside-card { flex:1; padding:24px; border:1px solid var(--line); border-radius:18px; background:var(--surface); }
+.aside-card small { color:var(--lime); text-transform:uppercase; letter-spacing:.14em; font-size:9px; font-weight:900; }
+.aside-card h3 { font-size:27px; margin:12px 0 7px; }
+.aside-card p { color:var(--muted); font-size:11px; margin:0; }
+.showcase { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:stretch; }
+.showcase-image { position:relative; min-height:340px; overflow:hidden; border:1px solid var(--line); border-radius:20px; background:#121712; }
+.showcase-image img { width:100%; height:100%; position:absolute; inset:0; object-fit:cover; opacity:.75; transition:transform .7s; }
+.showcase-image:hover img { transform:scale(1.06); }
+.showcase-image:after { content:""; position:absolute; inset:0; background:linear-gradient(0deg,#080b09e8,transparent 75%); }
+.image-label { position:absolute; z-index:2; left:24px; bottom:22px; }
+.image-label small { color:var(--lime); font-size:9px; letter-spacing:.16em; }
+.image-label h3 { font-size:32px; margin:5px 0 0; }
+.showcase-copy { padding:29px; border:1px solid var(--line); border-radius:20px; background:var(--surface); }
+.showcase-copy h3 { font-size:35px; line-height:1; margin:14px 0; }
+.showcase-copy p { color:var(--muted); font-size:12px; line-height:1.9; }
+.checks { display:grid; gap:12px; list-style:none; padding:0; margin:20px 0 0; }
+.checks li { display:flex; gap:10px; font-size:11px; color:#d6e0d7; }
+.checks li:before { content:"↗"; flex:0 0 20px; display:grid; place-items:center; height:20px; color:var(--lime); background:#baff4314; border-radius:50%; }
+.architecture {
+    padding:30px; border:1px solid var(--line); border-radius:20px;
+    background:radial-gradient(ellipse at center,#baff430a,transparent 65%),var(--surface);
+}
+.arch-flow { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.arch-node {
+    position:relative; min-height:145px; display:flex; flex-direction:column;
+    justify-content:center; text-align:center; padding:18px;
+    border:1px solid #baff4333; border-radius:13px; background:#baff4307;
+}
+.arch-node:not(:last-child):after { content:"→"; position:absolute; right:-17px; top:50%; transform:translate(50%,-50%); color:var(--lime); font-size:19px; z-index:2; }
+.arch-node b { font-family:"Barlow Condensed",sans-serif; font-size:22px; text-transform:uppercase; }
+.arch-node span { margin-top:7px; font-size:10px; color:var(--muted); }
+.arch-note { margin:20px 0 0; text-align:center; color:var(--muted); font-size:10px; }
+.stack { display:flex; flex-wrap:wrap; gap:10px; }
+.chip { border:1px solid var(--line); border-radius:999px; padding:10px 14px; background:#ffffff04; font-size:11px; color:#d6e0d7; }
+.chip:before { content:"✦"; color:var(--lime); margin-right:8px; }
+.note { color:var(--muted); font-size:11px; margin:19px 0 0; }
+.cta {
+    padding:60px 28px; border:1px solid #baff4333; border-radius:24px;
+    background:radial-gradient(ellipse at 100% 0%,#baff4317,transparent 50%),linear-gradient(130deg,#151d16,#0d120e);
+    text-align:center;
+}
+.cta h2 { max-width:720px; margin:15px auto; font-size:clamp(44px,6vw,73px); line-height:.94; }
+.cta h2 span { color:var(--lime); }
+.cta p { max-width:560px; margin:0 auto 25px; color:var(--muted); font-size:12px; }
+footer { padding:27px 0; margin-top:65px; border-top:1px solid var(--line); color:var(--muted); font-size:10px; }
+.footer-inner { display:flex; justify-content:space-between; flex-wrap:wrap; gap:15px; }
+.reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.delay-1 { transition-delay:.12s; }
+.delay-2 { transition-delay:.23s; }
+@@media(max-width:900px) {
+    .hero-grid,.two-col,.countdown-layout,.showcase { grid-template-columns:1fr; }
+    .hero-art { max-width:720px; width:100%; margin:15px auto 0; }
+    .feature-grid,.room-grid { grid-template-columns:repeat(2,1fr); }
+    .section-head { flex-direction:column; align-items:start; gap:14px; }
+    .arch-flow { grid-template-columns:repeat(2,1fr); }
+    .arch-node:nth-child(2):after { display:none; }
+    .stat-item { padding:19px 12px; }
+}
+@@media(max-width:600px) {
+    .container { width:calc(100% - 30px); }
+    .nav-inner { min-height:66px; }
+    .nav-links { display:none; }
+    .nav .btn { padding:10px 11px; font-size:10px; }
+    .brand img { width:33px; height:33px; }
+    .hero { padding:55px 0 48px; }
+    h1 { font-size:clamp(59px,17vw,82px); }
+    .lead { font-size:13px; }
+    .browser { transform:none; padding:7px; }
+    .screen { min-height:340px; }
+    .screen-inner { padding:14px; }
+    .fake-menu { gap:7px; }
+    .fake-menu span { font-size:7px; }
+    .fake-hero { margin-top:38px; }
+    .fake-stats { gap:5px; }
+    .fake-stat { padding:7px; }
+    .float-card { right:7px; bottom:9px; }
+    .stats-grid { grid-template-columns:repeat(2,1fr); }
+    .stat-item { border-bottom:1px solid var(--line); }
+    .stat-item:nth-child(2) { border-right:0; }
+    .stat-item:nth-child(3),.stat-item:nth-child(4) { border-bottom:0; }
+    section.section { padding:68px 0; }
+    .feature-grid,.room-grid { grid-template-columns:1fr; }
+    .feature { min-height:160px; }
+    .panel,.room,.match-feature,.aside-card,.showcase-copy,.architecture { padding:22px; }
+    .timer { gap:5px; }
+    .time-unit b { font-size:26px; }
+    .match-meta { gap:7px; }
+    .showcase-image { min-height:275px; }
+    .arch-flow { grid-template-columns:1fr; }
+    .arch-node { min-height:105px; }
+    .arch-node:not(:last-child):after { content:"↓"; right:50%; top:auto; bottom:-22px; transform:translateX(50%); }
+    .arch-node:nth-child(2):after { display:block; }
+    .cta { padding:43px 20px; }
+}
+@@media(prefers-reduced-motion:reduce) {
+    *,*:before,*:after { scroll-behavior:auto!important; animation:none!important; transition:none!important; }
+    .reveal { opacity:1; transform:none; }
+}
+</style>
+</head>
+
+<body>
+<header class="nav">
+    <div class="container nav-inner">
+        <a class="brand" href="#top">
+            <img src="@logoUrl" alt="ArenaBangla logo" />
+            <span>ARENABANGLA<small>PROJECT CASE STUDY</small></span>
+        </a>
+        <nav class="nav-links" aria-label="Case study sections">
+            <a href="#overview">Overview</a>
+            <a href="#features">Features</a>
+            <a href="#rooms">Rooms</a>
+            <a href="#architecture">Architecture</a>
+        </nav>
+        <a class="btn btn-primary" href="@liveSite" target="_blank" rel="noopener noreferrer">Live Website ↗</a>
+    </div>
+</header>
+
+<main id="top">
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="reveal">
+            <div class="eyebrow">Esports platform · Free Fire · Bangladesh</div>
+            <h1>WELCOME TO<br /><span>THE ARENA.</span></h1>
+            <p class="lead">
+                A tournament hub for competitive Free Fire players.
+                Discover upcoming rooms, follow match countdowns,
+                prepare your squad, and explore the seasonal leaderboard
+                in one focused web experience.
+            </p>
+            <div class="actions">
+                <a class="btn btn-primary" href="@roomUrl" target="_blank" rel="noopener noreferrer">Explore Rooms ↗</a>
+                <a class="btn btn-secondary" href="@leaderboardUrl" target="_blank" rel="noopener noreferrer">View Leaderboard ↗</a>
+            </div>
+            <div class="micro-note"><b>LIVE PROJECT</b> &nbsp; arenabangla.com</div>
+        </div>
+
+        <div class="hero-art reveal delay-2">
+            <div class="art-glow"></div>
+            <div class="browser">
+                <div class="browser-bar">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    <div class="address">https://arenabangla.com/</div>
+                </div>
+                <div class="screen">
+                    <div class="screen-bg"></div>
+                    <div class="screen-inner">
+                        <div class="fake-nav">
+                            <span class="fake-logo">ARENA BANGLA</span>
+                            <div class="fake-menu"><span>HOME</span><span>MATCHES</span><span>RANKING</span></div>
+                            <span>☰</span>
+                        </div>
+                        <div class="fake-hero">
+                            <small>FREE FIRE TOURNAMENT HUB</small>
+                            <h3>YOUR NEXT<br />DROP STARTS HERE.</h3>
+                            <p>Join competitive rooms and climb the seasonal leaderboard.</p>
+                            <a class="fake-cta" href="@roomUrl" target="_blank" rel="noopener noreferrer">EXPLORE ROOMS ↗</a>
+                        </div>
+                        <div class="fake-stats">
+                            <div class="fake-stat"><small>NEXT DROP</small><b>Bermuda Squad</b><span>Upcoming match</span></div>
+                            <div class="fake-stat"><small>ENTRY FEE</small><b>৳ 40.00</b><span>Per listed room</span></div>
+                            <div class="fake-stat"><small>PRIZE POOL</small><b>৳ 800</b><span>Featured match</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="float-card"><b>GAME ON ↗</b>Find your next match</div>
+        </div>
+    </div>
+</section>
+
+<div class="stats-strip">
+    <div class="container stats-grid">
+        <div class="stat-item"><small>Platform</small><b>ArenaBangla Tournament HUB</b></div>
+        <div class="stat-item"><small>Game community</small><b>Free Fire</b></div>
+        <div class="stat-item"><small>Featured match</small><b>Bermuda Squad Challenge</b></div>
+        <div class="stat-item"><small>Entry fee</small><b>From ৳20 on listed categories</b></div>
+    </div>
+</div>
+
+<section class="section" id="overview">
+    <div class="container">
+        <div class="section-head reveal">
+            <div><div class="eyebrow">01 / Project overview</div><h2>ONE HUB.<br /><span class="accent">EVERY MATCH MATTERS.</span></h2></div>
+            <p>A player-focused destination that brings tournament discovery, room categories, countdowns, and competitive rankings together.</p>
+        </div>
+        <div class="two-col">
+            <article class="panel reveal">
+                <div class="panel-icon">◎</div>
+                <h3>The challenge</h3>
+                <p>Competitive players need to find the right room, understand entry requirements, keep track of match timing, and check standings without navigating a confusing experience.</p>
+            </article>
+            <article class="panel reveal delay-1">
+                <div class="panel-icon">↗</div>
+                <h3>The solution</h3>
+                <p>A central tournament hub with clear pathways to rooms and rankings, match-focused information, account entry points, and a dedicated download option for players who want the app.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="features">
+    <div class="container">
+        <div class="section-head reveal">
+            <div><div class="eyebrow">02 / Core features</div><h2>BUILT AROUND<br /><span class="accent">THE PLAYER JOURNEY.</span></h2></div>
+            <p>Key experiences visible in the public-facing ArenaBangla website.</p>
+        </div>
+        <div class="feature-grid">
+            <article class="feature reveal"><small>FEATURE / 01</small><h3>Room Discovery</h3><p>Browse tournament categories and navigate directly to the available match rooms.</p></article>
+            <article class="feature reveal delay-1"><small>FEATURE / 02</small><h3>Match Countdown</h3><p>See the next featured drop and its countdown to help players prepare ahead of match time.</p></article>
+            <article class="feature reveal delay-2"><small>FEATURE / 03</small><h3>Leaderboard</h3><p>Dedicated leaderboard navigation gives players a direct path to competitive rankings.</p></article>
+            <article class="feature reveal"><small>FEATURE / 04</small><h3>Match Information</h3><p>Present game mode, map rotation, match status, entry fee, and prize pool in a scannable layout.</p></article>
+            <article class="feature reveal delay-1"><small>FEATURE / 05</small><h3>Login & Register</h3><p>Clear account navigation provides entry points for players who need to access or create an account.</p></article>
+            <article class="feature reveal delay-2"><small>FEATURE / 06</small><h3>App Download</h3><p>A dedicated download action connects the web experience with the platform's app offering.</p></article>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="rooms">
+    <div class="container">
+        <div class="section-head reveal">
+            <div><div class="eyebrow">03 / Room categories</div><h2>CHOOSE YOUR<br /><span class="accent">GAME MODE.</span></h2></div>
+            <p>These category labels and displayed values come from the room information supplied for this case study. Availability may change on the live site.</p>
+        </div>
+        <div class="room-grid">
+            @foreach (var room in rooms)
+            {
+                <article class="room reveal" style="--room-color:@room.Color">
+                    <div class="room-top">
+                        <span class="room-code">@room.Code</span>
+                        <span class="room-badge">ROOM CATEGORY</span>
+                    </div>
+                    <h3>@room.Code</h3>
+                    <div class="room-sub">@room.Players · @room.Team</div>
+                    <div class="room-fee">
+                        <small>Displayed entry fee</small>
+                        <b>@room.Fee</b>
+                    </div>
+                    <div class="room-footer">
+                        <span>@room.Matches</span>
+                        <span>↗</span>
+                    </div>
+                    <a class="room-link" href="@roomUrl" target="_blank" rel="noopener noreferrer">VIEW LIVE ROOMS ↗</a>
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-head reveal">
+            <div><div class="eyebrow">04 / Featured tournament</div><h2>THE NEXT DROP<br /><span class="accent">IS CALLING.</span></h2></div>
+            <p>A snapshot of the featured tournament details provided from the homepage.</p>
+        </div>
+        <div class="countdown-layout">
+            <article class="match-feature reveal">
+                <span class="status">Upcoming</span>
+                <h3>Bermuda Squad Challenge</h3>
+                <p>BR ESPORTS · Bermuda, Kalahari, Purgatory</p>
+                <div class="eyebrow">Countdown display</div>
+                <div class="timer" id="timer" aria-label="Countdown to the featured match">
+                    <div class="time-unit"><b id="days">10</b><small>Days</small></div>
+                    <div class="time-unit"><b id="hours">15</b><small>Hours</small></div>
+                    <div class="time-unit"><b id="minutes">28</b><small>Minutes</small></div>
+                    <div class="time-unit"><b id="seconds">26</b><small>Seconds</small></div>
+                </div>
+                <div class="match-meta">
+                    <div><small>Match time</small><b>22 Oct 2026 · 07:36 PM</b></div>
+                    <div><small>Entry fee</small><b>৳ 40.00</b></div>
+                    <div><small>Prize pool</small><b>৳ 800.00</b></div>
+                    <div><small>Game mode</small><b>BR ESPORTS</b></div>
+                </div>
+                <p class="note">Countdown starts from the date and time shown in the supplied homepage content. The live match schedule is authoritative.</p>
+                <a class="btn btn-primary" style="margin-top:20px" href="@roomUrl" target="_blank" rel="noopener noreferrer">Explore Tournament Rooms ↗</a>
+            </article>
+            <div class="match-aside">
+                <article class="aside-card reveal delay-1">
+                    <small>Competitive discovery</small>
+                    <h3>Find the right room.</h3>
+                    <p>Use the room categories to review player format, entry fee, and match availability on the live platform.</p>
+                </article>
+                <article class="aside-card reveal delay-2">
+                    <small>Performance visibility</small>
+                    <h3>Follow the leaderboard.</h3>
+                    <p>Keep rankings easy to find with a dedicated route from the main navigation.</p>
+                    <a class="room-link" href="@leaderboardUrl" target="_blank" rel="noopener noreferrer">OPEN LEADERBOARD ↗</a>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container showcase">
+        <div class="showcase-image reveal">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85" alt="Gaming and esports atmosphere" loading="lazy" />
+            <div class="image-label"><small>EXPERIENCE / 01</small><h3>MADE FOR COMPETITION.</h3></div>
+        </div>
+        <div class="showcase-copy reveal delay-1">
+            <div class="eyebrow">Experience design</div>
+            <h3>INFORMATION THAT MOVES WITH THE PLAYER.</h3>
+            <p>The interface centers the key decisions players make before a match: discover the room, check its requirements, keep an eye on timing, and navigate to rankings.</p>
+            <ul class="checks">
+                <li>Distinct navigation for Home, Matches, and Leaderboard</li>
+                <li>Readable match details and entry-fee information</li>
+                <li>Clear login, registration, and download pathways</li>
+                <li>Reusable tournament cards for different room categories</li>
+                <li>Responsive presentation for desktop and mobile visitors</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="architecture">
+    <div class="container">
+        <div class="section-head reveal">
+            <div><div class="eyebrow">05 / System concept</div><h2>FROM PLAYER INPUT<br />TO <span class="accent">MATCH INFORMATION.</span></h2></div>
+            <p>This is a conceptual architecture for explaining the product journey. It does not claim to reproduce the site's actual backend implementation.</p>
+        </div>
+        <div class="architecture reveal">
+            <div class="arch-flow">
+                <div class="arch-node"><b>Player UI</b><span>Home · Rooms · Rankings · Account</span></div>
+                <div class="arch-node"><b>Application Logic</b><span>Navigation · Validation · Match workflows</span></div>
+                <div class="arch-node"><b>Tournament Records</b><span>Rooms · Schedules · Results · Rankings</span></div>
+                <div class="arch-node"><b>Player Views</b><span>Upcoming matches · Room details · Leaderboard</span></div>
+            </div>
+            <p class="arch-note">Illustrative flow only. Replace with the actual controllers, services, API endpoints, and database tables after inspecting the source repository.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="stack">
+    <div class="container">
+        <div class="section-head reveal">
+            <div><div class="eyebrow">06 / Implementation scope</div><h2>THE PRODUCT IS MORE<br />THAN <span class="accent">A LANDING PAGE.</span></h2></div>
+            <p>Document the exact languages, frameworks, and database after verifying the project's source code.</p>
+        </div>
+        <div class="panel reveal">
+            <div class="stack">
+                <span class="chip">Tournament discovery</span>
+                <span class="chip">Room category navigation</span>
+                <span class="chip">Countdown presentation</span>
+                <span class="chip">Leaderboard experience</span>
+                <span class="chip">Account entry points</span>
+                <span class="chip">Responsive interface</span>
+            </div>
+            <p class="note">The tags above describe public-facing capabilities, not verified programming technologies.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="cta reveal">
+            <div class="eyebrow">Explore the live project</div>
+            <h2>READY TO ENTER<br /><span>THE ARENA?</span></h2>
+            <p>Visit ArenaBangla to explore its tournament rooms, discover match details, and view the competitive leaderboard.</p>
+            <div class="actions" style="justify-content:center">
+                <a class="btn btn-primary" href="@liveSite" target="_blank" rel="noopener noreferrer">Visit ArenaBangla ↗</a>
+                <a class="btn btn-secondary" href="@roomUrl" target="_blank" rel="noopener noreferrer">Explore Rooms ↗</a>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+<footer>
+    <div class="container footer-inner">
+        <span>© @DateTime.Now.Year ArenaBangla · Project Case Study</span>
+        <span>Portfolio presentation · Techninxa</span>
+        <a href="#top">Back to top ↑</a>
+    </div>
+</footer>
+
+<script>
+(() => {
+    // The supplied homepage showed 22 Oct 2026, 07:36 PM.
+    // Bangladesh time is UTC+06:00. Update if the live match schedule changes.
+    const target = new Date("2026-10-22T19:36:00+06:00").getTime();
+    const fields = {
+        days: document.getElementById("days"),
+        hours: document.getElementById("hours"),
+        minutes: document.getElementById("minutes"),
+        seconds: document.getElementById("seconds")
+    };
+
+    function updateCountdown() {
+        let remaining = Math.max(0, target - Date.now());
+        const days = Math.floor(remaining / 86400000);
+        remaining %= 86400000;
+        const hours = Math.floor(remaining / 3600000);
+        remaining %= 3600000;
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+
+        fields.days.textContent = String(days).padStart(2, "0");
+        fields.hours.textContent = String(hours).padStart(2, "0");
+        fields.minutes.textContent = String(minutes).padStart(2, "0");
+        fields.seconds.textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    window.setInterval(updateCountdown, 1000);
+
+    const revealItems = document.querySelectorAll(".reveal");
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -25px 0px" });
+
+        revealItems.forEach(item => observer.observe(item));
+    } else {
+        revealItems.forEach(item => item.classList.add("visible"));
+    }
+})();
+</script>
+</body>
+</html>

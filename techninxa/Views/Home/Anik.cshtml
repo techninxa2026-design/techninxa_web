@@ -1,0 +1,472 @@
+﻿@{
+    ViewData["Title"] = $"{ViewBag.MemberName ?? "MH Anik"} | UI/UX & Visual Designer";
+
+    var memberName = ViewBag.MemberName as string ?? "MH Anik";
+    var memberRole = ViewBag.MemberRole as string ?? "UI/UX & Visual Designer";
+    var memberBio = ViewBag.MemberBio as string ??
+        "I'm a multidisciplinary designer creating thoughtful digital experiences through UI/UX, visual design, and brand storytelling.";
+
+    var email = "mhanik417@gmail.com";
+    var phone = "+8801998336347";
+}
+
+<link rel="stylesheet"
+      href="~/css/person-portfolio.css"
+      asp-append-version="true" />
+
+<main class="person-portfolio anik-portfolio">
+
+    <!-- NAVIGATION -->
+    <header class="pp-topline">
+        <a href="/" class="pp-brand">
+            TECHNINXA<span>.</span>
+        </a>
+
+        <span class="pp-nav-center">DESIGNER / PORTFOLIO</span>
+
+        <a href="/#team" class="pp-back-link">
+            BACK TO TEAM <span>↗</span>
+        </a>
+    </header>
+
+    <!-- HERO -->
+    <section class="pp-hero anik-hero">
+
+        <div class="pp-hero-copy">
+
+            <p class="pp-eyebrow pp-reveal">
+                <span class="pp-status-dot"></span>
+                MULTIDISCIPLINARY DESIGNER
+            </p>
+
+            <h1 class="pp-headline pp-reveal">
+                I'm<br />
+                <span class="pp-name">MH Anik<span class="anik-period">.</span></span>
+            </h1>
+
+            <h2 class="pp-role-line pp-reveal">
+                Designing digital
+                <span id="pp-rotating-role">experiences.</span>
+            </h2>
+
+            <p class="pp-intro pp-reveal">
+                @memberBio
+            </p>
+
+            <div class="pp-actions pp-reveal">
+                <a href="#work" class="pp-button pp-button-dark">
+                    Explore my work <span>↘</span>
+                </a>
+
+                <a href="#contact" class="pp-text-link">
+                    Let's connect <span>↗</span>
+                </a>
+            </div>
+
+            <div class="pp-meta pp-reveal">
+                <span>@memberRole</span>
+                <span>Dhaka, Bangladesh</span>
+            </div>
+
+        </div>
+
+        <div class="pp-hero-visual pp-reveal">
+
+            <div class="anik-hero-frame pp-parallax" data-depth="0.025">
+                <div class="anik-frame-top">
+                    <span>DESIGN / 01</span>
+                    <span>2026</span>
+                </div>
+
+                <img src="~/assets/projects/anik/mhanik.jpg"
+                     alt="MH Anik — UI/UX and visual designer"
+                     class="pp-portrait" />
+
+                <div class="anik-image-caption">
+                    <span>MH ANIK</span>
+                    <span>DESIGNER & VISUAL THINKER</span>
+                </div>
+            </div>
+
+            <div class="anik-orbit anik-orbit-one"></div>
+            <div class="anik-orbit anik-orbit-two"></div>
+
+            <div class="pp-floating-note">
+                <span class="pp-note-icon">✳</span>
+                <span>Ideas into<br />experiences.</span>
+            </div>
+
+            <span class="pp-vertical-label">
+                UI/UX · VISUAL DESIGN · BRANDING
+            </span>
+
+        </div>
+
+        <a class="pp-scroll-cue" href="#about">
+            <span class="pp-scroll-line"></span>
+            SCROLL TO EXPLORE
+        </a>
+
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="pp-section pp-about" id="about">
+
+        <div class="pp-section-label pp-reveal">
+            <span>01 / ABOUT</span>
+            <span>DESIGN WITH INTENTION</span>
+        </div>
+
+        <div class="pp-about-grid">
+
+            <h2 class="pp-display pp-reveal">
+                I turn ideas into
+                <span>visual experiences.</span>
+            </h2>
+
+            <div class="pp-about-copy pp-reveal">
+                <p>
+                    I'm a multidisciplinary designer specializing in UI/UX
+                    design, visual design, and graphic design. I create
+                    user-focused digital experiences that balance
+                    functionality, strategy, and strong visual storytelling.
+                </p>
+
+                <p>
+                    From product interfaces and responsive websites to
+                    brand identities and creative campaigns, my approach
+                    is rooted in clarity, purposeful design, and attention
+                    to detail.
+                </p>
+
+                <a href="#expertise" class="pp-inline-link">
+                    Explore my capabilities <span>↘</span>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="anik-specialties pp-reveal">
+            <span>UI/UX DESIGN</span>
+            <span>VISUAL DESIGN</span>
+            <span>BRANDING</span>
+            <span>WEB DESIGN</span>
+            <span>ART DIRECTION</span>
+        </div>
+
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section class="pp-section pp-work" id="work">
+
+        <div class="pp-section-label pp-reveal">
+            <span>02 / SELECTED WORK</span>
+            <span>A COLLECTION OF DESIGN EXPLORATIONS</span>
+        </div>
+
+        <div class="pp-work-heading pp-reveal">
+            <h2 class="pp-display">
+                Design that<br />
+                makes an <span>impact.</span>
+            </h2>
+
+            <p>
+                A selection of brand identities, digital interfaces,
+                and visual experiences from my portfolio.
+            </p>
+        </div>
+
+        <div class="anik-project-grid">
+
+            <!-- PROJECT 01 -->
+            <article class="anik-project anik-project-wide pp-reveal">
+
+                <a href="/zenesen" class="anik-project-visual anik-zenesen">
+                    <img src="@Url.Content("~/assets/projects/anik/zenesen-cover.jpg")"
+                         alt="Zenesen creative brand and digital design project"
+                         loading="lazy" />
+
+                    <span class="anik-project-visit">VIEW PROJECT ↗</span>
+                    <span class="anik-project-index">01</span>
+                </a>
+
+                <div class="anik-project-details">
+                    <div>
+                        <span class="anik-project-category">
+                            DIGITAL DESIGN / SOCIAL MEDIA
+                        </span>
+                        <h3>Zenesen</h3>
+                        <p>
+                            A visual design system for a brand focused on
+                            content, digital presence, and audience growth.
+                        </p>
+                    </div>
+
+                    <span class="anik-project-year">01 — 04</span>
+                </div>
+
+            </article>
+
+            <!-- PROJECT 02 -->
+            <article class="anik-project pp-reveal">
+
+                <a href="/acc" class="anik-project-visual anik-luxury">
+                    <img src="@Url.Content("~/assets/projects/anik/luxury-brand.jpg")"
+                         alt="Luxury cigar, liquor, and accessories branding"
+                         loading="lazy" />
+
+                    <span class="anik-project-visit">VIEW PROJECT ↗</span>
+                    <span class="anik-project-index">02</span>
+                </a>
+
+                <div class="anik-project-details">
+                    <div>
+                        <span class="anik-project-category">
+                            BRANDING / WEB DESIGN
+                        </span>
+                        <h3>Luxury Collection</h3>
+                        <p>
+                            An elegant visual direction for a premium
+                            cigar, liquor, and accessories collection.
+                        </p>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- PROJECT 03 -->
+            <article class="anik-project pp-reveal">
+
+                <a href="/jute-portal" class="anik-project-visual anik-jute">
+                    <img src="@Url.Content("~/assets/projects/anik/jute-portal.jpg")"
+                         alt="Jute Portal website and digital interface"
+                         loading="lazy" />
+
+                    <span class="anik-project-visit">VIEW PROJECT ↗</span>
+                    <span class="anik-project-index">03</span>
+                </a>
+
+                <div class="anik-project-details">
+                    <div>
+                        <span class="anik-project-category">
+                            UI/UX DESIGN / WEB
+                        </span>
+                        <h3>Jute Portal</h3>
+                        <p>
+                            A digital platform concept presenting
+                            Bangladesh's jute products and industry.
+                        </p>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- PROJECT 04 -->
+            <article class="anik-project anik-project-wide pp-reveal">
+
+                <a href="/crazydevs" class="anik-project-visual anik-crazy">
+                    <img src="@Url.Content("~/assets/projects/anik/crazydevs.jpg")"
+                         alt="CrazyDevs digital solutions brand and website"
+                         loading="lazy" />
+
+                    <span class="anik-project-visit">VIEW PROJECT ↗</span>
+                    <span class="anik-project-index">04</span>
+                </a>
+
+                <div class="anik-project-details">
+                    <div>
+                        <span class="anik-project-category">
+                            VISUAL DESIGN / DIGITAL EXPERIENCE
+                        </span>
+                        <h3>CrazyDevs</h3>
+                        <p>
+                            A technology-focused visual identity and
+                            digital presentation for software solutions.
+                        </p>
+                    </div>
+
+                    <span class="anik-project-year">04 — 04</span>
+                </div>
+
+            </article>
+
+        </div>
+
+        <p class="anik-work-note pp-reveal">
+            MORE EXPLORATIONS · BRANDING · INTERFACES · VISUAL SYSTEMS
+        </p>
+
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="pp-section anik-experience" id="experience">
+
+        <div class="pp-section-label pp-reveal">
+            <span>03 / EXPERIENCE</span>
+            <span>MY PROFESSIONAL JOURNEY</span>
+        </div>
+
+        <div class="anik-experience-heading pp-reveal">
+            <h2 class="pp-display">
+                Growing through<br />
+                <span>creative work.</span>
+            </h2>
+
+            <p>
+                My portfolio reflects a journey across visual design,
+                brand communication, and digital product experiences.
+            </p>
+        </div>
+
+        <div class="anik-timeline">
+
+            <article class="anik-timeline-item pp-reveal">
+                <span class="anik-timeline-number">01</span>
+                <div>
+                    <span class="anik-timeline-label">PROFESSIONAL EXPERIENCE</span>
+                    <h3>Visualizer</h3>
+                    <p>Zenesen Ltd.</p>
+                </div>
+                <span class="anik-timeline-arrow">↗</span>
+            </article>
+
+            <article class="anik-timeline-item pp-reveal">
+                <span class="anik-timeline-number">02</span>
+                <div>
+                    <span class="anik-timeline-label">PROFESSIONAL EXPERIENCE</span>
+                    <h3>Graphic Designer</h3>
+                    <p>Zenesen Ltd.</p>
+                </div>
+                <span class="anik-timeline-arrow">↗</span>
+            </article>
+
+            <article class="anik-timeline-item pp-reveal">
+                <span class="anik-timeline-number">03</span>
+                <div>
+                    <span class="anik-timeline-label">PROFESSIONAL EXPERIENCE</span>
+                    <h3>UI/UX Designer</h3>
+                    <p>Zenesen Ltd.</p>
+                </div>
+                <span class="anik-timeline-arrow">↗</span>
+            </article>
+
+            <article class="anik-timeline-item pp-reveal">
+                <span class="anik-timeline-number">04</span>
+                <div>
+                    <span class="anik-timeline-label">EARLY CAREER</span>
+                    <h3>UI/UX Intern</h3>
+                    <p>Zenesen Ltd.</p>
+                </div>
+                <span class="anik-timeline-arrow">↗</span>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- EXPERTISE -->
+    <section class="pp-section anik-expertise" id="expertise">
+
+        <div class="pp-section-label pp-reveal">
+            <span>04 / EXPERTISE</span>
+            <span>WHAT I BRING TO THE TABLE</span>
+        </div>
+
+        <h2 class="pp-display pp-reveal">
+            Creative thinking.<br />
+            <span>Meaningful design.</span>
+        </h2>
+
+        <div class="anik-skill-grid">
+
+            <article class="anik-skill-card pp-reveal">
+                <span class="anik-skill-number">01</span>
+                <span class="anik-skill-icon">✳</span>
+                <h3>UI/UX Design</h3>
+                <p>
+                    User-focused interfaces, clear information
+                    architecture, and intuitive digital experiences.
+                </p>
+            </article>
+
+            <article class="anik-skill-card pp-reveal">
+                <span class="anik-skill-number">02</span>
+                <span class="anik-skill-icon">◉</span>
+                <h3>Visual Design</h3>
+                <p>
+                    Visual systems that bring consistency,
+                    hierarchy, and personality to digital products.
+                </p>
+            </article>
+
+            <article class="anik-skill-card pp-reveal">
+                <span class="anik-skill-number">03</span>
+                <span class="anik-skill-icon">✳</span>
+                <h3>Brand Identity</h3>
+                <p>
+                    Brand visuals, graphic compositions, and
+                    creative direction built around a clear identity.
+                </p>
+            </article>
+
+            <article class="anik-skill-card pp-reveal">
+                <span class="anik-skill-number">04</span>
+                <span class="anik-skill-icon">↗</span>
+                <h3>Web & App Design</h3>
+                <p>
+                    Digital layouts and interface concepts for
+                    responsive websites and mobile applications.
+                </p>
+            </article>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section class="pp-contact anik-contact" id="contact">
+
+        <div class="pp-contact-inner pp-reveal">
+
+            <p class="pp-eyebrow">
+                HAVE A PROJECT IN MIND?
+            </p>
+
+            <h2>
+                Let's create<br />
+                something <span>memorable.</span>
+            </h2>
+
+            <p>
+                Looking for thoughtful design for your brand,
+                website, or digital product? Let's start a conversation.
+            </p>
+
+            <div class="anik-contact-actions">
+                <a href="mailto:@email" class="pp-button pp-button-light">
+                    Email me <span>↗</span>
+                </a>
+
+                <a href="https://wa.me/8801998336347"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="anik-contact-link">
+                    WhatsApp <span>↗</span>
+                </a>
+            </div>
+
+            <div class="anik-contact-details">
+                <a href="mailto:@email">@email</a>
+                <span>Dhaka, Bangladesh</span>
+            </div>
+
+        </div>
+
+        <span class="pp-contact-mark">A.</span>
+
+    </section>
+
+</main>
+
+<script src="~/js/person-portfolio.js"
+        asp-append-version="true"></script>

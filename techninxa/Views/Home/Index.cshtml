@@ -1,0 +1,3095 @@
+﻿
+@using Techninxa.Models
+@model ContactMessage
+
+@{
+    ViewData["Title"] = "Custom Software & Web Development";
+    ViewData["ActiveNav"] = "Home";
+
+    ViewData["Description"] =
+        "Cytech Enginneringdevelops custom software, web applications, mobile apps, and IoT solutions for businesses in Bangladesh and worldwide.";
+
+    ViewData["CanonicalUrl"] = "https://techninxa.com/";
+}
+
+@section Styles {
+    <style>
+        /* =====================================================
+           HOME PAGE — PROJECT SHOWCASE (section-specific only)
+        ===================================================== */
+        .home-projects {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            background: linear-gradient(180deg, #f8fbff 0%, #f0f7ff 100%);
+        }
+
+        .home-projects::before,
+        .home-projects::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(8px);
+        }
+        
+/* Custom cursor */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(22, 135, 248, 0.9);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    margin: -17px 0 0 -17px;
+    background: rgba(22, 135, 248, 0.07);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    transition:
+        opacity 180ms ease,
+        visibility 180ms ease,
+        width 220ms ease,
+        height 220ms ease,
+        margin 220ms ease,
+        background 220ms ease,
+        border-color 220ms ease;
+    will-change: transform;
+}
+
+.custom-cursor.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.custom-cursor-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #1687f8;
+    transform: translate(-50%, -50%);
+    transition: transform 220ms ease;
+}
+
+.custom-cursor.is-hovering {
+    width: 52px;
+    height: 52px;
+    margin: -26px 0 0 -26px;
+    background: rgba(22, 135, 248, 0.13);
+    border-color: #1687f8;
+}
+
+.custom-cursor.is-hovering .custom-cursor-dot {
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+.custom-cursor.is-clicking {
+    background: rgba(22, 135, 248, 0.25);
+}
+
+@@media (hover: hover) and (pointer: fine) {
+    body {
+        cursor: none;
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    [role="button"] {
+        cursor: none;
+    }
+}
+
+@@media (hover: none), (pointer: coarse) {
+    .custom-cursor {
+        display: none !important;
+    }
+}
+
+@@media (prefers-reduced-motion: reduce) {
+    .custom-cursor {
+        transition: none;
+    }
+
+    .custom-cursor-dot {
+        transition: none;
+    }
+}
+
+
+        .home-projects::before {
+            top: 90px;
+            right: -230px;
+            background: radial-gradient(circle, rgba(56, 189, 248, .15), transparent 68%);
+        }
+
+        .home-projects::after {
+            bottom: -260px;
+            left: -210px;
+            background: radial-gradient(circle, rgba(22, 135, 248, .11), transparent 68%);
+        }
+
+        .home-projects > .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .home-projects-head {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(280px, .7fr);
+            align-items: end;
+            gap: 52px;
+            margin-bottom: 48px;
+        }
+
+        .home-projects-eyebrow,
+        .home-team-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: #1687f8;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .19em;
+            text-transform: uppercase;
+        }
+
+        .home-projects-eyebrow::before,
+        .home-team-eyebrow::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #1687f8;
+            box-shadow: 0 0 0 5px rgba(22, 135, 248, .10);
+        }
+
+        .home-projects-title {
+            max-width: 740px;
+            margin: 17px 0 0;
+            color: #070a10;
+            font: 700 clamp(42px, 5.4vw, 70px)/1.02 "Space Grotesk", sans-serif;
+            letter-spacing: -.055em;
+        }
+
+        .home-projects-title em,
+        .home-team-title em {
+            color: #1687f8;
+            font-style: normal;
+        }
+
+        .home-projects-intro {
+            max-width: 430px;
+            justify-self: end;
+            padding: 4px 0 3px 23px;
+            border-left: 1px solid #d5e1ed;
+        }
+
+        .home-projects-intro p {
+            margin: 0 0 21px;
+            color: #647184;
+            font-size: 14px;
+            line-height: 1.85;
+        }
+
+        .home-projects-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #0b1018;
+            font-size: 12px;
+            font-weight: 800;
+            transition: color .25s ease, gap .25s ease;
+        }
+
+        .home-projects-link span {
+            display: inline-grid;
+            width: 30px;
+            height: 30px;
+            place-items: center;
+            border: 1px solid #d5e1ed;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .8);
+            font-size: 15px;
+            transition: color .25s ease, background .25s ease, border-color .25s ease;
+        }
+
+        .home-projects-link:hover {
+            gap: 14px;
+            color: #1687f8;
+        }
+
+        .home-projects-link:hover span {
+            color: #fff;
+            border-color: #1687f8;
+            background: #1687f8;
+        }
+
+        .home-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .home-project-card {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(12, 30, 51, .09);
+            border-radius: 27px;
+            background: rgba(255, 255, 255, .94);
+            box-shadow: 0 14px 38px rgba(13, 37, 62, .045);
+            color: #0b1018;
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease, border-color .35s ease;
+        }
+
+        .home-project-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(22, 135, 248, .26);
+            box-shadow: 0 28px 65px rgba(13, 37, 62, .12);
+        }
+
+        .home-project-card-featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+            min-height: 410px;
+        }
+
+        .home-project-visual {
+            position: relative;
+            min-width: 0;
+            min-height: 290px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            isolation: isolate;
+            background: radial-gradient(circle at 50% 38%, #183a60 0, #0c1929 46%, #070a10 100%);
+        }
+
+        .home-project-card-featured .home-project-visual {
+            height: 100%;
+            min-height: 410px;
+        }
+
+      
+.home-project-visual > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+
+    /* Fix: show the complete project image */
+    object-fit: contain;
+    object-position: center center;
+
+    /* Keep the image background clean */
+    padding: 12px;
+    box-sizing: border-box;
+
+    transition: transform .7s cubic-bezier(.2, .8, .2, 1),
+                filter .5s ease;
+}
+
+.home-project-card:hover .home-project-visual > img {
+    transform: scale(1.025);
+}
+```
+
+        .home-project-visual::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(180deg, rgba(5, 12, 22, .12) 0%, rgba(5, 12, 22, .02) 35%, rgba(5, 12, 22, .54) 100%);
+            pointer-events: none;
+        }
+
+        .home-project-visual-grid {
+            position: absolute;
+            inset: -35%;
+            z-index: 0;
+            opacity: .2;
+            background-image: linear-gradient(rgba(135, 201, 255, .35) 1px, transparent 1px), linear-gradient(90deg, rgba(135, 201, 255, .35) 1px, transparent 1px);
+            background-size: 34px 34px;
+            transform: perspective(600px) rotateX(58deg) rotateZ(-14deg) scale(1.2);
+        }
+
+        .home-project-placeholder {
+            position: relative;
+            z-index: 1;
+            width: min(76%, 430px);
+            min-height: 210px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 35px;
+            border: 1px solid rgba(176, 219, 255, .2);
+            border-radius: 24px;
+            background: linear-gradient(145deg, rgba(19, 39, 62, .94), rgba(7, 12, 20, .88));
+            box-shadow: 0 30px 70px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .08);
+            text-align: center;
+        }
+
+        .home-project-placeholder-mark {
+            display: grid;
+            width: 76px;
+            height: 76px;
+            place-items: center;
+            border: 1px solid rgba(56, 189, 248, .4);
+            border-radius: 22px;
+            background: rgba(22, 135, 248, .12);
+            color: #7dd3fc;
+            font: 700 27px "Space Grotesk", sans-serif;
+            letter-spacing: -.08em;
+        }
+
+        .home-project-placeholder strong {
+            max-width: 100%;
+            color: #fff;
+            font: 700 clamp(17px, 2vw, 25px)/1.15 "Space Grotesk", sans-serif;
+            overflow-wrap: anywhere;
+        }
+
+        .home-project-placeholder small {
+            color: #94a8be;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .2em;
+        }
+
+        .home-project-category,
+        .home-project-number,
+        .home-project-open {
+            position: absolute;
+            z-index: 3;
+        }
+
+        .home-project-category {
+            top: 20px;
+            left: 20px;
+            max-width: calc(100% - 90px);
+            overflow: hidden;
+            padding: 9px 12px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 999px;
+            background: rgba(7, 15, 25, .55);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .11em;
+            text-overflow: ellipsis;
+            text-transform: uppercase;
+            white-space: nowrap;
+            backdrop-filter: blur(12px);
+        }
+
+        .home-project-number {
+            top: 25px;
+            right: 22px;
+            color: rgba(255, 255, 255, .75);
+            font: 700 11px "Space Grotesk", sans-serif;
+            letter-spacing: .1em;
+        }
+
+        .home-project-open {
+            right: 22px;
+            bottom: 21px;
+            display: grid;
+            width: 43px;
+            height: 43px;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .32);
+            border-radius: 50%;
+            background: rgba(7, 15, 25, .36);
+            color: white;
+            font-size: 20px;
+            transition: transform .3s ease, background .3s ease, border-color .3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-project-card:hover .home-project-open {
+            transform: rotate(45deg);
+            border-color: #1687f8;
+            background: #1687f8;
+        }
+
+        .home-project-content {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 25px 27px 23px;
+        }
+
+        .home-project-card-featured .home-project-content {
+            justify-content: center;
+            padding: clamp(28px, 4vw, 48px);
+        }
+
+        .home-project-content-top {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 17px;
+        }
+
+        .home-project-overline {
+            color: #8b97a6;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .home-project-featured-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #1687f8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .home-project-featured-label::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #1687f8;
+        }
+
+        .home-project-content h3 {
+            margin: 0;
+            color: #0b1018;
+            font: 700 clamp(23px, 2.4vw, 34px)/1.12 "Space Grotesk", sans-serif;
+            letter-spacing: -.035em;
+            overflow-wrap: anywhere;
+        }
+
+        .home-project-card:not(.home-project-card-featured) .home-project-content h3 {
+            font-size: clamp(22px, 2.2vw, 28px);
+        }
+
+        .home-project-content > p {
+            display: -webkit-box;
+            max-width: 590px;
+            margin: 13px 0 25px;
+            overflow: hidden;
+            color: #738092;
+            font-size: 13px;
+            line-height: 1.8;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+
+        .home-project-footer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: auto;
+            padding-top: 17px;
+            border-top: 1px solid #edf1f5;
+            color: #0b1018;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .home-project-footer span:first-child {
+            transition: color .25s ease;
+        }
+
+        .home-project-footer-arrow {
+            color: #1687f8;
+            font-size: 17px;
+            transition: transform .25s ease;
+        }
+
+        .home-project-card:hover .home-project-footer span:first-child {
+            color: #1687f8;
+        }
+
+        .home-project-card:hover .home-project-footer-arrow {
+            transform: translate(3px, -3px);
+        }
+
+        .home-project-empty {
+            grid-column: 1 / -1;
+            padding: 55px 25px;
+            border: 1px dashed #cddbe8;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, .7);
+            text-align: center;
+        }
+
+        .home-project-empty span {
+            display: block;
+            margin-bottom: 10px;
+            color: #1687f8;
+            font: 700 28px "Space Grotesk", sans-serif;
+        }
+
+        .home-project-empty p {
+            color: #718094;
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           HOME PAGE — TEAM (section-specific only)
+        ===================================================== */
+        .team-section.home-team-section {
+            position: relative;
+            margin-top: 115px;
+            padding-top: 85px;
+            border-top: 1px solid rgba(7, 10, 16, .09);
+        }
+
+        .home-team-heading {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(260px, .7fr);
+            align-items: end;
+            gap: 50px;
+            margin-bottom: 43px;
+        }
+
+        .home-team-title {
+            margin: 17px 0 0;
+            color: #070a10;
+            font: 700 clamp(40px, 5vw, 66px)/1.02 "Space Grotesk", sans-serif;
+            letter-spacing: -.055em;
+        }
+
+        .home-team-heading-side {
+            max-width: 420px;
+            justify-self: end;
+        }
+
+        .home-team-heading-side p {
+            margin: 0;
+            color: #657286;
+            font-size: 14px;
+            line-height: 1.85;
+        }
+
+        .home-team-culture {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 19px;
+            color: #273548;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .home-team-culture-mark {
+            display: inline-grid;
+            width: 31px;
+            height: 31px;
+            place-items: center;
+            border: 1px solid rgba(22, 135, 248, .2);
+            border-radius: 10px;
+            background: #e8f4ff;
+            color: #1687f8;
+            font-size: 15px;
+        }
+
+        .home-team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .home-team-card {
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid rgba(12, 30, 51, .085);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, .88);
+            box-shadow: 0 14px 38px rgba(13, 37, 62, .045);
+            transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease, border-color .35s ease;
+        }
+
+        .home-team-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(22, 135, 248, .24);
+            box-shadow: 0 27px 60px rgba(13, 37, 62, .11);
+        }
+
+        .home-team-portrait {
+            position: relative;
+            height: 355px;
+            overflow: hidden;
+            isolation: isolate;
+            background: radial-gradient(circle at 50% 25%, #e5f5ff 0, #cfe8fa 47%, #b8d7ed 100%);
+        }
+
+        .home-team-portrait::before {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(8, 19, 33, .03) 40%, rgba(8, 19, 33, .55) 100%);
+            pointer-events: none;
+        }
+
+        .home-team-portrait::after {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            width: 255px;
+            height: 255px;
+            top: 40px;
+            left: 50%;
+            border: 1px solid rgba(22, 135, 248, .18);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 25px rgba(255, 255, 255, .10), 0 0 0 50px rgba(255, 255, 255, .08);
+            pointer-events: none;
+        }
+
+        .home-team-portrait > img {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            object-fit: cover;
+            object-position: center 22%;
+            transition: transform .65s cubic-bezier(.2, .8, .2, 1), filter .45s ease;
+        }
+
+        .home-team-card:hover .home-team-portrait > img {
+            transform: scale(1.045);
+        }
+
+        .home-team-image-placeholder {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .home-team-placeholder-mark {
+            display: grid;
+            width: 88px;
+            height: 88px;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .65);
+            border-radius: 28px;
+            background: rgba(255, 255, 255, .55);
+            box-shadow: 0 15px 35px rgba(32, 88, 128, .10);
+            color: #1687f8;
+            font: 700 30px "Space Grotesk", sans-serif;
+        }
+
+        .home-team-image-placeholder strong {
+            color: #183047;
+            font: 700 15px "Space Grotesk", sans-serif;
+            overflow-wrap: anywhere;
+        }
+
+        .home-team-index {
+            position: absolute;
+            z-index: 3;
+            top: 17px;
+            left: 17px;
+            padding: 9px 11px;
+            border: 1px solid rgba(255, 255, 255, .45);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .77);
+            color: #22364a;
+            font: 700 9px "Space Grotesk", sans-serif;
+            letter-spacing: .12em;
+            backdrop-filter: blur(12px);
+        }
+
+        .home-team-department-chip {
+            position: absolute;
+            z-index: 3;
+            left: 17px;
+            right: 17px;
+            bottom: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .home-team-department-chip > span:first-child {
+            max-width: 70%;
+            overflow: hidden;
+            padding: 9px 12px;
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 999px;
+            background: rgba(7, 15, 25, .54);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-overflow: ellipsis;
+            text-transform: uppercase;
+            white-space: nowrap;
+            backdrop-filter: blur(12px);
+        }
+
+        .home-team-department-chip > span:last-child {
+            color: rgba(255, 255, 255, .88);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .12em;
+            white-space: nowrap;
+        }
+
+        .home-team-department-chip > span:last-child::before {
+            content: "";
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            margin: 0 5px 1px 0;
+            border-radius: 50%;
+            background: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, .8);
+        }
+
+        .home-team-body {
+            display: flex;
+            min-height: 205px;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 23px 22px 20px;
+        }
+
+        .home-team-name-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8b97a6;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .home-team-name {
+            margin: 0;
+            color: #0b1018;
+            font: 700 clamp(20px, 1.8vw, 25px)/1.15 "Space Grotesk", sans-serif;
+            letter-spacing: -.03em;
+            overflow-wrap: anywhere;
+        }
+
+        .home-team-role {
+            display: inline-flex;
+            align-items: center;
+            max-width: 100%;
+            margin-top: 13px;
+            padding: 8px 11px;
+            border: 1px solid rgba(22, 135, 248, .18);
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(22, 135, 248, .09), rgba(56, 189, 248, .045));
+            color: #1679d5;
+            font-size: 11px;
+            font-weight: 750;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .home-team-card-footer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 17px;
+        }
+
+        .home-team-footer-note {
+            color: #8b97a6;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+        }
+
+        .home-team-portfolio {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 38px;
+            padding: 9px 12px;
+            border: 1px solid #dce7f1;
+            border-radius: 999px;
+            background: #fff;
+            color: #101b29;
+            font-size: 10px;
+            font-weight: 800;
+            transition: color .25s ease, background .25s ease, border-color .25s ease, transform .25s ease;
+        }
+
+        .home-team-portfolio span {
+            color: #1687f8;
+            font-size: 14px;
+            transition: transform .25s ease, color .25s ease;
+        }
+
+        .home-team-portfolio:hover {
+            transform: translateY(-2px);
+            border-color: #1687f8;
+            background: #1687f8;
+            color: #fff;
+        }
+
+        .home-team-portfolio:hover span {
+            transform: translate(2px, -2px);
+            color: #fff;
+        }
+
+        .home-team-empty {
+            grid-column: 1 / -1;
+            padding: 45px 25px;
+            border: 1px dashed #cddbe8;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, .65);
+            color: #718094;
+            text-align: center;
+        }
+
+        .home-team-empty strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #0b1018;
+            font: 700 22px "Space Grotesk", sans-serif;
+        }
+
+        .home-team-empty p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        /* Responsive rules are scoped to the two redesigned areas. */
+        @@media (max-width: 1050px) {
+            .home-projects-head,
+            .home-team-heading {
+                gap: 30px;
+            }
+
+            .home-team-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .home-team-portrait {
+                height: 380px;
+            }
+        }
+
+        @@media (max-width: 800px) {
+            .home-projects-head,
+            .home-team-heading {
+                grid-template-columns: 1fr;
+                gap: 23px;
+            }
+
+            .home-projects-title,
+            .home-team-title {
+                font-size: clamp(38px, 8vw, 54px);
+            }
+
+            .home-projects-intro,
+            .home-team-heading-side {
+                justify-self: stretch;
+                max-width: 620px;
+            }
+
+            .home-projects-intro {
+                padding: 0 0 0 17px;
+            }
+
+            .home-project-card-featured {
+                grid-template-columns: 1fr;
+            }
+
+            .home-project-card-featured .home-project-visual {
+                min-height: 340px;
+            }
+
+            .home-project-card-featured .home-project-content {
+                padding: 25px;
+            }
+
+            .home-team-section.team-section {
+                margin-top: 85px;
+                padding-top: 60px;
+            }
+        }
+
+        @@media (max-width: 600px) {
+            .home-projects-grid,
+            .home-team-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .home-project-card-featured {
+                grid-column: auto;
+            }
+
+            .home-project-visual,
+            .home-project-card-featured .home-project-visual {
+                min-height: 270px;
+                height: 270px;
+            }
+
+            .home-project-content,
+            .home-project-card-featured .home-project-content {
+                padding: 22px 20px 20px;
+            }
+
+            .home-project-content-top {
+                margin-bottom: 13px;
+            }
+
+            .home-project-content h3,
+            .home-project-card:not(.home-project-card-featured) .home-project-content h3 {
+                font-size: 23px;
+            }
+
+            .home-project-content > p {
+                font-size: 12px;
+                margin: 11px 0 20px;
+            }
+
+            .home-team-portrait {
+                height: min(430px, 108vw);
+            }
+
+            .home-team-body {
+                min-height: 190px;
+                padding: 22px 20px 19px;
+            }
+
+            .home-team-name {
+                font-size: 23px;
+            }
+        }
+
+        @@media (max-width: 380px) {
+            .home-projects-title,
+            .home-team-title {
+                font-size: 35px;
+            }
+
+            .home-project-category {
+                left: 13px;
+                top: 13px;
+                max-width: calc(100% - 75px);
+                font-size: 8px;
+            }
+
+            .home-project-number {
+                top: 17px;
+                right: 13px;
+            }
+
+            .home-team-department-chip {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+            }
+
+            .home-team-department-chip > span:last-child {
+                font-size: 7px;
+            }
+        }
+
+
+        /* Interactive project discovery and lead-generation elements */
+        .home-project-controls,
+        .home-team-controls {
+            margin: 0 0 27px;
+            padding: 20px;
+            border: 1px solid rgba(12, 30, 51, .09);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, .78);
+            box-shadow: 0 12px 35px rgba(13, 37, 62, .035);
+            backdrop-filter: blur(14px);
+        }
+
+        .home-project-control-top,
+        .home-project-control-bottom,
+        .home-team-control-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .home-project-control-top > div:first-child,
+        .home-team-control-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .home-control-label {
+            color: #8491a2;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .home-control-count {
+            color: #111b29;
+            font: 700 17px/1.2 "Space Grotesk", sans-serif;
+        }
+
+        .home-project-search,
+        .home-team-search {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: min(100%, 295px);
+            min-height: 46px;
+            padding: 0 13px;
+            gap: 10px;
+            border: 1px solid #e0e8f0;
+            border-radius: 13px;
+            background: #fff;
+            color: #8290a0;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .home-project-search:focus-within,
+        .home-team-search:focus-within {
+            border-color: rgba(22, 135, 248, .65);
+            box-shadow: 0 0 0 4px rgba(22, 135, 248, .08);
+        }
+
+        .home-search-icon {
+            flex: 0 0 auto;
+            color: #1687f8;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .home-project-search input,
+        .home-team-search input {
+            width: 100%;
+            min-width: 0;
+            padding: 11px 0;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: #0b1018;
+            font-size: 12px;
+        }
+
+        .home-project-search input::placeholder,
+        .home-team-search input::placeholder {
+            color: #9aa5b2;
+        }
+
+        .home-project-control-bottom {
+            align-items: flex-end;
+            margin-top: 20px;
+        }
+
+        .home-project-filters,
+        .home-team-filters {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .home-filter-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 38px;
+            padding: 9px 13px;
+            border: 1px solid #e0e7ef;
+            border-radius: 999px;
+            background: #fff;
+            color: #667487;
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+            transition: color .22s ease, border-color .22s ease, background .22s ease, transform .22s ease, box-shadow .22s ease;
+        }
+
+        .home-filter-chip:hover {
+            transform: translateY(-1px);
+            border-color: rgba(22, 135, 248, .35);
+            color: #1687f8;
+        }
+
+        .home-filter-chip[aria-pressed="true"] {
+            border-color: #07111f;
+            background: #07111f;
+            color: #fff;
+            box-shadow: 0 7px 18px rgba(7, 17, 31, .12);
+        }
+
+        .home-filter-chip-count {
+            display: inline-grid;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 5px;
+            place-items: center;
+            border-radius: 999px;
+            background: rgba(127, 143, 161, .12);
+            color: inherit;
+            font-size: 9px;
+        }
+
+        .home-filter-chip[aria-pressed="true"] .home-filter-chip-count {
+            background: rgba(255, 255, 255, .14);
+        }
+
+        .home-project-sort {
+            display: flex;
+            flex: 0 0 auto;
+            flex-direction: column;
+            gap: 6px;
+            color: #8290a0;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .home-project-sort select {
+            min-width: 155px;
+            min-height: 38px;
+            padding: 8px 30px 8px 11px;
+            border: 1px solid #e0e7ef;
+            border-radius: 11px;
+            outline: 0;
+            background: #fff;
+            color: #273548;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .home-project-status,
+        .home-team-status {
+            margin: 13px 0 0;
+            color: #8290a0;
+            font-size: 11px;
+        }
+
+        .home-project-filter-empty,
+        .home-team-filter-empty {
+            grid-column: 1 / -1;
+            padding: 45px 24px;
+            border: 1px dashed #cddbe8;
+            border-radius: 23px;
+            background: rgba(255, 255, 255, .78);
+            text-align: center;
+        }
+
+        .home-project-filter-empty[hidden],
+        .home-team-filter-empty[hidden],
+        .home-project-controls[hidden],
+        .home-team-controls[hidden],
+        .home-project-card[hidden],
+        .home-team-card[hidden] {
+            display: none !important;
+        }
+
+        .home-project-filter-empty strong,
+        .home-team-filter-empty strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #101b29;
+            font: 700 22px "Space Grotesk", sans-serif;
+        }
+
+        .home-project-filter-empty p,
+        .home-team-filter-empty p {
+            margin: 0 0 17px;
+            color: #758396;
+            font-size: 12px;
+        }
+
+        .home-empty-reset {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 39px;
+            padding: 10px 15px;
+            border: 1px solid #dce7f1;
+            border-radius: 999px;
+            background: #fff;
+            color: #101b29;
+            font-size: 10px;
+            font-weight: 800;
+            transition: background .2s ease, color .2s ease, border-color .2s ease;
+        }
+
+        .home-empty-reset:hover {
+            border-color: #1687f8;
+            background: #1687f8;
+            color: #fff;
+        }
+
+        .home-project-card,
+        .home-team-card {
+            position: relative;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .home-project-card::after,
+        .home-team-card::after {
+            position: absolute;
+            z-index: 5;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(56, 189, 248, .12), transparent 38%);
+            content: "";
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease;
+        }
+
+        .home-project-card.is-tilting,
+        .home-team-card.is-tilting {
+            transform: perspective(1100px) rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg)) translateY(-4px);
+            transition: box-shadow .25s ease, border-color .25s ease;
+        }
+
+        .home-project-card.is-tilting::after,
+        .home-team-card.is-tilting::after {
+            opacity: 1;
+        }
+
+        .home-project-card.filter-enter,
+        .home-team-card.filter-enter {
+            animation: homeFilterEnter .36s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        @@keyframes homeFilterEnter {
+            from { opacity: .35; transform: translateY(10px) scale(.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .home-project-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 26px;
+            margin-top: 27px;
+            padding: clamp(25px, 4vw, 38px);
+            border: 1px solid rgba(56, 189, 248, .2);
+            border-radius: 25px;
+            background: radial-gradient(circle at 85% 10%, rgba(56, 189, 248, .15), transparent 35%), linear-gradient(120deg, #07111f, #0d1b2d);
+            box-shadow: 0 22px 50px rgba(7, 17, 31, .11);
+        }
+
+        .home-project-cta-copy { max-width: 610px; }
+
+        .home-project-cta-kicker {
+            display: inline-block;
+            margin-bottom: 9px;
+            color: #63caff;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+        }
+
+        .home-project-cta h3 {
+            margin: 0;
+            color: #fff;
+            font: 700 clamp(24px, 3vw, 34px)/1.12 "Space Grotesk", sans-serif;
+            letter-spacing: -.035em;
+        }
+
+        .home-project-cta p {
+            margin: 10px 0 0;
+            color: #9aaabe;
+            font-size: 12px;
+            line-height: 1.75;
+        }
+
+        .home-project-cta-actions {
+            display: flex;
+            flex: 0 0 auto;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .home-project-cta-primary,
+        .home-project-cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 45px;
+            padding: 12px 16px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            transition: transform .22s ease, background .22s ease, color .22s ease, border-color .22s ease;
+        }
+
+        .home-project-cta-primary {
+            background: #1687f8;
+            color: #fff;
+        }
+
+        .home-project-cta-primary:hover {
+            transform: translateY(-2px);
+            background: #38bdf8;
+            color: #07111f;
+        }
+
+        .home-project-cta-secondary {
+            border-color: rgba(255, 255, 255, .2);
+            background: rgba(255, 255, 255, .04);
+            color: #fff;
+        }
+
+        .home-project-cta-secondary:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, .45);
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .home-team-controls {
+            margin-bottom: 25px;
+        }
+
+        .home-team-control-top {
+            flex-wrap: wrap;
+        }
+
+        .home-team-controls .home-team-filters {
+            margin-top: 17px;
+        }
+
+        .home-team-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 28px;
+            padding: 22px 25px;
+            border: 1px solid rgba(22, 135, 248, .16);
+            border-radius: 20px;
+            background: linear-gradient(120deg, rgba(255,255,255,.85), rgba(232,246,255,.9));
+        }
+
+        .home-team-cta strong {
+            display: block;
+            color: #101b29;
+            font: 700 20px "Space Grotesk", sans-serif;
+        }
+
+        .home-team-cta p {
+            margin: 5px 0 0;
+            color: #718094;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .home-team-cta a {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            gap: 9px;
+            min-height: 42px;
+            padding: 11px 15px;
+            border-radius: 999px;
+            background: #07111f;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            transition: transform .22s ease, background .22s ease;
+        }
+
+        .home-team-cta a:hover {
+            transform: translateY(-2px);
+            background: #1687f8;
+        }
+
+        .home-projects a:focus-visible,
+        .home-projects button:focus-visible,
+        .home-projects input:focus-visible,
+        .home-projects select:focus-visible,
+        .home-team-section a:focus-visible,
+        .home-team-section button:focus-visible,
+        .home-team-section input:focus-visible {
+            outline: 3px solid rgba(22, 135, 248, .42);
+            outline-offset: 3px;
+        }
+
+        @@media (max-width: 800px) {
+            .home-project-control-top,
+            .home-project-control-bottom {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .home-project-search,
+            .home-team-search {
+                width: 100%;
+            }
+
+            .home-project-sort,
+            .home-project-sort select {
+                width: 100%;
+            }
+
+            .home-project-cta,
+            .home-team-cta {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .home-project-cta-actions {
+                width: 100%;
+            }
+
+            .home-project-cta-primary,
+            .home-project-cta-secondary,
+            .home-team-cta a {
+                flex: 1 1 auto;
+            }
+        }
+
+        @@media (max-width: 600px) {
+            .home-project-controls,
+            .home-team-controls {
+                padding: 15px;
+                border-radius: 18px;
+            }
+
+            .home-project-filters,
+            .home-team-filters {
+                gap: 7px;
+            }
+
+            .home-filter-chip {
+                min-height: 35px;
+                padding: 8px 10px;
+                font-size: 9px;
+            }
+
+            .home-project-cta-actions {
+                flex-direction: column;
+            }
+
+            .home-project-cta-primary,
+            .home-project-cta-secondary {
+                width: 100%;
+            }
+        }
+
+        @@media (prefers-reduced-motion: reduce) {
+            .home-project-card,
+            .home-team-card,
+            .home-project-card::after,
+            .home-team-card::after {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
+            }
+        }
+
+        /* GSAP owns transforms while the animated project/team sections are active. */
+        body.gsap-home-animations .home-project-card,
+        body.gsap-home-animations .home-team-card {
+            transition: box-shadow .35s ease, border-color .35s ease !important;
+        }
+
+        body.gsap-home-animations .home-project-card:hover,
+        body.gsap-home-animations .home-team-card:hover {
+            transform: none;
+        }
+
+        body.gsap-home-animations .home-project-visual > img,
+        body.gsap-home-animations .home-team-portrait > img,
+        body.gsap-home-animations .home-project-open {
+            transition: none !important;
+            will-change: transform;
+        }
+
+        body.gsap-home-animations .home-project-card::after,
+        body.gsap-home-animations .home-team-card::after {
+            transition: opacity .18s ease;
+        }
+
+        body.gsap-home-animations .home-gsap-word {
+            display: inline-block;
+            transform-origin: 50% 100%;
+            will-change: transform, opacity;
+        }
+
+        @@media (prefers-reduced-motion: reduce) {
+            body.gsap-home-animations .home-gsap-word,
+            body.gsap-home-animations .home-project-visual > img,
+            body.gsap-home-animations .home-team-portrait > img {
+                will-change: auto;
+            }
+        }
+
+
+
+        /* =====================================================
+           HOVER INSIGHT — GSAP TYPEWRITER BANNER
+           Appears beneath the fixed site header when an informative
+           project, service, team member, process step or technology
+           is explored.
+        ===================================================== */
+        .home-hover-insight {
+            position: fixed;
+            top: 98px;
+            left: 50%;
+            translate: -50% 0;
+            z-index: 999;
+            width: min(760px, calc(100vw - 34px));
+            display: grid;
+            grid-template-columns: 58px minmax(0, 1fr) 24px;
+            align-items: center;
+            gap: 16px;
+            padding: 17px 19px;
+            overflow: hidden;
+            isolation: isolate;
+            border: 1px solid rgba(125, 211, 252, .24);
+            border-radius: 22px;
+            background: radial-gradient(circle at 3% 0%, rgba(22, 135, 248, .23), transparent 38%), linear-gradient(135deg, rgba(7, 12, 21, .97), rgba(12, 29, 48, .97));
+            box-shadow: 0 24px 75px rgba(3, 12, 25, .28), 0 0 0 1px rgba(255, 255, 255, .025) inset;
+            color: #f8fbff;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(-18px) scale(.975);
+            transform-origin: top center;
+            will-change: transform, opacity, filter;
+        }
+
+        .home-hover-insight::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 180px;
+            height: 180px;
+            right: -72px;
+            top: -115px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, .18);
+            filter: blur(35px);
+            pointer-events: none;
+        }
+
+        .home-hover-insight::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #1687f8 22%, #38bdf8 54%, transparent);
+            opacity: .88;
+            transform: scaleX(.35);
+            transform-origin: left center;
+        }
+
+        .home-hover-insight.is-visible {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .home-hover-insight-art {
+            position: relative;
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 1px solid rgba(125, 211, 252, .23);
+            border-radius: 17px;
+            background: linear-gradient(145deg, rgba(22, 135, 248, .22), rgba(255, 255, 255, .035));
+            color: #dff5ff;
+            font: 800 17px "Space Grotesk", sans-serif;
+            letter-spacing: -.06em;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .11), 0 10px 30px rgba(0, 0, 0, .12);
+        }
+
+        .home-hover-insight-art::before,
+        .home-hover-insight-art::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .home-hover-insight-art::before {
+            inset: 7px;
+            border: 1px dashed rgba(125, 211, 252, .30);
+            animation: homeInsightOrbit 12s linear infinite;
+        }
+
+        .home-hover-insight-art::after {
+            width: 6px;
+            height: 6px;
+            right: 8px;
+            top: 8px;
+            background: #38bdf8;
+            box-shadow: 0 0 13px rgba(56, 189, 248, .9);
+        }
+
+        .home-hover-insight-copy {
+            min-width: 0;
+        }
+
+        .home-hover-insight-topline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            margin-bottom: 6px;
+            color: #8da3b9;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .15em;
+            line-height: 1.3;
+            text-transform: uppercase;
+        }
+
+        .home-hover-insight-live {
+            width: 6px;
+            height: 6px;
+            flex: 0 0 6px;
+            border-radius: 50%;
+            background: #38bdf8;
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, .11), 0 0 13px rgba(56, 189, 248, .65);
+        }
+
+        .home-hover-insight-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .home-hover-insight-index {
+            margin-left: auto;
+            color: rgba(148, 163, 184, .68);
+            white-space: nowrap;
+        }
+
+        .home-hover-insight-title {
+            margin: 0;
+            color: #fff;
+            font: 700 clamp(17px, 2vw, 22px)/1.17 "Space Grotesk", sans-serif;
+            letter-spacing: -.035em;
+            overflow-wrap: anywhere;
+        }
+
+        .home-hover-insight-title [data-insight-title],
+        .home-hover-insight-description [data-insight-copy] {
+            white-space: pre-wrap;
+        }
+
+        .home-hover-insight-description {
+            margin: 6px 0 0;
+            color: #aebdcd;
+            font-size: 11px;
+            line-height: 1.65;
+            overflow-wrap: anywhere;
+        }
+
+        .home-hover-insight[data-typing="title"] [data-insight-title]::after,
+        .home-hover-insight[data-typing="copy"] [data-insight-copy]::after {
+            content: "▍";
+            display: inline-block;
+            margin-left: 2px;
+            color: #38bdf8;
+            font-weight: 500;
+            animation: homeInsightBlink .68s steps(2, start) infinite;
+        }
+
+        .home-hover-insight-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 9px;
+        }
+
+        .home-hover-insight-meta:empty {
+            display: none;
+        }
+
+        .home-hover-insight-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            max-width: 100%;
+            padding: 4px 7px;
+            border: 1px solid rgba(125, 211, 252, .14);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .045);
+            color: #b9d8ee;
+            font-size: 8px;
+            font-weight: 750;
+            line-height: 1.3;
+            letter-spacing: .035em;
+            overflow-wrap: anywhere;
+        }
+
+        .home-hover-insight-mark {
+            align-self: start;
+            padding-top: 2px;
+            color: rgba(125, 211, 252, .8);
+            font-size: 18px;
+            line-height: 1;
+            animation: homeInsightMark 2.4s ease-in-out infinite;
+        }
+
+        .home-hover-insight-sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
+        .home-hover-info-target {
+            outline-offset: 4px;
+        }
+
+        @@keyframes homeInsightBlink {
+            to { opacity: 0; }
+        }
+
+        @@keyframes homeInsightOrbit {
+            to { transform: rotate(360deg); }
+        }
+
+        @@keyframes homeInsightMark {
+            0%, 100% { opacity: .62; transform: rotate(0deg) scale(.96); }
+            50% { opacity: 1; transform: rotate(45deg) scale(1.08); }
+        }
+
+        @@media (max-width: 760px) {
+            .home-hover-insight {
+                top: 82px;
+                width: calc(100vw - 22px);
+                grid-template-columns: 43px minmax(0, 1fr) 12px;
+                gap: 11px;
+                padding: 12px 13px 14px;
+                border-radius: 17px;
+            }
+
+            .home-hover-insight-art {
+                width: 43px;
+                height: 43px;
+                border-radius: 13px;
+                font-size: 14px;
+            }
+
+            .home-hover-insight-art::before { inset: 5px; }
+            .home-hover-insight-topline { font-size: 8px; letter-spacing: .10em; gap: 6px; }
+            .home-hover-insight-title { font-size: 16px; }
+            .home-hover-insight-description { margin-top: 5px; font-size: 10px; line-height: 1.55; }
+            .home-hover-insight-meta { margin-top: 7px; gap: 4px; }
+            .home-hover-insight-tag { padding: 3px 6px; font-size: 7px; }
+            .home-hover-insight-mark { font-size: 14px; }
+        }
+
+        @@media (max-width: 390px) {
+            .home-hover-insight {
+                top: 77px;
+                grid-template-columns: 36px minmax(0, 1fr) 8px;
+                gap: 9px;
+                padding: 10px 10px 12px;
+            }
+
+            .home-hover-insight-art { width: 36px; height: 36px; border-radius: 11px; font-size: 12px; }
+            .home-hover-insight-title { font-size: 14px; }
+            .home-hover-insight-description { font-size: 9px; }
+            .home-hover-insight-index { display: none; }
+        }
+
+        @@media (prefers-reduced-motion: reduce) {
+            .home-hover-insight-art::before,
+            .home-hover-insight-mark,
+            .home-hover-insight[data-typing="title"] [data-insight-title]::after,
+            .home-hover-insight[data-typing="copy"] [data-insight-copy]::after {
+                animation: none !important;
+            }
+        }
+        /* ===== TECHNINXA HERO VISIBILITY FIX ===== */
+
+.hero .hero-copy,
+.hero .hero-art,
+.hero .hero-bottom-line {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hero .hero-copy.reveal,
+.hero .hero-art.reveal,
+.hero .hero-bottom-line.reveal {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    filter: none !important;
+}
+
+.hero .hero-copy,
+.hero .hero-art {
+    position: relative;
+    z-index: 2;
+}
+
+.hero .hero-copy h1 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hero .hero-copy p,
+.hero .hero-copy a,
+.hero .hero-copy button {
+    visibility: visible;
+}
+
+    </style>
+}
+
+
+<section class="hero section">
+
+    <div class="hero-grid container">
+
+        <div class="hero-copy reveal">
+
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                DIGITAL PRODUCTS • SOFTWARE • IoT
+            </div>
+
+            <h1>
+                We build technology that <em>moves</em> businesses forward.
+            </h1>
+
+            <p class="hero-text">
+                Cytech Enginnering creates modern web platforms, mobile applications,
+                custom software and connected technology that turn ideas into
+                useful digital products.
+            </p>
+
+            <div class="hero-actions">
+
+                <a class="btn btn-primary" href="/Projects">
+                    Explore Projects <span>↗</span>
+                </a>
+
+                <a class="btn btn-ghost" href="#contact">
+                    Start a Project <span>→</span>
+                </a>
+
+            </div>
+
+            <div class="hero-meta">
+
+                <div>
+                    <strong>01</strong>
+                    <span>Strategy</span>
+                </div>
+
+                <div>
+                    <strong>02</strong>
+                    <span>Design</span>
+                </div>
+
+                <div>
+                    <strong>03</strong>
+                    <span>Build</span>
+                </div>
+
+                <div>
+                    <strong>04</strong>
+                    <span>Launch</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-art reveal reveal-delay">
+
+            <div class="hero-orbit orbit-a"></div>
+            <div class="hero-orbit orbit-b"></div>
+
+            <div class="hero-card hero-card-main">
+
+                <div class="mini-brand">
+                    TX
+                </div>
+
+                <div class="hero-symbol">
+
+                    <span class="symbol-t">T</span>
+                    <span class="symbol-x">X</span>
+
+                    <i></i>
+                    <b></b>
+                    <small></small>
+
+                </div>
+
+                <div class="hero-card-bottom">
+
+                    <span>TECHNOLOGY</span>
+                    <span>01 / 04</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="float-card float-one">
+
+                <span class="float-icon">
+                    ⌘
+                </span>
+
+                <div>
+                    <b>Software</b>
+                    <small>Built to scale</small>
+                </div>
+
+            </div>
+
+
+            <div class="float-card float-two">
+
+                <span class="float-icon blue">
+                    ◈
+                </span>
+
+                <div>
+                    <b>Flutter</b>
+                    <small>Mobile + Web</small>
+                </div>
+
+            </div>
+
+
+            <div class="float-card float-three">
+
+                <span class="float-icon">
+                    ◎
+                </span>
+
+                <div>
+                    <b>IoT</b>
+                    <small>Connected systems</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-bottom-line container">
+
+        <span>
+            Innovate. Build. Elevate.
+        </span>
+
+        <div class="line"></div>
+
+        <span>
+            Cytech Enginnering
+        </span>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     STATS
+     ============================== -->
+
+<section class="stats section-sm">
+
+    <div class="container stats-grid">
+
+        <div class="stat">
+            <strong data-count="4">0</strong>
+            <span>Core disciplines</span>
+        </div>
+
+        <div class="stat">
+            <strong data-count="10" data-suffix="+">0</strong>
+            <span>Technology areas</span>
+        </div>
+
+        <div class="stat">
+            <strong data-count="100" data-suffix="%">0</strong>
+            <span>Product focused</span>
+        </div>
+
+        <div class="stat">
+            <strong>24/7</strong>
+            <span>Ideas welcome</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     SCHEDULE
+     ============================== -->
+
+<section class="schedule-section">
+
+    <div class="container">
+
+        <div class="schedule-card reveal">
+
+            <div class="schedule-content">
+
+                <span class="schedule-kicker">
+                    LET'S TALK
+                </span>
+
+                <h2>
+                    Have an idea?
+                    <em>Let's find a time.</em>
+                </h2>
+
+                <p>
+                    Choose a convenient time to talk with us about your
+                    project, idea, or business needs. Pick a time that
+                    works for you and we'll take it from there.
+                </p>
+
+                <a href="/makeschedule" class="schedule-btn">
+
+                    Make a Schedule
+
+                    <span>↗</span>
+
+                </a>
+
+            </div>
+
+
+            <div class="schedule-visual">
+
+                <div class="schedule-glow"></div>
+
+                <div class="schedule-clock">
+
+                    <div class="clock-ring"></div>
+
+                    <div class="clock-center">
+
+                        <span>AVAILABLE</span>
+                        <strong>TIME</strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="schedule-floating schedule-floating-one">
+
+                    <span>01</span>
+
+                    <div>
+
+                        <strong>Choose</strong>
+                        <small>a time</small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="schedule-floating schedule-floating-two">
+
+                    <span>02</span>
+
+                    <div>
+
+                        <strong>Meet</strong>
+                        <small>with us</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     SERVICES
+     ============================== -->
+
+<section class="section services" id="services">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <span class="kicker">
+                    WHAT WE DO
+                </span>
+
+                <h2>
+                    Technology designed around your goals.
+                </h2>
+
+            </div>
+
+            <p>
+                From first idea to deployed product, we combine engineering,
+                design and practical problem solving.
+            </p>
+
+        </div>
+
+
+        <div class="service-grid">
+
+            <article class="service-card reveal">
+
+                <div class="service-top">
+
+                    <span class="service-number">
+                        01
+                    </span>
+
+                    <span class="service-icon">
+                        ◈
+                    </span>
+
+                </div>
+
+                <h3>
+                    Web Development
+                </h3>
+
+                <p>
+                    Responsive websites, dashboards, business platforms
+                    and full-stack web applications.
+                </p>
+
+                <div class="tag-row">
+
+                    <span>HTML/CSS</span>
+                    <span>JavaScript</span>
+                    <span>.NET</span>
+
+                </div>
+
+                <a href="#contact">
+                    Discuss a web project <span>↗</span>
+                </a>
+
+            </article>
+
+
+            <article class="service-card featured reveal">
+
+                <div class="service-top">
+
+                    <span class="service-number">
+                        02
+                    </span>
+
+                    <span class="service-icon">
+                        ▣
+                    </span>
+
+                </div>
+
+                <h3>
+                    Mobile Apps
+                </h3>
+
+                <p>
+                    Modern Android, iOS and cross-platform experiences
+                    designed for real users.
+                </p>
+
+                <div class="tag-row">
+
+                    <span>Flutter</span>
+                    <span>Android</span>
+                    <span>Firebase</span>
+
+                </div>
+
+                <a href="#contact">
+                    Discuss an app <span>↗</span>
+                </a>
+
+            </article>
+
+
+            <article class="service-card reveal">
+
+                <div class="service-top">
+
+                    <span class="service-number">
+                        03
+                    </span>
+
+                    <span class="service-icon">
+                        ⌘
+                    </span>
+
+                </div>
+
+                <h3>
+                    Custom Software
+                </h3>
+
+                <p>
+                    Business systems, management software, APIs and
+                    automation tailored to your workflow.
+                </p>
+
+                <div class="tag-row">
+
+                    <span>C#</span>
+                    <span>MySQL</span>
+                    <span>REST API</span>
+
+                </div>
+
+                <a href="#contact">
+                    Build software <span>↗</span>
+                </a>
+
+            </article>
+
+
+            <article class="service-card featured reveal">
+
+                <div class="service-top">
+
+                    <span class="service-number">
+                        04
+                    </span>
+
+                    <span class="service-icon">
+                        ◎
+                    </span>
+
+                </div>
+
+                <h3>
+                    IoT & Embedded
+                </h3>
+
+                <p>
+                    Connected devices, monitoring dashboards and smart
+                    systems linking hardware with software.
+                </p>
+
+                <div class="tag-row">
+
+                    <span>ESP32</span>
+                    <span>IoT</span>
+                    <span>Wi-Fi</span>
+
+                </div>
+
+                <a href="#contact">
+                    Build an IoT solution <span>↗</span>
+                </a>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     SELECTED PROJECTS — REDESIGNED
+     ============================== -->
+
+<section class="section home-projects" id="projects">
+    <div class="container">
+        <div class="home-projects-head reveal">
+            <div>
+                <span class="home-projects-eyebrow">Selected work · Cytech Enginnering</span>
+                <h2 class="home-projects-title">Digital products.<br><em>Real-world impact.</em></h2>
+            </div>
+
+            <div class="home-projects-intro">
+                <p>Explore a selection of our work across web platforms, mobile experiences, custom software and connected technology. Every project starts with a problem worth solving.</p>
+                <a class="home-projects-link" href="/Projects">
+                    Explore the project library <span aria-hidden="true">↗</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="home-project-controls" data-project-controls hidden>
+            <div class="home-project-control-top">
+                <div>
+                    <span class="home-control-label">Browse the work</span>
+                    <strong class="home-control-count" data-project-count>0 projects</strong>
+                </div>
+                <label class="home-project-search">
+                    <span class="home-search-icon" aria-hidden="true">⌕</span>
+                    <input type="search" data-project-search placeholder="Search projects, services or tech..." aria-label="Search projects" autocomplete="off">
+                </label>
+            </div>
+            <div class="home-project-control-bottom">
+                <div class="home-project-filters" data-project-filters role="group" aria-label="Filter projects by category"></div>
+                <label class="home-project-sort">
+                    <span>Sort projects</span>
+                    <select data-project-sort aria-label="Sort projects">
+                        <option value="featured">Featured order</option>
+                        <option value="az">Title: A to Z</option>
+                        <option value="za">Title: Z to A</option>
+                    </select>
+                </label>
+            </div>
+            <p class="home-project-status" data-project-status role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="home-projects-grid" data-project-grid>
+            @if (ViewBag.Projects != null && ViewBag.Projects.Count > 0)
+            {
+                int projectIndex = 1;
+
+                foreach (var project in ViewBag.Projects)
+                {
+                    <a class="home-project-card @(projectIndex == 1 ? "home-project-card-featured" : "") reveal @(projectIndex % 2 == 0 ? "reveal-delay" : "")"
+                       href="/Projects/Details/@project.Slug"
+                       data-project-card
+                       data-category="@project.Category"
+                       data-title="@project.Title"
+                       data-description="@project.ShortDescription"
+                       data-order="@projectIndex"
+                       aria-label="View the @project.Title project">
+                        <div class="home-project-visual">
+                            <div class="home-project-visual-grid" aria-hidden="true"></div>
+
+                            @if (!string.IsNullOrWhiteSpace(project.HeroImage))
+                            {
+                                <img src="@project.HeroImage" alt="@project.Title project preview" loading="lazy">
+                            }
+                            else
+                            {
+                                <div class="home-project-placeholder">
+                                    <span class="home-project-placeholder-mark" aria-hidden="true">TX</span>
+                                    <strong>@project.Title</strong>
+                                    <small>PROJECT PREVIEW</small>
+                                </div>
+                            }
+
+                            <span class="home-project-category">@project.Category</span>
+                            <span class="home-project-number">WORK / @projectIndex.ToString("00")</span>
+                            <span class="home-project-open" aria-hidden="true">↗</span>
+                        </div>
+
+                        <div class="home-project-content">
+                            <div class="home-project-content-top">
+                                <span class="home-project-overline">Case study / @projectIndex.ToString("00")</span>
+                                @if (projectIndex == 1)
+                                {
+                                    <span class="home-project-featured-label">Featured work</span>
+                                }
+                            </div>
+
+                            <h3>@project.Title</h3>
+                            <p>@project.ShortDescription</p>
+
+                            <div class="home-project-footer">
+                                <span>Discover this project</span>
+                                <span class="home-project-footer-arrow" aria-hidden="true">↗</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    projectIndex++;
+                }
+            }
+            else
+            {
+                <div class="home-project-empty">
+                    <span aria-hidden="true">TX</span>
+                    <p>Our latest projects will be featured here soon.</p>
+                </div>
+            }
+        </div>
+
+        <div class="home-project-filter-empty" data-project-empty hidden>
+            <strong>No matching projects yet.</strong>
+            <p>Try another category or search term to discover more of our work.</p>
+            <button class="home-empty-reset" type="button" data-project-reset>Show all projects</button>
+        </div>
+
+        <div class="home-project-cta reveal">
+            <div class="home-project-cta-copy">
+                <span class="home-project-cta-kicker">Have a challenge in mind?</span>
+                <h3>Let’s build your next useful digital product.</h3>
+                <p>Tell us what you’re trying to solve. We’ll help shape the idea into a clear, practical next step.</p>
+            </div>
+            <div class="home-project-cta-actions">
+                <a class="home-project-cta-primary" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
+                <a class="home-project-cta-secondary" href="/makeschedule">Schedule a call <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ==============================
+     TECHNOLOGY STACK
+     ============================== -->
+
+<section class="section tech-section">
+
+    <div class="container">
+
+        <div class="tech-layout">
+
+            <div class="reveal">
+
+                <span class="kicker">
+                    OUR STACK
+                </span>
+
+                <h2>
+                    Modern tools.<br>
+                    <em>Practical engineering.</em>
+                </h2>
+
+                <p>
+                    We choose technologies around the problem, not the trend.
+                    The result is software that is maintainable, responsive
+                    and ready to evolve.
+                </p>
+
+            </div>
+
+
+            <div class="tech-cloud reveal reveal-delay">
+
+                <span class="tech-pill big">
+                    Flutter
+                </span>
+
+                <span class="tech-pill">
+                    C#
+                </span>
+
+                <span class="tech-pill">
+                    .NET
+                </span>
+
+                <span class="tech-pill blue">
+                    Firebase
+                </span>
+
+                <span class="tech-pill">
+                    MySQL
+                </span>
+
+                <span class="tech-pill big blue">
+                    JavaScript
+                </span>
+
+                <span class="tech-pill">
+                    HTML / CSS
+                </span>
+
+                <span class="tech-pill">
+                    ESP32
+                </span>
+
+                <span class="tech-pill">
+                    REST API
+                </span>
+
+                <span class="tech-pill">
+                    Android
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     PROCESS
+     ============================== -->
+
+<section class="section process-section">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <div>
+
+                <span class="kicker">
+                    HOW WE WORK
+                </span>
+
+                <h2>
+                    From idea to impact.
+                </h2>
+
+            </div>
+
+            <p>
+                A simple process keeps the product focused while leaving
+                room for better ideas.
+            </p>
+
+        </div>
+
+
+        <div class="process-grid">
+
+            <article class="process-card reveal">
+
+                <span>01</span>
+
+                <div class="process-line"></div>
+
+                <h3>
+                    Discover
+                </h3>
+
+                <p>
+                    Understand the problem, users, goals and technical requirements.
+                </p>
+
+            </article>
+
+
+            <article class="process-card reveal">
+
+                <span>02</span>
+
+                <div class="process-line"></div>
+
+                <h3>
+                    Design
+                </h3>
+
+                <p>
+                    Shape the experience, architecture and visual direction
+                    before building.
+                </p>
+
+            </article>
+
+
+            <article class="process-card reveal">
+
+                <span>03</span>
+
+                <div class="process-line"></div>
+
+                <h3>
+                    Build
+                </h3>
+
+                <p>
+                    Develop, integrate, test and refine the product in
+                    focused iterations.
+                </p>
+
+            </article>
+
+
+            <article class="process-card reveal">
+
+                <span>04</span>
+
+                <div class="process-line"></div>
+
+                <h3>
+                    Launch
+                </h3>
+
+                <p>
+                    Deploy the solution and continue improving it as
+                    needs change.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     ABOUT TECHNINXA
+     ============================== -->
+
+<section class="section about-section" id="about">
+
+    <div class="container">
+
+        <!-- ABOUT INTRO -->
+
+        <div class="about-grid">
+
+            <!-- BRAND BLOCK -->
+
+            <div class="about-mark reveal">
+
+                <div class="about-logo">
+
+                    <img src="~/assets/cytechlogo.jpg"
+                         alt="Cytech">
+
+                </div>
+
+                <span>
+                    INNOVATE. BUILD. ELEVATE.
+                </span>
+
+            </div>
+
+
+            <!-- ABOUT CONTENT -->
+
+            <div class="about-copy reveal">
+
+                <span class="kicker">
+                    ABOUT TECHNINXA
+                </span>
+
+                <h2>
+                    We turn ideas into technology
+                    <em>people can actually use.</em>
+                </h2>
+
+                <p>
+                    Cytech Enginneringis a technology-focused company creating
+                    practical digital solutions across web, mobile,
+                    software and connected systems.
+                </p>
+
+                <p>
+                    Our approach is simple: understand the problem,
+                    choose the right tools, build with care and keep improving.
+                </p>
+
+                <a class="btn btn-dark" href="/Projects">
+
+                    See our work
+
+                    <span>↗</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==============================
+             MEET THE TEAM
+             ============================== -->
+
+        <div class="team-section home-team-section">
+            <div class="home-team-heading reveal">
+                <div>
+                    <span class="home-team-eyebrow">The people behind Cytech Enginnering</span>
+                    <h2 class="home-team-title">Meet the minds<br><em>behind the work.</em></h2>
+                </div>
+
+                <div class="home-team-heading-side">
+                    <p>Good technology comes from thoughtful people working together. Meet the team bringing engineering, creativity and practical problem-solving to every build.</p>
+                    <div class="home-team-culture">
+                        <span class="home-team-culture-mark" aria-hidden="true">✳</span>
+                        <span>Different strengths. One shared goal.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-team-controls" data-team-controls hidden>
+                <div class="home-team-control-top">
+                    <div class="home-team-control-summary">
+                        <span class="home-control-label">Find your point of contact</span>
+                        <strong class="home-control-count" data-team-count>0 team members</strong>
+                    </div>
+                    <label class="home-team-search">
+                        <span class="home-search-icon" aria-hidden="true">⌕</span>
+                        <input type="search" data-team-search placeholder="Search by name, role or department..." aria-label="Search team members" autocomplete="off">
+                    </label>
+                </div>
+                <div class="home-team-filters" data-team-filters role="group" aria-label="Filter team members by department"></div>
+                <p class="home-team-status" data-team-status role="status" aria-live="polite"></p>
+            </div>
+
+            <div class="home-team-grid" data-team-grid>
+                @if (ViewBag.TeamMembers != null && ViewBag.TeamMembers.Count > 0)
+                {
+                    int teamIndex = 1;
+
+                    foreach (var member in ViewBag.TeamMembers)
+                    {
+                        <article class="home-team-card reveal @(teamIndex % 2 == 0 ? "reveal-delay" : "")"
+                                 data-team-card
+                                 data-name="@member.Name"
+                                 data-role="@member.Role"
+                                 data-department="@member.Department"
+                                 data-order="@teamIndex">
+                            <div class="home-team-portrait">
+                                @if (!string.IsNullOrWhiteSpace(member.Image))
+                                {
+                                    <img src="@member.Image"
+                                         alt="@(string.IsNullOrWhiteSpace(member.AltText) ? member.Name : member.AltText)"
+                                         loading="lazy">
+                                }
+                                else
+                                {
+                                    <div class="home-team-image-placeholder">
+                                        <span class="home-team-placeholder-mark" aria-hidden="true">TX</span>
+                                        <strong>@member.Name</strong>
+                                    </div>
+                                }
+
+                                <span class="home-team-index">TEAM / @teamIndex.ToString("00")</span>
+
+                                <div class="home-team-department-chip">
+                                    <span>@member.Department</span>
+                                    <span>Cytech Enginnering</span>
+                                </div>
+                            </div>
+
+                            <div class="home-team-body">
+                                <div>
+                                    <span class="home-team-name-label">The people powering the product</span>
+                                    <h3 class="home-team-name">@member.Name</h3>
+                                    <div class="home-team-role">@member.Role</div>
+                                </div>
+
+                                <div class="home-team-card-footer">
+                                    <span class="home-team-footer-note">@member.Department</span>
+
+                                    @if (member.Id == 1)
+                                    {
+                                        <a href="/labib" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                    else if (member.Id == 4)
+                                    {
+                                        <a href="/ashik" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                    else if (member.Id == 2)
+                                    {
+                                        <a href="/arabinda" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                    else if (member.Id == 3)
+                                    {
+                                        <a href="/amrin" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                    else if (member.Id == 5)
+                                    {
+                                        <a href="/anik" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                    else if (member.Id == 6)
+                                    {
+                                        <a href="/mehadi" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                    else if (member.Id == 10)
+                                    {
+                                        <a href="/billal" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                    else if (member.Id == 11)
+                                    {
+                                        <a href="/murad" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                    else if (member.Id == 12)
+                                    {
+                                        <a href="/nazmul" class="home-team-portfolio" aria-label="View @member.Name's portfolio">
+                                            Portfolio <span aria-hidden="true">↗</span>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </article>
+
+                        teamIndex++;
+                    }
+                }
+                else
+                {
+                    <div class="home-team-empty">
+                        <strong>Our team is growing.</strong>
+                        <p>Team profiles will appear here as they become available.</p>
+                    </div>
+                }
+            </div>
+
+            <div class="home-team-filter-empty" data-team-empty hidden>
+                <strong>No team members found.</strong>
+                <p>Try another name or department.</p>
+                <button class="home-empty-reset" type="button" data-team-reset>Show the whole team</button>
+            </div>
+
+            <div class="home-team-cta reveal">
+                <div>
+                    <strong>Looking for the right people to build with?</strong>
+                    <p>Share your goals with us and we’ll help identify a practical way forward.</p>
+                </div>
+                <a href="#contact">Talk to Cytech Enginnering<span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     CONTACT
+     ============================== -->
+
+<section class="contact-section" id="contact">
+
+    <div class="container contact-box reveal">
+
+        <div class="contact-copy">
+
+            <span class="kicker">
+                HAVE AN IDEA?
+            </span>
+
+            <h2>
+                Let's build something <em>useful.</em>
+            </h2>
+
+            <p>
+                Tell us what you want to create. We'll turn the first
+                conversation into a clear next step.
+            </p>
+
+
+            <div class="contact-details">
+
+                <a href="mailto:contact@@techninxa.com">
+                    support@@techninxa.com
+                </a>
+
+                <a href="tel:+8801790379729">
+                    01790-379729
+                </a>
+
+                <a href="tel:+8801747414675">
+                    01747-414675
+                </a>
+
+                <span>
+                    Bangladesh
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <form class="contact-form"
+              method="post"
+              asp-action="SubmitMessege"
+              asp-controller="Home">
+
+            <label>
+
+                Name
+
+                <input type="text"
+                       asp-for="Name"
+                       placeholder="Your name"
+                       required>
+
+            </label>
+
+
+            <label>
+
+                Email
+
+                <input type="email"
+                       asp-for="Email"
+                       placeholder="you@example.com"
+                       required>
+
+            </label>
+
+
+            <label>
+
+                Project type
+
+                <select asp-for="ProjectType" required>
+
+                    <option value="WebDevelopment">
+                        Web Development
+                    </option>
+
+                    <option value="MobileApp">
+                        Mobile App
+                    </option>
+
+                    <option value="CustomSoftware">
+                        Custom Software
+                    </option>
+
+                    <option value="IoTEmbedded">
+                        IoT / Embedded
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+
+                Tell us about it
+
+                <textarea asp-for="Message"
+                          rows="4"
+                          placeholder="A short description of your idea..."
+                          required></textarea>
+
+            </label>
+
+
+            <button class="btn btn-primary" type="submit">
+
+                Send Message <span>↗</span>
+
+            </button>
+
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <p>
+                    @TempData["SuccessMessage"]
+                </p>
+            }
+
+
+            <p class="form-note" id="formNote"></p>
+
+        </form>
+
+    </div>
+
+</section>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Flip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+    <script src="~/js/home-interactions.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,1203 @@
+﻿
+@{
+    ViewData["Title"] = "TaskManager | Cytech EnginneringCase Study";
+    ViewData["Description"] = "TaskManager React Native productivity application case study by Techninxa.";
+    Layout = null;
+
+    var taskManagerImage = Url.Content("~/images/ashik/5.png");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="@ViewData["Description"]" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --cs-bg: #071321;
+            --cs-panel: #0c1d30;
+            --cs-panel2: #102941;
+            --cs-text: #f2f8ff;
+            --cs-muted: #9eb3c9;
+            --cs-line: rgba(191,220,255,.14);
+            --cs-accent: #2998ff;
+            --cs-accent2: #65d7ff;
+            --cs-green: #40d7b0;
+            --cs-purple: #a78bfa;
+        }
+
+        * { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 24px;
+        }
+
+        body {
+            margin: 0;
+            background: var(--cs-bg);
+            color: var(--cs-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        a { color: inherit; }
+
+        .case-study {
+            background: var(--cs-bg);
+            color: var(--cs-text);
+            overflow: hidden;
+            margin: 0 calc(50% - 50vw);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .case-study * { box-sizing: border-box; }
+
+        .cs-wrap {
+            width: min(1180px, calc(100% - 44px));
+            margin: auto;
+        }
+
+        .cs-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--cs-accent2);
+            font-size: .74rem;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .cs-eyebrow::before {
+            content: "";
+            width: 26px;
+            height: 2px;
+            background: currentColor;
+        }
+
+        .cs-hero {
+            position: relative;
+            isolation: isolate;
+            padding: 105px 0 80px;
+            background:
+                radial-gradient(ellipse at 80% 15%, rgba(41,152,255,.23), transparent 36%),
+                radial-gradient(ellipse at 5% 95%, rgba(101,215,255,.10), transparent 30%),
+                linear-gradient(140deg, #071321, #0b2036 60%, #071321);
+        }
+
+        .cs-grid-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: .16;
+            background-image:
+                linear-gradient(var(--cs-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--cs-line) 1px, transparent 1px);
+            background-size: 52px 52px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+        }
+
+        .cs-hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 55px;
+            align-items: center;
+        }
+
+        .cs-hero h1 {
+            font-size: clamp(3.2rem, 7vw, 6.5rem);
+            line-height: .96;
+            letter-spacing: -.075em;
+            margin: 23px 0;
+            font-weight: 900;
+        }
+
+        .cs-hero h1 span {
+            color: var(--cs-accent);
+        }
+
+        .cs-lead {
+            color: #b6cbe0;
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            line-height: 1.85;
+            max-width: 570px;
+        }
+
+        .cs-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin: 25px 0;
+        }
+
+        .cs-tags span {
+            border: 1px solid var(--cs-line);
+            background: rgba(255,255,255,.035);
+            border-radius: 99px;
+            padding: 9px 13px;
+            color: #d0e5f8;
+            font-size: .77rem;
+        }
+
+        .cs-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .cs-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 19px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: .87rem;
+            font-weight: 800;
+            transition: transform .25s, background .25s, border-color .25s;
+        }
+
+        .cs-btn:hover { transform: translateY(-3px); }
+
+        .cs-btn-primary {
+            color: #04182b;
+            background: linear-gradient(115deg, #45b8ff, #68dcff);
+            box-shadow: 0 9px 28px rgba(41,152,255,.17);
+        }
+
+        .cs-btn-ghost {
+            color: var(--cs-text);
+            border: 1px solid var(--cs-line);
+        }
+
+        .cs-btn-ghost:hover { border-color: var(--cs-accent); }
+
+        .cs-visual { position: relative; perspective: 1100px; }
+
+        .cs-screen-frame {
+            position: relative;
+            padding: 9px;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 25px;
+            background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.025));
+            box-shadow: 0 35px 100px rgba(0,0,0,.42);
+            transform: rotateY(-6deg) rotateX(2deg);
+            transition: transform .65s cubic-bezier(.2,.8,.2,1);
+        }
+
+        .cs-screen-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 17px;
+        }
+
+        .cs-visual:hover .cs-screen-frame {
+            transform: rotateY(0) rotateX(0) translateY(-5px);
+        }
+
+        .cs-float {
+            position: absolute;
+            z-index: 2;
+            padding: 13px 16px;
+            border-radius: 14px;
+            background: rgba(8,26,43,.94);
+            border: 1px solid var(--cs-line);
+            box-shadow: 0 16px 35px rgba(0,0,0,.3);
+            animation: csFloat 5s ease-in-out infinite;
+        }
+
+        .cs-float strong {
+            display: block;
+            font-size: .82rem;
+        }
+
+        .cs-float small {
+            color: var(--cs-muted);
+            font-size: .7rem;
+        }
+
+        .cs-float.one { top: 7%; right: -5%; }
+
+        .cs-float.two {
+            bottom: 7%;
+            left: -6%;
+            animation-delay: -2.2s;
+        }
+
+        @@keyframes csFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-11px); }
+        }
+
+        .cs-metrics {
+            border-top: 1px solid var(--cs-line);
+            border-bottom: 1px solid var(--cs-line);
+            background: #091827;
+        }
+
+        .cs-metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .cs-metric {
+            padding: 27px 20px;
+            border-right: 1px solid var(--cs-line);
+        }
+
+        .cs-metric:last-child { border-right: 0; }
+
+        .cs-metric b {
+            display: block;
+            font-size: 1.35rem;
+            letter-spacing: -.04em;
+        }
+
+        .cs-metric span {
+            display: block;
+            margin-top: 6px;
+            color: var(--cs-muted);
+            font-size: .77rem;
+        }
+
+        .cs-section {
+            position: relative;
+            padding: 100px 0;
+        }
+
+        .cs-section.alt { background: #091827; }
+
+        .cs-section-head {
+            max-width: 740px;
+            margin-bottom: 42px;
+        }
+
+        .cs-section h2 {
+            font-size: clamp(2.1rem, 4.3vw, 4rem);
+            line-height: 1.06;
+            letter-spacing: -.065em;
+            margin: 16px 0;
+        }
+
+        .cs-section-head > p {
+            color: var(--cs-muted);
+            line-height: 1.85;
+        }
+
+        .cs-two-col {
+            display: grid;
+            grid-template-columns: .85fr 1.15fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .cs-copy p {
+            color: var(--cs-muted);
+            line-height: 1.9;
+        }
+
+        .cs-list {
+            list-style: none;
+            padding: 0;
+            margin: 22px 0;
+        }
+
+        .cs-list li {
+            display: flex;
+            gap: 12px;
+            margin: 15px 0;
+            color: #d9e9f8;
+            line-height: 1.65;
+        }
+
+        .cs-list li::before {
+            content: "↗";
+            color: var(--cs-accent2);
+            font-weight: 900;
+        }
+
+        .cs-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .cs-card {
+            position: relative;
+            padding: 24px;
+            min-height: 195px;
+            border: 1px solid var(--cs-line);
+            border-radius: 18px;
+            background: linear-gradient(150deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+            transition: transform .3s, border-color .3s, background .3s;
+        }
+
+        .cs-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(101,215,255,.6);
+            background: rgba(41,152,255,.055);
+        }
+
+        .cs-icon {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            color: var(--cs-accent2);
+            background: rgba(41,152,255,.13);
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .cs-card h3 {
+            font-size: .98rem;
+            margin: 0 0 10px;
+        }
+
+        .cs-card p {
+            color: var(--cs-muted);
+            font-size: .84rem;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        .cs-statuses {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .cs-status {
+            padding: 19px;
+            border: 1px solid var(--cs-line);
+            border-radius: 15px;
+            background: #0b1c2c;
+            transition: transform .25s;
+        }
+
+        .cs-status:hover { transform: translateY(-4px); }
+
+        .cs-status .dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            margin-right: 7px;
+            border-radius: 50%;
+            background: var(--cs-accent);
+        }
+
+        .cs-status:nth-child(2) .dot { background: #fbbf24; }
+        .cs-status:nth-child(3) .dot { background: var(--cs-green); }
+        .cs-status:nth-child(4) .dot { background: #fb7185; }
+
+        .cs-status b {
+            display: block;
+            font-size: .85rem;
+        }
+
+        .cs-status p {
+            color: var(--cs-muted);
+            font-size: .76rem;
+            line-height: 1.65;
+            margin-bottom: 0;
+        }
+
+        .cs-shot {
+            padding: 10px;
+            overflow: hidden;
+            border: 1px solid var(--cs-line);
+            border-radius: 22px;
+            background: #0b1d30;
+        }
+
+        .cs-shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            cursor: zoom-in;
+            transition: transform .4s;
+        }
+
+        .cs-shot:hover img { transform: scale(1.012); }
+
+        .cs-caption {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px 5px 5px;
+            color: var(--cs-muted);
+            font-size: .77rem;
+        }
+
+        .cs-diagram {
+            padding: 24px;
+            overflow-x: auto;
+            border: 1px solid var(--cs-line);
+            border-radius: 20px;
+            background: linear-gradient(135deg, #0d2237, #091521);
+        }
+
+        .cs-diagram svg {
+            display: block;
+            width: 100%;
+            min-width: 700px;
+            height: auto;
+        }
+
+        .cs-diagram-note {
+            color: var(--cs-muted);
+            font-size: .8rem;
+            line-height: 1.75;
+            margin-top: 15px;
+        }
+
+        .cs-stack {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .cs-stack-item {
+            padding: 19px;
+            border: 1px solid var(--cs-line);
+            border-radius: 14px;
+            background: #0b1c2c;
+        }
+
+        .cs-stack-item small {
+            display: block;
+            color: var(--cs-accent2);
+            font-size: .67rem;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+
+        .cs-stack-item b { font-size: .93rem; }
+
+        .cs-stack-item p {
+            color: var(--cs-muted);
+            font-size: .78rem;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .cs-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            padding: 60px;
+            border: 1px solid var(--cs-line);
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at 90% 0%, rgba(41,152,255,.20), transparent 43%),
+                #0d2237;
+        }
+
+        .cs-cta h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            letter-spacing: -.06em;
+            margin: 13px 0;
+        }
+
+        .cs-cta p {
+            max-width: 590px;
+            color: var(--cs-muted);
+            line-height: 1.8;
+        }
+
+        .cs-reveal {
+            opacity: 0;
+            transform: translateY(23px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .cs-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0,0,0,.92);
+        }
+
+        .cs-lightbox.open { display: flex; }
+
+        .cs-lightbox img {
+            max-width: min(1200px, 95vw);
+            max-height: 88vh;
+            border-radius: 12px;
+        }
+
+        .cs-lightbox button {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            width: 44px;
+            height: 44px;
+            border: 1px solid #ffffff55;
+            border-radius: 50%;
+            color: white;
+            background: #102033;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @@media (max-width: 850px) {
+            .cs-hero { padding: 75px 0 60px; }
+
+            .cs-hero-layout,
+            .cs-two-col {
+                grid-template-columns: 1fr;
+                gap: 38px;
+            }
+
+            .cs-visual {
+                width: 100%;
+                max-width: 680px;
+                margin: 0 auto;
+            }
+
+            .cs-float.one { right: 0; }
+            .cs-float.two { left: 0; }
+
+            .cs-card-grid { grid-template-columns: repeat(2, 1fr); }
+            .cs-stack { grid-template-columns: repeat(2, 1fr); }
+            .cs-statuses { grid-template-columns: repeat(2, 1fr); }
+
+            .cs-cta {
+                padding: 36px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .cs-section { padding: 75px 0; }
+        }
+
+        @@media (max-width: 560px) {
+            .cs-wrap { width: calc(100% - 28px); }
+
+            .cs-hero h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
+
+            .cs-metric-grid { grid-template-columns: repeat(2, 1fr); }
+
+            .cs-metric:nth-child(2) { border-right: 0; }
+
+            .cs-metric:nth-child(-n+2) {
+                border-bottom: 1px solid var(--cs-line);
+            }
+
+            .cs-card-grid,
+            .cs-statuses {
+                grid-template-columns: 1fr;
+            }
+
+            .cs-card { min-height: 0; }
+
+            .cs-stack { grid-template-columns: repeat(2, 1fr); }
+            .cs-stack-item { padding: 14px; }
+            .cs-section { padding: 60px 0; }
+            .cs-cta { padding: 25px; }
+
+            .cs-caption {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .cs-float { padding: 10px 12px; }
+        }
+
+        @@media (prefers-reduced-motion: reduce) {
+            .case-study *,
+            .case-study *::before,
+            .case-study *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+
+            .cs-reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<main class="case-study" id="taskManagerCaseStudy">
+
+    <section class="cs-hero">
+        <div class="cs-grid-bg"></div>
+
+        <div class="cs-wrap cs-hero-layout">
+            <div class="cs-reveal">
+                <span class="cs-eyebrow">React Native case study</span>
+
+                <h1>
+                    Plan smarter.<br />
+                    <span>Get things done.</span>
+                </h1>
+
+                <p class="cs-lead">
+                    TaskManager is a mobile productivity application designed to
+                    help users organize daily responsibilities, create tasks,
+                    monitor progress and manage their workflow from one simple interface.
+                </p>
+
+                <div class="cs-tags">
+                    <span>React Native</span>
+                    <span>Task management</span>
+                    <span>Productivity</span>
+                    <span>Mobile application</span>
+                </div>
+
+                <div class="cs-actions">
+                    <a class="cs-btn cs-btn-primary" href="#task-features">
+                        Explore the application <span aria-hidden="true">↘</span>
+                    </a>
+                    <a class="cs-btn cs-btn-ghost" href="#task-architecture">
+                        View system design
+                    </a>
+                </div>
+            </div>
+
+            <div class="cs-visual cs-reveal">
+                <div class="cs-float one">
+                    <strong>Every task, organized</strong>
+                    <small>One focused workspace</small>
+                </div>
+
+                <div class="cs-screen-frame">
+                    <img src="@taskManagerImage"
+                         alt="TaskManager React Native application poster with task list, dashboard and task detail screens"
+                         fetchpriority="high" />
+                </div>
+
+                <div class="cs-float two">
+                    <strong>Small steps. Big goals.</strong>
+                    <small>Build better daily habits</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-metrics">
+        <div class="cs-wrap cs-metric-grid">
+            <div class="cs-metric">
+                <b>Task lifecycle</b>
+                <span>From creation to completion</span>
+            </div>
+            <div class="cs-metric">
+                <b>4 statuses</b>
+                <span>Organized task workflow</span>
+            </div>
+            <div class="cs-metric">
+                <b>Mobile-first</b>
+                <span>React Native experience</span>
+            </div>
+            <div class="cs-metric">
+                <b>Daily focus</b>
+                <span>Personal productivity</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap cs-two-col">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">01 / The challenge</span>
+                <h2>Turn a busy day into a clear plan.</h2>
+            </div>
+
+            <div class="cs-copy cs-reveal">
+                <p>
+                    Managing multiple responsibilities becomes difficult when tasks
+                    are scattered across different places. TaskManager brings daily
+                    work into a structured interface where users can add tasks,
+                    review deadlines and understand what needs attention next.
+                </p>
+
+                <ul class="cs-list">
+                    <li>Create tasks with titles, descriptions and due dates.</li>
+                    <li>Organize work by its current status.</li>
+                    <li>Update progress as tasks move through the workflow.</li>
+                    <li>Review task information without navigating a complicated interface.</li>
+                    <li>Use dashboard and calendar views to organize activities.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section alt" id="task-features">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">02 / Product capabilities</span>
+                <h2>Everything organized.<br />Nothing overlooked.</h2>
+                <p>
+                    A productivity experience built around practical workflows,
+                    clear task states and quick access to important information.
+                </p>
+            </div>
+
+            <div class="cs-card-grid">
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">＋</div>
+                    <h3>Create tasks</h3>
+                    <p>Add tasks with titles, descriptions and relevant scheduling information.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">☷</div>
+                    <h3>Task dashboard</h3>
+                    <p>View task summaries and access important work from a central screen.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">◷</div>
+                    <h3>Calendar planning</h3>
+                    <p>Organize scheduled responsibilities and review upcoming due dates.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">↗</div>
+                    <h3>Progress tracking</h3>
+                    <p>Move tasks through their lifecycle and quickly understand current progress.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">▤</div>
+                    <h3>Task details</h3>
+                    <p>Review task descriptions, due dates and available task actions in one place.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">▥</div>
+                    <h3>Statistics</h3>
+                    <p>Provide an overview of task activity and completion when supported by the app data.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">♙</div>
+                    <h3>User profile</h3>
+                    <p>Give users a dedicated space for account information and personal settings.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">⚙</div>
+                    <h3>Settings</h3>
+                    <p>Keep application preferences and account actions accessible from a familiar screen.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">◉</div>
+                    <h3>Session management</h3>
+                    <p>Structure sign-in and sign-out flows around secure session handling.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">03 / Task workflow</span>
+                <h2>Progress you can understand at a glance.</h2>
+                <p>
+                    TaskManager separates work into distinct states, helping users
+                    identify newly created work, active tasks, completed items and
+                    tasks that have been canceled.
+                </p>
+            </div>
+
+            <div class="cs-statuses cs-reveal">
+                <div class="cs-status">
+                    <b><span class="dot"></span>New</b>
+                    <p>Tasks waiting to be started or reviewed.</p>
+                </div>
+
+                <div class="cs-status">
+                    <b><span class="dot"></span>In Progress</b>
+                    <p>Tasks currently being worked on.</p>
+                </div>
+
+                <div class="cs-status">
+                    <b><span class="dot"></span>Completed</b>
+                    <p>Tasks that have reached their completion state.</p>
+                </div>
+
+                <div class="cs-status">
+                    <b><span class="dot"></span>Canceled</b>
+                    <p>Tasks that are no longer active in the workflow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section alt">
+        <div class="cs-wrap cs-two-col">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">04 / Interface design</span>
+                <h2>Less clutter. More focus.</h2>
+
+                <p>
+                    The interface combines a clean mobile layout with blue accents,
+                    readable task cards and recognizable navigation patterns.
+                    Status labels make progress easier to scan while the primary
+                    actions remain easy to find.
+                </p>
+
+                <ul class="cs-list">
+                    <li>Clear visual distinction between task statuses.</li>
+                    <li>Simple forms for creating and updating tasks.</li>
+                    <li>Consistent navigation between dashboard, calendar and profile.</li>
+                    <li>Readable task details and due-date information.</li>
+                    <li>Reusable interface patterns for a consistent mobile experience.</li>
+                </ul>
+            </div>
+
+            <div class="cs-shot cs-reveal">
+                <img class="cs-zoom"
+                     src="@taskManagerImage"
+                     alt="TaskManager mobile application interface overview"
+                     loading="lazy" />
+
+                <div class="cs-caption">
+                    <span>TaskManager interface overview</span>
+                    <span>Click to enlarge ↗</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section" id="task-architecture">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">05 / System architecture</span>
+                <h2>From mobile interaction to stored task data.</h2>
+                <p>
+                    A conceptual architecture showing how the React Native client,
+                    application API and task records can work together. Adjust the
+                    diagram to reflect the actual implementation.
+                </p>
+            </div>
+
+            <div class="cs-diagram cs-reveal">
+                <svg viewBox="0 0 960 490"
+                     role="img"
+                     aria-label="Conceptual TaskManager application architecture">
+
+                    <defs>
+                        <marker id="taskArrow" markerWidth="8" markerHeight="8"
+                                refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L6,3 L0,6 Z" fill="#65d7ff" />
+                        </marker>
+                    </defs>
+
+                    <text x="30" y="32" fill="#f2f8ff"
+                          font-size="20" font-weight="700">
+                        TaskManager · System overview
+                    </text>
+
+                    <text x="30" y="54" fill="#9eb3c9" font-size="12">
+                        React Native client · Task API · Persistent data
+                    </text>
+
+                    <g stroke="#65d7ff" stroke-opacity=".7" stroke-width="1.7"
+                       fill="none" marker-end="url(#taskArrow)">
+                        <path d="M480 150 V190" />
+                        <path d="M480 270 V310" />
+                        <path d="M260 230 H220 V350" />
+                        <path d="M700 230 H740 V350" />
+                    </g>
+
+                    <g>
+                        <rect x="330" y="80" width="300" height="70" rx="12"
+                              fill="#102941" stroke="#2998ff" />
+
+                        <text x="480" y="108" text-anchor="middle"
+                              fill="#65d7ff" font-size="14" font-weight="700">
+                            React Native application
+                        </text>
+
+                        <text x="480" y="130" text-anchor="middle"
+                              fill="#d5e8f8" font-size="11">
+                            Screens · Navigation · User interactions
+                        </text>
+
+                        <rect x="260" y="190" width="440" height="80" rx="12"
+                              fill="#102941" stroke="#65d7ff" />
+
+                        <text x="480" y="220" text-anchor="middle"
+                              fill="#65d7ff" font-size="15" font-weight="700">
+                            Application API
+                        </text>
+
+                        <text x="480" y="243" text-anchor="middle"
+                              fill="#d5e8f8" font-size="11">
+                            Authentication · Task operations · Status updates
+                        </text>
+
+                        <rect x="70" y="350" width="300" height="85" rx="12"
+                              fill="#102941" stroke="#2998ff" />
+
+                        <text x="220" y="378" text-anchor="middle"
+                              fill="#65d7ff" font-size="14" font-weight="700">
+                            Task management
+                        </text>
+
+                        <text x="220" y="400" text-anchor="middle"
+                              fill="#d5e8f8" font-size="11">
+                            Create · Read · Update · Delete
+                        </text>
+
+                        <text x="220" y="418" text-anchor="middle"
+                              fill="#9eb3c9" font-size="10">
+                            Status · Scheduling · Validation
+                        </text>
+
+                        <rect x="590" y="350" width="300" height="85" rx="12"
+                              fill="#102941" stroke="#2998ff" />
+
+                        <text x="740" y="378" text-anchor="middle"
+                              fill="#65d7ff" font-size="14" font-weight="700">
+                            Data and session storage
+                        </text>
+
+                        <text x="740" y="400" text-anchor="middle"
+                              fill="#d5e8f8" font-size="11">
+                            Task records · User information
+                        </text>
+
+                        <text x="740" y="418" text-anchor="middle"
+                              fill="#9eb3c9" font-size="10">
+                            API database · Local preferences
+                        </text>
+                    </g>
+                </svg>
+            </div>
+
+            <p class="cs-diagram-note">
+                This diagram is conceptual. It does not assert that every component
+                shown is implemented. The actual application may use a remote API,
+                local storage, or both, depending on its configuration.
+            </p>
+
+            <div style="height:28px"></div>
+
+            <div class="cs-stack cs-reveal">
+                <div class="cs-stack-item">
+                    <small>Mobile client</small>
+                    <b>React Native</b>
+                    <p>Cross-platform interface, screens, navigation and user interactions.</p>
+                </div>
+
+                <div class="cs-stack-item">
+                    <small>Language</small>
+                    <b>JavaScript</b>
+                    <p>Application logic, task interactions and integration code.</p>
+                </div>
+
+                <div class="cs-stack-item">
+                    <small>Local persistence</small>
+                    <b>AsyncStorage</b>
+                    <p>Potential storage for appropriate local preferences and session data.</p>
+                </div>
+
+                <div class="cs-stack-item">
+                    <small>Backend</small>
+                    <b>Task API</b>
+                    <p>Task records, account operations and server-side status updates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section alt">
+        <div class="cs-wrap">
+            <div class="cs-section-head cs-reveal">
+                <span class="cs-eyebrow">06 / Engineering principles</span>
+                <h2>Reliable workflows make better productivity tools.</h2>
+                <p>
+                    A task manager should be predictable, responsive and consistent
+                    whenever users create, update or revisit their work.
+                </p>
+            </div>
+
+            <div class="cs-card-grid">
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">01</div>
+                    <h3>Consistent task states</h3>
+                    <p>Use defined status values and consistent transitions throughout the interface.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">02</div>
+                    <h3>Input validation</h3>
+                    <p>Validate required task information and dates before submitting changes.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">03</div>
+                    <h3>Secure sessions</h3>
+                    <p>Handle authentication tokens carefully and avoid exposing sensitive credentials.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">04</div>
+                    <h3>API error handling</h3>
+                    <p>Provide useful feedback when requests fail or connectivity is interrupted.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">05</div>
+                    <h3>Responsive interface</h3>
+                    <p>Keep forms, lists and navigation usable across different device sizes.</p>
+                </article>
+
+                <article class="cs-card cs-reveal">
+                    <div class="cs-icon">06</div>
+                    <h3>Maintainable components</h3>
+                    <p>Separate reusable UI elements, task logic and API integration responsibilities.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="cs-section">
+        <div class="cs-wrap cs-cta cs-reveal">
+            <div>
+                <span class="cs-eyebrow">Ideas into applications</span>
+                <h2>Make every day<br />more productive.</h2>
+                <p>
+                    Cytech Enginneringbuilds digital products through mobile engineering,
+                    interface design, web development and backend architecture.
+                    Let's turn your next idea into a useful experience.
+                </p>
+            </div>
+
+            <a class="cs-btn cs-btn-primary" href="/Contact">
+                Discuss your project <span aria-hidden="true">↗</span>
+            </a>
+        </div>
+    </section>
+</main>
+
+<div class="cs-lightbox" id="csLightbox"
+     role="dialog" aria-modal="true"
+     aria-label="Expanded TaskManager project image">
+    <button type="button" aria-label="Close image" id="csLightboxClose">×</button>
+    <img src="" alt="Expanded TaskManager application poster" id="csLightboxImage" />
+</div>
+
+<script>
+(() => {
+    const root = document.querySelector('.case-study');
+    if (!root) return;
+
+    const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    const revealElements = root.querySelectorAll('.cs-reveal');
+
+    if ('IntersectionObserver' in window && !reduceMotion) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealElements.forEach(element => observer.observe(element));
+    } else {
+        revealElements.forEach(element =>
+            element.classList.add('is-visible')
+        );
+    }
+
+    if (!reduceMotion && window.matchMedia('(pointer:fine)').matches) {
+        const visual = root.querySelector('.cs-visual');
+        const frame = root.querySelector('.cs-screen-frame');
+
+        if (visual && frame) {
+            visual.addEventListener('pointermove', event => {
+                const rect = visual.getBoundingClientRect();
+                const x = (event.clientX - rect.left) / rect.width - 0.5;
+                const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+                frame.style.transform =
+                    `rotateY(${x * 9 - 3}deg) rotateX(${-y * 5}deg) translateY(-4px)`;
+            });
+
+            visual.addEventListener('pointerleave', () => {
+                frame.style.transform = '';
+            });
+        }
+    }
+
+    const lightbox = document.getElementById('csLightbox');
+    const lightboxImage = document.getElementById('csLightboxImage');
+    const closeButton = document.getElementById('csLightboxClose');
+    let previousFocus = null;
+
+    root.querySelectorAll('.cs-zoom').forEach(image => {
+        image.addEventListener('click', () => {
+            previousFocus = document.activeElement;
+            lightboxImage.src = image.src;
+            lightboxImage.alt = image.alt;
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            closeButton.focus();
+        });
+    });
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+        lightboxImage.src = '';
+
+        if (previousFocus && typeof previousFocus.focus === 'function') {
+            previousFocus.focus();
+        }
+    };
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', event => {
+        if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && lightbox.classList.contains('open')) {
+            closeLightbox();
+        }
+    });
+})();
+</script>
+</body>
+</html>
