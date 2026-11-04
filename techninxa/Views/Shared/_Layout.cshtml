@@ -10,13 +10,13 @@
                         ?? "Custom Software & Web Development";
 
         var pageDescription = ViewData["Description"] as string
-            ?? "Cytech Enginneringdevelops custom software, web applications, mobile apps, and IoT solutions for businesses.";
+            ?? "Cytech Engineeringdevelops custom software, web applications, mobile apps, and IoT solutions for businesses.";
 
         var canonicalUrl = ViewData["CanonicalUrl"] as string
             ?? "https://techninxa.com/";
     }
 
-    <title>@pageTitle | Techninxa</title>
+    <title>@pageTitle | Cytech Engineering</title>
 
     <meta name="description" content="@pageDescription">
     <meta name="robots" content="index, follow">
@@ -26,7 +26,7 @@
     <!-- Social media preview -->
     <meta property="og:site_name" content="Cytech">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="@pageTitle | Techninxa">
+    <meta property="og:title" content="@pageTitle | Cytech Engineering">
     <meta property="og:description" content="@pageDescription">
     <meta property="og:url" content="@canonicalUrl">
     <meta property="og:image"
@@ -44,9 +44,11 @@
           rel="stylesheet">
 
     <!-- Main stylesheet -->
-    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
 
     @await RenderSectionAsync("Styles", required: false)
+    <!-- Keep this last: overrides legacy page-level blue styling consistently. -->
+    <link rel="stylesheet" href="~/css/cytech-theme.css" asp-append-version="true">
 </head>
 <body>
 
@@ -56,8 +58,9 @@
     <header class="site-header" id="siteHeader">
         <div class="container nav-wrap">
 
-            <a class="brand" href="/" aria-label="Cytech Enginneringhome">
-                <img src="~/assets/cytechlogo.jpg" alt="Cytech Enginneringlogo">
+            <a class="brand" href="/" aria-label="Cytech Engineering — Home">
+                <img src="~/assets/cytechlogo.jpg" alt="Cytech Engineering logo">
+                <span class="brand-wordmark"><strong>CYTECH</strong><small>ENGINEERING</small></span>
             </a>
 
             <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -147,7 +150,7 @@
         </div>
 
         <div class="container footer-bottom">
-            <span>© <span id="year"></span>Cytech Enginnering. All rights reserved.</span>
+            <span>© <span id="year"></span> Cytech Engineering. All rights reserved.</span>
             <span>Designed &amp; built with intention.</span>
         </div>
     </footer>
