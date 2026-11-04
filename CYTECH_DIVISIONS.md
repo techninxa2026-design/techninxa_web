@@ -41,3 +41,14 @@ On narrow/mobile viewports the capsule moves to the bottom as a horizontal dock 
 Run `dotnet restore` and `dotnet build` using the .NET 10 SDK. Check all four header destinations; test the hamburger at mobile widths; check the floating dock at desktop and mobile widths; confirm `/Projects` and `/it-iot-services#services` work. Confirm the three placeholders do not trigger the existing IT database queries.
 
 Case-study pages with `Layout = null` retain their independent project design and are deliberately not given the floating navigation yet.
+
+
+## Corporate top navigation (updated)
+
+The header now reads **Home · About · Contact · Services ▾ · Blog · Products**.
+
+- **Home** uses `/` (existing working homepage).
+- **About** uses `/#about` and **Contact** uses `/#contact` until dedicated corporate pages are developed.
+- **Services** opens a responsive, accessible dropdown with the four division routes described above. Click/touch on mobile, hover/click on desktop, and keyboard activation are supported.
+- **Blog** at `/blog` and **Products** at `/products` are minimal placeholders, implemented by `SitePagesController`.
+- The IT & IoT floating rail remains available on the existing IT homepage and Projects routes, independent of the main corporate menu.

@@ -5,24 +5,78 @@
         const toggle = document.querySelector(".site-header .menu-toggle");
         const menu = document.getElementById("corporateNav");
         if (toggle && menu) {
+            const dropdown = menu.querySelector(".cy-dropdown");
+            const servicesButton = dropdown?.querySelector(".cy-dropdown__toggle");
+
+            const setServicesOpen = open => {
+                if (!dropdown || !servicesButton) return;
+                dropdown.classList.toggle("is-open", open);
+                servicesButton.setAttribute("aria-expanded", open ? "true" : "false");
+            };
+
             const setOpen = open => {
                 menu.classList.toggle("open", open);
                 toggle.setAttribute("aria-expanded", open ? "true" : "false");
                 document.body.classList.toggle("menu-open", open);
+                if (!open) setServicesOpen(false);
             };
+
             toggle.addEventListener("click", () => setOpen(!menu.classList.contains("open")));
+            servicesButton?.addEventListener("click", () => {
+                setServicesOpen(!dropdown.classList.contains("is-open"));
+            });
+
+            // Mouse users can hover over Services; touch and keyboard users click it.
+            dropdown?.addEventListener("pointerenter", event => {
+                if (event.pointerType === "mouse" && window.innerWidth > 1240) setServicesOpen(true);
+            });
+            dropdown?.addEventListener("pointerleave", event => {
+                if (event.pointerType === "mouse" && window.innerWidth > 1240) setServicesOpen(false);
+            });
+            dropdown?.addEventListener("focusout", event => {
+                if (!dropdown.contains(event.relatedTarget)) setServicesOpen(false);
+            });
+
             menu.querySelectorAll("a").forEach(link =>
                 link.addEventListener("click", () => setOpen(false))
             );
+
             document.addEventListener("keydown", event => {
-                if (event.key === "Escape") setOpen(false);
+                if (event.key !== "Escape") return;
+                if (dropdown?.classList.contains("is-open")) {
+                    setServicesOpen(false);
+                    servicesButton?.focus();
+                } else if (menu.classList.contains("open")) {
+                    setOpen(false);
+                    toggle.focus();
+                }
             });
             document.addEventListener("click", event => {
+                if (dropdown && !dropdown.contains(event.target)) setServicesOpen(false);
                 if (!menu.contains(event.target) && !toggle.contains(event.target)) setOpen(false);
             });
             window.addEventListener("resize", () => {
                 if (window.innerWidth > 1240) setOpen(false);
             });
+
+            // Anchor sections are on the existing IT homepage until corporate pages are built.
+            const updateCorporateActive = () => {
+                const path = window.location.pathname.toLowerCase();
+                if (path !== "/" && path !== "/home/index") return;
+                const hash = window.location.hash.toLowerCase();
+                const selected = hash === "#about" ? "about" : hash === "#contact" ? "contact" : "home";
+                menu.querySelectorAll("[data-primary-nav]").forEach(link => {
+                    if (link.dataset.primaryNav !== "home" &&
+                        link.dataset.primaryNav !== "about" &&
+                        link.dataset.primaryNav !== "contact") return;
+                    const isSelected = link.dataset.primaryNav === selected;
+                    link.classList.toggle("active", isSelected);
+                    if (isSelected) link.setAttribute("aria-current", "page");
+                    else link.removeAttribute("aria-current");
+                });
+            };
+            window.addEventListener("hashchange", updateCorporateActive);
+            updateCorporateActive();
         }
 
         const rail = document.querySelector(".cy-it-rail");

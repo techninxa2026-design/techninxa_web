@@ -16,6 +16,16 @@
             || requestPath.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase);
         var isItProjects = requestPath.StartsWith("/Projects", StringComparison.OrdinalIgnoreCase);
         var showItRail = activeDivision == "it" && (isItLanding || isItProjects);
+        var primarySection = requestPath.Equals("/blog", StringComparison.OrdinalIgnoreCase) ? "blog"
+            : requestPath.Equals("/products", StringComparison.OrdinalIgnoreCase) ? "products"
+            : requestPath.Equals("/", StringComparison.OrdinalIgnoreCase)
+              || requestPath.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase) ? "home"
+            : requestPath.Equals("/it-iot-services", StringComparison.OrdinalIgnoreCase)
+              || requestPath.StartsWith("/Projects", StringComparison.OrdinalIgnoreCase)
+              || activeDivision == "electrical" || activeDivision == "manpower"
+              || activeDivision == "networking" ? "services"
+            : "";
+
 
     }
 
@@ -76,21 +86,47 @@
                 <span class="brand-wordmark"><strong>CYTECH</strong><small>ENGINEERING</small></span>
             </a>
 
-            <button class="menu-toggle" type="button" aria-label="Toggle business divisions"
+            <button class="menu-toggle" type="button" aria-label="Toggle main navigation"
                     aria-controls="corporateNav" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
 
-            <!-- Corporate navigation: the four Cytech service divisions -->
-            <nav class="main-nav corporate-nav" id="corporateNav" aria-label="Cytech service divisions">
-                <a href="/electrical-supply-installation" class="@(activeDivision == "electrical" ? "active" : "")"
-                   aria-current="@(activeDivision == "electrical" ? "page" : null)">Electrical Supply &amp; Installation</a>
-                <a href="/manpower-services" class="@(activeDivision == "manpower" ? "active" : "")"
-                   aria-current="@(activeDivision == "manpower" ? "page" : null)">Manpower Services</a>
-                <a href="/networking-services" class="@(activeDivision == "networking" ? "active" : "")"
-                   aria-current="@(activeDivision == "networking" ? "page" : null)">Networking Services</a>
-                <a href="/it-iot-services" class="@(activeDivision == "it" ? "active" : "")"
-                   aria-current="@(activeDivision == "it" ? "page" : null)">IT &amp; IoT Services</a>
+            <!-- Corporate navigation: company-level pages plus a four-division Services dropdown. -->
+            <nav class="main-nav corporate-nav" id="corporateNav" aria-label="Cytech main navigation">
+                <a href="/" data-primary-nav="home"
+                   class="@(primarySection == "home" ? "active" : "")"
+                   aria-current="@(primarySection == "home" ? "page" : null)">Home</a>
+                <a href="/#about" data-primary-nav="about">About</a>
+                <a href="/#contact" data-primary-nav="contact">Contact</a>
+
+                <div class="cy-dropdown" id="cyServices">
+                    <button class="cy-dropdown__toggle @(primarySection == "services" ? "active" : "")"
+                            type="button" aria-expanded="false"
+                            aria-controls="cyServicesMenu" aria-haspopup="true">
+                        Services <span class="cy-dropdown__chevron" aria-hidden="true"></span>
+                    </button>
+                    <div class="cy-dropdown__menu" id="cyServicesMenu" aria-label="Cytech service divisions">
+                        <a href="/electrical-supply-installation"
+                           class="@(primarySection == "services" && activeDivision == "electrical" ? "active" : "")"
+                           aria-current="@(primarySection == "services" && activeDivision == "electrical" ? "page" : null)">Electrical Supply &amp; Installation</a>
+                        <a href="/manpower-services"
+                           class="@(primarySection == "services" && activeDivision == "manpower" ? "active" : "")"
+                           aria-current="@(primarySection == "services" && activeDivision == "manpower" ? "page" : null)">Manpower Services</a>
+                        <a href="/networking-services"
+                           class="@(primarySection == "services" && activeDivision == "networking" ? "active" : "")"
+                           aria-current="@(primarySection == "services" && activeDivision == "networking" ? "page" : null)">Networking Services</a>
+                        <a href="/it-iot-services"
+                           class="@(primarySection == "services" && activeDivision == "it" ? "active" : "")"
+                           aria-current="@(primarySection == "services" && activeDivision == "it" ? "page" : null)">IT &amp; IoT Services</a>
+                    </div>
+                </div>
+
+                <a href="/blog" data-primary-nav="blog"
+                   class="@(primarySection == "blog" ? "active" : "")"
+                   aria-current="@(primarySection == "blog" ? "page" : null)">Blog</a>
+                <a href="/products" data-primary-nav="products"
+                   class="@(primarySection == "products" ? "active" : "")"
+                   aria-current="@(primarySection == "products" ? "page" : null)">Products</a>
             </nav>
 
             <a class="nav-cta" href="tel:+8801790379729">
@@ -143,6 +179,8 @@
                 <a href="/it-iot-services#about">About</a>
                 <a href="/Projects">Projects</a>
                 <a href="/it-iot-services#contact">Contact</a>
+                <a href="/blog">Blog</a>
+                <a href="/products">Products</a>
             </div>
 
             <div class="footer-col">
