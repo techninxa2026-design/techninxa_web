@@ -80,6 +80,7 @@
         <link rel="stylesheet" href="~/css/cytech-corporate.css" asp-append-version="true">
         <link rel="stylesheet" href="~/css/cytech-catalogue.css" asp-append-version="true">
         <link rel="stylesheet" href="~/css/cytech-visual-refresh.css" asp-append-version="true">
+        <link rel="stylesheet" href="~/css/cytech-product-media.css" asp-append-version="true">
     }
 </head>
 <body class="@(showItRail ? "has-it-rail" : "")">
@@ -295,6 +296,10 @@
     <!-- SCRIPTS -->
     <script src="~/js/main.js" asp-append-version="true"></script>
     <script src="~/js/cytech-navigation.js" asp-append-version="true"></script>
+    @if (ViewData["IsCorporatePage"] is true)
+    {
+        <script src="~/js/cytech-product-media.js" asp-append-version="true"></script>
+    }
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
