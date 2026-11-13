@@ -17,6 +17,8 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+      - name: Validate catalogue images
+        run: python scripts/verify_catalogue_media.py
       - name: Restore
         run: dotnet restore techninxa.sln
       - name: Build
