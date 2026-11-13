@@ -77,6 +77,7 @@
                     {
                         var count = CytechCatalogue.Items.Count(x => x.Family == family);
                         <a href="/products?family=@Uri.EscapeDataString(family)">
+                            <img class="cy-prod-tag-photo" src="@CytechProductMedia.For(CytechCatalogue.Items.First(x => x.Family == family).Number).Url" alt="" width="70" height="70" loading="lazy" decoding="async" data-cy-catalogue-photo data-fallback-src="@CytechVisuals.FamilyImage(family)" />
                             <span>@family</span><strong>@count.ToString("D2")</strong>
                         </a>
                     }
