@@ -14,9 +14,9 @@
             <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">01 / PRODUCT COVERAGE</span><h2>Electrical products<br><em>from our catalogue.</em></h2></div><div class="cy-real-side-copy"><p>Select a product section to review the types of components listed by Cytech Engineering and request a quotation.</p></div></div>
             <div class="cy-catalogue-grid">
                 @foreach (var item in categories)
-                {
-                    <a href="/products/@item.Slug" class="cy-catalogue-card"><div class="cy-catalogue-card-header"><span class="cy-catalogue-card-number">SECTION @item.Number.ToString("D2")</span><span class="cy-catalogue-card-arrow" aria-hidden="true">↗</span></div><h3>@item.Title</h3><p>@item.Description</p><div class="cy-catalogue-card-bottom"><span>EXPLORE SECTION ↗</span></div></a>
-                }
+                    {
+                        <partial name="_CatalogueProductCard" model="item" />
+                    }
             </div>
         </div>
     </section>
