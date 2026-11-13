@@ -50,7 +50,7 @@
                         : family == "Networking & Connectivity" ? "network"
                         : family == "Safety & Security" ? "safety" : "infrastructure";
                     <a class="cy-real-family-card cy-real-family-@familyClass" href="/products?family=@Uri.EscapeDataString(family)">
-                        <div class="cy-pro-family-image"><img src="@CytechVisuals.FamilyImage(family)" alt="@CytechVisuals.FamilyAlt(family)" loading="lazy" decoding="async" width="840" height="530"><span class="cy-pro-family-photo-number">@group.Count.ToString("D2") / CATEGORIES</span></div>
+                        <div class="cy-pro-family-image"><img src="@CytechProductMedia.For(group[0].Number).Url" alt="@CytechProductMedia.For(group[0].Number).Alt" data-cy-catalogue-photo data-fallback-src="@CytechVisuals.FamilyImage(family)" loading="lazy" decoding="async" width="840" height="530"><span class="cy-pro-family-photo-number">@group.Count.ToString("D2") / CATEGORIES</span></div>
                         <div class="cy-pro-family-info"><h3>@family</h3><p>@string.Join(" · ", group.Take(3).Select(x => x.Title))</p><span class="cy-real-family-link">Browse this division <span class="cy-pro-link-arrow" aria-hidden="true">↗</span></span></div>
                     </a>
                 }
@@ -66,7 +66,7 @@
                 {
                     <a class="cy-real-feature-card" href="/products/@item.Slug">
                         <div class="cy-real-feature-top"><span>CATALOGUE / @item.Number.ToString("D2")</span><span class="cy-real-feature-arrow" aria-hidden="true">↗</span></div>
-                        <div class="cy-pro-feature-photo"><img src="@CytechVisuals.FeatureImage(item.Number)" alt="Illustrative industrial equipment photograph relevant to @item.Title" loading="lazy" decoding="async" width="900" height="560"></div>
+                        <div class="cy-pro-feature-photo"><img src="@CytechProductMedia.For(item.Number).Url" alt="@CytechProductMedia.For(item.Number).Alt" data-cy-catalogue-photo data-fallback-src="@CytechVisuals.FamilyImage(item.Family)" loading="lazy" decoding="async" width="900" height="560"></div>
                         <div class="cy-pro-feature-content"><span class="cy-real-feature-family">@item.Family</span><h3>@item.Title</h3><p>@item.Description</p><span class="cy-pro-feature-open">Explore products <span aria-hidden="true">↗</span></span></div>
                     </a>
                 }
