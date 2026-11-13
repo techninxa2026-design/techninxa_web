@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = Model.Title + " - Industrial Products";
     var related = CytechCatalogue.Items.Where(x => x.Family == Model.Family && x.Number != Model.Number).Take(4).ToList();
+    var photo = CytechProductMedia.For(Model.Number);
     var quoteUrl = "/contact?service=Supply%20of%20Industrial%20Products&product=" + Uri.EscapeDataString(Model.Title);
 }
 <div class="cy-real cy-product-detail">
@@ -19,6 +20,13 @@
     <section class="cy-real-content-section">
         <div class="cy-real-shell cy-real-detail-intro">
             <div>
+                <figure class="cy-prod-detail-figure">
+                    <div class="cy-prod-detail-photo">
+                        <img src="@photo.Url" alt="@photo.Alt" width="1100" height="740" decoding="async" fetchpriority="high" data-cy-catalogue-photo data-fallback-src="@CytechVisuals.FamilyImage(Model.Family)" />
+                        <span class="cy-prod-photo-label">REPRESENTATIVE EQUIPMENT</span>
+                    </div>
+                    <figcaption>Example equipment image from <a href="@photo.SourcePage" target="_blank" rel="noopener noreferrer">@photo.Source</a>. Actual models and specifications require confirmation with Cytech.</figcaption>
+                </figure>
                 <span class="cy-real-eyebrow">WHAT'S IN THIS SECTION</span>
                 <h2>Available product types in the catalogue</h2>
                 <p>The Cytech Engineering catalogue includes the following types of products and components within this section. Contact us to confirm a specific model, rating, specification or quotation.</p>
@@ -47,7 +55,7 @@
                 <div class="cy-catalogue-grid">
                     @foreach (var item in related)
                     {
-                        <a class="cy-catalogue-card" href="/products/@item.Slug"><div class="cy-catalogue-card-header"><span class="cy-catalogue-card-number">SECTION @item.Number.ToString("D2")</span><span class="cy-catalogue-card-arrow" aria-hidden="true">↗</span></div><h3>@item.Title</h3><p>@item.Description</p><div class="cy-catalogue-card-bottom"><span>EXPLORE ↗</span><span class="cy-catalogue-card-family">@item.Family</span></div></a>
+                        <partial name="_CatalogueProductCard" model="item" />
                     }
                 </div>
             </div>
