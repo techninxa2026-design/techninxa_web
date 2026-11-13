@@ -70,7 +70,7 @@
 
                         <img src="@preview.Url"
                              alt="@preview.Alt"
-                             class="it-media-library-image"
+                             class="it-media-library-image @(preview.IsIllustration ? "is-concept" : "is-case-art")"
                              width="900" height="600"
                              loading="lazy" decoding="async"
                              data-it-preview
