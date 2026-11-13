@@ -6,7 +6,8 @@
             ?? "Cytech Engineering develops custom software, web applications, mobile apps, and IoT solutions for businesses.";
 
         var canonicalUrl = ViewData["CanonicalUrl"] as string
-            ?? "https://techninxa.com/";
+            ?? $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}";
+        var socialImageUrl = $"{Context.Request.Scheme}://{Context.Request.Host}{Url.Content("~/assets/cytechlogo.jpg")}";
 
         // The corporate site is separate from the existing IT & IoT website.
         var requestPath = Context.Request.Path.Value ?? "/";
@@ -54,7 +55,7 @@
     <meta property="og:description" content="@pageDescription">
     <meta property="og:url" content="@canonicalUrl">
     <meta property="og:image"
-          content="https://techninxa.com/assets/cytechlogo.jpg">
+          content="@socialImageUrl">
     <meta name="google-site-verification" content="y4NSCTT8C5WLkgLRCcTODIJyCbic9nwkGvaivFHx128" />
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg"
