@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using techninxa.Models;
 using Techninxa;
 using Techninxa.Models;
+using Techninxa.Services;
 
 namespace techninxa.Controllers
 {
@@ -17,7 +18,12 @@ namespace techninxa.Controllers
             "Electrical Supply & Installation",
             "Manpower Services",
             "Networking Services",
-            "IT & IoT Services"
+            "IT & IoT Services",
+            "Supply of Industrial Products",
+            "System Integration",
+            "Installation & Commissioning",
+            "Maintenance & Support",
+            "Technical Consultation"
         };
 
         private readonly ApplicationDbContext _db;
@@ -47,10 +53,15 @@ namespace techninxa.Controllers
         {
             SetPage("Contact", "Contact Cytech Engineering about electrical, manpower, networking or IT & IoT requirements.");
             var requestedDivision = Request.Query["service"].ToString();
+            var requestedProduct = CytechCatalogue.FindByTitle(Request.Query["product"].ToString());
             var model = new CorporateInquiryViewModel
             {
                 ServiceDivision = Divisions.Contains(requestedDivision, StringComparer.Ordinal)
                     ? requestedDivision
+                    : requestedProduct != null ? "Supply of Industrial Products" : string.Empty,
+                InquiryType = requestedProduct != null ? "Request a quotation" : "Request a quotation",
+                Details = requestedProduct != null
+                    ? $"Please provide a quotation and availability for {requestedProduct.Title} (catalogue category {requestedProduct.Number:D2})."
                     : string.Empty
             };
             return View("Contact", model);
@@ -123,8 +134,25 @@ namespace techninxa.Controllers
         [HttpGet("/products")]
         public IActionResult Products()
         {
-            SetPage("Products", "Cytech Engineering products.");
-            return View("Placeholder");
+            SetPage("Products", "Explore 38 product sections from the Cytech Engineering Industrial Product Catalogue 2026.");
+            return View("Products", CytechCatalogue.Items);
+        }
+
+        [HttpGet("/products/{slug}")]
+        public IActionResult ProductDetails(string slug)
+        {
+            var item = CytechCatalogue.Find(slug);
+            if (item == null) return NotFound();
+            SetPage(item.Title, $"{item.Description} Equipment categories from the Cytech Engineering 2026 catalogue.");
+            ViewData["ActiveProductSection"] = item.Family;
+            return View("ProductDetails", item);
+        }
+
+        [HttpGet("/services")]
+        public IActionResult Services()
+        {
+            SetPage("Services", "Cytech Engineering supplies industrial products and provides system integration, installation, commissioning, maintenance, support and technical consultation.");
+            return View("Services", CytechCatalogue.Services);
         }
 
         private void SetPage(string title, string description)
@@ -133,7 +161,7 @@ namespace techninxa.Controllers
             ViewData["Description"] = description;
             ViewData["ActiveDivision"] = "none";
             ViewData["IsCorporatePage"] =
-                title == "Home" || title == "About" || title == "Contact";
+                title != "Blog";
             ViewData["CanonicalUrl"] = $"{Request.Scheme}://{Request.Host}{Request.Path}";
         }
     }
