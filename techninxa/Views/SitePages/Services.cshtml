@@ -1,0 +1,32 @@
+@using Techninxa.Services
+@model IReadOnlyList<CytechService>
+@{ ViewData["Title"] = "Engineering Services"; }
+<div class="cy-real">
+    <section class="cy-real-page-hero">
+        <div class="cy-real-shell"><span class="cy-real-eyebrow">WHAT WE DO / CYTECH ENGINEERING</span><h1>Engineering services.<br><em>From supply to support.</em></h1><p>Cytech Engineering's official 2026 industrial product catalogue lists five service areas. We help businesses discuss and source industrial products and related technical solutions.</p><div class="cy-real-page-meta"><span>INDUSTRIAL PRODUCT SUPPLY</span><span>INTEGRATION</span><span>COMMISSIONING & SUPPORT</span></div></div>
+    </section>
+    <section class="cy-real-content-section">
+        <div class="cy-real-shell">
+            <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">01 / SERVICES</span><h2>How Cytech supports<br><em>industrial operations.</em></h2></div><div class="cy-real-side-copy"><p>These descriptions explain the service types listed in the catalogue; project scope, deliverables and availability are established through individual inquiries.</p></div></div>
+            <div class="cy-real-service-grid">
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    var service = Model[i];
+                    <article id="@service.Slug" class="cy-real-service-card"><span>@((i + 1).ToString("D2")) / CYTECH SERVICES</span><h2>@service.Name</h2><p>@service.Summary</p><a class="cy-real-text-link" href="/contact?service=@Uri.EscapeDataString(service.Name)">Discuss this service <span aria-hidden="true">↗</span></a></article>
+                }
+            </div>
+        </div>
+    </section>
+    <section class="cy-real-section" style="background:#f4f7fa">
+        <div class="cy-real-shell">
+            <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">02 / EQUIPMENT COVERAGE</span><h2>Connected to the products<br><em>you need.</em></h2></div><div class="cy-real-side-copy"><p>View industrial automation, networking, power, safety, and infrastructure product categories from the 2026 catalogue.</p></div></div>
+            <div class="cy-real-family-grid">
+                @foreach (var family in CytechCatalogue.Families)
+                {
+                    <a class="cy-real-family-card" href="/products?family=@Uri.EscapeDataString(family)"><span class="cy-real-eyebrow">@CytechCatalogue.Items.Count(x => x.Family == family) PRODUCT SECTIONS</span><h3>@family</h3><p>@string.Join(" · ", CytechCatalogue.Items.Where(x => x.Family == family).Take(3).Select(x => x.Title))</p><span class="cy-real-family-link">Explore catalogue ↗</span></a>
+                }
+            </div>
+        </div>
+    </section>
+    <section class="cy-real-cta"><div class="cy-real-shell cy-real-cta-inner"><div><span class="cy-real-eyebrow">WORK WITH CYTECH</span><h2>Tell us your engineering<br>or supply requirement.</h2><p>Provide your site, project scope, specifications and preferred timeline.</p></div><div class="cy-real-cta-right"><a class="cy-real-btn cy-real-btn-light" href="/contact">Contact our team <span aria-hidden="true">↗</span></a><a href="mailto:info@cytechbd.com">info@cytechbd.com</a></div></div></section>
+</div>
