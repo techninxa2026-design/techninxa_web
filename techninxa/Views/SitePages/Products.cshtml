@@ -1,0 +1,64 @@
+@using Techninxa.Services
+@model IReadOnlyList<CatalogueCategory>
+@{
+    ViewData["Title"] = "Industrial Product Catalogue 2026";
+}
+<div class="cy-real cy-catalogue-page">
+    <section class="cy-real-page-hero">
+        <div class="cy-real-shell">
+            <span class="cy-real-eyebrow">PRODUCTS / CYTECH ENGINEERING</span>
+            <h1>Industrial products.<br><em>Real-world applications.</em></h1>
+            <p>Explore all 38 numbered product sections from the Cytech Engineering Industrial Product Catalogue 2026. Find the product type you need, then send your technical requirements for a quotation.</p>
+            <div class="cy-real-page-meta"><span>38 PRODUCT SECTIONS</span><span>05 PRODUCT FAMILIES</span><span>2026 CATALOGUE</span></div>
+        </div>
+    </section>
+
+    <div class="cy-catalogue-toolbar">
+        <div class="cy-real-shell cy-catalogue-toolbar-inner">
+            <label class="cy-catalogue-search" aria-label="Search product categories">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+                <input type="search" id="cyCatalogueSearch" placeholder="Search products, equipment or brands..." autocomplete="off" />
+            </label>
+            <span class="cy-catalogue-total" id="cyCatalogueCount" role="status" aria-live="polite">@Model.Count sections</span>
+        </div>
+    </div>
+
+    <section class="cy-real-content-section" aria-labelledby="cy-products-heading">
+        <div class="cy-real-shell cy-catalogue-layout">
+            <aside class="cy-catalogue-sidebar" aria-label="Product family filters">
+                <div class="cy-catalogue-sidebar-title">BROWSE BY FAMILY</div>
+                <button type="button" class="cy-catalogue-filter is-active" data-cy-filter="all" aria-pressed="true">All products <span>@Model.Count</span></button>
+                @foreach (var family in CytechCatalogue.Families)
+                {
+                    <button type="button" class="cy-catalogue-filter" data-cy-filter="@family" aria-pressed="false">@family <span>@Model.Count(x => x.Family == family)</span></button>
+                }
+            </aside>
+            <div>
+                <div class="cy-catalogue-results-head"><h2 id="cy-products-heading">Explore the catalogue</h2><p>Products shown are catalogue categories, not live stock listings.</p></div>
+                <div class="cy-catalogue-grid" id="cyCatalogueGrid">
+                    @foreach (var item in Model)
+                    {
+                        var keywords = string.Join(" ", item.Products) + " " + string.Join(" ", item.Brands);
+                        <a href="/products/@item.Slug" class="cy-catalogue-card" data-cy-product-card data-family="@item.Family" data-search="@item.Title @item.Description @keywords">
+                            <div class="cy-catalogue-card-header"><span class="cy-catalogue-card-number">SECTION @item.Number.ToString("D2")</span><span class="cy-catalogue-card-arrow" aria-hidden="true">↗</span></div>
+                            <h3>@item.Title</h3><p>@item.Description</p>
+                            <div class="cy-catalogue-card-bottom"><span>VIEW PRODUCTS ↗</span><span class="cy-catalogue-card-family">@item.Family</span></div>
+                        </a>
+                    }
+                </div>
+                <div class="cy-catalogue-empty" id="cyCatalogueEmpty" role="status">
+                    <h3>No matching products</h3><p>Try another search term or select a different family.</p>
+                    <button class="cy-real-btn cy-real-btn-dark" type="button" id="cyCatalogueReset">Show all products</button>
+                </div>
+                <div class="cy-real-detail-note">Source: Cytech Engineering Industrial Product Catalogue 2026, numbered sections 01–38 (PDF pages 2–39). This website lists published product categories; prices, stock, certifications, technical compatibility and lead times must be confirmed by Cytech.</div>
+            </div>
+        </div>
+    </section>
+    <section class="cy-real-cta">
+        <div class="cy-real-shell cy-real-cta-inner">
+            <div><span class="cy-real-eyebrow">EQUIPMENT / TECHNICAL INQUIRIES</span><h2>Have a bill of materials<br>or product specification?</h2><p>Share your requirement, part number, quantities and timeframe for a quotation.</p></div>
+            <div class="cy-real-cta-right"><a href="/contact?service=Supply%20of%20Industrial%20Products" class="cy-real-btn cy-real-btn-light">Request a quotation <span aria-hidden="true">↗</span></a><a href="mailto:info@cytechbd.com">info@cytechbd.com</a></div>
+        </div>
+    </section>
+</div>
+@section Scripts { <script src="~/js/cytech-catalogue.js" asp-append-version="true"></script> }
