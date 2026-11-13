@@ -39,7 +39,17 @@
                 @foreach (var family in CytechCatalogue.Families)
                 {
                     var items = CytechCatalogue.Items.Where(x => x.Family == family).ToList();
-                    <a class="cy-real-family-card" href="/products?family=@Uri.EscapeDataString(family)"><span class="cy-real-eyebrow">@items.Count.ToString("D2") SECTIONS</span><h3>@family</h3><p>@string.Join(" · ", items.Take(3).Select(x => x.Title))</p><span class="cy-real-family-link">Browse category ↗</span></a>
+                    <a class="cy-real-family-card cy-about-family-card" href="/products?family=@Uri.EscapeDataString(family)">
+                        <div class="cy-pro-family-image">
+                            <img src="@CytechProductMedia.For(items[0].Number).Url" alt="@CytechProductMedia.For(items[0].Number).Alt" width="820" height="520" loading="lazy" decoding="async" data-cy-catalogue-photo data-fallback-src="@CytechVisuals.FamilyImage(family)" />
+                            <span class="cy-pro-family-photo-number">@items.Count.ToString("D2") / SECTIONS</span>
+                        </div>
+                        <div class="cy-pro-family-info">
+                            <h3>@family</h3>
+                            <p>@string.Join(" · ", items.Take(3).Select(x => x.Title))</p>
+                            <span class="cy-real-family-link">Browse category <span aria-hidden="true">↗</span></span>
+                        </div>
+                    </a>
                 }
             </div>
         </div>
