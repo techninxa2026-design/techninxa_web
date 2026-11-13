@@ -1,32 +1,95 @@
 @using Techninxa.Services
+@using System.Linq
 @model IReadOnlyList<CytechService>
-@{ ViewData["Title"] = "Engineering Services"; }
-<div class="cy-real">
-    <section class="cy-real-page-hero">
-        <div class="cy-real-shell"><span class="cy-real-eyebrow">WHAT WE DO / CYTECH ENGINEERING</span><h1>Engineering services.<br><em>From supply to support.</em></h1><p>Cytech Engineering's official 2026 industrial product catalogue lists five service areas. We help businesses discuss and source industrial products and related technical solutions.</p><div class="cy-real-page-meta"><span>INDUSTRIAL PRODUCT SUPPLY</span><span>INTEGRATION</span><span>COMMISSIONING & SUPPORT</span></div></div>
+@{
+    ViewData["Title"] = "Engineering Services - Industrial Supply, Integration & Support";
+}
+<div class="cy-real cy-pro-services-page">
+    <section class="cy-pro-services-mast">
+        <div class="cy-real-shell cy-pro-services-mast-grid">
+            <div class="cy-pro-services-mast-copy">
+                <div class="cy-pro-overline"><span class="cy-pro-overline-square"></span> ENGINEERING CAPABILITIES / 2026</div>
+                <h1>Engineering support.<br><em>Beyond the product.</em></h1>
+                <p>From industrial product supply through integration, installation, commissioning and technical support, Cytech Engineering offers five service areas documented in its Industrial Product Catalogue 2026.</p>
+                <div class="cy-pro-mast-actions">
+                    <a href="#our-services" class="cy-real-btn cy-real-btn-primary">Explore services <span aria-hidden="true">↗</span></a>
+                    <a href="/contact" class="cy-real-btn cy-real-btn-secondary">Discuss a requirement <span aria-hidden="true">↗</span></a>
+                </div>
+                <div class="cy-pro-services-mast-keyline"><span>FIVE SERVICES</span><span>INDUSTRIAL ENGINEERING</span><span>DHAKA, BANGLADESH</span></div>
+            </div>
+            <div class="cy-pro-services-mast-image">
+                <img src="@CytechVisuals.IntegrationDetail" alt="Industrial control cabinet and equipment; illustrative photography, not a Cytech project photo" width="1100" height="1050" fetchpriority="high" decoding="async">
+                <div class="cy-pro-mast-image-overlay" aria-hidden="true"></div>
+                <span class="cy-pro-services-mast-image-tag">SYSTEMS / CONTROL / INTEGRATION</span>
+            </div>
+        </div>
     </section>
-    <section class="cy-real-content-section">
+
+    <section class="cy-pro-services-intro cy-real-content-section">
+        <div class="cy-real-shell cy-pro-services-intro-inner">
+            <div>
+                <span class="cy-real-eyebrow">01 / WHAT WE DELIVER</span>
+                <h2>Five ways we support<br><em>industrial operations.</em></h2>
+            </div>
+            <div class="cy-pro-services-intro-right">
+                <p>Every requirement is different. Select the service you need and share the equipment specifications, system context or site details so Cytech can discuss an appropriate scope.</p>
+                <a class="cy-real-text-link" href="/products">Browse the industrial product catalogue <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cy-pro-services-showcase" id="our-services" aria-label="Cytech Engineering services">
         <div class="cy-real-shell">
-            <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">01 / SERVICES</span><h2>How Cytech supports<br><em>industrial operations.</em></h2></div><div class="cy-real-side-copy"><p>These descriptions explain the service types listed in the catalogue; project scope, deliverables and availability are established through individual inquiries.</p></div></div>
-            <div class="cy-real-service-grid">
+            <div class="cy-pro-services-collection">
                 @for (var i = 0; i < Model.Count; i++)
                 {
                     var service = Model[i];
-                    <article id="@service.Slug" class="cy-real-service-card"><span>@((i + 1).ToString("D2")) / CYTECH SERVICES</span><h2>@service.Name</h2><p>@service.Summary</p><a class="cy-real-text-link" href="/contact?service=@Uri.EscapeDataString(service.Name)">Discuss this service <span aria-hidden="true">↗</span></a></article>
+                    <article class="cy-pro-services-tile @(i == 0 ? "cy-pro-services-tile-featured" : "")" id="@service.Slug">
+                        <div class="cy-pro-services-tile-photo">
+                            <img src="@CytechVisuals.ServiceImage(service.Slug)" alt="@CytechVisuals.ServiceAlt(service.Slug)" loading="lazy" decoding="async" width="1100" height="680">
+                            <span class="cy-pro-services-tile-photo-index">@((i + 1).ToString("D2")) / 05</span>
+                        </div>
+                        <div class="cy-pro-services-tile-body">
+                            <span class="cy-pro-eyebrow-dark">CYTECH / ENGINEERING SERVICES</span>
+                            <h3>@service.Name</h3>
+                            <p>@service.Summary</p>
+                            <a class="cy-pro-services-tile-action" href="/contact?service=@Uri.EscapeDataString(service.Name)">Discuss this service <span aria-hidden="true">↗</span></a>
+                        </div>
+                    </article>
                 }
+            </div>
+            <p class="cy-pro-photo-disclaimer">Service images are illustrative industry photographs, not documentation of completed Cytech projects. Service descriptions are based on the Cytech Engineering Industrial Product Catalogue 2026, page 40.</p>
+        </div>
+    </section>
+
+    <section class="cy-pro-industrial-detail">
+        <div class="cy-real-shell cy-pro-industrial-detail-layout">
+            <div class="cy-pro-industrial-detail-photo">
+                <img src="@CytechVisuals.WiringDetail" alt="Industrial wiring, control breakers and electrical panels; illustrative photograph" loading="lazy" decoding="async" width="950" height="780">
+                <span>POWER / CONTROL / CONNECTIONS</span>
+            </div>
+            <div class="cy-pro-industrial-detail-copy">
+                <span class="cy-real-eyebrow">02 / PRODUCT CAPABILITIES</span>
+                <h2>From the right component<br>to the right solution.</h2>
+                <p>Explore equipment types for automation and instrumentation, electrical distribution, power and backup, industrial networking, security and infrastructure.</p>
+                <div class="cy-pro-industrial-tags">
+                    @foreach (var family in CytechCatalogue.Families)
+                    {
+                        var count = CytechCatalogue.Items.Count(x => x.Family == family);
+                        <a href="/products?family=@Uri.EscapeDataString(family)">
+                            <span>@family</span><strong>@count.ToString("D2")</strong>
+                        </a>
+                    }
+                </div>
+                <a href="/products" class="cy-real-btn cy-real-btn-dark">View all 38 product sections <span aria-hidden="true">↗</span></a>
             </div>
         </div>
     </section>
-    <section class="cy-real-section" style="background:#f4f7fa">
-        <div class="cy-real-shell">
-            <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">02 / EQUIPMENT COVERAGE</span><h2>Connected to the products<br><em>you need.</em></h2></div><div class="cy-real-side-copy"><p>View industrial automation, networking, power, safety, and infrastructure product categories from the 2026 catalogue.</p></div></div>
-            <div class="cy-real-family-grid">
-                @foreach (var family in CytechCatalogue.Families)
-                {
-                    <a class="cy-real-family-card" href="/products?family=@Uri.EscapeDataString(family)"><span class="cy-real-eyebrow">@CytechCatalogue.Items.Count(x => x.Family == family) PRODUCT SECTIONS</span><h3>@family</h3><p>@string.Join(" · ", CytechCatalogue.Items.Where(x => x.Family == family).Take(3).Select(x => x.Title))</p><span class="cy-real-family-link">Explore catalogue ↗</span></a>
-                }
-            </div>
+
+    <section class="cy-real-cta">
+        <div class="cy-real-shell cy-real-cta-inner">
+            <div><span class="cy-real-eyebrow">WORK WITH CYTECH</span><h2>Have an engineering<br>requirement to discuss?</h2><p>Send your technical details and preferred timeframe, and our team can review your inquiry.</p></div>
+            <div class="cy-real-cta-right"><a class="cy-real-btn cy-real-btn-light" href="/contact">Request a quotation <span aria-hidden="true">↗</span></a><a href="mailto:info@cytechbd.com">info@cytechbd.com</a><a href="tel:+8801711015660">+880 1711 015660</a></div>
         </div>
     </section>
-    <section class="cy-real-cta"><div class="cy-real-shell cy-real-cta-inner"><div><span class="cy-real-eyebrow">WORK WITH CYTECH</span><h2>Tell us your engineering<br>or supply requirement.</h2><p>Provide your site, project scope, specifications and preferred timeline.</p></div><div class="cy-real-cta-right"><a class="cy-real-btn cy-real-btn-light" href="/contact">Contact our team <span aria-hidden="true">↗</span></a><a href="mailto:info@cytechbd.com">info@cytechbd.com</a></div></div></section>
 </div>
