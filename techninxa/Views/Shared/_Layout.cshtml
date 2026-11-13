@@ -23,8 +23,8 @@
             : requestPath.Equals("/blog", StringComparison.OrdinalIgnoreCase) ? "blog"
             : isProducts ? "products"
             : isServices ? "services"
-            : isItLanding || isItProjects
-              || activeDivision == "electrical" || activeDivision == "manpower"
+            : isItLanding || isItProjects ? "it"
+            : activeDivision == "electrical" || activeDivision == "manpower"
               || activeDivision == "networking" ? "services"
             : "";
 
