@@ -12,6 +12,8 @@
         var requestPath = Context.Request.Path.Value ?? "/";
         var isItLanding = requestPath.Equals("/it-iot-services", StringComparison.OrdinalIgnoreCase);
         var isItProjects = requestPath.StartsWith("/Projects", StringComparison.OrdinalIgnoreCase);
+        var isProducts = requestPath.StartsWith("/products", StringComparison.OrdinalIgnoreCase);
+        var isServices = requestPath.StartsWith("/services", StringComparison.OrdinalIgnoreCase);
         var activeDivision = ViewData["ActiveDivision"] as string
             ?? (isItLanding || isItProjects ? "it" : "none");
         var showItRail = activeDivision == "it" && (isItLanding || isItProjects);
@@ -19,7 +21,8 @@
             : requestPath.Equals("/about", StringComparison.OrdinalIgnoreCase) ? "about"
             : requestPath.Equals("/contact", StringComparison.OrdinalIgnoreCase) ? "contact"
             : requestPath.Equals("/blog", StringComparison.OrdinalIgnoreCase) ? "blog"
-            : requestPath.Equals("/products", StringComparison.OrdinalIgnoreCase) ? "products"
+            : isProducts ? "products"
+            : isServices ? "services"
             : isItLanding || isItProjects
               || activeDivision == "electrical" || activeDivision == "manpower"
               || activeDivision == "networking" ? "services"
@@ -54,7 +57,7 @@
           content="https://techninxa.com/assets/cytechlogo.jpg">
     <meta name="google-site-verification" content="y4NSCTT8C5WLkgLRCcTODIJyCbic9nwkGvaivFHx128" />
     <!-- Favicon -->
-    <link rel="icon" type="image/png"
+    <link rel="icon" type="image/jpeg"
           href="~/assets/cytechlogo.jpg">
 
     <!-- Fonts -->
@@ -74,6 +77,7 @@
     @if (ViewData["IsCorporatePage"] is true)
     {
         <link rel="stylesheet" href="~/css/cytech-corporate.css" asp-append-version="true">
+        <link rel="stylesheet" href="~/css/cytech-catalogue.css" asp-append-version="true">
     }
 </head>
 <body class="@(showItRail ? "has-it-rail" : "")">
@@ -103,46 +107,28 @@
                 <span></span><span></span><span></span>
             </button>
 
-            <!-- Corporate navigation: company-level pages plus a four-division Services dropdown. -->
+            <!-- Verified industrial services and catalogue, with the existing software portfolio retained. -->
             <nav class="main-nav corporate-nav" id="corporateNav" aria-label="Cytech main navigation">
-                <a href="/" data-primary-nav="home"
-                   class="@(primarySection == "home" ? "active" : "")"
-                   aria-current="@(primarySection == "home" ? "page" : null)">Home</a>
-                <a href="/about" data-primary-nav="about"
-                   class="@(primarySection == "about" ? "active" : "")"
-                   aria-current="@(primarySection == "about" ? "page" : null)">About</a>
-                <a href="/contact" data-primary-nav="contact"
-                   class="@(primarySection == "contact" ? "active" : "")"
-                   aria-current="@(primarySection == "contact" ? "page" : null)">Contact</a>
-
+                <a href="/" data-primary-nav="home" class="@(primarySection == "home" ? "active" : "")" aria-current="@(primarySection == "home" ? "page" : null)">Home</a>
+                <a href="/about" data-primary-nav="about" class="@(primarySection == "about" ? "active" : "")" aria-current="@(primarySection == "about" ? "page" : null)">About</a>
+                <a href="/products" data-primary-nav="products" class="@(primarySection == "products" ? "active" : "")" aria-current="@(primarySection == "products" ? "page" : null)">Products</a>
                 <div class="cy-dropdown" id="cyServices">
-                    <button class="cy-dropdown__toggle @(primarySection == "services" ? "active" : "")"
-                            type="button" aria-expanded="false"
-                            aria-controls="cyServicesMenu" aria-haspopup="true">
+                    <button class="cy-dropdown__toggle @(primarySection == "services" ? "active" : "")" type="button" aria-expanded="false" aria-controls="cyServicesMenu" aria-haspopup="true">
                         Services <span class="cy-dropdown__chevron" aria-hidden="true"></span>
                     </button>
-                    <div class="cy-dropdown__menu" id="cyServicesMenu" aria-label="Cytech service divisions">
-                        <a href="/electrical-supply-installation"
-                           class="@(primarySection == "services" && activeDivision == "electrical" ? "active" : "")"
-                           aria-current="@(primarySection == "services" && activeDivision == "electrical" ? "page" : null)">Electrical Supply &amp; Installation</a>
-                        <a href="/manpower-services"
-                           class="@(primarySection == "services" && activeDivision == "manpower" ? "active" : "")"
-                           aria-current="@(primarySection == "services" && activeDivision == "manpower" ? "page" : null)">Manpower Services</a>
-                        <a href="/networking-services"
-                           class="@(primarySection == "services" && activeDivision == "networking" ? "active" : "")"
-                           aria-current="@(primarySection == "services" && activeDivision == "networking" ? "page" : null)">Networking Services</a>
-                        <a href="/it-iot-services"
-                           class="@(primarySection == "services" && activeDivision == "it" ? "active" : "")"
-                           aria-current="@(primarySection == "services" && activeDivision == "it" ? "page" : null)">IT &amp; IoT Services</a>
+                    <div class="cy-dropdown__menu" id="cyServicesMenu" aria-label="Cytech engineering services">
+                        <a href="/services">All Engineering Services</a>
+                        <a href="/services#industrial-products">Industrial Product Supply</a>
+                        <a href="/services#system-integration">System Integration</a>
+                        <a href="/services#installation-commissioning">Installation &amp; Commissioning</a>
+                        <a href="/services#maintenance-support">Maintenance &amp; Support</a>
+                        <a href="/services#technical-consultation">Technical Consultation</a>
+                        <a href="/networking-services">Networking Equipment</a>
+                        <a href="/electrical-supply-installation">Electrical Equipment</a>
                     </div>
                 </div>
-
-                <a href="/blog" data-primary-nav="blog"
-                   class="@(primarySection == "blog" ? "active" : "")"
-                   aria-current="@(primarySection == "blog" ? "page" : null)">Blog</a>
-                <a href="/products" data-primary-nav="products"
-                   class="@(primarySection == "products" ? "active" : "")"
-                   aria-current="@(primarySection == "products" ? "page" : null)">Products</a>
+                <a href="/it-iot-services" data-primary-nav="it" class="@(isItLanding || isItProjects ? "active" : "")">IT &amp; IoT</a>
+                <a href="/contact" data-primary-nav="contact" class="@(primarySection == "contact" ? "active" : "")" aria-current="@(primarySection == "contact" ? "page" : null)">Contact</a>
             </nav>
 
             @if (ViewData["IsCorporatePage"] is true)
@@ -196,30 +182,31 @@
                     <img src="~/assets/cytechlogo.jpg" alt="">
                     <div>CYTECH<span>ENGINEERING</span></div>
                 </a>
-                <p>Engineering, people, networks, and technology under one corporate identity.</p>
-                <p>Built for business. Made for execution.</p>
+                <p>Industrial products, automation, electrical instrumentation, networking, safety and power solutions.</p>
+                <p>Industrial product supply, integration, installation, commissioning and support.</p>
             </div>
             <div>
                 <h4>COMPANY</h4>
                 <a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a>
-                <a href="/blog">Blog</a><a href="/products">Products</a>
+                <a href="/products">Products</a><a href="/services">Services</a>
             </div>
             <div>
-                <h4>OUR DIVISIONS</h4>
-                <a href="/electrical-supply-installation">Electrical Supply &amp; Installation</a>
-                <a href="/manpower-services">Manpower</a>
-                <a href="/networking-services">Networking</a>
-                <a href="/it-iot-services">IT &amp; IoT</a>
+                <h4>PRODUCTS &amp; SERVICES</h4>
+                <a href="/products">Industrial Products</a>
+                <a href="/services">Engineering Services</a>
+                <a href="/networking-services">Industrial Networking</a>
+                <a href="/electrical-supply-installation">Electrical Supply</a>
+                <a href="/it-iot-services">IT &amp; IoT Portfolio</a>
             </div>
             <div>
                 <h4>BUSINESS INQUIRIES</h4>
-                <p><a href="tel:+8801711015660">01711015660</a><a href="mailto:cytech&#64;gmail.com">cytech&#64;gmail.com</a><span>Dhaka, Bangladesh</span></p><p>Share your requirements using the contact form for a quotation.</p>
+                <p><a href="tel:+8801711015660">01711015660</a><a href="mailto:info&#64;cytechbd.com">info&#64;cytechbd.com</a><span>Dhaka, Bangladesh</span></p><p>Share your requirements using the contact form for a quotation.</p>
                 <a href="/contact" style="color:#ff9366;font-weight:750">Discuss a requirement ↗</a>
             </div>
         </div>
         <div class="container cy-corp-footer__bottom">
             <span>© @DateTime.UtcNow.Year Cytech Engineering. All rights reserved.</span>
-            <span>Four divisions. One connected organization.</span>
+            <span>Industrial products. Integrated engineering solutions.</span>
         </div>
     </footer>
     }
@@ -238,7 +225,7 @@
                 <a href="/">Home</a>
                 <a href="/about">About</a>
                 <a href="/contact">Contact</a>
-                <a href="/blog">Blog</a>
+                <a href="/services">Services</a>
                 <a href="/products">Products</a>
             </div>
 
