@@ -1,4 +1,5 @@
-﻿@model List<Techninxa.Models.Project>
+﻿@using Techninxa.Services
+@model List<Techninxa.Models.Project>
 
 @{ ViewData["Title"] = "Software Development Projects & Case Studies"; ViewData["ActiveNav"] = "Projects"; ViewData["Description"] = "Explore Cytech Engineering's software development projects, web applications, mobile apps, and IoT solutions. Discover our digital products and case studies."; ViewData["CanonicalUrl"] = "https://techninxa.com/Projects"; }
 
@@ -31,6 +32,8 @@
         foreach (var project in Model)
         {
             var category = project.Category?.Trim().ToLower() ?? "";
+            var preview = ItIotMedia.ResolveProject(project);
+            var safeFallback = ItIotMedia.ResolveConcept(project.Title, project.Slug, project.Category);
 
             var categoryClasses = category switch
             {
@@ -65,17 +68,16 @@
 
                     <div class="library-image">
 
-                        @if (!string.IsNullOrWhiteSpace(project.HeroImage))
+                        <img src="@preview.Url"
+                             alt="@preview.Alt"
+                             class="it-media-library-image"
+                             width="900" height="600"
+                             loading="lazy" decoding="async"
+                             data-it-preview
+                             data-it-fallback="@safeFallback.Url">
+                        @if (preview.IsIllustration)
                         {
-                            <img src="@project.HeroImage"
-                                 alt="@project.Title"
-                                 style="width:100%; height:100%; object-fit:cover;">
-                        }
-                        else
-                        {
-                            <div class="project-image-placeholder">
-                                <span>@project.Title</span>
-                            </div>
+                            <span class="it-media-concept-label">CONCEPT PREVIEW</span>
                         }
 
                         <div class="mini-chip">
