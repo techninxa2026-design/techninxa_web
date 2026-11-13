@@ -38,12 +38,7 @@
                 <div class="cy-catalogue-grid" id="cyCatalogueGrid">
                     @foreach (var item in Model)
                     {
-                        var keywords = string.Join(" ", item.Products) + " " + string.Join(" ", item.Brands);
-                        <a href="/products/@item.Slug" class="cy-catalogue-card" data-cy-product-card data-family="@item.Family" data-search="@item.Title @item.Description @keywords">
-                            <div class="cy-catalogue-card-header"><span class="cy-catalogue-card-number">SECTION @item.Number.ToString("D2")</span><span class="cy-catalogue-card-arrow" aria-hidden="true">↗</span></div>
-                            <h3>@item.Title</h3><p>@item.Description</p>
-                            <div class="cy-catalogue-card-bottom"><span>VIEW PRODUCTS ↗</span><span class="cy-catalogue-card-family">@item.Family</span></div>
-                        </a>
+                        <partial name="_CatalogueProductCard" model="item" />
                     }
                 </div>
                 <div class="cy-catalogue-empty" id="cyCatalogueEmpty" role="status">
