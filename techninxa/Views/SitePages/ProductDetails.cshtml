@@ -1,0 +1,56 @@
+@using Techninxa.Services
+@using System.Linq
+@model CatalogueCategory
+@{
+    ViewData["Title"] = Model.Title + " - Industrial Products";
+    var related = CytechCatalogue.Items.Where(x => x.Family == Model.Family && x.Number != Model.Number).Take(4).ToList();
+    var quoteUrl = "/contact?service=Supply%20of%20Industrial%20Products&product=" + Uri.EscapeDataString(Model.Title);
+}
+<div class="cy-real cy-product-detail">
+    <section class="cy-real-page-hero">
+        <div class="cy-real-shell">
+            <nav class="cy-real-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/products">Products</a><span aria-hidden="true">/</span><span>@Model.Title</span></nav>
+            <div style="margin-top:35px"><span class="cy-real-eyebrow">CATALOGUE SECTION @Model.Number.ToString("D2") / @Model.Family</span></div>
+            <h1>@Model.Title</h1>
+            <p>@Model.Description</p>
+            <div class="cy-real-page-meta"><span>CYTECH INDUSTRIAL PRODUCT CATALOGUE 2026</span><span>SOURCE PAGE @Model.SourcePage</span></div>
+        </div>
+    </section>
+    <section class="cy-real-content-section">
+        <div class="cy-real-shell cy-real-detail-intro">
+            <div>
+                <span class="cy-real-eyebrow">WHAT'S IN THIS SECTION</span>
+                <h2>Available product types in the catalogue</h2>
+                <p>The Cytech Engineering catalogue includes the following types of products and components within this section. Contact us to confirm a specific model, rating, specification or quotation.</p>
+                <ul class="cy-real-product-list">
+                    @foreach (var product in Model.Products) { <li>@product</li> }
+                </ul>
+                @if (Model.Brands.Length > 0)
+                {
+                    <div class="cy-real-brands"><strong>Brands referenced in this catalogue section</strong>@string.Join(" · ", Model.Brands)</div>
+                }
+                <div class="cy-real-detail-note">The brands above are referenced in the supplied product catalogue. This does not establish authorized-distributor status. Product availability, prices and technical specifications require direct confirmation.</div>
+            </div>
+            <aside class="cy-real-detail-card">
+                <strong>REQUIRE PRODUCT INFORMATION?</strong>
+                <p>Send Cytech your required model or product type, technical specifications, project location, quantities and delivery timeline.</p>
+                <a class="cy-real-btn cy-real-btn-primary" style="color:white!important;display:flex" href="@quoteUrl">Request a quotation <span aria-hidden="true">↗</span></a>
+                <div style="margin-top:24px;border-top:1px solid #dce3e9;padding-top:20px"><strong>CONTACT CYTECH</strong><p><a href="mailto:info@cytechbd.com" style="display:inline;color:#e94a12!important">info@cytechbd.com</a></p><p><a href="tel:+8801711015660" style="display:inline;color:#e94a12!important">+880 1711 015660</a></p></div>
+            </aside>
+        </div>
+    </section>
+    @if (related.Count > 0)
+    {
+        <section class="cy-real-section" style="background:#f5f8fb">
+            <div class="cy-real-shell">
+                <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">EXPLORE RELATED SECTIONS</span><h2>More in @Model.Family</h2></div><a href="/products?family=@Uri.EscapeDataString(Model.Family)" class="cy-real-text-link">Browse family <span aria-hidden="true">↗</span></a></div>
+                <div class="cy-catalogue-grid">
+                    @foreach (var item in related)
+                    {
+                        <a class="cy-catalogue-card" href="/products/@item.Slug"><div class="cy-catalogue-card-header"><span class="cy-catalogue-card-number">SECTION @item.Number.ToString("D2")</span><span class="cy-catalogue-card-arrow" aria-hidden="true">↗</span></div><h3>@item.Title</h3><p>@item.Description</p><div class="cy-catalogue-card-bottom"><span>EXPLORE ↗</span><span class="cy-catalogue-card-family">@item.Family</span></div></a>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+</div>
