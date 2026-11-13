@@ -1,94 +1,27 @@
+@using Techninxa.Services
+@using System.Linq
 @{
-    ViewData["Title"] = "Networking Services";
+    ViewData["Title"] = "Industrial Networking & Structured Cabling";
+    var ids = new[] { 1, 7, 8, 9, 12, 13, 18, 19, 26, 27 };
+    var categories = CytechCatalogue.Items.Where(x => ids.Contains(x.Number)).ToList();
 }
-@section Styles {
-    <link rel="stylesheet" href="~/css/cytech-networking.css" asp-append-version="true" />
-}
-
-<div class="cy-net">
-    <section class="cy-net-hero" aria-labelledby="cy-net-title">
-        <div class="cy-net-wrap cy-net-hero-grid">
-            <div class="cy-net-intro">
-                <div class="cy-net-eyebrow"><span></span> CYTECH ENGINEERING / NETWORKING SERVICES</div>
-                <h1 id="cy-net-title">Reliable connections.<br><em>Built for business.</em></h1>
-                <p>Explore practical networking solutions for offices, commercial facilities, and connected operations—from cabling and Wi-Fi to routing, network security, and troubleshooting.</p>
-                <div class="cy-net-actions">
-                    <a class="cy-net-button" href="/contact?service=Networking%20Services">Discuss a Network Project <span aria-hidden="true">↗</span></a>
-                    <a class="cy-net-button cy-net-button--outline" href="#cy-net-services">Explore Services <span aria-hidden="true">↓</span></a>
-                </div>
-                <div class="cy-net-capabilities" aria-label="Typical work stages"><span>Plan</span><span>Install</span><span>Configure</span><span>Test</span></div>
-            </div>
-            <div class="cy-net-visual" aria-label="Illustration of a business network linking a router, core switch, wireless devices, computers and servers">
-                <div class="cy-net-visual-header"><span>NETWORK ARCHITECTURE</span><span class="cy-net-signal"><i></i> CONNECTED SYSTEMS</span></div>
-                <div class="cy-net-diagram" role="img" aria-label="Example network topology: internet connects through gateway to core switch, wireless, workstations, and connected devices">
-                    <div class="cy-net-topology-line cy-net-topology-line--up"></div>
-                    <div class="cy-net-topology-line cy-net-topology-line--down"></div>
-                    <div class="cy-net-diagram-node cy-net-node--internet"><span class="cy-net-node-icon">◎</span><strong>Internet / WAN</strong><small>Connectivity</small></div>
-                    <div class="cy-net-diagram-node cy-net-node--gateway"><span class="cy-net-node-icon">◈</span><strong>Gateway</strong><small>Routing &amp; security</small></div>
-                    <div class="cy-net-diagram-node cy-net-node--core"><span class="cy-net-node-icon">▤</span><strong>Core switch</strong><small>Local network</small></div>
-                    <div class="cy-net-diagram-node cy-net-node--wifi"><span class="cy-net-node-icon">◉</span><strong>Business Wi-Fi</strong><small>Wireless access</small></div>
-                    <div class="cy-net-diagram-node cy-net-node--users"><span class="cy-net-node-icon">▣</span><strong>Workstations</strong><small>Users &amp; teams</small></div>
-                    <div class="cy-net-diagram-node cy-net-node--devices"><span class="cy-net-node-icon">▥</span><strong>Connected devices</strong><small>Shared resources</small></div>
-                </div>
-                <div class="cy-net-visual-foot"><span>ILLUSTRATIVE TOPOLOGY</span><span>Scope varies by project</span></div>
+<div class="cy-real">
+    <section class="cy-real-page-hero">
+        <div class="cy-real-shell"><span class="cy-real-eyebrow">CYTECH / INDUSTRIAL NETWORKING</span><h1>Reliable industrial<br><em>connectivity.</em></h1><p>Explore industrial Ethernet switches, routers, fiber media converters, copper and fiber structured cabling, patch panels and network accessories listed in the Cytech Engineering 2026 product catalogue.</p><div class="cy-real-page-meta"><span>INDUSTRIAL ETHERNET</span><span>FIBER OPTICS</span><span>STRUCTURED CABLING</span></div></div>
+    </section>
+    <section class="cy-real-content-section">
+        <div class="cy-real-shell">
+            <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">01 / PRODUCT COVERAGE</span><h2>Products for connected<br><em>industrial systems.</em></h2></div><div class="cy-real-side-copy"><p>Reference the product categories in our 2026 catalogue when discussing your networking and structured cabling requirements.</p></div></div>
+            <div class="cy-catalogue-grid">
+                @foreach (var item in categories)
+                {
+                    <a href="/products/@item.Slug" class="cy-catalogue-card"><div class="cy-catalogue-card-header"><span class="cy-catalogue-card-number">SECTION @item.Number.ToString("D2")</span><span class="cy-catalogue-card-arrow" aria-hidden="true">↗</span></div><h3>@item.Title</h3><p>@item.Description</p><div class="cy-catalogue-card-bottom"><span>EXPLORE SECTION ↗</span></div></a>
+                }
             </div>
         </div>
     </section>
-
-    <section class="cy-net-section" id="cy-net-services" aria-labelledby="cy-net-services-title">
-        <div class="cy-net-wrap">
-            <div class="cy-net-section-head">
-                <div><span class="cy-net-kicker">01 / NETWORK CAPABILITIES</span><h2 id="cy-net-services-title">Services for connected<br>workplaces and facilities.</h2></div>
-                <p>Each project begins with the actual site environment, business requirements and devices that need to connect.</p>
-            </div>
-            <div class="cy-net-service-grid">
-                <article class="cy-net-service"><span class="cy-net-service-icon" aria-hidden="true">⌘</span><small>01 / CONNECTIVITY</small><h3>LAN &amp; WAN Networks</h3><p>Network planning, local connectivity, inter-office links, IP addressing and practical network expansion.</p></article>
-                <article class="cy-net-service"><span class="cy-net-service-icon" aria-hidden="true">▦</span><small>02 / PHYSICAL INFRASTRUCTURE</small><h3>Structured Cabling</h3><p>Copper data cabling, patch panels, racks, cable organization, labeling and connectivity testing.</p></article>
-                <article class="cy-net-service"><span class="cy-net-service-icon" aria-hidden="true">◉</span><small>03 / WIRELESS</small><h3>Business Wi-Fi</h3><p>Wireless coverage planning, access-point placement, guest networking and capacity considerations.</p></article>
-                <article class="cy-net-service"><span class="cy-net-service-icon" aria-hidden="true">⟷</span><small>04 / BACKBONE</small><h3>Fiber Connectivity</h3><p>Fiber backbone planning and installation considerations for higher-bandwidth or longer-distance links.</p></article>
-                <article class="cy-net-service"><span class="cy-net-service-icon" aria-hidden="true">◈</span><small>05 / NETWORK EQUIPMENT</small><h3>Routers &amp; Switches</h3><p>Selection, configuration and integration of network devices, VLANs, routing and gateway connectivity.</p></article>
-                <article class="cy-net-service"><span class="cy-net-service-icon" aria-hidden="true">◇</span><small>06 / PROTECTION</small><h3>Network Security</h3><p>Firewalls, access policies, network segmentation and secure connectivity requirements.</p></article>
-                <article class="cy-net-service"><span class="cy-net-service-icon" aria-hidden="true">▣</span><small>07 / CONNECTED SYSTEMS</small><h3>Device Integration</h3><p>Connectivity planning for IP cameras, printers, access control, servers and other networked equipment.</p></article>
-                <article class="cy-net-service"><span class="cy-net-service-icon" aria-hidden="true">⊕</span><small>08 / OPERATIONS</small><h3>Testing &amp; Support</h3><p>Connection testing, fault isolation, performance checks, documentation and maintenance discussions.</p></article>
-            </div>
-            <p class="cy-net-scope-note">Services shown are a general overview; exact availability, equipment, timelines and technical scope are established during project assessment.</p>
-        </div>
+    <section class="cy-real-section" style="background:#f5f8fb">
+        <div class="cy-real-shell cy-real-about-lead"><div><span class="cy-real-eyebrow">02 / ENGINEERING SERVICES</span><h2>Connectivity and integration.</h2></div><div><p>The Cytech catalogue lists system integration, installation and commissioning, maintenance and support, and technical consultation among its core services. Discuss the scope of your specific networking project with our team.</p><a class="cy-real-text-link" href="/services">Explore engineering services <span aria-hidden="true">↗</span></a></div></div>
     </section>
-
-    <section class="cy-net-section cy-net-section--soft" aria-labelledby="cy-net-areas-title">
-        <div class="cy-net-wrap">
-            <div class="cy-net-section-head">
-                <div><span class="cy-net-kicker">02 / USE CASES</span><h2 id="cy-net-areas-title">Designed around<br>your environment.</h2></div>
-                <p>Different sites need different network layouts, performance, coverage, access controls and installation plans.</p>
-            </div>
-            <div class="cy-net-environments">
-                <article><span>01</span><h3>Office &amp; Corporate</h3><p>Workstations, meeting rooms, shared equipment, office Wi-Fi and staff access.</p></article>
-                <article><span>02</span><h3>Retail &amp; Commercial</h3><p>Point-of-sale, guest wireless, CCTV connectivity and back-office systems.</p></article>
-                <article><span>03</span><h3>Industrial &amp; Warehouse</h3><p>Large spaces, device placement, structured connectivity and operational coverage needs.</p></article>
-                <article><span>04</span><h3>Multiple Sites</h3><p>Branch connectivity, shared resources, network segmentation and remote-access planning.</p></article>
-            </div>
-        </div>
-    </section>
-
-    <section class="cy-net-section" aria-labelledby="cy-net-process-title">
-        <div class="cy-net-wrap">
-            <div class="cy-net-section-head">
-                <div><span class="cy-net-kicker">03 / PROJECT PROCESS</span><h2 id="cy-net-process-title">From requirements<br>to a connected network.</h2></div>
-                <p>A practical framework for networking inquiries, adapted to the site and agreed scope.</p>
-            </div>
-            <div class="cy-net-steps">
-                <div><span>01</span><h3>Assess</h3><p>Review site size, existing infrastructure, connected devices and usage.</p></div>
-                <div><span>02</span><h3>Plan</h3><p>Define cabling, equipment, topology, coverage and requirements.</p></div>
-                <div><span>03</span><h3>Implement</h3><p>Coordinate installation and configuration within the agreed project scope.</p></div>
-                <div><span>04</span><h3>Verify</h3><p>Test connectivity, document the setup and discuss support needs.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cy-net-cta" aria-labelledby="cy-net-cta-title">
-        <div class="cy-net-wrap cy-net-cta-inner">
-            <div><span class="cy-net-kicker">04 / LET'S PLAN YOUR NETWORK</span><h2 id="cy-net-cta-title">Have a connectivity requirement?</h2><p>Share your site location, number of users/devices, floor plan if available, and project timeline. We can review the scope together.</p></div>
-            <div class="cy-net-cta-actions"><a class="cy-net-button" href="/contact?service=Networking%20Services">Request a Networking Quote ↗</a><a class="cy-net-call" href="tel:+8801711015660">Call 01711015660</a><a class="cy-net-mail" href="mailto:cytech&#64;gmail.com">cytech&#64;gmail.com</a></div>
-        </div>
-    </section>
+    <section class="cy-real-cta"><div class="cy-real-shell cy-real-cta-inner"><div><span class="cy-real-eyebrow">NETWORK INFRASTRUCTURE</span><h2>Tell us what your<br>network requires.</h2><p>Share the environment, network architecture, port count, transmission medium and required equipment.</p></div><div class="cy-real-cta-right"><a href="/contact?service=Networking%20Services" class="cy-real-btn cy-real-btn-light">Request a networking quote <span aria-hidden="true">↗</span></a></div></div></section>
 </div>
