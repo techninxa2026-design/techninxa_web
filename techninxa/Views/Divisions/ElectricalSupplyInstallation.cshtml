@@ -1,0 +1,27 @@
+@using Techninxa.Services
+@using System.Linq
+@{
+    ViewData["Title"] = "Industrial Electrical Supply & Installation";
+    var ids = new[] { 4, 6, 10, 11, 14, 17, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38 };
+    var categories = CytechCatalogue.Items.Where(x => ids.Contains(x.Number)).ToList();
+}
+<div class="cy-real">
+    <section class="cy-real-page-hero">
+        <div class="cy-real-shell"><span class="cy-real-eyebrow">CYTECH / ELECTRICAL SOLUTIONS</span><h1>Electrical equipment.<br><em>Powering industrial work.</em></h1><p>Explore electrical distribution, circuit protection, power supplies, industrial UPS systems, motor control panels, switches, enclosures and related accessories documented in our 2026 product catalogue.</p><div class="cy-real-page-meta"><span>ELECTRICAL DISTRIBUTION</span><span>POWER &amp; BACKUP</span><span>CONTROL &amp; PROTECTION</span></div></div>
+    </section>
+    <section class="cy-real-content-section">
+        <div class="cy-real-shell">
+            <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">01 / PRODUCT COVERAGE</span><h2>Electrical products<br><em>from our catalogue.</em></h2></div><div class="cy-real-side-copy"><p>Select a product section to review the types of components listed by Cytech Engineering and request a quotation.</p></div></div>
+            <div class="cy-catalogue-grid">
+                @foreach (var item in categories)
+                {
+                    <a href="/products/@item.Slug" class="cy-catalogue-card"><div class="cy-catalogue-card-header"><span class="cy-catalogue-card-number">SECTION @item.Number.ToString("D2")</span><span class="cy-catalogue-card-arrow" aria-hidden="true">↗</span></div><h3>@item.Title</h3><p>@item.Description</p><div class="cy-catalogue-card-bottom"><span>EXPLORE SECTION ↗</span></div></a>
+                }
+            </div>
+        </div>
+    </section>
+    <section class="cy-real-section" style="background:#f5f8fb">
+        <div class="cy-real-shell cy-real-about-lead"><div><span class="cy-real-eyebrow">02 / ENGINEERING SERVICES</span><h2>Products plus technical services.</h2></div><div><p>In addition to industrial product supply, the Cytech 2026 catalogue lists system integration, installation and commissioning, maintenance and support, and technical consultation.</p><a class="cy-real-text-link" href="/services">Explore all services <span aria-hidden="true">↗</span></a></div></div>
+    </section>
+    <section class="cy-real-cta"><div class="cy-real-shell cy-real-cta-inner"><div><span class="cy-real-eyebrow">ELECTRICAL REQUIREMENTS</span><h2>Share your electrical<br>bill of materials.</h2><p>Provide equipment specifications, ratings, quantities and site information for a quotation.</p></div><div class="cy-real-cta-right"><a href="/contact?service=Supply%20of%20Industrial%20Products" class="cy-real-btn cy-real-btn-light">Request a quotation <span aria-hidden="true">↗</span></a></div></div></section>
+</div>
