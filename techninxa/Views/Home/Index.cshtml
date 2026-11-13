@@ -1,5 +1,6 @@
 ﻿
 @using Techninxa.Models
+@using Techninxa.Services
 @model ContactMessage
 
 @{
@@ -2419,8 +2420,10 @@
             {
                 int projectIndex = 1;
 
-                foreach (var project in ViewBag.Projects)
+                foreach (Project project in (IEnumerable<Project>)ViewBag.Projects)
                 {
+                    var preview = ItIotMedia.ResolveProject(project);
+                    var safeFallback = ItIotMedia.ResolveConcept(project.Title, project.Slug, project.Category);
                     <a class="home-project-card @(projectIndex == 1 ? "home-project-card-featured" : "") reveal @(projectIndex % 2 == 0 ? "reveal-delay" : "")"
                        href="/Projects/Details/@project.Slug"
                        data-project-card
@@ -2432,17 +2435,17 @@
                         <div class="home-project-visual">
                             <div class="home-project-visual-grid" aria-hidden="true"></div>
 
-                            @if (!string.IsNullOrWhiteSpace(project.HeroImage))
+                            <img src="@preview.Url"
+                                 alt="@preview.Alt"
+                                 loading="lazy"
+                                 decoding="async"
+                                 width="900" height="600"
+                                 class="it-media-project-image"
+                                 data-it-preview
+                                 data-it-fallback="@safeFallback.Url">
+                            @if (preview.IsIllustration)
                             {
-                                <img src="@project.HeroImage" alt="@project.Title project preview" loading="lazy">
-                            }
-                            else
-                            {
-                                <div class="home-project-placeholder">
-                                    <span class="home-project-placeholder-mark" aria-hidden="true">TX</span>
-                                    <strong>@project.Title</strong>
-                                    <small>PROJECT PREVIEW</small>
-                                </div>
+                                <span class="it-media-concept-label">CONCEPT PREVIEW</span>
                             }
 
                             <span class="home-project-category">@project.Category</span>
@@ -2803,8 +2806,9 @@
                 {
                     int teamIndex = 1;
 
-                    foreach (var member in ViewBag.TeamMembers)
+                    foreach (techninxa.Models.TeamMember member in (IEnumerable<techninxa.Models.TeamMember>)ViewBag.TeamMembers)
                     {
+                        var avatar = ItIotMedia.AvatarFor(member.Id, member.Name);
                         <article class="home-team-card reveal @(teamIndex % 2 == 0 ? "reveal-delay" : "")"
                                  data-team-card
                                  data-name="@member.Name"
@@ -2812,19 +2816,15 @@
                                  data-department="@member.Department"
                                  data-order="@teamIndex">
                             <div class="home-team-portrait">
-                                @if (!string.IsNullOrWhiteSpace(member.Image))
-                                {
-                                    <img src="@member.Image"
-                                         alt="@(string.IsNullOrWhiteSpace(member.AltText) ? member.Name : member.AltText)"
-                                         loading="lazy">
-                                }
-                                else
-                                {
-                                    <div class="home-team-image-placeholder">
-                                        <span class="home-team-placeholder-mark" aria-hidden="true">TX</span>
-                                        <strong>@member.Name</strong>
-                                    </div>
-                                }
+                                <div class="it-media-avatar-halo" aria-hidden="true"></div>
+                                <img src="@avatar"
+                                     alt="Illustrated avatar for @member.Name"
+                                     loading="lazy"
+                                     decoding="async"
+                                     width="420" height="420"
+                                     class="it-media-team-avatar"
+                                     data-it-avatar
+                                     data-it-fallback="/assets/it-iot/avatars/avatar-01.svg">
 
                                 <span class="home-team-index">TEAM / @teamIndex.ToString("00")</span>
 
