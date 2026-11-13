@@ -1,0 +1,213 @@
+/* Cytech Engineering / IT & IoT media presentation
+   Scope: dynamic public project cards and team cards only.
+   Real project cover assets remain separate from our illustrative UI previews. */
+.home-projects .home-project-card,
+.project-library .library-card,
+.home-team-section .home-team-card{
+  border-color:rgba(25,52,78,.11);
+  box-shadow:0 14px 35px rgba(11,35,56,.075);
+}
+.home-projects .home-project-card:hover,
+.project-library .library-card:hover,
+.home-team-section .home-team-card:hover{
+  box-shadow:0 27px 65px rgba(10,35,62,.15);
+  border-color:rgba(246,91,35,.32);
+}
+.home-projects .home-project-visual{
+  background:#091e37;
+}
+.home-projects .home-project-visual > img.it-media-project-image{
+  display:block;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  max-width:none;
+  padding:0;
+  object-fit:cover;
+  object-position:center;
+  background:#09203a;
+  filter:none;
+  transition:transform .55s cubic-bezier(.2,.8,.2,1);
+}
+.home-projects .home-project-visual > img.it-media-project-image.is-case-art{
+  padding:15px;
+  box-sizing:border-box;
+  object-fit:contain;
+  background:radial-gradient(circle at 50% 24%,#2b4765,#0b213c 75%);
+}
+.home-projects .home-project-card:hover .home-project-visual > img.it-media-project-image{
+  transform:scale(1.045);
+}
+.home-projects .home-project-visual::before{
+  background:linear-gradient(180deg,rgba(4,14,28,.14),transparent 39%,rgba(4,14,28,.53));
+}
+.home-projects .home-project-number{
+  background:rgba(7,24,42,.57);
+  border:1px solid rgba(255,255,255,.23);
+  border-radius:30px;
+  padding:7px 10px;
+  top:18px;
+  right:18px;
+  color:white;
+  text-shadow:0 2px 8px #061325;
+}
+.home-projects .home-project-category{
+  max-width:calc(100% - 150px);
+  background:rgba(8,27,47,.74);
+  border-color:rgba(255,255,255,.35);
+  color:#fff;
+}
+.it-media-concept-label{
+  position:absolute;
+  z-index:3;
+  left:20px;
+  bottom:21px;
+  padding:8px 11px;
+  border:1px solid rgba(255,255,255,.38);
+  border-radius:9px;
+  background:rgba(5,25,45,.75);
+  color:#e9f5ff;
+  font:800 9px/1.3 Inter,Arial,sans-serif;
+  letter-spacing:.13em;
+  backdrop-filter:blur(8px);
+  pointer-events:none;
+}
+/* Library cards can display both genuine vertical app screens and wide concept previews. */
+.project-library .library-image{
+  background:linear-gradient(145deg,#0a1e34,#224362);
+  height:clamp(250px,27vw,370px);
+  border-bottom:1px solid rgba(10,32,50,.08);
+}
+.project-library .library-image > img.it-media-library-image{
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:cover;
+  object-position:center center;
+  padding:0;
+  box-sizing:border-box;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1);
+}
+.project-library .library-image > img.it-media-library-image.is-case-art{
+  object-fit:contain;
+  padding:18px;
+  background:radial-gradient(circle at 50% 25%,#324f6a,#091d33);
+}
+.project-library .library-card:hover .it-media-library-image{transform:scale(1.04)}
+.project-library .library-card .library-image .mini-chip{
+  background:rgba(8,29,47,.78);
+  border:1px solid rgba(255,255,255,.24);
+  color:#fff;
+  backdrop-filter:blur(8px);
+}
+.project-library .library-image .it-media-concept-label{left:18px;bottom:17px}
+.project-library .library-info{padding:25px 29px 31px}
+.project-library .library-info h2{font-size:clamp(23px,2.6vw,33px);letter-spacing:-.04em}
+.project-library .library-info p{line-height:1.65}
+.project-library .library-card{border-radius:21px}
+.project-library .library-card>a:focus-visible{
+  outline:3px solid #ff6b32;
+  outline-offset:4px;
+  border-radius:20px;
+}
+/* Team / consistent avatar illustrations for every member without replacing
+   uploaded admin images or implying the illustration is the member's likeness. */
+.home-team-section .home-team-portrait{
+  height:305px;
+  min-height:305px;
+  background:radial-gradient(ellipse at 52% 18%,#eef8ff 2%,#d9e9f5 48%,#b9d4e8 100%);
+}
+.home-team-section .home-team-portrait::after{
+  top:43px;
+  width:220px;
+  height:220px;
+  opacity:.45;
+  z-index:0;
+  border:1px solid rgba(246,91,35,.2);
+  box-shadow:0 0 0 26px rgba(255,255,255,.15),0 0 0 49px rgba(255,255,255,.1);
+}
+.home-team-section .home-team-portrait::before{
+  background:linear-gradient(180deg,transparent 53%,rgba(8,26,44,.56) 100%);
+  z-index:2;
+}
+.home-team-section .home-team-portrait .it-media-avatar-halo{
+  position:absolute;
+  z-index:0;
+  top:31px;
+  left:50%;
+  width:251px;
+  height:251px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at 40% 30%,#fff,#ffcbb6 62%,#f5966e);
+  filter:drop-shadow(0 18px 24px rgba(11,39,64,.13));
+}
+.home-team-section .home-team-portrait > img.it-media-team-avatar{
+  position:absolute;
+  z-index:1;
+  inset:44px auto auto 50%;
+  display:block;
+  width:225px;
+  height:225px;
+  max-width:225px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center;
+  border:6px solid rgba(255,255,255,.92);
+  box-sizing:border-box;
+  box-shadow:0 16px 34px rgba(8,35,60,.20);
+  transform:translateX(-50%);
+  transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .3s;
+}
+.home-team-section .home-team-card:hover .home-team-portrait > img.it-media-team-avatar{
+  transform:translateX(-50%) scale(1.06);
+  box-shadow:0 21px 45px rgba(8,35,60,.26);
+}
+.home-team-section .home-team-index{z-index:4;top:17px}
+.home-team-section .home-team-department-chip{z-index:4}
+.home-team-section .home-team-card{
+  overflow:hidden;
+  border-radius:22px;
+  background:#fff;
+}
+.home-team-section .home-team-body{
+  padding:25px 27px 27px;
+}
+.home-team-section .home-team-name{
+  font-size:clamp(23px,2.35vw,29px);
+  line-height:1.16;
+}
+.home-team-section .home-team-role{font-size:13px;line-height:1.65}
+.home-team-section .home-team-card-footer{
+  padding-top:19px;
+  margin-top:22px;
+}
+.home-team-section .home-team-card .home-team-portfolio:focus-visible,
+.home-team-section .home-team-card:focus-within{
+  outline:3px solid #ff743b;
+  outline-offset:3px;
+}
+@media(max-width:900px){
+  .home-team-section .home-team-portrait{height:282px;min-height:282px}
+  .home-team-section .home-team-portrait .it-media-avatar-halo{width:220px;height:220px}
+  .home-team-section .home-team-portrait>img.it-media-team-avatar{width:198px;height:198px;max-width:198px}
+  .project-library .library-image{height:295px}
+}
+@media(max-width:600px){
+  .home-projects .home-project-visual>img.it-media-project-image.is-case-art{padding:10px}
+  .home-team-section .home-team-portrait{height:300px;min-height:300px}
+  .home-team-section .home-team-portrait .it-media-avatar-halo{width:247px;height:247px}
+  .home-team-section .home-team-portrait>img.it-media-team-avatar{width:219px;height:219px;max-width:219px}
+  .project-library .library-image{height:275px}
+  .project-library .library-info{padding:21px 22px 25px}
+  .it-media-concept-label{font-size:8px;left:14px;bottom:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-team-section .home-team-portrait>img.it-media-team-avatar,
+  .home-projects .home-project-visual>img.it-media-project-image,
+  .project-library .library-image>img.it-media-library-image{
+    transition:none!important;animation:none!important;
+  }
+}
