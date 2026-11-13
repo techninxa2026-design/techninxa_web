@@ -9,7 +9,7 @@
         <div class="cy-real-grid cy-real-shell">
             <div class="cy-real-hero-copy">
                 <div class="cy-real-kicker"><span class="cy-real-pulse"></span> CYTECH ENGINEERING <span class="cy-real-kicker-line"></span> INDUSTRIAL SOLUTIONS</div>
-                <h1>Engineering what <em>industry</em> depends on.</h1>
+                <h1>Industrial solutions.<br><em>Engineered to perform.</em></h1>
                 <p>Industrial products, automation, instrumentation, connectivity, safety and power solutions — backed by system integration, installation, commissioning and technical support.</p>
                 <div class="cy-real-actions">
                     <a class="cy-real-btn cy-real-btn-primary" href="/products">Explore the product catalogue <span aria-hidden="true">↗</span></a>
@@ -17,11 +17,11 @@
                 </div>
                 <div class="cy-real-hero-foot"><span>PRODUCT CATALOGUE 2026</span><span>BASED IN MIRPUR, DHAKA</span></div>
             </div>
-            <div class="cy-real-hero-art">
-                <div class="cy-real-hero-art-grid"></div>
-                <img src="/assets/cytech-industrial-scene.svg" alt="Illustration of an industrial plant with interconnected engineering systems" width="800" height="680" fetchpriority="high">
-                <div class="cy-real-art-caption"><span class="cy-real-pulse"></span> AUTOMATION / POWER / CONNECTIVITY</div>
-                <div class="cy-real-art-top"><span>CYTECH / ENGINEERING</span><span>2026</span></div>
+            <div class="cy-real-hero-art cy-pro-hero-art">
+                <img src="@CytechVisuals.Hero" alt="Illuminated industrial refinery with processing towers and steel pipework at night; illustrative industry photography" width="1200" height="900" fetchpriority="high" decoding="async">
+                <div class="cy-pro-hero-vignette" aria-hidden="true"></div>
+                <div class="cy-pro-hero-coordinate" aria-hidden="true"><span>INDUSTRIAL / 01</span><span>2026 EDITION</span></div>
+                <div class="cy-pro-hero-photo-caption"><span class="cy-real-pulse"></span> AUTOMATION <span class="cy-pro-separator">/</span> POWER <span class="cy-pro-separator">/</span> CONNECTIVITY</div>
             </div>
         </div>
     </section>
@@ -50,8 +50,8 @@
                         : family == "Networking & Connectivity" ? "network"
                         : family == "Safety & Security" ? "safety" : "infrastructure";
                     <a class="cy-real-family-card cy-real-family-@familyClass" href="/products?family=@Uri.EscapeDataString(family)">
-                        <div class="cy-real-family-top"><span class="cy-real-family-icon" aria-hidden="true"><span></span><span></span><span></span></span><span>@group.Count.ToString("D2") SECTIONS</span></div>
-                        <h3>@family</h3><p>@string.Join(" · ", group.Take(3).Select(x => x.Title))</p><span class="cy-real-family-link">Browse category <span aria-hidden="true">↗</span></span>
+                        <div class="cy-pro-family-image"><img src="@CytechVisuals.FamilyImage(family)" alt="@CytechVisuals.FamilyAlt(family)" loading="lazy" decoding="async" width="840" height="530"><span class="cy-pro-family-photo-number">@group.Count.ToString("D2") / CATEGORIES</span></div>
+                        <div class="cy-pro-family-info"><h3>@family</h3><p>@string.Join(" · ", group.Take(3).Select(x => x.Title))</p><span class="cy-real-family-link">Browse this division <span class="cy-pro-link-arrow" aria-hidden="true">↗</span></span></div>
                     </a>
                 }
             </div>
@@ -66,8 +66,8 @@
                 {
                     <a class="cy-real-feature-card" href="/products/@item.Slug">
                         <div class="cy-real-feature-top"><span>CATALOGUE / @item.Number.ToString("D2")</span><span class="cy-real-feature-arrow" aria-hidden="true">↗</span></div>
-                        <div class="cy-real-feature-symbol" aria-hidden="true"><span class="cy-real-symbol-core"></span><span class="cy-real-symbol-orbit"></span><span class="cy-real-symbol-orbit cy-real-symbol-orbit-second"></span></div>
-                        <div><span class="cy-real-feature-family">@item.Family</span><h3>@item.Title</h3><p>@item.Description</p></div>
+                        <div class="cy-pro-feature-photo"><img src="@CytechVisuals.FeatureImage(item.Number)" alt="Illustrative industrial equipment photograph relevant to @item.Title" loading="lazy" decoding="async" width="900" height="560"></div>
+                        <div class="cy-pro-feature-content"><span class="cy-real-feature-family">@item.Family</span><h3>@item.Title</h3><p>@item.Description</p><span class="cy-pro-feature-open">Explore products <span aria-hidden="true">↗</span></span></div>
                     </a>
                 }
             </div>
@@ -78,13 +78,25 @@
     <section class="cy-real-section cy-real-services" id="services">
         <div class="cy-real-shell">
             <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">03 / WHAT WE DO</span><h2>Products are only<br><em>part of the solution.</em></h2></div><div class="cy-real-side-copy"><p>Our service offering goes beyond supply. These five services are listed in Cytech's official 2026 catalogue.</p><a class="cy-real-text-link" href="/services">Explore our services <span aria-hidden="true">↗</span></a></div></div>
-            <div class="cy-real-services-list">
+            <div class="cy-pro-service-grid">
                 @for (var i = 0; i < CytechCatalogue.Services.Count; i++)
                 {
                     var item = CytechCatalogue.Services[i];
-                    <a href="/services#@item.Slug" class="cy-real-service-row"><span class="cy-real-service-number">@((i + 1).ToString("D2"))</span><div><h3>@item.Name</h3><p>@item.Summary</p></div><span class="cy-real-service-arrow" aria-hidden="true">↗</span></a>
+                    <a href="/services#@item.Slug" class="cy-pro-service-card" aria-label="Explore @item.Name">
+                        <div class="cy-pro-service-image">
+                            <img src="@CytechVisuals.ServiceImage(item.Slug)" alt="@CytechVisuals.ServiceAlt(item.Slug)" loading="lazy" decoding="async" width="640" height="440">
+                            <span class="cy-pro-service-image-index">@((i + 1).ToString("D2")) / 05</span>
+                        </div>
+                        <div class="cy-pro-service-content">
+                            <span class="cy-pro-service-line"></span>
+                            <h3>@item.Name</h3>
+                            <p>@item.Summary</p>
+                            <span class="cy-pro-service-action">Explore service <span aria-hidden="true">↗</span></span>
+                        </div>
+                    </a>
                 }
             </div>
+            <p class="cy-pro-photo-disclaimer">Editorial photography is illustrative. The five service categories and product types are taken from Cytech Engineering's 2026 catalogue.</p>
         </div>
     </section>
 
