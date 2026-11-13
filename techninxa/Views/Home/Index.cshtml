@@ -2440,7 +2440,7 @@
                                  loading="lazy"
                                  decoding="async"
                                  width="900" height="600"
-                                 class="it-media-project-image"
+                                 class="it-media-project-image @(preview.IsIllustration ? "is-concept" : "is-case-art")"
                                  data-it-preview
                                  data-it-fallback="@safeFallback.Url">
                             @if (preview.IsIllustration)
