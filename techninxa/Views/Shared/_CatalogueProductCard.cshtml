@@ -1,0 +1,37 @@
+@using Techninxa.Services
+@model CatalogueCategory
+@{
+    var photo = CytechProductMedia.For(Model.Number);
+}
+<a href="/products/@Model.Slug"
+   class="cy-catalogue-card cy-catalogue-card-photo"
+   data-cy-product-card
+   data-family="@Model.Family"
+   data-search="@Model.Title @Model.Description @string.Join(" ", Model.Products) @string.Join(" ", Model.Brands)"
+   aria-label="View @Model.Title products">
+    <div class="cy-prod-photo-frame">
+        <img class="cy-prod-photo"
+             src="@photo.Url"
+             alt="@photo.Alt"
+             width="720"
+             height="470"
+             loading="lazy"
+             decoding="async"
+             data-cy-catalogue-photo
+             data-fallback-src="@CytechVisuals.FamilyImage(Model.Family)" />
+        <span class="cy-prod-photo-label">PRODUCT EXAMPLE</span>
+        <span class="cy-prod-photo-index">@Model.Number.ToString("D2") / 38</span>
+    </div>
+    <div class="cy-prod-card-body">
+        <div class="cy-catalogue-card-header">
+            <span class="cy-catalogue-card-number">@Model.Family</span>
+            <span class="cy-catalogue-card-arrow" aria-hidden="true">↗</span>
+        </div>
+        <h3>@Model.Title</h3>
+        <p>@Model.Description</p>
+        <div class="cy-catalogue-card-bottom">
+            <span>VIEW EQUIPMENT ↗</span>
+            <span class="cy-catalogue-card-family">@Model.Products.Length PRODUCT TYPES</span>
+        </div>
+    </div>
+</a>
