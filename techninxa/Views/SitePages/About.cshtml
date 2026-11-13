@@ -1,51 +1,59 @@
-@{ ViewData["Title"] = "About"; }
-<div class="cy-corporate cy-corporate-about">
-<svg width="0" height="0" style="position:absolute;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs>
-<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-<symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13 2-9 11h7l-1 9 10-12h-7z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/></symbol>
-<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m16-11a4 4 0 0 1 0 8m4 3v-2a4 4 0 0 0-3-3.87M12 6a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/></symbol>
-<symbol id="i-network" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><rect x="1" y="16" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><rect x="15" y="16" width="8" height="6" rx="1.5" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="M12 8v5m-7 3v-3h14v3" stroke="currentColor" stroke-width="1.7" fill="none"/></symbol>
-<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.7" fill="none"/><rect x="9" y="9" width="6" height="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 1v4m6-4v4m-6 14v4m6-4v4M1 9h4m-4 6h4m14-6h4m-4 6h4" stroke="currentColor" stroke-width="1.6" fill="none"/></symbol>
-<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="m8 12 3 3 5-6" stroke="currentColor" stroke-width="1.8" fill="none"/></symbol>
-<symbol id="i-build" viewBox="0 0 24 24"><path d="M3 21h18M6 21V7l6-4 6 4v14M9 9h1m4 0h1M9 13h1m4 0h1m-3 8v-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
-<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5m-18 5 9 5 9-5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/></symbol>
-<symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="1.7" fill="none"/><path d="m3 6 9 8 9-8" stroke="currentColor" stroke-width="1.7" fill="none"/></symbol>
-<symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z" stroke="currentColor" stroke-width="1.7" fill="none"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.7" fill="none"/></symbol>
-<symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 2h4l1 5-3 2a17 17 0 0 0 7 7l2-3 5 1v4c0 3-2 4-4 4C9 22 2 15 2 6c0-2 1-4 4-4Z" stroke="currentColor" stroke-width="1.7" fill="none"/></symbol>
-</defs></svg>
+@using Techninxa.Services
+@{
+    ViewData["Title"] = "About Cytech Engineering";
+}
+<div class="cy-real cy-real-about">
+    <section class="cy-real-page-hero">
+        <div class="cy-real-shell">
+            <span class="cy-real-eyebrow">ABOUT / CYTECH ENGINEERING</span>
+            <h1>Industrial expertise.<br><em>Practical solutions.</em></h1>
+            <p>Cytech Engineering is an industrial products supplier and solutions provider spanning automation, electrical instrumentation, networking, safety and power equipment.</p>
+            <div class="cy-real-page-meta"><span>INDUSTRIAL PRODUCT SUPPLY</span><span>SYSTEM INTEGRATION</span><span>DHAKA, BANGLADESH</span></div>
+        </div>
+    </section>
 
-<section class="about-hero"><div class="about-art" aria-hidden="true"></div><div class="container"><div class="eyebrow"><span class="dot"></span>THE COMPANY / CYTECH ENGINEERING</div><h1>Built around execution.<br><em>Driven by engineering.</em></h1><p>Get to know the company behind integrated electrical, manpower, networking, and IT &amp; IoT services.</p><div class="row-actions" style="margin-top:33px"><a href="#about-story" class="btn-orange">Our Approach <svg><use href="#i-arrow"/></svg></a><a href="/contact" class="btn-light">Get in Touch <svg><use href="#i-arrow"/></svg></a></div></div></section>
-<section class="section" id="about-story"><div class="container"><div class="about-story"><div><div class="story-label">01 / WHO WE ARE</div><p class="muted" style="margin-top:23px;font-size:13px">Our service divisions bring together infrastructure, people, and technology to meet business requirements.</p></div><div class="story-prose"><h2>Engineering services that connect people, infrastructure, and technology.</h2><p>Cytech Engineering brings electrical supply and installation, manpower services, networking, and software/IoT work together under one corporate identity. Our aim is to make it easier for clients to discuss diverse project requirements with a coordinated team.</p><p>This section can later explain how Cytech started, the locations it serves, its primary industries, and how work moves between departments—once those details are approved.</p></div></div><div class="capability-row"><div><span>01 / ELECTRICAL</span>Supply &amp; Installation</div><div><span>02 / MANPOWER</span>People &amp; Workforce</div><div><span>03 / NETWORKING</span>Infrastructure &amp; Connectivity</div><div><span>04 / TECHNOLOGY</span>IT &amp; IoT Systems</div></div></div></section>
-<section class="section value-section"><div class="container"><div class="section-head"><div><div class="eyebrow"><span class="dot"></span>02 / WHAT WE STAND FOR</div><h2>Practical values.<br>Clear commitments.</h2></div><p>Safety, clear coordination, and long-term thinking guide our approach.</p></div><div class="values-grid"><div class="value-card"><svg><use href="#i-check"/></svg><h3>Safety &amp; responsibility</h3><p>Consider safe working practices, accountability, and site-specific requirements in every relevant engagement.</p></div><div class="value-card"><svg><use href="#i-layers"/></svg><h3>Clear coordination</h3><p>Maintain clear requirements, communication, scope, and responsibilities from start to finish.</p></div><div class="value-card"><svg><use href="#i-network"/></svg><h3>Long-term thinking</h3><p>Recommend practical solutions that support dependable operation, maintenance, and future needs.</p></div></div></div></section>
-<section class="section"><div class="container"><div class="section-head"><div><div class="eyebrow"><span class="dot"></span>03 / OUR APPROACH</div><h2>A connected delivery process.</h2></div><p>A common framework across divisions, tailored to project requirements.</p></div><div class="story-steps"><div class="story-step"><b>01 / LISTEN</b><h3>Requirement discovery</h3><p>Understand client goals, materials, workforce needs, or technology specifications.</p></div><div class="story-step"><b>02 / ALIGN</b><h3>Scope &amp; planning</h3><p>Define technical requirements, responsibilities, and implementation approach.</p></div><div class="story-step"><b>03 / EXECUTE</b><h3>Coordinated delivery</h3><p>Organize the appropriate supply, installation, staffing, or technology tasks.</p></div><div class="story-step"><b>04 / SUPPORT</b><h3>Clear follow-through</h3><p>Document outcomes and discuss relevant post-delivery requirements.</p></div></div></div></section>
-<section class="section value-section"><div class="container"><div class="section-head"><div><div class="eyebrow"><span class="dot"></span>04 / TRUST &amp; PEOPLE</div><h2>The proof behind the promise.</h2></div><p>We believe credibility is built through people, documentation, and completed work.</p></div><div class="about-team"><div class="team-panel"><div class="outline-tag">LEADERSHIP &amp; TEAM</div><div><h3>Meet the people behind Cytech.</h3><p>Leadership details and team introductions will be added here.</p></div></div><div class="team-panel orange-panel"><div class="outline-tag">COMPANY CREDENTIALS</div><div><h3>Credentials that build confidence.</h3><p>Verified credentials and approved project references will be added here.</p></div></div></div></div></section>
-<section class="section cy-about-contact" aria-labelledby="cy-about-contact-title">
-  <div class="container">
-    <div class="section-head">
-      <div><div class="eyebrow"><span class="dot"></span>05 / REACH CYTECH</div>
-        <h2 id="cy-about-contact-title">Let's connect.<br>Start with a conversation.</h2>
-      </div>
-      <p>Discuss your electrical, manpower, networking, or IT &amp; IoT requirements with our team.</p>
-    </div>
-    <div class="cy-about-contact-grid">
-      <a class="cy-about-contact-card" href="tel:+8801711015660">
-        <div class="cy-about-contact-icon"><svg aria-hidden="true"><use href="#i-phone"></use></svg></div>
-        <span class="cy-about-contact-kicker">CALL US</span><strong>01711015660</strong>
-        <small>Tap to call</small>
-      </a>
-      <a class="cy-about-contact-card" href="mailto:cytech&#64;gmail.com">
-        <div class="cy-about-contact-icon"><svg aria-hidden="true"><use href="#i-mail"></use></svg></div>
-        <span class="cy-about-contact-kicker">EMAIL</span><strong>cytech&#64;gmail.com</strong>
-        <small>Send an inquiry</small>
-      </a>
-      <div class="cy-about-contact-card">
-        <div class="cy-about-contact-icon"><svg aria-hidden="true"><use href="#i-pin"></use></svg></div>
-        <span class="cy-about-contact-kicker">LOCATION</span><strong>Dhaka, Bangladesh</strong>
-        <small>City-level location</small>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="cta-strip"><div class="container cta-flex"><h2>Have questions about Cytech's capabilities?</h2><a class="btn-light" href="/contact">Contact Our Team <svg><use href="#i-arrow"/></svg></a></div></section>
+    <section class="cy-real-content-section">
+        <div class="cy-real-shell">
+            <div class="cy-real-about-lead">
+                <div><span class="cy-real-eyebrow">01 / WHO WE ARE</span><h2>Equipment, expertise and support for industrial work.</h2></div>
+                <div><p>Cytech Engineering's official 2026 catalogue describes the company as a supplier and solution provider of industrial automation, electrical instrumentation, networking, safety and power products. It emphasizes product quality, technical expertise and reliable after-sales support.</p><div class="cy-real-about-stat" style="margin-top:30px"><strong>Engineering-led solutions</strong><span>Product supply, integration, installation, commissioning, maintenance, support and consultation.</span></div></div>
+            </div>
+            <div class="cy-real-about-columns">
+                <div>
+                    <span class="cy-real-eyebrow">02 / WHAT WE DO</span><h3>Our five services</h3>
+                    <ul>@foreach (var service in CytechCatalogue.Services) { <li>@service.Name</li> }</ul>
+                    <div style="margin-top:22px"><a class="cy-real-text-link" href="/services">Explore our services <span aria-hidden="true">↗</span></a></div>
+                </div>
+                <div>
+                    <span class="cy-real-eyebrow">03 / WHERE WE WORK</span><h3>Industries we serve</h3>
+                    <ul>@foreach (var industry in CytechCatalogue.Industries) { <li>@industry</li> }</ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="cy-real-section" style="background:#f4f7fa">
+        <div class="cy-real-shell">
+            <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">04 / WHAT WE SUPPLY</span><h2>38 product sections.<br><em>One connected catalogue.</em></h2></div><div class="cy-real-side-copy"><p>Discover the product types listed in Cytech Engineering's 2026 industrial catalogue.</p><a class="cy-real-text-link" href="/products">Browse our products <span aria-hidden="true">↗</span></a></div></div>
+            <div class="cy-real-family-grid">
+                @foreach (var family in CytechCatalogue.Families)
+                {
+                    var items = CytechCatalogue.Items.Where(x => x.Family == family).ToList();
+                    <a class="cy-real-family-card" href="/products?family=@Uri.EscapeDataString(family)"><span class="cy-real-eyebrow">@items.Count.ToString("D2") SECTIONS</span><h3>@family</h3><p>@string.Join(" · ", items.Take(3).Select(x => x.Title))</p><span class="cy-real-family-link">Browse category ↗</span></a>
+                }
+            </div>
+        </div>
+    </section>
+    <section class="cy-real-section">
+        <div class="cy-real-shell">
+            <div class="cy-real-section-head"><div><span class="cy-real-eyebrow">05 / GET IN TOUCH</span><h2>Based in Mirpur,<br><em>Dhaka.</em></h2></div><div class="cy-real-side-copy"><p>Reach our team about industrial equipment, system integration, commissioning, maintenance or technical consultation.</p></div></div>
+            <div class="cy-real-about-columns" style="margin-top:0">
+                <div><span class="cy-real-eyebrow">CONTACT DETAILS</span><h3>Speak with Cytech</h3><p><a href="tel:+8801711015660">+880 1711 015660</a></p><p><a href="tel:+8801790379729">+880 1790 379729</a></p><p><a href="mailto:info@cytechbd.com">info@cytechbd.com</a></p><p>www.cytechbd.com</p></div>
+                <div><span class="cy-real-eyebrow">OFFICE LOCATION</span><h3>Cytech Engineering</h3><p>BSCIC Electronic Complex,<br>Level 6, Avenue 4, Road 3,<br>Section 7, Mirpur, Dhaka, Bangladesh.</p><a class="cy-real-text-link" href="/contact">Send an inquiry <span aria-hidden="true">↗</span></a></div>
+            </div>
+        </div>
+    </section>
+    <section class="cy-real-cta">
+        <div class="cy-real-shell cy-real-cta-inner"><div><span class="cy-real-eyebrow">ENGINEERING / PRODUCT SOLUTIONS</span><h2>Planning an industrial<br>project or purchase?</h2><p>Let us know your equipment list or technical requirements.</p></div><div class="cy-real-cta-right"><a class="cy-real-btn cy-real-btn-light" href="/contact">Contact Cytech <span aria-hidden="true">↗</span></a></div></div>
+    </section>
 </div>
