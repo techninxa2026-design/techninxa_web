@@ -3,6 +3,7 @@
 from pathlib import Path
 import re
 import sys
+import xml.etree.ElementTree as ET
 
 root = Path(__file__).resolve().parents[1]
 media_file = root / "techninxa/Services/ItIotMedia.cs"
@@ -18,6 +19,14 @@ for kind in previews:
     path = assets / "assets/it-iot/previews" / (kind + ".svg")
     if not path.is_file():
         problems.append(f"Missing {kind} project preview: {path}")
+
+# SVG parsing catches broken tag trees and invalid XML attributes, which
+# the .NET compiler alone cannot detect.
+for svg in sorted((assets / "assets/it-iot").rglob("*.svg")):
+    try:
+        ET.parse(svg)
+    except ET.ParseError as exc:
+        problems.append(f"Malformed SVG {svg.relative_to(root)}: {exc}")
 
 for index in range(1, 13):
     path = assets / "assets/it-iot/avatars" / f"avatar-{index:02d}.svg"
