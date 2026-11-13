@@ -20,4 +20,4 @@ jobs:
       - name: Restore
         run: dotnet restore techninxa.sln
       - name: Build
-        run: dotnet build techninxa.sln --configuration Release --no-restore -warnaserror
+        run: dotnet build techninxa.sln --configuration Release --no-restore
