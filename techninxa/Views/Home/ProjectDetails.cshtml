@@ -1,0 +1,7 @@
+@model Techninxa.Models.Project
+<main class="container py-5"><a href="/Projects">All projects</a><h1>@Model.Title</h1><p>@Model.Category · @Model.Year</p>
+@if (!string.IsNullOrEmpty(Model.HeroImage)) { <img src="@Model.HeroImage" alt="@Model.Title" style="max-width:100%" /> }
+<p>@Model.ShortDescription</p><p style="white-space:pre-wrap">@Model.Overview</p>
+@foreach (var media in Model.Media) { if (media.MediaType == "image") { <img src="@media.FilePath" alt="@Model.Title" style="max-width:100%" loading="lazy" /> } else if (media.MediaType == "video") { <video src="@media.FilePath" controls preload="metadata" style="max-width:100%"></video> } }
+@if (Model.NextProject != null) { <a href="/Projects/Details/@Model.NextProject.Slug">Next project: @Model.NextProject.Title</a> }
+</main>

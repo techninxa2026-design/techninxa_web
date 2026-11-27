@@ -1,0 +1,41 @@
+<main class="container py-5"><h1>Company chat</h1><form asp-action="CompanyChatLogout" method="post"><button type="submit">Sign out</button></form>
+<p id="chatStatus" role="status">Connecting…</p><div id="chatMessages" aria-live="polite"></div><form id="chatForm"><label>Message <input id="chatText" maxlength="1000" required /></label><button type="submit">Send</button></form>
+<form id="fileForm" method="post" enctype="multipart/form-data">@Html.AntiForgeryToken()<input type="file" name="file" required /><button type="submit">Upload</button></form>
+</main>
+@section Scripts {
+<script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@@10.0.0/dist/browser/signalr.min.js"></script>
+<script>
+(() => {
+ const status = document.getElementById('chatStatus'), list = document.getElementById('chatMessages');
+ const seen = new Set();
+ function render(id, name, message, time) {
+   if (seen.has(id)) return; seen.add(id);
+   const row = document.createElement('p'); row.textContent = name + ' · ' + time + ': ';
+   const parts = message.split('|');
+   if (parts.length === 4 && parts[0] === '[FILE]' && /^\/uploads\/chat\/[a-f0-9]{32}\.[a-z0-9]+$/.test(parts[2])) {
+     const link = document.createElement('a'); link.href = parts[2]; link.textContent = parts[1]; link.download = ''; row.append(link);
+   } else row.append(document.createTextNode(message)); list.append(row);
+ }
+ if (!window.signalR) { status.textContent = 'Chat client unavailable.'; return; }
+ const connection = new signalR.HubConnectionBuilder().withUrl('/companyChatHub').withAutomaticReconnect().build();
+ connection.on('ReceiveMessage', render);
+ connection.onreconnecting(() => status.textContent = 'Reconnecting…');
+ connection.onreconnected(() => status.textContent = 'Connected');
+ connection.start().then(async () => {
+   status.textContent = 'Connected';
+   const response = await fetch('@Url.Action("CompanyChatMessages", "Home")');
+   if (response.ok) for (const m of await response.json()) render(m.id,m.username,m.message,m.sentAt);
+ }).catch(() => status.textContent = 'Unable to connect.');
+ document.getElementById('chatForm').addEventListener('submit', async event => {
+   event.preventDefault(); const input = document.getElementById('chatText');
+   try { await connection.invoke('SendMessage',input.value); input.value=''; } catch { status.textContent='Unable to send.'; }
+ });
+ document.getElementById('fileForm').addEventListener('submit', async event => {
+   event.preventDefault();
+   try { const r = await fetch('@Url.Action("UploadFile","CompanyChat")',{method:'POST',body:new FormData(event.target)});
+     if (!r.ok) throw Error(); const f=await r.json(); await connection.invoke('SendFileMessage',f.fileName,f.fileUrl,f.isImage); event.target.reset();
+   } catch { status.textContent='Unable to upload.'; }
+ });
+})();
+</script>
+}

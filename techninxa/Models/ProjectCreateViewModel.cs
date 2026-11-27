@@ -43,7 +43,7 @@ public class ProjectCreateViewModel
 	public int? NextProject { get; set; }
 
 	[MaxLength(200)]
-	public string Slug { get; set; } = string.Empty;
+	public string? Slug { get; set; }
 
 	public string Status { get; set; } = "draft";
 }

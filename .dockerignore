@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+.git/
+.github/
+**/*.user
+**/appsettings.*.local.json
+.env
+.env.*
+!.env.example

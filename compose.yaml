@@ -1,0 +1,51 @@
+services:
+  app:
+    image: techninxa-web:local
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8105}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: "${APP_CONNECTION_STRING:?Set APP_CONNECTION_STRING}"
+      AllowedHosts: "${ALLOWED_HOSTS:?Set ALLOWED_HOSTS}"
+      ReverseProxy__EdgeTerminatesHttps: "true"
+      ReverseProxy__KnownProxy: "${DOCKER_PROXY_IP:-172.30.85.1}"
+      DataProtection__KeyDirectory: /var/lib/techninxa/keys
+      CompanyChat__Username: "${CHAT_USERNAME:-}"
+      CompanyChat__Password: "${CHAT_PASSWORD:-}"
+    volumes:
+      - app-uploads:/app/wwwroot/uploads
+      - app-keys:/var/lib/techninxa/keys
+    depends_on:
+      db:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    networks: [site]
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "${MSSQL_PID:-Express}"
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD:?Set MSSQL_SA_PASSWORD}"
+    volumes:
+      - sql-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' -b -o /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    networks: [site]
+networks:
+  site:
+    ipam:
+      config:
+        - subnet: "${DOCKER_SUBNET:-172.30.85.0/24}"
+          gateway: "${DOCKER_PROXY_IP:-172.30.85.1}"
+volumes:
+  app-uploads:
+  app-keys:
+  sql-data:

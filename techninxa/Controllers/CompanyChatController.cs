@@ -17,10 +17,11 @@ public class CompanyChatController : Controller
 	}
 
 	[HttpPost]
+	[ValidateAntiForgeryToken]
 	[RequestSizeLimit(10485760L)]
 	public async Task<IActionResult> UploadFile(IFormFile file)
 	{
-		if (HttpContext.Session.GetString("CompanyChatLoggedIn") != "true")
+		if (User.Identity?.IsAuthenticated != true)
 		{
 			return Unauthorized(new
 			{
@@ -69,7 +70,8 @@ public class CompanyChatController : Controller
 		{
 			await file.CopyToAsync(stream);
 		}
-		string fileName = Path.GetFileName(file.FileName);
+		string fileName = Path.GetFileName(file.FileName).Replace("|", "_");
+		if (fileName.Length > 200) fileName = fileName[..200];
 		string fileUrl = "/uploads/chat/" + safeFileName;
 		int num;
 		switch (extension)

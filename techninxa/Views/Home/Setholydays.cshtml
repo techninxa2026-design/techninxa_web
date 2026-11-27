@@ -1,0 +1,11 @@
+@model List<techninxa.Models.HolidayDayViewModel>
+<main class="container py-5"><h1>Weekly holidays</h1><a href="/Dashboard">Back to dashboard</a>
+<p>@TempData["HolidaySuccess"]</p><form asp-action="Setholydays" method="post">
+@for (var i = 0; i < Model.Count; i++) {
+    <div>
+        <input name="model[@i].Day" type="hidden" value="@Model[i].Day" />
+        <label><input name="model[@i].IsHoliday" type="checkbox" value="true" checked="@(Model[i].IsHoliday ? "checked" : null)" /> @Model[i].Day</label>
+        <input name="model[@i].IsHoliday" type="hidden" value="false" />
+    </div>
+}
+<button type="submit">Save holidays</button></form></main>

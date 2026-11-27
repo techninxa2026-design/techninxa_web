@@ -6,11 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using techninxa.Models;
 
 namespace Techninxa.Hubs;
 
+[Authorize(AuthenticationSchemes = "CompanyChat")]
 public class CompanyChatHub : Hub
 {
 	private readonly ApplicationDbContext _db;
@@ -25,12 +27,12 @@ public class CompanyChatHub : Hub
 	public override async Task OnConnectedAsync()
 	{
 		HttpContext httpContext = Context.GetHttpContext();
-		if (httpContext?.Session.GetString("CompanyChatLoggedIn") != "true")
+		if (Context.User?.Identity?.IsAuthenticated != true)
 		{
 			Context.Abort();
 			return;
 		}
-		string text = httpContext.Session.GetString("CompanyChatUsername");
+		string text = Context.User?.Identity?.Name;
 		if (string.IsNullOrWhiteSpace(text))
 		{
 			Context.Abort();
@@ -59,11 +61,11 @@ public class CompanyChatHub : Hub
 	public async Task SendMessage(string message)
 	{
 		HttpContext httpContext = Context.GetHttpContext();
-		if (httpContext?.Session.GetString("CompanyChatLoggedIn") != "true")
+		if (Context.User?.Identity?.IsAuthenticated != true)
 		{
 			return;
 		}
-		string text = httpContext.Session.GetString("CompanyChatUsername");
+		string text = Context.User?.Identity?.Name;
 		if (!string.IsNullOrWhiteSpace(text) && !string.IsNullOrWhiteSpace(message))
 		{
 			text = text.Trim();
@@ -86,11 +88,12 @@ public class CompanyChatHub : Hub
 	public async Task SendFileMessage(string fileName, string fileUrl, bool isImage)
 	{
 		HttpContext httpContext = Context.GetHttpContext();
-		if (!(httpContext?.Session.GetString("CompanyChatLoggedIn") != "true"))
+		if (Context.User?.Identity?.IsAuthenticated == true)
 		{
-			string text = httpContext.Session.GetString("CompanyChatUsername");
+			string text = Context.User?.Identity?.Name;
 			if (!string.IsNullOrWhiteSpace(text) && !string.IsNullOrWhiteSpace(fileName) && !string.IsNullOrWhiteSpace(fileUrl))
 			{
+				if (fileName.Length > 200 || fileName.Contains('|') || !System.Text.RegularExpressions.Regex.IsMatch(fileUrl, @"^/uploads/chat/[a-f0-9]{32}\.(jpg|jpeg|png|gif|webp|pdf|doc|docx|xls|xlsx|zip)$")) return;
 				text = text.Trim();
 				string message = $"[FILE]|{fileName}|{fileUrl}|{isImage}";
 				ChatMessage chatMessage = new ChatMessage

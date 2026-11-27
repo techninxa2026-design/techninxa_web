@@ -1,27 +1,53 @@
 name: ASP.NET Core MVC CI
 on:
   push:
-    branches: [ main ]
+    branches: [main, 'release/**']
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
-
+permissions:
+  contents: read
 jobs:
-  build:
+  build-and-smoke:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-      - name: Setup .NET 10 SDK
-        uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
-      - name: Validate catalogue images
-        run: python scripts/verify_catalogue_media.py
-      - name: Verify IT and IoT portfolio media
-        run: python scripts/verify_it_iot_media.py
-      - name: Restore
-        run: dotnet restore techninxa.sln
-      - name: Build
-        run: dotnet build techninxa.sln --configuration Release --no-restore
+      - run: python scripts/verify_catalogue_media.py
+      - run: python scripts/verify_it_iot_media.py
+      - run: dotnet restore techninxa.sln
+      - run: dotnet build techninxa.sln -c Release --no-restore
+      - run: dotnet publish techninxa/techninxa.csproj -c Release --no-restore -o /tmp/publish
+      - name: Configure isolated smoke database
+        run: |
+          password="Ci-$(openssl rand -hex 16)!"
+          echo "::add-mask::$password"
+          echo "MSSQL_SA_PASSWORD=$password" >> "$GITHUB_ENV"
+          echo "APP_CONNECTION_STRING=Server=db,1433;Database=TechninxaSmoke;User Id=sa;Password=$password;Encrypt=True;TrustServerCertificate=True;" >> "$GITHUB_ENV"
+          echo "ALLOWED_HOSTS=localhost;127.0.0.1" >> "$GITHUB_ENV"
+          echo "MSSQL_PID=Developer" >> "$GITHUB_ENV"
+          echo "WEB_PORT=8105" >> "$GITHUB_ENV"
+      - name: Build and start database
+        run: |
+          docker compose config -q
+          docker compose build app
+          docker compose up -d --wait db
+      - name: Apply migrations and seed test admin
+        run: |
+          password="Admin-$(openssl rand -hex 16)!"
+          echo "::add-mask::$password"
+          echo "SMOKE_ADMIN_PASSWORD=$password" >> "$GITHUB_ENV"
+          docker compose run --rm -e BootstrapAdmin__Email=qa@example.test -e BootstrapAdmin__Password="$password" app --migrate
+      - name: Start and verify MVC application
+        run: |
+          docker compose up -d app
+          python scripts/smoke_release.py
+      - name: Diagnostics
+        if: failure() && env.APP_CONNECTION_STRING != ''
+        run: docker compose logs --tail=150
+      - name: Cleanup isolated environment
+        if: always() && env.APP_CONNECTION_STRING != ''
+        run: docker compose down -v
