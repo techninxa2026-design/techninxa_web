@@ -55,3 +55,7 @@ The photographs in `CytechProductMedia.cs` show representative equipment from ex
 6. Verify image load/attribution in a real browser and confirm the website has permission to reuse the images.
 
 Known legacy limitations outside the catalogue redesign: older IT/IoT admin/portfolio routes have missing Razor views and should be audited separately. The CI build reports pre-existing compiler warnings rather than treating all warnings as errors.
+
+## Kali production deployment
+
+See [DEPLOY-KALI.md](DEPLOY-KALI.md) for Docker, SQL Server, migrations, persistent data, Cloudflare and Portainer. The release branch is subject to CI and live-host verification.

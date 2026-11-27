@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -15,6 +16,17 @@ if (string.IsNullOrWhiteSpace(connection))
     throw new InvalidOperationException("Set ConnectionStrings__DefaultConnection.");
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR();
+builder.Services.AddAuthentication("CompanyChat").AddCookie("CompanyChat", options =>
+{
+    options.Cookie.Name = ".Techninxa.Chat";
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SameSite = SameSiteMode.Strict;
+    options.Cookie.SecurePolicy = builder.Configuration.GetValue<bool>("ReverseProxy:EdgeTerminatesHttps") ? CookieSecurePolicy.Always : CookieSecurePolicy.SameAsRequest;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.Events.OnRedirectToLogin = context => { context.Response.StatusCode = 401; return Task.CompletedTask; };
+    options.Events.OnRedirectToAccessDenied = context => { context.Response.StatusCode = 403; return Task.CompletedTask; };
+});
+builder.Services.AddAuthorization();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 builder.Services.AddDistributedMemoryCache();
 var edge = builder.Configuration.GetValue<bool>("ReverseProxy:EdgeTerminatesHttps");
@@ -86,11 +98,12 @@ app.Use(async (context, next) =>
 });
 app.UseRouting();
 app.UseSession();
+app.UseAuthentication();
 // Chat attachments are not public website assets.
 app.Use(async (context, next) =>
 {
     if (context.Request.Path.StartsWithSegments("/uploads/chat", StringComparison.OrdinalIgnoreCase) &&
-        context.Session.GetString("CompanyChatLoggedIn") != "true")
+        context.User.Identity?.IsAuthenticated != true)
     {
         context.Response.StatusCode = 401;
         return;

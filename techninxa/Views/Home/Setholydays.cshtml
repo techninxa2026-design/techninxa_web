@@ -1,5 +1,5 @@
 @model List<techninxa.Models.HolidayDayViewModel>
 <main class="container py-5"><h1>Weekly holidays</h1><a href="/Dashboard">Back to dashboard</a>
 <p>@TempData["HolidaySuccess"]</p><form asp-action="Setholydays" method="post">
-@for (var i = 0; i < Model.Count; i++) { <div><input asp-for="@Model[i].Day" type="hidden" /><label><input asp-for="@Model[i].IsHoliday" /> @Model[i].Day</label></div> }
+@for (var i = 0; i < Model.Count; i++) { <div><input asp-for="[i].Day" type="hidden" /><label><input asp-for="[i].IsHoliday" /> @Model[i].Day</label></div> }
 <button type="submit">Save holidays</button></form></main>

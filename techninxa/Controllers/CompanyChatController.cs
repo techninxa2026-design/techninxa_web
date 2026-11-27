@@ -21,7 +21,7 @@ public class CompanyChatController : Controller
 	[RequestSizeLimit(10485760L)]
 	public async Task<IActionResult> UploadFile(IFormFile file)
 	{
-		if (HttpContext.Session.GetString("CompanyChatLoggedIn") != "true")
+		if (User.Identity?.IsAuthenticated != true)
 		{
 			return Unauthorized(new
 			{

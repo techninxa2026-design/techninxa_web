@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 using Microsoft.AspNetCore.RateLimiting;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
@@ -1680,7 +1682,7 @@ public async Task<IActionResult> DeleteProject(int id)
         [HttpGet]
         public IActionResult CompanyChat()
         {
-            if (HttpContext.Session.GetString("CompanyChatLoggedIn") != "true")
+            if (User.Identity?.IsAuthenticated != true)
             {
                 return View("CompanyChatLogin");
             }
@@ -1691,7 +1693,7 @@ public async Task<IActionResult> DeleteProject(int id)
         [HttpPost]
         [ValidateAntiForgeryToken]
         [EnableRateLimiting("login")]
-        public IActionResult CompanyChatLogin(
+        public async Task<IActionResult> CompanyChatLogin(
     Techninxa.Models.CompanyChatLoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -1721,6 +1723,7 @@ public async Task<IActionResult> DeleteProject(int id)
                 }
 
                 // User successfully entered the company chat
+                await HttpContext.SignInAsync("CompanyChat", new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, model.DisplayName.Trim()) }, "CompanyChat")));
                 HttpContext.Session.SetString(
                     "CompanyChatLoggedIn",
                     "true");
@@ -1746,8 +1749,9 @@ public async Task<IActionResult> DeleteProject(int id)
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("/CompanyChat/Logout")]
-        public IActionResult CompanyChatLogout()
+        public async Task<IActionResult> CompanyChatLogout()
         {
+            await HttpContext.SignOutAsync("CompanyChat");
             HttpContext.Session.Remove("CompanyChatLoggedIn");
             HttpContext.Session.Remove("CompanyChatUsername");
 
@@ -1758,7 +1762,7 @@ public async Task<IActionResult> DeleteProject(int id)
         [Route("/CompanyChat/Messages")]
         public async Task<IActionResult> CompanyChatMessages()
         {
-            if (HttpContext.Session.GetString("CompanyChatLoggedIn") != "true")
+            if (User.Identity?.IsAuthenticated != true)
             {
                 return Unauthorized();
             }
