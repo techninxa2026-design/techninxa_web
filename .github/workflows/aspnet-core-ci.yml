@@ -46,8 +46,8 @@ jobs:
           docker compose up -d app
           python scripts/smoke_release.py
       - name: Diagnostics
-        if: failure()
+        if: failure() && env.APP_CONNECTION_STRING != ''
         run: docker compose logs --tail=150
       - name: Cleanup isolated environment
-        if: always()
+        if: always() && env.APP_CONNECTION_STRING != ''
         run: docker compose down -v

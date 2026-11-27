@@ -61,4 +61,14 @@ _, login = request(admin,"/AdminAccess",(200,))
 request(admin,"/Home/Login",(302,),{"Username":"qa@example.test","Password":os.environ["SMOKE_ADMIN_PASSWORD"]},token_from(login))
 for path in ["/Dashboard","/meetingstojoin","/clientsmesseges","/timeslots","/setholydays","/Team","/ProjectList","/InsertProject","/Team/Create"]:
     request(admin,path,(200,))
+_, contact = request(anon,"/contact",(200,))
+request(anon,"/contact",(302,),{"Name":"CI smoke test","Email":"qa@example.test","Phone":"01700000000","Company":"CI","ServiceDivision":"Networking Services","InquiryType":"Request a quotation","Details":"Automated isolated database smoke test."},token_from(contact))
+_, messages = request(admin,"/clientsmesseges",(200,))
+assert "CI smoke test" in messages, "Saved inquiry not found"
+_, slots = request(admin,"/timeslots",(200,))
+request(admin,"/Home/Add",(302,),{"startTime":"09:00","endTime":"10:00"},token_from(slots))
+_, slots = request(admin,"/timeslots",(200,))
+assert "09:00" in slots, "Saved time slot not found"
+request(admin,"/AdminLogout",(302,),{},token_from(slots))
+request(admin,"/Dashboard",(302,))
 print("Release smoke checks passed.")
