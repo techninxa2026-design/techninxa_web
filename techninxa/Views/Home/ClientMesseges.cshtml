@@ -1,0 +1,4 @@
+@model IEnumerable<Techninxa.Models.ContactMessage>
+<main class="container py-5"><h1>Client inquiries</h1><a href="/Dashboard">Back to dashboard</a>
+@foreach (var item in Model.OrderByDescending(x => x.CreatedAt)) { <article><h2>@item.Name</h2><p>@item.Email · @item.CreatedAt.ToString("yyyy-MM-dd HH:mm") UTC</p><p style="white-space:pre-wrap">@item.Message</p></article> }
+</main>

@@ -2,3 +2,8 @@
 **/obj/
 **/.vs/
 **/PubTmp/
+.env
+.env.*
+!.env.example
+**/appsettings.*.local.json
+**/*.user

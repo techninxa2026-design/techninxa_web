@@ -1,0 +1,7 @@
+@model techninxa.Models.TeamMember
+<main class="container py-5"><h1>Edit team member</h1><a href="/Team">Back to team</a>
+<form asp-action="EditTeam" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+<div asp-validation-summary="All"></div><input asp-for="Id" type="hidden" />
+<label>Name <input asp-for="Name" required /></label><label>Department <input asp-for="Department" required /></label><label>Role <input asp-for="Role" required /></label>
+<label>Image <input type="file" name="ImageFile" accept="image/jpeg,image/png,image/webp" /></label><label>Alt text <input asp-for="AltText" /></label>
+<label>Display order <input asp-for="DisplayOrder" /></label><label>Active <input asp-for="IsActive" /></label><button type="submit">Save</button></form></main>

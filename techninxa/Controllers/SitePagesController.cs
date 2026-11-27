@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using techninxa.Models;
 using Techninxa;
@@ -68,6 +69,7 @@ namespace techninxa.Controllers
         }
 
         [HttpPost("/contact")]
+        [EnableRateLimiting("public-write")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitInquiry(CorporateInquiryViewModel model)
         {

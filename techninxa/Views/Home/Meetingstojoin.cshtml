@@ -1,0 +1,5 @@
+@model IEnumerable<techninxa.Models.Meeting>
+<main class="container py-5"><h1>Scheduled meetings</h1><a href="/Dashboard">Back to dashboard</a>
+<table class="table"><thead><tr><th>Name</th><th>Email</th><th>Date</th><th>Time</th><th>Requirement</th></tr></thead><tbody>
+@foreach (var item in Model) { <tr><td>@item.Name</td><td>@item.Email</td><td>@item.MeetingDate.ToString("yyyy-MM-dd")</td><td>@item.StartTime – @item.EndTime</td><td>@item.Message</td></tr> }
+</tbody></table></main>

@@ -86,11 +86,12 @@ public class CompanyChatHub : Hub
 	public async Task SendFileMessage(string fileName, string fileUrl, bool isImage)
 	{
 		HttpContext httpContext = Context.GetHttpContext();
-		if (!(httpContext?.Session.GetString("CompanyChatLoggedIn") != "true"))
+		if (httpContext?.Session.GetString("CompanyChatLoggedIn") == "true")
 		{
 			string text = httpContext.Session.GetString("CompanyChatUsername");
 			if (!string.IsNullOrWhiteSpace(text) && !string.IsNullOrWhiteSpace(fileName) && !string.IsNullOrWhiteSpace(fileUrl))
 			{
+				if (fileName.Length > 200 || fileName.Contains('|') || !System.Text.RegularExpressions.Regex.IsMatch(fileUrl, @"^/uploads/chat/[a-f0-9]{32}\.(jpg|jpeg|png|gif|webp|pdf|doc|docx|xls|xlsx|zip)$")) return;
 				text = text.Trim();
 				string message = $"[FILE]|{fileName}|{fileUrl}|{isImage}";
 				ChatMessage chatMessage = new ChatMessage

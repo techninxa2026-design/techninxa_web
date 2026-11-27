@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using techninxa.Models;
@@ -308,9 +311,10 @@ namespace techninxa.Controllers
             // ==============================
             var availableSlots = timeSlots
                 .Where(slot =>
+                    (date != DateTime.Today || slot.StartTime > DateTime.Now.TimeOfDay) &&
                     !bookedSlots.Any(booked =>
-                        booked.StartTime == slot.StartTime &&
-                        booked.EndTime == slot.EndTime))
+                        booked.StartTime < slot.EndTime &&
+                        booked.EndTime > slot.StartTime))
                 .Select(slot => new
                 {
                     id = slot.Id,
@@ -345,6 +349,7 @@ namespace techninxa.Controllers
         [Route("/makeschedule/book")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("public-write")]
         public async Task<IActionResult> BookMeeting(
             string name,
             string email,
@@ -357,7 +362,7 @@ namespace techninxa.Controllers
             // ==============================
             // BASIC VALIDATION
             // ==============================
-            if (string.IsNullOrWhiteSpace(name))
+            if (!ModelState.IsValid || string.IsNullOrWhiteSpace(name) || name.Trim().Length > 100 || projectType?.Length > 50 || message?.Length > 1000)
             {
                 return Json(new
                 {
@@ -366,7 +371,7 @@ namespace techninxa.Controllers
                 });
             }
 
-            if (string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(email) || email.Trim().Length > 150 || !new EmailAddressAttribute().IsValid(email.Trim()))
             {
                 return Json(new
                 {
@@ -384,7 +389,7 @@ namespace techninxa.Controllers
                 });
             }
 
-            if (startTime >= endTime)
+            if (startTime < TimeSpan.Zero || endTime >= TimeSpan.FromDays(1) || startTime >= endTime || (meetingDate.Date == DateTime.Today && startTime <= DateTime.Now.TimeOfDay))
             {
                 return Json(new
                 {
@@ -394,6 +399,7 @@ namespace techninxa.Controllers
             }
 
             meetingDate = meetingDate.Date;
+            await using var bookingTransaction = await dbContext.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
 
             // ==============================
             // CHECK HOLIDAY AGAIN
@@ -436,8 +442,8 @@ namespace techninxa.Controllers
             var alreadyBooked = await dbContext.Meetings
                 .AnyAsync(x =>
                     x.MeetingDate == meetingDate &&
-                    x.StartTime == startTime &&
-                    x.EndTime == endTime &&
+                    x.StartTime < endTime &&
+                    x.EndTime > startTime &&
                     !x.IsCancelled);
 
             if (alreadyBooked)
@@ -481,7 +487,15 @@ namespace techninxa.Controllers
 
             dbContext.Meetings.Add(meeting);
 
-            await dbContext.SaveChangesAsync();
+            try
+            {
+                await dbContext.SaveChangesAsync();
+                await bookingTransaction.CommitAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return Json(new { success = false, message = "Unable to reserve this slot. Please refresh availability and try again." });
+            }
 
             // ==============================
             // SUCCESS RESPONSE
@@ -560,10 +574,8 @@ namespace techninxa.Controllers
             // IF MODEL VALIDATION FAILED
             // ==========================================
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View("AddProjects", model);
-            //}
+            if (!ModelState.IsValid || model.HeroImage == null || model.HeroImage.Length == 0)
+                return View("AddProjects", model);
 
 
             // ==========================================
@@ -727,9 +739,7 @@ namespace techninxa.Controllers
                 // ======================================
 
                 string heroExtension =
-                    Path.GetExtension(
-                        model.HeroImage.FileName
-                    ).ToLowerInvariant();
+                    Techninxa.Services.UploadTypes.Extension(model.HeroImage.ContentType);
 
                 string heroFileName =
                     $"{Guid.NewGuid():N}{heroExtension}";
@@ -767,7 +777,7 @@ namespace techninxa.Controllers
 
                         // Validate image type
 
-                        if (!allowedImageTypes.Contains(
+                        if (image.Length > 5 * 1024 * 1024 || !allowedImageTypes.Contains(
                             image.ContentType.ToLowerInvariant()))
                         {
                             continue;
@@ -775,9 +785,7 @@ namespace techninxa.Controllers
 
 
                         string extension =
-                            Path.GetExtension(
-                                image.FileName
-                            ).ToLowerInvariant();
+                            Techninxa.Services.UploadTypes.Extension(image.ContentType);
 
                         string fileName =
                             $"{Guid.NewGuid():N}{extension}";
@@ -844,7 +852,7 @@ namespace techninxa.Controllers
 
                         // Validate video type
 
-                        if (!allowedVideoTypes.Contains(
+                        if (video.Length > 50 * 1024 * 1024 || !allowedVideoTypes.Contains(
                             video.ContentType.ToLowerInvariant()))
                         {
                             continue;
@@ -852,9 +860,7 @@ namespace techninxa.Controllers
 
 
                         string extension =
-                            Path.GetExtension(
-                                video.FileName
-                            ).ToLowerInvariant();
+                            Techninxa.Services.UploadTypes.Extension(video.ContentType);
 
                         string fileName =
                             $"{Guid.NewGuid():N}{extension}";
@@ -1468,8 +1474,7 @@ public async Task<IActionResult> DeleteProject(int id)
 
                 Directory.CreateDirectory(folder);
 
-                string extension = Path.GetExtension(HeroImage.FileName)
-                    .ToLowerInvariant();
+                string extension = Techninxa.Services.UploadTypes.Extension(HeroImage.ContentType);
 
                 string fileName = $"{Guid.NewGuid():N}{extension}";
 
@@ -1552,7 +1557,8 @@ public async Task<IActionResult> DeleteProject(int id)
            TimeSpan startTime,
            TimeSpan endTime)
         {
-            if (startTime >= endTime)
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return Unauthorized();
+            if (!ModelState.IsValid || startTime < TimeSpan.Zero || endTime >= TimeSpan.FromDays(1) || startTime >= endTime)
             {
                 TempData["TimeSlotError"] =
                     "End time must be later than start time.";
@@ -1600,6 +1606,7 @@ public async Task<IActionResult> DeleteProject(int id)
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return Unauthorized();
             var timeSlot = await dbContext.TimeSlots
                 .FindAsync(id);
 
@@ -1622,6 +1629,7 @@ public async Task<IActionResult> DeleteProject(int id)
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Toggle(int id)
         {
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return Unauthorized();
             var timeSlot = await dbContext.TimeSlots
                 .FindAsync(id);
 
@@ -1682,12 +1690,13 @@ public async Task<IActionResult> DeleteProject(int id)
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("login")]
         public IActionResult CompanyChatLogin(
     Techninxa.Models.CompanyChatLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("CompanyChatLogin", model);
             }
 
             var companyUsername =
@@ -1697,7 +1706,8 @@ public async Task<IActionResult> DeleteProject(int id)
                 Configuration["CompanyChat:Password"];
 
             // Validate shared company credentials
-            if (model.Username == companyUsername &&
+            if (!string.IsNullOrWhiteSpace(companyUsername) && !string.IsNullOrWhiteSpace(companyPassword) &&
+                model.Username == companyUsername &&
                 model.Password == companyPassword)
             {
                 // Make sure employee name is not empty
@@ -1707,7 +1717,7 @@ public async Task<IActionResult> DeleteProject(int id)
                         "DisplayName",
                         "Please enter your name.");
 
-                    return View(model);
+                    return View("CompanyChatLogin", model);
                 }
 
                 // User successfully entered the company chat
@@ -1729,7 +1739,7 @@ public async Task<IActionResult> DeleteProject(int id)
                 "",
                 "Invalid company username or password.");
 
-            return View(model);
+            return View("CompanyChatLogin", model);
         }
 
 
@@ -1754,6 +1764,8 @@ public async Task<IActionResult> DeleteProject(int id)
             }
 
             var messages = await dbContext.ChatMessages
+                .OrderByDescending(x => x.SentAt)
+                .Take(200)
                 .OrderBy(x => x.SentAt)
                 .Select(x => new
                 {
@@ -1823,6 +1835,7 @@ public async Task<IActionResult> DeleteProject(int id)
         // ==============================
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -1834,7 +1847,7 @@ public async Task<IActionResult> DeleteProject(int id)
                 .FirstOrDefaultAsync(x => x.Username == model.Username);
 
             // Invalid login
-            if (user == null || user.Password != model.Password)
+            if (user == null || !Techninxa.Services.AdminCredentials.Verify(user, model.Password))
             {
                 TempData["LoginError"] = "Invalid Username or Password!";
 
@@ -1856,11 +1869,13 @@ public async Task<IActionResult> DeleteProject(int id)
         // LOGOUT
         // ==============================
         [Route("/AdminLogout")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AdminLogout()
         {
             HttpContext.Session.Clear();
 
-            return RedirectToAction("Dashboard");
+            return RedirectToAction("AdminAccess");
         }
 
 
@@ -1869,13 +1884,16 @@ public async Task<IActionResult> DeleteProject(int id)
         // ==============================
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("public-write")]
         public async Task<IActionResult> SubmitMessege(ContactMessage model)
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", model);
+                TempData["ContactError"] = "Please check your contact details and try again.";
+                return Redirect("/it-iot-services#contact");
             }
 
+            model.Id = 0;
             model.CreatedAt = DateTime.UtcNow;
 
             dbContext.ContactMessages.Add(model);
@@ -1924,6 +1942,7 @@ public async Task<IActionResult> DeleteProject(int id)
         public async Task<IActionResult> Team()
         {
 
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true") return RedirectToAction("AdminAccess");
             var members = await dbContext.TeamMembers
                 .OrderBy(x => x.DisplayOrder)
                 .ThenBy(x => x.Id)
@@ -1961,6 +1980,8 @@ public async Task<IActionResult> DeleteProject(int id)
             if (!ModelState.IsValid)
                 return View(model);
 
+            model.Id = 0;
+            model.Image = null;
             // Image upload
             if (ImageFile != null && ImageFile.Length > 0)
             {
@@ -2001,8 +2022,7 @@ public async Task<IActionResult> DeleteProject(int id)
                 Directory.CreateDirectory(folder);
 
                 string extension =
-                    Path.GetExtension(ImageFile.FileName)
-                        .ToLowerInvariant();
+                    Techninxa.Services.UploadTypes.Extension(ImageFile.ContentType);
 
                 string fileName =
                     $"{Guid.NewGuid():N}{extension}";
@@ -2118,7 +2138,7 @@ public async Task<IActionResult> DeleteProject(int id)
 
 
                 // Delete old image
-                if (!string.IsNullOrWhiteSpace(member.Image))
+                if (Techninxa.Services.UploadTypes.IsManagedTeamImage(member.Image))
                 {
                     string oldFile =
                         Path.Combine(
@@ -2149,8 +2169,7 @@ public async Task<IActionResult> DeleteProject(int id)
                 Directory.CreateDirectory(folder);
 
                 string extension =
-                    Path.GetExtension(ImageFile.FileName)
-                        .ToLowerInvariant();
+                    Techninxa.Services.UploadTypes.Extension(ImageFile.ContentType);
 
                 string fileName =
                     $"{Guid.NewGuid():N}{extension}";
@@ -2219,7 +2238,7 @@ public async Task<IActionResult> DeleteProject(int id)
 
 
             // Delete image
-            if (!string.IsNullOrWhiteSpace(member.Image))
+            if (Techninxa.Services.UploadTypes.IsManagedTeamImage(member.Image))
             {
                 string filePath =
                     Path.Combine(

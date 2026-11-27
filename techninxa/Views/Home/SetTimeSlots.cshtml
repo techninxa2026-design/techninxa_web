@@ -1,0 +1,8 @@
+@model IEnumerable<techninxa.Models.TimeSlot>
+<main class="container py-5"><h1>Time slots</h1><a href="/Dashboard">Back to dashboard</a>
+<p>@TempData["TimeSlotError"] @TempData["TimeSlotSuccess"]</p>
+<form asp-action="Add" method="post"><label>Start <input type="time" name="startTime" required /></label><label>End <input type="time" name="endTime" required /></label><button type="submit">Add slot</button></form>
+@foreach (var item in Model) { <article><p>@item.StartTime – @item.EndTime (@(item.IsActive ? "Active" : "Inactive"))</p>
+<form asp-action="Toggle" asp-route-id="@item.Id" method="post"><button type="submit">Toggle active</button></form>
+<form asp-action="Delete" asp-route-id="@item.Id" method="post"><button type="submit">Delete</button></form></article> }
+</main>
